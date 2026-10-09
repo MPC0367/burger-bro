@@ -13,8 +13,8 @@
  },
  "working_tree": {
   "branch": "enhance/v2",
-  "html_bytes": 135212,
-  "html_gzip_bytes": 35114
+  "html_bytes": 135298,
+  "html_gzip_bytes": 35122
  },
  "stack": "single static index.html (inline CSS + vanilla JS, no build, no libraries), Google Fonts (Anton, Kanit, Libre Franklin, Space Mono), GitHub Pages from main /",
  "analytics": "none found in baseline or working tree",
@@ -1456,7 +1456,7 @@
     "description": "Double patty, double cheddar, bro sauce · B P C",
     "price": "200",
     "tags": [],
-    "photo": "media/big-bro.jpg"
+    "photo": "media/menu-big-bro.jpg"
    },
    {
     "group": "burgers",
@@ -1640,7 +1640,7 @@
     "description": "Vanilla · chocolate · strawberry — with or without whip",
     "price": "80/90",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-milkshakes.jpg"
    },
    {
     "group": "drinks",
@@ -1648,7 +1648,7 @@
     "description": "The correct burger soda",
     "price": "30",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-root-beer.jpg"
    },
    {
     "group": "drinks",
@@ -1668,8 +1668,17 @@
    }
   ],
   "photo_rows_before": 6,
-  "photo_rows_after": 21,
-  "original_photo_mapping_unchanged": true,
+  "photo_rows_after": 23,
+  "original_photos_unchanged": [
+   "Rib Eye"
+  ],
+  "original_photos_replaced_by_official": [
+   "Burger Bro",
+   "Big Bro",
+   "Cheese Burger",
+   "Love 'Em Wagyu",
+   "Curly Fries"
+  ],
   "photos_added_for": [
    "Smokey Bro",
    "Boss Burger",
@@ -1685,14 +1694,14 @@
    "Fried Corn",
    "Chicken Bro",
    "BBQ Pork Ribs",
+   "Milkshakes",
+   "Root Beer",
    "Soft Drinks"
   ],
   "rows_without_photo": [
    "Shrimp Bro",
    "Lake Toba Fish & Chips",
    "BB Pork Knuckle",
-   "Milkshakes",
-   "Root Beer",
    "Thai Beers"
   ],
   "value_sets": [
@@ -2267,8 +2276,7 @@
    "embedded_index": 1,
    "uses": 2,
    "role": [
-    "content image: Big Bro double cheeseburger — two smashed beef patties with lacy seare",
-    "menu photo for Big Bro"
+    "content image: Big Bro double cheeseburger — two smashed beef patties with lacy seare"
    ],
    "derivatives": [
     {
@@ -2338,25 +2346,26 @@
    ]
   },
   {
-   "file": "media/menu-burger-bro.jpg",
+   "file": "media/replaced/menu-burger-bro.jpg",
    "sha1": "51f099f9ad82142ea2d147396527d4af86016e2b",
    "bytes": 208536,
    "width": 1440,
    "height": 1080,
    "embedded_index": 4,
    "uses": 1,
+   "original_file": "media/menu-burger-bro.jpg",
    "role": [
-    "menu photo for Burger Bro"
+    "original photo, kept but no longer referenced: replaced by the shop's official shot on 10 Oct 2026"
    ],
    "derivatives": [
     {
-     "file": "media/menu-burger-bro-640.jpg",
+     "file": "media/replaced/menu-burger-bro-640.jpg",
      "width": 640,
      "bytes": 54195,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
     },
     {
-     "file": "media/menu-burger-bro-960.jpg",
+     "file": "media/replaced/menu-burger-bro-960.jpg",
      "width": 960,
      "bytes": 105712,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
@@ -2364,25 +2373,26 @@
    ]
   },
   {
-   "file": "media/menu-cheese-burger.jpg",
+   "file": "media/replaced/menu-cheese-burger.jpg",
    "sha1": "617453e23cf3017fb8f523b35bac76504e8fdcb2",
    "bytes": 282802,
    "width": 1440,
    "height": 1920,
    "embedded_index": 5,
    "uses": 1,
+   "original_file": "media/menu-cheese-burger.jpg",
    "role": [
-    "menu photo for Cheese Burger"
+    "original photo, kept but no longer referenced: replaced by the shop's official shot on 10 Oct 2026"
    ],
    "derivatives": [
     {
-     "file": "media/menu-cheese-burger-640.jpg",
+     "file": "media/replaced/menu-cheese-burger-640.jpg",
      "width": 640,
      "bytes": 79577,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
     },
     {
-     "file": "media/menu-cheese-burger-960.jpg",
+     "file": "media/replaced/menu-cheese-burger-960.jpg",
      "width": 960,
      "bytes": 159258,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
@@ -2390,25 +2400,26 @@
    ]
   },
   {
-   "file": "media/menu-wagyu.jpg",
+   "file": "media/replaced/menu-wagyu.jpg",
    "sha1": "be3c4cbaae6e7b2b773f41781bc4c777bdaebea6",
    "bytes": 244864,
    "width": 1440,
    "height": 1440,
    "embedded_index": 6,
    "uses": 1,
+   "original_file": "media/menu-wagyu.jpg",
    "role": [
-    "menu photo for Love 'Em Wagyu"
+    "original photo, kept but no longer referenced: replaced by the shop's official shot on 10 Oct 2026"
    ],
    "derivatives": [
     {
-     "file": "media/menu-wagyu-640.jpg",
+     "file": "media/replaced/menu-wagyu-640.jpg",
      "width": 640,
      "bytes": 68923,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
     },
     {
-     "file": "media/menu-wagyu-960.jpg",
+     "file": "media/replaced/menu-wagyu-960.jpg",
      "width": 960,
      "bytes": 131404,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
@@ -2416,25 +2427,26 @@
    ]
   },
   {
-   "file": "media/menu-curly-fries.jpg",
+   "file": "media/replaced/menu-curly-fries.jpg",
    "sha1": "edd54441f4fee5a6523910ff2f60e7ca36771c56",
    "bytes": 280964,
    "width": 1440,
    "height": 1920,
    "embedded_index": 7,
    "uses": 1,
+   "original_file": "media/menu-curly-fries.jpg",
    "role": [
-    "menu photo for Curly Fries"
+    "original photo, kept but no longer referenced: replaced by the shop's official shot on 10 Oct 2026"
    ],
    "derivatives": [
     {
-     "file": "media/menu-curly-fries-640.jpg",
+     "file": "media/replaced/menu-curly-fries-640.jpg",
      "width": 640,
      "bytes": 85563,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
     },
     {
-     "file": "media/menu-curly-fries-960.jpg",
+     "file": "media/replaced/menu-curly-fries-960.jpg",
      "width": 960,
      "bytes": 163377,
      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
@@ -3613,6 +3625,202 @@
       "file": "media/menu-soft-drinks-960.jpg",
       "width": 960,
       "bytes": 28713,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-burger-bro.jpg",
+    "row_key": "m.b1n",
+    "item": "Burger Bro",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/77745961c0964358b42182886b98dfd1.jpg",
+    "source_listing": "Burger Bro!",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "0ddfb2360916a516425e9c1ae672d8d235f23324",
+    "bytes": 59741,
+    "width": 1280,
+    "height": 853,
+    "replaces": "media/replaced/menu-burger-bro.jpg",
+    "derivatives": [
+     {
+      "file": "media/menu-burger-bro-640.jpg",
+      "width": 640,
+      "bytes": 21057,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-burger-bro-960.jpg",
+      "width": 960,
+      "bytes": 40018,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-big-bro.jpg",
+    "row_key": "m.b2n",
+    "item": "Big Bro",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/0dd2c7ea72324353b7b753d3679956e0.jpg",
+    "source_listing": "บิ๊กโบรเนื้อ (Big Bro Beef)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "54e8fba41daffbff93576fc79a1fd8c68ebf2d42",
+    "bytes": 68191,
+    "width": 1280,
+    "height": 853,
+    "replaces": "media/big-bro.jpg (still used by the hero)",
+    "derivatives": [
+     {
+      "file": "media/menu-big-bro-640.jpg",
+      "width": 640,
+      "bytes": 22297,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-big-bro-960.jpg",
+      "width": 960,
+      "bytes": 44016,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-cheese-burger.jpg",
+    "row_key": "m.b5n",
+    "item": "Cheese Burger",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/2c6202a3a9034f0c9d8a6da40218d478.jpg",
+    "source_listing": "เบอร์เกอร์เนื้อ (BEEF BURGER)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "c5c0c72614ec23b6d0cf1d58b7e86a4b76b7a483",
+    "bytes": 59178,
+    "width": 1280,
+    "height": 853,
+    "replaces": "media/replaced/menu-cheese-burger.jpg",
+    "derivatives": [
+     {
+      "file": "media/menu-cheese-burger-640.jpg",
+      "width": 640,
+      "bytes": 19934,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-cheese-burger-960.jpg",
+      "width": 960,
+      "bytes": 39291,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-wagyu.jpg",
+    "row_key": "m.b10n",
+    "item": "Love 'Em Wagyu",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/9035e53c556447d4b0b5e8745cb40014.jpg",
+    "source_listing": "วากิวเบอร์เกอร์ (LOVE'EM WAGYU)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "2cabba1fc5ed0476bc502ba5943da4bbb58fe3dc",
+    "bytes": 75668,
+    "width": 1280,
+    "height": 853,
+    "replaces": "media/replaced/menu-wagyu.jpg",
+    "derivatives": [
+     {
+      "file": "media/menu-wagyu-640.jpg",
+      "width": 640,
+      "bytes": 24633,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-wagyu-960.jpg",
+      "width": 960,
+      "bytes": 48121,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-curly-fries.jpg",
+    "row_key": "m.c1n",
+    "item": "Curly Fries",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/b82f1bd3e8df4d958db56bdf6a60c8c5.jpg",
+    "source_listing": "Curly fries",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "360be5813deb4723ae45091d61c051833d4527a1",
+    "bytes": 98602,
+    "width": 1280,
+    "height": 853,
+    "replaces": "media/replaced/menu-curly-fries.jpg",
+    "derivatives": [
+     {
+      "file": "media/menu-curly-fries-640.jpg",
+      "width": 640,
+      "bytes": 34173,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-curly-fries-960.jpg",
+      "width": 960,
+      "bytes": 63339,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-milkshakes.jpg",
+    "row_key": "m.k1n",
+    "item": "Milkshakes",
+    "source": "https://img.wongnai.com/p/l/2021/08/13/91a83431687a42ca8e339889d65950de.jpg",
+    "source_listing": "MILKSHAKE",
+    "source_page": "https://www.wongnai.com/delivery/businesses/388690Zj/order",
+    "fetched": "2026-10-10",
+    "sha1": "bf4a1a8bbb14229536998482ba29a8b52d7e4317",
+    "bytes": 174897,
+    "width": 1280,
+    "height": 852,
+    "note": "From the Phatthanakan branch's official menu (same company); the Rama 9 menu lists the item without a photo.",
+    "derivatives": [
+     {
+      "file": "media/menu-milkshakes-640.jpg",
+      "width": 640,
+      "bytes": 53561,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-milkshakes-960.jpg",
+      "width": 960,
+      "bytes": 105063,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-root-beer.jpg",
+    "row_key": "m.k2n",
+    "item": "Root Beer",
+    "source": "https://img.wongnai.com/p/l/2021/08/13/13a6a44ca3104019826e991a37c4e431.jpg",
+    "source_listing": "Root Beer",
+    "source_page": "https://www.wongnai.com/delivery/businesses/388690Zj/order",
+    "fetched": "2026-10-10",
+    "sha1": "23bdce96707f127dd53f1198d8f1049e5127c771",
+    "bytes": 181633,
+    "width": 1900,
+    "height": 1425,
+    "note": "From the Phatthanakan branch's official menu (same company); the Rama 9 menu lists the item without a photo.",
+    "derivatives": [
+     {
+      "file": "media/menu-root-beer-640.jpg",
+      "width": 640,
+      "bytes": 27206,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-root-beer-960.jpg",
+      "width": 960,
+      "bytes": 55534,
       "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
      }
     ]
