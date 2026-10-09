@@ -1,0 +1,3166 @@
+{
+ "generated_by": "tooling outside the repo (_audit.py); regenerate after content edits",
+ "baseline": {
+  "commit": "a1f3f76 (main)",
+  "live_url": "https://mpc0367.github.io/burger-bro/",
+  "html_bytes": 8419825,
+  "html_gzip_bytes": 6280051,
+  "html_sha1": "da25bb2f8f92c01cd47258cde490ebb083e959e6",
+  "files": [
+   "index.html",
+   ".nojekyll"
+  ]
+ },
+ "working_tree": {
+  "branch": "enhance/v2",
+  "html_bytes": 129591,
+  "html_gzip_bytes": 33767
+ },
+ "stack": "single static index.html (inline CSS + vanilla JS, no build, no libraries), Google Fonts (Anton, Kanit, Libre Franklin, Space Mono), GitHub Pages from main /",
+ "analytics": "none found in baseline or working tree",
+ "forms": "none",
+ "cart_or_checkout": "none (the receipt is a fixed illustration)",
+ "storage_keys": {
+  "before": [
+   "bb-lang"
+  ],
+  "after": [
+   "bb-lang",
+   "bb-seen"
+  ]
+ },
+ "anchors_and_ids": {
+  "before": [
+   "bro",
+   "broCanvas",
+   "broIdx",
+   "broImg",
+   "broScan",
+   "broSteps",
+   "broTitle",
+   "broZone",
+   "burgerBtn",
+   "find",
+   "findTitle",
+   "heroImg",
+   "langBtn",
+   "loader",
+   "loaderStamp",
+   "main",
+   "manTitle",
+   "mapTitle",
+   "marqueeTrack",
+   "menu",
+   "menuTitle",
+   "mrowFloat",
+   "mrowFloatImg",
+   "nav",
+   "order",
+   "orderTitle",
+   "sheet",
+   "story",
+   "storyTitle",
+   "top"
+  ],
+  "added": [
+   "broS1",
+   "broS2",
+   "broS3",
+   "broS4",
+   "broS5",
+   "marquee",
+   "menu-burgers",
+   "menu-crunchy",
+   "menu-dogs",
+   "menu-drinks",
+   "menu-sets",
+   "menu-steak",
+   "menuRail"
+  ],
+  "removed": []
+ },
+ "copy": {
+  "a11y.skip": {
+   "status": "retained",
+   "en_before": "Skip to content",
+   "en_after": "Skip to content",
+   "th_before": "ข้ามไปยังเนื้อหา",
+   "th_after": "ข้ามไปยังเนื้อหา"
+  },
+  "am.1": {
+   "status": "retained",
+   "en_before": "STREET PARKING",
+   "en_after": "STREET PARKING",
+   "th_before": "จอดริมถนนได้",
+   "th_after": "จอดริมถนนได้"
+  },
+  "am.2": {
+   "status": "retained",
+   "en_before": "CARDS OK",
+   "en_after": "CARDS OK",
+   "th_before": "รับบัตร",
+   "th_after": "รับบัตร"
+  },
+  "am.3": {
+   "status": "retained",
+   "en_before": "FREE WI-FI",
+   "en_after": "FREE WI-FI",
+   "th_before": "WI-FI ฟรี",
+   "th_after": "WI-FI ฟรี"
+  },
+  "am.4": {
+   "status": "retained",
+   "en_before": "KIDS WELCOME",
+   "en_after": "KIDS WELCOME",
+   "th_before": "เด็กมาได้",
+   "th_after": "เด็กมาได้"
+  },
+  "am.5": {
+   "status": "retained",
+   "en_before": "BEER, COLD",
+   "en_after": "BEER, COLD",
+   "th_before": "เบียร์เย็น ๆ",
+   "th_after": "เบียร์เย็น ๆ"
+  },
+  "break.l1": {
+   "status": "retained",
+   "en_before": "LATE NIGHT",
+   "en_after": "LATE NIGHT",
+   "th_before": "กลางคืนของที่นี่",
+   "th_after": "กลางคืนของที่นี่"
+  },
+  "break.l2": {
+   "status": "retained",
+   "en_before": "LOOKS LIKE THIS.",
+   "en_after": "LOOKS LIKE THIS.",
+   "th_before": "หน้าตาแบบนี้",
+   "th_after": "หน้าตาแบบนี้"
+  },
+  "break.meta": {
+   "status": "retained",
+   "en_before": "KITCHEN TILL LATE · FRI–SAT TILL 02:00",
+   "en_after": "KITCHEN TILL LATE · FRI–SAT TILL 02:00",
+   "th_before": "ครัวเปิดถึงดึก · ศุกร์–เสาร์ ถึง 02:00",
+   "th_after": "ครัวเปิดถึงดึก · ศุกร์–เสาร์ ถึง 02:00"
+  },
+  "bro.cta": {
+   "status": "removed",
+   "en_before": "Order the signature",
+   "en_after": null,
+   "th_before": "สั่งซิกเนเจอร์เลย",
+   "th_after": null,
+   "reason": "BB-01: 'Order the signature' pointed at Foodpanda. Replaced by bro.menu (See the full menu -> #menu)."
+  },
+  "bro.endp": {
+   "status": "retained",
+   "en_before": "No assembly line stacks a burger like this. ฿149, built when you order it — beef, pork or chicken.",
+   "en_after": "No assembly line stacks a burger like this. ฿149, built when you order it — beef, pork or chicken.",
+   "th_before": "ไม่มีสายพานไหนวางเบอร์เกอร์ได้แบบนี้ ฿149 ทำสดตอนสั่ง — เลือกเนื้อ หมู หรือไก่ได้",
+   "th_after": "ไม่มีสายพานไหนวางเบอร์เกอร์ได้แบบนี้ ฿149 ทำสดตอนสั่ง — เลือกเนื้อ หมู หรือไก่ได้"
+  },
+  "bro.endt": {
+   "status": "retained",
+   "en_before": "THIS IS THE INSIDE.",
+   "en_after": "THIS IS THE INSIDE.",
+   "th_before": "ข้างในเป็นแบบนี้",
+   "th_after": "ข้างในเป็นแบบนี้"
+  },
+  "bro.l1": {
+   "status": "retained",
+   "en_before": "THE BURGER BRO,",
+   "en_after": "THE BURGER BRO,",
+   "th_before": "เบอร์เกอร์โบร",
+   "th_after": "เบอร์เกอร์โบร"
+  },
+  "bro.l2": {
+   "status": "retained",
+   "en_before": "TOP TO BOTTOM.",
+   "en_after": "TOP TO BOTTOM.",
+   "th_before": "จากบนลงล่าง",
+   "th_after": "จากบนลงล่าง"
+  },
+  "bro.menu": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "See the full menu",
+   "th_before": null,
+   "th_after": "ดูเมนูทั้งหมด",
+   "reason": "BB-01 replacement for bro.cta."
+  },
+  "bro.meta": {
+   "status": "retained",
+   "en_before": "OUR SIGNATURE — ฿149 · KEEP SCROLLING TO DESCEND",
+   "en_after": "OUR SIGNATURE — ฿149 · KEEP SCROLLING TO DESCEND",
+   "th_before": "เมนูซิกเนเจอร์ — ฿149 · เลื่อนลงเพื่อไล่ดูทีละชั้น",
+   "th_after": "เมนูซิกเนเจอร์ — ฿149 · เลื่อนลงเพื่อไล่ดูทีละชั้น"
+  },
+  "bro.rail": {
+   "status": "retained",
+   "en_before": "ORDER № 149",
+   "en_after": "ORDER № 149",
+   "th_before": "ออเดอร์ № 149",
+   "th_after": "ออเดอร์ № 149"
+  },
+  "bro.s1p": {
+   "status": "retained",
+   "en_before": "Homemade bun, brushed and toasted on the flat-top. Bakery shine, zero sog.",
+   "en_after": "Homemade bun, brushed and toasted on the flat-top. Bakery shine, zero sog.",
+   "th_before": "ขนมปังโฮมเมด ทาเนยแล้วปิ้งบนเตาแบน เงาแบบเบเกอรี ไม่มีคำว่านิ่มแฉะ",
+   "th_after": "ขนมปังโฮมเมด ทาเนยแล้วปิ้งบนเตาแบน เงาแบบเบเกอรี ไม่มีคำว่านิ่มแฉะ"
+  },
+  "bro.s1t": {
+   "status": "retained",
+   "en_before": "The crown",
+   "en_after": "The crown",
+   "th_before": "ฝาบน",
+   "th_after": "ฝาบน"
+  },
+  "bro.s2p": {
+   "status": "retained",
+   "en_before": "Lettuce and tomato, cold against the heat. All the salad a burger needs.",
+   "en_after": "Lettuce and tomato, cold against the heat. All the salad a burger needs.",
+   "th_before": "ผักกาดกับมะเขือเทศ เย็นกรอบตัดกับความร้อน — สลัดที่เบอร์เกอร์ต้องการมีเท่านี้",
+   "th_after": "ผักกาดกับมะเขือเทศ เย็นกรอบตัดกับความร้อน — สลัดที่เบอร์เกอร์ต้องการมีเท่านี้"
+  },
+  "bro.s2t": {
+   "status": "retained",
+   "en_before": "The greens",
+   "en_after": "The greens",
+   "th_before": "ผักสด",
+   "th_after": "ผักสด"
+  },
+  "bro.s3p": {
+   "status": "retained",
+   "en_before": "American cheddar, melted onto the patty while it sears — never after.",
+   "en_after": "American cheddar, melted onto the patty while it sears — never after.",
+   "th_before": "อเมริกันเชดดาร์ ละลายบนเนื้อระหว่างย่าง — ไม่ใช่มาวางทีหลัง",
+   "th_after": "อเมริกันเชดดาร์ ละลายบนเนื้อระหว่างย่าง — ไม่ใช่มาวางทีหลัง"
+  },
+  "bro.s3t": {
+   "status": "retained",
+   "en_before": "The melt",
+   "en_after": "The melt",
+   "th_before": "ชีสละลาย",
+   "th_after": "ชีสละลาย"
+  },
+  "bro.s4p": {
+   "status": "retained",
+   "en_before": "Graded beef, hand-formed, pressed for a lacy sear. Smoked bacon strips riding underneath.",
+   "en_after": "Graded beef, hand-formed, pressed for a lacy sear. Smoked bacon strips riding underneath.",
+   "th_before": "เนื้อเกรดดีปั้นมือ กดจนขอบกรอบเป็นลูกไม้ มีเบคอนรมควันรองอยู่ข้างใต้",
+   "th_after": "เนื้อเกรดดีปั้นมือ กดจนขอบกรอบเป็นลูกไม้ มีเบคอนรมควันรองอยู่ข้างใต้"
+  },
+  "bro.s4t": {
+   "status": "retained",
+   "en_before": "The patty",
+   "en_after": "The patty",
+   "th_before": "เนื้อ",
+   "th_after": "เนื้อ"
+  },
+  "bro.s5p": {
+   "status": "retained",
+   "en_before": "Burger Bro secret sauce, soaking into the heel. The part you'll think about tomorrow.",
+   "en_after": "Burger Bro secret sauce, soaking into the heel. The part you'll think about tomorrow.",
+   "th_before": "ซอสสูตรลับของเบอร์เกอร์โบร ซึมลงขนมปังฐาน — ส่วนที่คุณจะคิดถึงในวันพรุ่งนี้",
+   "th_after": "ซอสสูตรลับของเบอร์เกอร์โบร ซึมลงขนมปังฐาน — ส่วนที่คุณจะคิดถึงในวันพรุ่งนี้"
+  },
+  "bro.s5t": {
+   "status": "retained",
+   "en_before": "The sauce & heel",
+   "en_after": "The sauce & heel",
+   "th_before": "ซอส &amp; ฐาน",
+   "th_after": "ซอส &amp; ฐาน"
+  },
+  "bro.skip": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "SKIP TO THE MENU ↓",
+   "th_before": null,
+   "th_after": "ข้ามไปที่เมนู ↓",
+   "reason": "BB-03 skip path out of the five-stage section."
+  },
+  "find.addr": {
+   "status": "retained",
+   "en_before": "443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM.",
+   "en_after": "443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM.",
+   "th_before": "443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250 — ติดตู้ ATM สีเหลือง",
+   "th_after": "443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250 — ติดตู้ ATM สีเหลือง"
+  },
+  "find.addr2": {
+   "status": "retained",
+   "en_before": "443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250",
+   "en_after": "443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250",
+   "th_before": "443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM.",
+   "th_after": "443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM."
+  },
+  "find.b2": {
+   "status": "retained",
+   "en_before": "BRANCH 2 — BURGER BRO & STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00",
+   "en_after": "BRANCH 2 — BURGER BRO & STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00",
+   "th_before": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
+   "th_after": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00"
+  },
+  "find.call": {
+   "status": "retained",
+   "en_before": "Call 082-793-8855",
+   "en_after": "Call 082-793-8855",
+   "th_before": "โทร 082-793-8855",
+   "th_after": "โทร 082-793-8855"
+  },
+  "find.hours": {
+   "status": "retained",
+   "en_before": "HOURS — RAMA 9",
+   "en_after": "HOURS — RAMA 9",
+   "th_before": "เวลาเปิด — พระราม 9",
+   "th_after": "เวลาเปิด — พระราม 9"
+  },
+  "find.l1": {
+   "status": "retained",
+   "en_before": "FIND US, BRO.",
+   "en_after": "FIND US, BRO.",
+   "th_before": "มาหาเราสิ โบร",
+   "th_after": "มาหาเราสิ โบร"
+  },
+  "find.maps": {
+   "status": "retained",
+   "en_before": "Google Maps",
+   "en_after": "Google Maps",
+   "th_before": "GOOGLE MAPS",
+   "th_after": "GOOGLE MAPS"
+  },
+  "find.note": {
+   "status": "retained",
+   "en_before": "HOURS PER OUR WONGNAI LISTING — RUNNING LATE? CALL AHEAD.",
+   "en_after": "HOURS PER OUR WONGNAI LISTING — RUNNING LATE? CALL AHEAD.",
+   "th_before": "เวลาตามหน้า WONGNAI ของร้าน — มาดึกโทรเช็กก่อนนะ",
+   "th_after": "เวลาตามหน้า WONGNAI ของร้าน — มาดึกโทรเช็กก่อนนะ"
+  },
+  "foot.c": {
+   "status": "retained",
+   "en_before": "© 2026 BURGER BRO — SALT & LIGHT CO., LTD · RAMA 9, BANGKOK",
+   "en_after": "© 2026 BURGER BRO — SALT & LIGHT CO., LTD · RAMA 9, BANGKOK",
+   "th_before": "© 2026 BURGER BRO — บริษัท ซอล์ท แอนด์ ไลท์ จำกัด · พระราม 9 กรุงเทพฯ",
+   "th_after": "© 2026 BURGER BRO — บริษัท ซอล์ท แอนด์ ไลท์ จำกัด · พระราม 9 กรุงเทพฯ"
+  },
+  "foot.disc": {
+   "status": "retained",
+   "en_before": "CONCEPT REDESIGN · MENU & PRICES FROM THE RAMA 9 BOARD, BEFORE 7% VAT — CONFIRM IN STORE",
+   "en_after": "CONCEPT REDESIGN · MENU & PRICES FROM THE RAMA 9 BOARD, BEFORE 7% VAT — CONFIRM IN STORE",
+   "th_before": "งานออกแบบคอนเซปต์ · เมนูและราคาจากบอร์ดสาขาพระราม 9 ยังไม่รวม VAT 7% — เช็กที่ร้านอีกครั้ง",
+   "th_after": "งานออกแบบคอนเซปต์ · เมนูและราคาจากบอร์ดสาขาพระราม 9 ยังไม่รวม VAT 7% — เช็กที่ร้านอีกครั้ง"
+  },
+  "h.fri": {
+   "status": "retained",
+   "en_before": "FRI – SAT",
+   "en_after": "FRI – SAT",
+   "th_before": "ศุกร์ – เสาร์",
+   "th_after": "ศุกร์ – เสาร์"
+  },
+  "h.late": {
+   "status": "retained",
+   "en_before": "LATE",
+   "en_after": "LATE",
+   "th_before": "ดึก",
+   "th_after": "ดึก"
+  },
+  "h.mon": {
+   "status": "retained",
+   "en_before": "MON",
+   "en_after": "MON",
+   "th_before": "จันทร์",
+   "th_after": "จันทร์"
+  },
+  "h.sun": {
+   "status": "retained",
+   "en_before": "SUN",
+   "en_after": "SUN",
+   "th_before": "อาทิตย์",
+   "th_after": "อาทิตย์"
+  },
+  "h.tue": {
+   "status": "retained",
+   "en_before": "TUE",
+   "en_after": "TUE",
+   "th_before": "อังคาร",
+   "th_after": "อังคาร"
+  },
+  "h.wed": {
+   "status": "retained",
+   "en_before": "WED – THU",
+   "en_after": "WED – THU",
+   "th_before": "พุธ – พฤหัส",
+   "th_after": "พุธ – พฤหัส"
+  },
+  "hero.call": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Call 082-793-8855",
+   "th_before": null,
+   "th_after": "โทร 082-793-8855",
+   "reason": "BB-01 fallback action (existing phone number, existing wording from find.call/order.call)."
+  },
+  "hero.cap": {
+   "status": "retained",
+   "en_before": "BIG BRO (BEEF) — ฿200 · DOUBLE PATTY · DOUBLE CHEDDAR · BRO SAUCE",
+   "en_after": "BIG BRO (BEEF) — ฿200 · DOUBLE PATTY · DOUBLE CHEDDAR · BRO SAUCE",
+   "th_before": "บิ๊กโบร (เนื้อ) — ฿200 · เนื้อสองชั้น · เชดดาร์สองแผ่น · โบรซอส",
+   "th_after": "บิ๊กโบร (เนื้อ) — ฿200 · เนื้อสองชั้น · เชดดาร์สองแผ่น · โบรซอส"
+  },
+  "hero.kicker": {
+   "status": "retained",
+   "en_before": "★ HOMEMADE AMERICAN BURGERS — RAMA 9 · BANGKOK",
+   "en_after": "★ HOMEMADE AMERICAN BURGERS — RAMA 9 · BANGKOK",
+   "th_before": "★ เบอร์เกอร์อเมริกันโฮมเมด — พระราม 9 · กรุงเทพฯ",
+   "th_after": "★ เบอร์เกอร์อเมริกันโฮมเมด — พระราม 9 · กรุงเทพฯ"
+  },
+  "hero.l1": {
+   "status": "retained",
+   "en_before": "HUNGRY<em>,</em>",
+   "en_after": "HUNGRY<em>,</em>",
+   "th_before": "หิวยัง",
+   "th_after": "หิวยัง"
+  },
+  "hero.l2": {
+   "status": "retained",
+   "en_before": "BRO<em>?</em>",
+   "en_after": "BRO<em>?</em>",
+   "th_before": "โบร<em>?</em>",
+   "th_after": "โบร<em>?</em>"
+  },
+  "hero.menu": {
+   "status": "retained",
+   "en_before": "See the menu",
+   "en_after": "See the menu",
+   "th_before": "ดูเมนู",
+   "th_after": "ดูเมนู"
+  },
+  "hero.meta1": {
+   "status": "changed",
+   "en_before": "OPEN DAILY 11:00 —<br>FRI & SAT TILL 02:00",
+   "en_after": "OPEN DAILY FROM 11:00<br>FRI & SAT TILL 02:00",
+   "th_before": "เปิดทุกวัน 11:00 —<br>ศุกร์ &amp; เสาร์ ถึง 02:00",
+   "th_after": "เปิดทุกวัน ตั้งแต่ 11:00<br>ศุกร์ &amp; เสาร์ ถึง 02:00",
+   "reason": "BB-10: the line ended on a dangling dash ('OPEN DAILY 11:00 —'). Now 'OPEN DAILY FROM 11:00'; times unchanged."
+  },
+  "hero.meta2": {
+   "status": "retained",
+   "en_before": "4.4★ TRIPADVISOR<br>฿101–250 A HEAD",
+   "en_after": "4.4★ TRIPADVISOR<br>฿101–250 A HEAD",
+   "th_before": "4.4★ TRIPADVISOR<br>฿101–250 ต่อคน",
+   "th_after": "4.4★ TRIPADVISOR<br>฿101–250 ต่อคน"
+  },
+  "hero.order": {
+   "status": "removed",
+   "en_before": "Order delivery",
+   "en_after": null,
+   "th_before": "สั่งเดลิเวอรี",
+   "th_after": null,
+   "reason": "BB-01: label belonged to the Foodpanda link (service closed 24 May 2025). Replaced by hero.call (Call 082-793-8855)."
+  },
+  "hero.sub": {
+   "status": "retained",
+   "en_before": "Hand-formed patties, buns baked in-house, and a sauce bar that takes tom yum as seriously as thousand island. Rama 9's own burger joint — no ceremony, open late.",
+   "en_after": "Hand-formed patties, buns baked in-house, and a sauce bar that takes tom yum as seriously as thousand island. Rama 9's own burger joint — no ceremony, open late.",
+   "th_before": "เนื้อบดปั้นมือทีละก้อน ขนมปังอบเองในร้าน และซอสบาร์ที่จริงจังกับต้มยำพอ ๆ กับเทาซันด์ไอส์แลนด์ — ร้านเบอร์เกอร์ประจำย่านพระราม 9 ไม่มีพิธีรีตอง เปิดถึงดึก",
+   "th_after": "เนื้อบดปั้นมือทีละก้อน ขนมปังอบเองในร้าน และซอสบาร์ที่จริงจังกับต้มยำพอ ๆ กับเทาซันด์ไอส์แลนด์ — ร้านเบอร์เกอร์ประจำย่านพระราม 9 ไม่มีพิธีรีตอง เปิดถึงดึก"
+  },
+  "m.b10d": {
+   "status": "retained",
+   "en_before": "200 g of tender wagyu — a beef lover's heaven",
+   "en_after": "200 g of tender wagyu — a beef lover's heaven",
+   "th_before": "วากิว 200 กรัม — สวรรค์ของคนรักเนื้อ",
+   "th_after": "วากิว 200 กรัม — สวรรค์ของคนรักเนื้อ"
+  },
+  "m.b10n": {
+   "status": "retained",
+   "en_before": "Love 'Em Wagyu",
+   "en_after": "Love 'Em Wagyu",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b1d": {
+   "status": "retained",
+   "en_before": "Graded beef, smoked bacon strips, secret sauce · B P C",
+   "en_after": "Graded beef, smoked bacon strips, secret sauce · B P C",
+   "th_before": "เนื้อเกรดดี เบคอนรมควัน ซอสสูตรลับ · B P C",
+   "th_after": "เนื้อเกรดดี เบคอนรมควัน ซอสสูตรลับ · B P C"
+  },
+  "m.b1n": {
+   "status": "retained",
+   "en_before": "Burger Bro",
+   "en_after": "Burger Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b2d": {
+   "status": "retained",
+   "en_before": "Double patty, double cheddar, bro sauce · B P C",
+   "en_after": "Double patty, double cheddar, bro sauce · B P C",
+   "th_before": "เนื้อสองชั้น เชดดาร์สองแผ่น โบรซอส · B P C",
+   "th_after": "เนื้อสองชั้น เชดดาร์สองแผ่น โบรซอส · B P C"
+  },
+  "m.b2n": {
+   "status": "retained",
+   "en_before": "Big Bro",
+   "en_after": "Big Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b3d": {
+   "status": "retained",
+   "en_before": "Stuffed with smoked bacon, smoked BBQ sauce · B P C",
+   "en_after": "Stuffed with smoked bacon, smoked BBQ sauce · B P C",
+   "th_before": "ยัดไส้เบคอนรมควัน ราดซอสบาร์บีคิวรมควัน · B P C",
+   "th_after": "ยัดไส้เบคอนรมควัน ราดซอสบาร์บีคิวรมควัน · B P C"
+  },
+  "m.b3n": {
+   "status": "retained",
+   "en_before": "Smokey Bro",
+   "en_after": "Smokey Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b4d": {
+   "status": "retained",
+   "en_before": "Homemade thousand island — \"have it like a boss\"",
+   "en_after": "Homemade thousand island — \"have it like a boss\"",
+   "th_before": "เทาซันด์ไอส์แลนด์โฮมเมด — “กินให้เหมือนเป็นบอส”",
+   "th_after": "เทาซันด์ไอส์แลนด์โฮมเมด — “กินให้เหมือนเป็นบอส”"
+  },
+  "m.b4n": {
+   "status": "retained",
+   "en_before": "Boss Burger",
+   "en_after": "Boss Burger",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b5d": {
+   "status": "retained",
+   "en_before": "The deluxe basic · B P C",
+   "en_after": "The deluxe basic · B P C",
+   "th_before": "ชีสเบอร์เกอร์เดอลุกซ์ฉบับตั้งต้น · B P C",
+   "th_after": "ชีสเบอร์เกอร์เดอลุกซ์ฉบับตั้งต้น · B P C"
+  },
+  "m.b5n": {
+   "status": "retained",
+   "en_before": "Cheese Burger",
+   "en_after": "Cheese Burger",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b6d": {
+   "status": "retained",
+   "en_before": "Crunchy shrimp, tom yum or wasabi sauce",
+   "en_after": "Crunchy shrimp, tom yum or wasabi sauce",
+   "th_before": "กุ้งกรอบ เลือกซอสต้มยำหรือวาซาบิ",
+   "th_after": "กุ้งกรอบ เลือกซอสต้มยำหรือวาซาบิ"
+  },
+  "m.b6n": {
+   "status": "retained",
+   "en_before": "Shrimp Bro",
+   "en_after": "Shrimp Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b7d": {
+   "status": "retained",
+   "en_before": "Crunchy fish, house dill sauce",
+   "en_after": "Crunchy fish, house dill sauce",
+   "th_before": "ปลากรอบ ซอสดิลล์สูตรของร้าน",
+   "th_after": "ปลากรอบ ซอสดิลล์สูตรของร้าน"
+  },
+  "m.b7n": {
+   "status": "retained",
+   "en_before": "Fish Bro",
+   "en_after": "Fish Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b8d": {
+   "status": "retained",
+   "en_before": "Plant-based patty, tangy spice sauce",
+   "en_after": "Plant-based patty, tangy spice sauce",
+   "th_before": "เนื้อแพลนต์เบส ซอสเผ็ดอมเปรี้ยว",
+   "th_after": "เนื้อแพลนต์เบส ซอสเผ็ดอมเปรี้ยว"
+  },
+  "m.b8n": {
+   "status": "retained",
+   "en_before": "Veggie Cheese Burger",
+   "en_after": "Veggie Cheese Burger",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.b9d": {
+   "status": "retained",
+   "en_before": "USDA-certified Angus in a charcoal bun, spicy Bro sauce",
+   "en_after": "USDA-certified Angus in a charcoal bun, spicy Bro sauce",
+   "th_before": "เนื้อแองกัส USDA ในขนมปังชาร์โคล ซอสโบรเผ็ด",
+   "th_after": "เนื้อแองกัส USDA ในขนมปังชาร์โคล ซอสโบรเผ็ด"
+  },
+  "m.b9n": {
+   "status": "retained",
+   "en_before": "Angus Burger",
+   "en_after": "Angus Burger",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.c1d": {
+   "status": "retained",
+   "en_before": "Seasoned spirals, basket-sized",
+   "en_after": "Seasoned spirals, basket-sized",
+   "th_before": "เฟรนช์ฟรายส์เกลียวปรุงรส เต็มตะกร้า",
+   "th_after": "เฟรนช์ฟรายส์เกลียวปรุงรส เต็มตะกร้า"
+  },
+  "m.c1n": {
+   "status": "retained",
+   "en_before": "Curly Fries",
+   "en_after": "Curly Fries",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.c2d": {
+   "status": "retained",
+   "en_before": "Fried to order, still hissing",
+   "en_after": "Fried to order, still hissing",
+   "th_before": "ทอดสดตอนสั่ง ยังร้อนฉ่า",
+   "th_after": "ทอดสดตอนสั่ง ยังร้อนฉ่า"
+  },
+  "m.c2n": {
+   "status": "retained",
+   "en_before": "Onion Rings",
+   "en_after": "Onion Rings",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.c3d": {
+   "status": "retained",
+   "en_before": "Fat-cut, skin on",
+   "en_after": "Fat-cut, skin on",
+   "th_before": "มันฝรั่งชิ้นโต ติดเปลือก",
+   "th_after": "มันฝรั่งชิ้นโต ติดเปลือก"
+  },
+  "m.c3n": {
+   "status": "retained",
+   "en_before": "Potato Wedges",
+   "en_after": "Potato Wedges",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.c4d": {
+   "status": "retained",
+   "en_before": "Sweet corn, crisped",
+   "en_after": "Sweet corn, crisped",
+   "th_before": "ข้าวโพดหวานทอดกรอบ",
+   "th_after": "ข้าวโพดหวานทอดกรอบ"
+  },
+  "m.c4n": {
+   "status": "retained",
+   "en_before": "Fried Corn",
+   "en_after": "Fried Corn",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.c5d": {
+   "status": "retained",
+   "en_before": "Fried chicken, house brine",
+   "en_after": "Fried chicken, house brine",
+   "th_before": "ไก่ทอด หมักน้ำเกลือสูตรร้าน",
+   "th_after": "ไก่ทอด หมักน้ำเกลือสูตรร้าน"
+  },
+  "m.c5n": {
+   "status": "retained",
+   "en_before": "Chicken Bro",
+   "en_after": "Chicken Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.c6d": {
+   "status": "retained",
+   "en_before": "The big one — for the table",
+   "en_after": "The big one — for the table",
+   "th_before": "จานใหญ่ — สำหรับทั้งโต๊ะ",
+   "th_after": "จานใหญ่ — สำหรับทั้งโต๊ะ"
+  },
+  "m.c6n": {
+   "status": "retained",
+   "en_before": "Lake Toba Fish & Chips",
+   "en_after": "Lake Toba Fish & Chips",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.d1d": {
+   "status": "retained",
+   "en_before": "Smoked sausage in a homemade bun",
+   "en_after": "Smoked sausage in a homemade bun",
+   "th_before": "ไส้กรอกรมควันในขนมปังโฮมเมด",
+   "th_after": "ไส้กรอกรมควันในขนมปังโฮมเมด"
+  },
+  "m.d1n": {
+   "status": "retained",
+   "en_before": "Hot Dog",
+   "en_after": "Hot Dog",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.d2d": {
+   "status": "retained",
+   "en_before": "Chilli & minced pork, cheddar, jalapeño",
+   "en_after": "Chilli & minced pork, cheddar, jalapeño",
+   "th_before": "พริก &amp; หมูสับ เชดดาร์ ฮาลาเปญโญ",
+   "th_after": "พริก &amp; หมูสับ เชดดาร์ ฮาลาเปญโญ"
+  },
+  "m.d2n": {
+   "status": "retained",
+   "en_before": "Chilli Dog",
+   "en_after": "Chilli Dog",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.d3d": {
+   "status": "retained",
+   "en_before": "Caramelized onions, bacon bits, cheddar",
+   "en_after": "Caramelized onions, bacon bits, cheddar",
+   "th_before": "หอมหัวใหญ่คาราเมล เบคอนกรอบ เชดดาร์",
+   "th_after": "หอมหัวใหญ่คาราเมล เบคอนกรอบ เชดดาร์"
+  },
+  "m.d3n": {
+   "status": "retained",
+   "en_before": "Cheesy Bacon Dog",
+   "en_after": "Cheesy Bacon Dog",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.d4d": {
+   "status": "retained",
+   "en_before": "Grilled ham & pineapple, salsa, cheddar, jalapeño",
+   "en_after": "Grilled ham & pineapple, salsa, cheddar, jalapeño",
+   "th_before": "แฮมย่าง &amp; สับปะรด ซัลซา เชดดาร์ ฮาลาเปญโญ",
+   "th_after": "แฮมย่าง &amp; สับปะรด ซัลซา เชดดาร์ ฮาลาเปญโญ"
+  },
+  "m.d4n": {
+   "status": "retained",
+   "en_before": "Hawaiian Dog",
+   "en_after": "Hawaiian Dog",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.k1d": {
+   "status": "retained",
+   "en_before": "Vanilla · chocolate · strawberry — with or without whip",
+   "en_after": "Vanilla · chocolate · strawberry — with or without whip",
+   "th_before": "วานิลลา · ช็อกโกแลต · สตรอว์เบอร์รี — วิปหรือไม่วิปก็ได้",
+   "th_after": "วานิลลา · ช็อกโกแลต · สตรอว์เบอร์รี — วิปหรือไม่วิปก็ได้"
+  },
+  "m.k1n": {
+   "status": "retained",
+   "en_before": "Milkshakes",
+   "en_after": "Milkshakes",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.k2d": {
+   "status": "retained",
+   "en_before": "The correct burger soda",
+   "en_after": "The correct burger soda",
+   "th_before": "โซดาที่ถูกต้องของเบอร์เกอร์",
+   "th_after": "โซดาที่ถูกต้องของเบอร์เกอร์"
+  },
+  "m.k2n": {
+   "status": "retained",
+   "en_before": "Root Beer",
+   "en_after": "Root Beer",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.k3d": {
+   "status": "retained",
+   "en_before": "Coke, Coke Zero, Sprite, Fanta — large / jumbo",
+   "en_after": "Coke, Coke Zero, Sprite, Fanta — large / jumbo",
+   "th_before": "โค้ก โค้กซีโร่ สไปรท์ แฟนต้า — แก้วใหญ่ / จัมโบ้",
+   "th_after": "โค้ก โค้กซีโร่ สไปรท์ แฟนต้า — แก้วใหญ่ / จัมโบ้"
+  },
+  "m.k3n": {
+   "status": "retained",
+   "en_before": "Soft Drinks",
+   "en_after": "Soft Drinks",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.k4d": {
+   "status": "retained",
+   "en_before": "Leo 59 · Singha 65 · Heineken draft 60",
+   "en_after": "Leo 59 · Singha 65 · Heineken draft 60",
+   "th_before": "ลีโอ 59 · สิงห์ 65 · ไฮเนเก้นสด 60",
+   "th_after": "ลีโอ 59 · สิงห์ 65 · ไฮเนเก้นสด 60"
+  },
+  "m.k4n": {
+   "status": "retained",
+   "en_before": "Thai Beers",
+   "en_after": "Thai Beers",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.s1d": {
+   "status": "retained",
+   "en_before": "250–350 g, priced per weight · gravy, champignon or peppercorn",
+   "en_after": "250–350 g, priced per weight · gravy, champignon or peppercorn",
+   "th_before": "250–350 กรัม คิดตามน้ำหนัก · ซอสเกรวี แชมปิญอง หรือพริกไทยดำ",
+   "th_after": "250–350 กรัม คิดตามน้ำหนัก · ซอสเกรวี แชมปิญอง หรือพริกไทยดำ"
+  },
+  "m.s1n": {
+   "status": "retained",
+   "en_before": "Rib Eye",
+   "en_after": "Rib Eye",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.s1p": {
+   "status": "retained",
+   "en_before": "PER WT.",
+   "en_after": "PER WT.",
+   "th_before": "ตามน้ำหนัก",
+   "th_after": "ตามน้ำหนัก"
+  },
+  "m.s2d": {
+   "status": "retained",
+   "en_before": "Low, slow, sticky",
+   "en_after": "Low, slow, sticky",
+   "th_before": "ย่างไฟอ่อน ช้า ๆ ซอสเหนียวเคลือบ",
+   "th_after": "ย่างไฟอ่อน ช้า ๆ ซอสเหนียวเคลือบ"
+  },
+  "m.s2n": {
+   "status": "retained",
+   "en_before": "BBQ Pork Ribs",
+   "en_after": "BBQ Pork Ribs",
+   "th_before": null,
+   "th_after": null
+  },
+  "m.s3d": {
+   "status": "retained",
+   "en_before": "Crackling on, bring friends",
+   "en_after": "Crackling on, bring friends",
+   "th_before": "หนังกรอบ ชวนเพื่อนมาช่วยกัน",
+   "th_after": "หนังกรอบ ชวนเพื่อนมาช่วยกัน"
+  },
+  "m.s3n": {
+   "status": "retained",
+   "en_before": "BB Pork Knuckle",
+   "en_after": "BB Pork Knuckle",
+   "th_before": null,
+   "th_after": null
+  },
+  "man.l1": {
+   "status": "retained",
+   "en_before": "NO TRUFFLE.",
+   "en_after": "NO TRUFFLE.",
+   "th_before": "ไม่มีทรัฟเฟิล",
+   "th_after": "ไม่มีทรัฟเฟิล"
+  },
+  "man.l2": {
+   "status": "retained",
+   "en_before": "NO GOLD LEAF.",
+   "en_after": "NO GOLD LEAF.",
+   "th_before": "ไม่มีทองคำเปลว",
+   "th_after": "ไม่มีทองคำเปลว"
+  },
+  "man.l3": {
+   "status": "retained",
+   "en_before": "NO TWEEZERS.",
+   "en_after": "NO TWEEZERS.",
+   "th_before": "ไม่มีแหนบจัดจาน",
+   "th_after": "ไม่มีแหนบจัดจาน"
+  },
+  "man.p": {
+   "status": "retained",
+   "en_before": "Burger Bro sits exactly where a burger should: above fast food, below fine dining, right next to the appetite. Patties are hand-formed from graded beef — or pork, or chicken, this is Bangkok — pressed onto a hot griddle until the edges go lacy. The buns are baked in-house. The sauces are made in the back, not poured from a jug. You eat off a wooden board, the popcorn is free, and nobody hovers. That's the whole trick. There is no other trick.",
+   "en_after": "Burger Bro sits exactly where a burger should: above fast food, below fine dining, right next to the appetite. Patties are hand-formed from graded beef — or pork, or chicken, this is Bangkok — pressed onto a hot griddle until the edges go lacy. The buns are baked in-house. The sauces are made in the back, not poured from a jug. You eat off a wooden board, the popcorn is free, and nobody hovers. That's the whole trick. There is no other trick.",
+   "th_before": "เบอร์เกอร์โบรยืนอยู่ตรงจุดที่เบอร์เกอร์ควรอยู่พอดี — เหนือฟาสต์ฟู้ด ใต้ไฟน์ไดนิ่ง และติดกับความหิว เนื้อเกรดดีปั้นมือทีละก้อน (จะเนื้อ หมู หรือไก่ก็ได้ — นี่กรุงเทพฯ) กดลงเตาร้อนจนขอบกรอบเป็นลูกไม้ ขนมปังอบเองในร้าน ซอสทำเองหลังครัว ไม่ได้เทจากแกลลอน เสิร์ฟบนเขียงไม้ ป๊อปคอร์นฟรี และไม่มีใครมายืนจ้อง เคล็ดลับมีแค่นี้ ไม่มีอย่างอื่น",
+   "th_after": "เบอร์เกอร์โบรยืนอยู่ตรงจุดที่เบอร์เกอร์ควรอยู่พอดี — เหนือฟาสต์ฟู้ด ใต้ไฟน์ไดนิ่ง และติดกับความหิว เนื้อเกรดดีปั้นมือทีละก้อน (จะเนื้อ หมู หรือไก่ก็ได้ — นี่กรุงเทพฯ) กดลงเตาร้อนจนขอบกรอบเป็นลูกไม้ ขนมปังอบเองในร้าน ซอสทำเองหลังครัว ไม่ได้เทจากแกลลอน เสิร์ฟบนเขียงไม้ ป๊อปคอร์นฟรี และไม่มีใครมายืนจ้อง เคล็ดลับมีแค่นี้ ไม่มีอย่างอื่น"
+  },
+  "man.rail": {
+   "status": "retained",
+   "en_before": "THE POINT",
+   "en_after": "THE POINT",
+   "th_before": "ประเด็นคือ",
+   "th_after": "ประเด็นคือ"
+  },
+  "man.s1d": {
+   "status": "retained",
+   "en_before": "Hand-formed daily, pressed to order",
+   "en_after": "Hand-formed daily, pressed to order",
+   "th_before": "ปั้นมือทุกวัน กดสดตอนสั่ง",
+   "th_after": "ปั้นมือทุกวัน กดสดตอนสั่ง"
+  },
+  "man.s1t": {
+   "status": "retained",
+   "en_before": "PATTY",
+   "en_after": "PATTY",
+   "th_before": "เนื้อ",
+   "th_after": "เนื้อ"
+  },
+  "man.s2d": {
+   "status": "retained",
+   "en_before": "Baked in-house, toasted on the flat-top",
+   "en_after": "Baked in-house, toasted on the flat-top",
+   "th_before": "อบเองในร้าน ปิ้งบนเตาแบน",
+   "th_after": "อบเองในร้าน ปิ้งบนเตาแบน"
+  },
+  "man.s2t": {
+   "status": "retained",
+   "en_before": "BUNS",
+   "en_after": "BUNS",
+   "th_before": "ขนมปัง",
+   "th_after": "ขนมปัง"
+  },
+  "man.s3d": {
+   "status": "retained",
+   "en_before": "Homemade — plus a five-pump sauce bar",
+   "en_after": "Homemade — plus a five-pump sauce bar",
+   "th_before": "โฮมเมด — พร้อมซอสบาร์ 5 หัวปั๊ม",
+   "th_after": "โฮมเมด — พร้อมซอสบาร์ 5 หัวปั๊ม"
+  },
+  "man.s3t": {
+   "status": "retained",
+   "en_before": "SAUCE",
+   "en_after": "SAUCE",
+   "th_before": "ซอส",
+   "th_after": "ซอส"
+  },
+  "menu.addons": {
+   "status": "retained",
+   "en_before": "ADD 'EM UP: CHEESE 20 · EGG 20 · BACON 40 · PINEAPPLE 20 · CHILLI & MINCED PORK 40",
+   "en_after": "ADD 'EM UP: CHEESE 20 · EGG 20 · BACON 40 · PINEAPPLE 20 · CHILLI & MINCED PORK 40",
+   "th_before": "เพิ่มได้อีก: ชีส 20 · ไข่ 20 · เบคอน 40 · สับปะรด 20 · พริก &amp; หมูสับ 40",
+   "th_after": "เพิ่มได้อีก: ชีส 20 · ไข่ 20 · เบคอน 40 · สับปะรด 20 · พริก &amp; หมูสับ 40"
+  },
+  "menu.g1": {
+   "status": "retained",
+   "en_before": "BURGERS — THE FAMILY",
+   "en_after": "BURGERS — THE FAMILY",
+   "th_before": "เบอร์เกอร์ — เดอะแฟมิลี",
+   "th_after": "เบอร์เกอร์ — เดอะแฟมิลี"
+  },
+  "menu.g2": {
+   "status": "retained",
+   "en_before": "SAUSAGE BRO!",
+   "en_after": "SAUSAGE BRO!",
+   "th_before": "ซอสเซจโบร!",
+   "th_after": "ซอสเซจโบร!"
+  },
+  "menu.g3": {
+   "status": "retained",
+   "en_before": "CRUNCHY VARIETY",
+   "en_after": "CRUNCHY VARIETY",
+   "th_before": "ของกรอบ",
+   "th_after": "ของกรอบ"
+  },
+  "menu.g4": {
+   "status": "retained",
+   "en_before": "STEAK & SLOW",
+   "en_after": "STEAK & SLOW",
+   "th_before": "สเต๊ก &amp; เมนูไฟอ่อน",
+   "th_after": "สเต๊ก &amp; เมนูไฟอ่อน"
+  },
+  "menu.g5": {
+   "status": "retained",
+   "en_before": "SHAKES & COLD ONES",
+   "en_after": "SHAKES & COLD ONES",
+   "th_before": "เชค &amp; เครื่องดื่มเย็น ๆ",
+   "th_after": "เชค &amp; เครื่องดื่มเย็น ๆ"
+  },
+  "menu.l1": {
+   "status": "retained",
+   "en_before": "THE MENU",
+   "en_after": "THE MENU",
+   "th_before": "เมนู",
+   "th_after": "เมนู"
+  },
+  "menu.meta": {
+   "status": "retained",
+   "en_before": "PRICES IN THB · BEFORE 7% VAT · <b>B</b> BEEF / <b>P</b> PORK / <b>C</b> CHICKEN WHERE MARKED",
+   "en_after": "PRICES IN THB · BEFORE 7% VAT · <b>B</b> BEEF / <b>P</b> PORK / <b>C</b> CHICKEN WHERE MARKED",
+   "th_before": "ราคาเป็นบาท · ยังไม่รวม VAT 7% · <b>B</b> เนื้อ / <b>P</b> หมู / <b>C</b> ไก่ ตามที่ระบุ",
+   "th_after": "ราคาเป็นบาท · ยังไม่รวม VAT 7% · <b>B</b> เนื้อ / <b>P</b> หมู / <b>C</b> ไก่ ตามที่ระบุ"
+  },
+  "menu.sets": {
+   "status": "retained",
+   "en_before": "VALUE SETS — BURGER + ONE CRUNCHY + SOFT DRINK",
+   "en_after": "VALUE SETS — BURGER + ONE CRUNCHY + SOFT DRINK",
+   "th_before": "ชุดคุ้มค่า — เบอร์เกอร์ + ของกรอบ 1 อย่าง + น้ำอัดลม",
+   "th_after": "ชุดคุ้มค่า — เบอร์เกอร์ + ของกรอบ 1 อย่าง + น้ำอัดลม"
+  },
+  "menu.vat": {
+   "status": "retained",
+   "en_before": "FULL BOARD AT THE SHOP · PRICES SUBJECT TO 7% VAT",
+   "en_after": "FULL BOARD AT THE SHOP · PRICES SUBJECT TO 7% VAT",
+   "th_before": "เมนูเต็มดูที่ร้าน · ราคายังไม่รวม VAT 7%",
+   "th_after": "เมนูเต็มดูที่ร้าน · ราคายังไม่รวม VAT 7%"
+  },
+  "mq.1": {
+   "status": "retained",
+   "en_before": "OPEN LATE — FRI & SAT TILL 2 AM",
+   "en_after": "OPEN LATE — FRI & SAT TILL 2 AM",
+   "th_before": "เปิดดึก — ศุกร์ &amp; เสาร์ ถึงตี 2",
+   "th_after": "เปิดดึก — ศุกร์ &amp; เสาร์ ถึงตี 2"
+  },
+  "mq.2": {
+   "status": "retained",
+   "en_before": "FREE POPCORN WHILE YOU WAIT",
+   "en_after": "FREE POPCORN WHILE YOU WAIT",
+   "th_before": "ป๊อปคอร์นฟรีระหว่างรอ",
+   "th_after": "ป๊อปคอร์นฟรีระหว่างรอ"
+  },
+  "mq.3": {
+   "status": "retained",
+   "en_before": "BUNS BAKED IN-HOUSE EVERY MORNING",
+   "en_after": "BUNS BAKED IN-HOUSE EVERY MORNING",
+   "th_before": "ขนมปังอบเองในร้านทุกเช้า",
+   "th_after": "ขนมปังอบเองในร้านทุกเช้า"
+  },
+  "mq.4": {
+   "status": "retained",
+   "en_before": "SAUCE BAR: TOM YUM · WASABI · DILL · THOUSAND ISLAND",
+   "en_after": "SAUCE BAR: TOM YUM · WASABI · DILL · THOUSAND ISLAND",
+   "th_before": "ซอสบาร์: ต้มยำ · วาซาบิ · ดิลล์ · เทาซันด์ไอส์แลนด์",
+   "th_after": "ซอสบาร์: ต้มยำ · วาซาบิ · ดิลล์ · เทาซันด์ไอส์แลนด์"
+  },
+  "nav.bro": {
+   "status": "retained",
+   "en_before": "The Bro",
+   "en_after": "The Bro",
+   "th_before": "เดอะโบร",
+   "th_after": "เดอะโบร"
+  },
+  "nav.find": {
+   "status": "retained",
+   "en_before": "Find us",
+   "en_after": "Find us",
+   "th_before": "มาหาเรา",
+   "th_after": "มาหาเรา"
+  },
+  "nav.menu": {
+   "status": "retained",
+   "en_before": "Menu",
+   "en_after": "Menu",
+   "th_before": "เมนู",
+   "th_after": "เมนู"
+  },
+  "nav.meta": {
+   "status": "retained",
+   "en_before": "DAILY FROM 11:00 · FRI–SAT TILL 02:00 · RAMA 9 SOI 49",
+   "en_after": "DAILY FROM 11:00 · FRI–SAT TILL 02:00 · RAMA 9 SOI 49",
+   "th_before": "เปิดทุกวัน 11:00 · ศุกร์–เสาร์ถึงตี 2 · พระราม 9 ซอย 49",
+   "th_after": "เปิดทุกวัน 11:00 · ศุกร์–เสาร์ถึงตี 2 · พระราม 9 ซอย 49"
+  },
+  "nav.order": {
+   "status": "retained",
+   "en_before": "Order",
+   "en_after": "Order",
+   "th_before": "สั่งเลย",
+   "th_after": "สั่งเลย"
+  },
+  "nav.story": {
+   "status": "retained",
+   "en_before": "The Shop",
+   "en_after": "The Shop",
+   "th_before": "ร้านของเรา",
+   "th_after": "ร้านของเรา"
+  },
+  "order.call": {
+   "status": "retained",
+   "en_before": "Call 082-793-8855",
+   "en_after": "Call 082-793-8855",
+   "th_before": "โทร 082-793-8855",
+   "th_after": "โทร 082-793-8855"
+  },
+  "order.fp": {
+   "status": "removed",
+   "en_before": "Order on foodpanda",
+   "en_after": null,
+   "th_before": "สั่งผ่าน FOODPANDA",
+   "th_after": null,
+   "reason": "BB-01: 'Order on foodpanda' removed; the existing Call button is now the primary action, plus order.note."
+  },
+  "order.l1": {
+   "status": "retained",
+   "en_before": "SETTLE THE",
+   "en_after": "SETTLE THE",
+   "th_before": "จบคำถามนี้",
+   "th_after": "จบคำถามนี้"
+  },
+  "order.l2": {
+   "status": "retained",
+   "en_before": "QUESTION.",
+   "en_after": "QUESTION.",
+   "th_before": "ซะที",
+   "th_after": "ซะที"
+  },
+  "order.note": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "NO DELIVERY LINK HERE RIGHT NOW — CALL THE SHOP OR WALK IN.",
+   "th_before": null,
+   "th_after": "ตอนนี้หน้านี้ยังไม่มีลิงก์สั่งเดลิเวอรี — โทรหาร้านหรือแวะมาที่ร้านได้เลย",
+   "reason": "BB-01 honest status line for the missing delivery route."
+  },
+  "order.p": {
+   "status": "retained",
+   "en_before": "Delivery to your door, or a booth with free popcorn — either way the answer is the same.",
+   "en_after": "Delivery to your door, or a booth with free popcorn — either way the answer is the same.",
+   "th_before": "ส่งถึงหน้าบ้าน หรือมานั่งบูธพร้อมป๊อปคอร์นฟรี — ยังไงคำตอบก็เหมือนเดิม",
+   "th_after": "ส่งถึงหน้าบ้าน หรือมานั่งบูธพร้อมป๊อปคอร์นฟรี — ยังไงคำตอบก็เหมือนเดิม"
+  },
+  "order.walk": {
+   "status": "retained",
+   "en_before": "Walk in — maps",
+   "en_after": "Walk in — maps",
+   "th_before": "เดินเข้าร้าน — แผนที่",
+   "th_after": "เดินเข้าร้าน — แผนที่"
+  },
+  "r.a": {
+   "status": "retained",
+   "en_before": "YES",
+   "en_after": "YES",
+   "th_before": "หิว",
+   "th_after": "หิว"
+  },
+  "r.note": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "ILLUSTRATIVE ORDER — NOT A LIVE BASKET",
+   "th_before": null,
+   "th_after": "ภาพตัวอย่างออเดอร์ — ไม่ใช่ตะกร้าสินค้าจริง",
+   "reason": "BB-07 marks the receipt as illustrative."
+  },
+  "r.pop": {
+   "status": "retained",
+   "en_before": "FREE POPCORN",
+   "en_after": "FREE POPCORN",
+   "th_before": "ป๊อปคอร์นฟรี",
+   "th_after": "ป๊อปคอร์นฟรี"
+  },
+  "r.q": {
+   "status": "retained",
+   "en_before": "HUNGRY?",
+   "en_after": "HUNGRY?",
+   "th_before": "หิวมั้ย?",
+   "th_after": "หิวมั้ย?"
+  },
+  "r.sub": {
+   "status": "retained",
+   "en_before": "SUBTOTAL",
+   "en_after": "SUBTOTAL",
+   "th_before": "รวม",
+   "th_after": "รวม"
+  },
+  "r.tbl": {
+   "status": "retained",
+   "en_before": "TABLE: YOURS",
+   "en_after": "TABLE: YOURS",
+   "th_before": "โต๊ะ: ของคุณ",
+   "th_after": "โต๊ะ: ของคุณ"
+  },
+  "r.thx": {
+   "status": "retained",
+   "en_before": "*** THANK YOU KA · มาอีกนะโบร ***",
+   "en_after": "*** THANK YOU KA · มาอีกนะโบร ***",
+   "th_before": "*** ขอบคุณค่ะ · COME AGAIN, BRO ***",
+   "th_after": "*** ขอบคุณค่ะ · COME AGAIN, BRO ***"
+  },
+  "r.tot": {
+   "status": "retained",
+   "en_before": "TOTAL",
+   "en_after": "TOTAL",
+   "th_before": "สุทธิ",
+   "th_after": "สุทธิ"
+  },
+  "rail.g1": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Burgers",
+   "th_before": null,
+   "th_after": "เบอร์เกอร์",
+   "reason": "BB-04 category rail label, shortened from the existing group heading."
+  },
+  "rail.g2": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Sausage Bro!",
+   "th_before": null,
+   "th_after": "ซอสเซจโบร!",
+   "reason": "BB-04 category rail label, shortened from the existing group heading."
+  },
+  "rail.g3": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Crunchy",
+   "th_before": null,
+   "th_after": "ของกรอบ",
+   "reason": "BB-04 category rail label, shortened from the existing group heading."
+  },
+  "rail.g4": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Steak & slow",
+   "th_before": null,
+   "th_after": "สเต๊ก &amp; เมนูไฟอ่อน",
+   "reason": "BB-04 category rail label, shortened from the existing group heading."
+  },
+  "rail.g5": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Shakes & cold ones",
+   "th_before": null,
+   "th_after": "เชค &amp; เครื่องดื่มเย็น ๆ",
+   "reason": "BB-04 category rail label, shortened from the existing group heading."
+  },
+  "rail.g6": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Value sets",
+   "th_before": null,
+   "th_after": "ชุดคุ้มค่า",
+   "reason": "BB-04 category rail label, shortened from the existing group heading."
+  },
+  "set.a": {
+   "status": "retained",
+   "en_before": "Big Bro",
+   "en_after": "Big Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "set.b": {
+   "status": "retained",
+   "en_before": "Smokey Bro",
+   "en_after": "Smokey Bro",
+   "th_before": null,
+   "th_after": null
+  },
+  "set.c": {
+   "status": "retained",
+   "en_before": "Wagyu Burger",
+   "en_after": "Wagyu Burger",
+   "th_before": null,
+   "th_after": null
+  },
+  "set.d": {
+   "status": "retained",
+   "en_before": "Angus Burger",
+   "en_after": "Angus Burger",
+   "th_before": null,
+   "th_after": null
+  },
+  "set.sh": {
+   "status": "retained",
+   "en_before": "SHARING",
+   "en_after": "SHARING",
+   "th_before": "แชริ่ง",
+   "th_after": "แชริ่ง"
+  },
+  "set.shd": {
+   "status": "retained",
+   "en_before": "For 2–3, from",
+   "en_after": "For 2–3, from",
+   "th_before": "สำหรับ 2–3 คน เริ่มที่",
+   "th_after": "สำหรับ 2–3 คน เริ่มที่"
+  },
+  "sheet.order": {
+   "status": "retained",
+   "en_before": "Order now",
+   "en_after": "Order now",
+   "th_before": "สั่งเลยตอนนี้",
+   "th_after": "สั่งเลยตอนนี้"
+  },
+  "story.capa": {
+   "status": "retained",
+   "en_before": "THE RED BUILDING, SOI 49 — YOU CANNOT MISS IT",
+   "en_after": "THE RED BUILDING, SOI 49 — YOU CANNOT MISS IT",
+   "th_before": "ตึกแดง ซอย 49 — ยังไงก็ไม่พลาด",
+   "th_after": "ตึกแดง ซอย 49 — ยังไงก็ไม่พลาด"
+  },
+  "story.capb": {
+   "status": "retained",
+   "en_before": "FREE POPCORN — WHILE YOU WAIT, ALWAYS",
+   "en_after": "FREE POPCORN — WHILE YOU WAIT, ALWAYS",
+   "th_before": "ป๊อปคอร์นฟรี — ระหว่างรอ เสมอ",
+   "th_after": "ป๊อปคอร์นฟรี — ระหว่างรอ เสมอ"
+  },
+  "story.capc": {
+   "status": "retained",
+   "en_before": "BOOTHS BELOW, INTROVERT BAR UPSTAIRS",
+   "en_after": "BOOTHS BELOW, INTROVERT BAR UPSTAIRS",
+   "th_before": "บูธข้างล่าง อินโทรเวิร์ตบาร์ข้างบน",
+   "th_after": "บูธข้างล่าง อินโทรเวิร์ตบาร์ข้างบน"
+  },
+  "story.l1": {
+   "status": "retained",
+   "en_before": "SALT & LIGHT,",
+   "en_after": "SALT & LIGHT,",
+   "th_before": "ซอล์ท แอนด์ ไลท์,",
+   "th_after": "ซอล์ท แอนด์ ไลท์,"
+  },
+  "story.l2": {
+   "status": "retained",
+   "en_before": "RAMA 9.",
+   "en_after": "RAMA 9.",
+   "th_before": "พระราม 9",
+   "th_after": "พระราม 9"
+  },
+  "story.p1": {
+   "status": "retained",
+   "en_before": "Behind the loudest red building on Soi 49 is a quiet Thai family company called Salt & Light Co. — which decided, some years back, that Bangkok deserved an American burger made the long way. Two floors of booth seats. A popcorn machine that runs free all day. A condiment caddy on every table with the malt vinegar already waiting.",
+   "en_after": "Behind the loudest red building on Soi 49 is a quiet Thai family company called Salt & Light Co. — which decided, some years back, that Bangkok deserved an American burger made the long way. Two floors of booth seats. A popcorn machine that runs free all day. A condiment caddy on every table with the malt vinegar already waiting.",
+   "th_before": "หลังตึกแดงที่เสียงดังที่สุดในซอย 49 คือบริษัทครอบครัวเงียบ ๆ ชื่อ ซอล์ท แอนด์ ไลท์ — ที่ตัดสินใจเมื่อหลายปีก่อนว่ากรุงเทพฯ ควรได้กินเบอร์เกอร์อเมริกันที่ทำแบบไม่มีทางลัด ร้านสองชั้นพร้อมเบาะบูธ เครื่องป๊อปคอร์นที่หมุนแจกฟรีทั้งวัน และกล่องเครื่องปรุงประจำทุกโต๊ะที่มีมอลต์วิเนการ์รออยู่ก่อนแล้ว",
+   "th_after": "หลังตึกแดงที่เสียงดังที่สุดในซอย 49 คือบริษัทครอบครัวเงียบ ๆ ชื่อ ซอล์ท แอนด์ ไลท์ — ที่ตัดสินใจเมื่อหลายปีก่อนว่ากรุงเทพฯ ควรได้กินเบอร์เกอร์อเมริกันที่ทำแบบไม่มีทางลัด ร้านสองชั้นพร้อมเบาะบูธ เครื่องป๊อปคอร์นที่หมุนแจกฟรีทั้งวัน และกล่องเครื่องปรุงประจำทุกโต๊ะที่มีมอลต์วิเนการ์รออยู่ก่อนแล้ว"
+  },
+  "story.p2": {
+   "status": "retained",
+   "en_before": "Downstairs smells like sear. Upstairs there is, honestly, an introvert bar. Kids welcome, big groups welcome, and — nobody knows why — a small wine cellar. It is that kind of place, and Rama 9 would riot without it.",
+   "en_after": "Downstairs smells like sear. Upstairs there is, honestly, an introvert bar. Kids welcome, big groups welcome, and — nobody knows why — a small wine cellar. It is that kind of place, and Rama 9 would riot without it.",
+   "th_before": "ชั้นล่างหอมกลิ่นเนื้อย่าง ส่วนชั้นบน — พูดจริง ๆ นะ — มีบาร์ชื่ออินโทรเวิร์ต เด็กมาได้ กลุ่มใหญ่มาได้ และไม่มีใครรู้ว่าทำไม มีตู้ไวน์เล็ก ๆ ด้วย ร้านมันเป็นของมันแบบนี้ และถ้าหายไป คนพระราม 9 คงไม่ยอม",
+   "th_after": "ชั้นล่างหอมกลิ่นเนื้อย่าง ส่วนชั้นบน — พูดจริง ๆ นะ — มีบาร์ชื่ออินโทรเวิร์ต เด็กมาได้ กลุ่มใหญ่มาได้ และไม่มีใครรู้ว่าทำไม มีตู้ไวน์เล็ก ๆ ด้วย ร้านมันเป็นของมันแบบนี้ และถ้าหายไป คนพระราม 9 คงไม่ยอม"
+  },
+  "story.rail": {
+   "status": "retained",
+   "en_before": "THE SHOP",
+   "en_after": "THE SHOP",
+   "th_before": "ร้านของเรา",
+   "th_after": "ร้านของเรา"
+  },
+  "tag.bkk": {
+   "status": "retained",
+   "en_before": "VERY BANGKOK",
+   "en_after": "VERY BANGKOK",
+   "th_before": "กรุงเทพฯ แท้ ๆ",
+   "th_after": "กรุงเทพฯ แท้ ๆ"
+  },
+  "tag.sig": {
+   "status": "retained",
+   "en_before": "SIGNATURE",
+   "en_after": "SIGNATURE",
+   "th_before": "ซิกเนเจอร์",
+   "th_after": "ซิกเนเจอร์"
+  },
+  "tag.try": {
+   "status": "retained",
+   "en_before": "MUST TRY",
+   "en_after": "MUST TRY",
+   "th_before": "ต้องลอง",
+   "th_after": "ต้องลอง"
+  },
+  "@aria:a11y.brand": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "Burger Bro — กลับขึ้นด้านบน",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "@aria:a11y.hours": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "เวลาเปิดทำการ",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "@aria:a11y.primary": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "เมนูหลัก",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "@aria:a11y.rail": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "หมวดเมนู",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "@aria:a11y.receipt": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "ใบเสร็จตัวอย่าง",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "@aria:a11y.sheet": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "เมนู",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "a11y.close": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "ปิดเมนู",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "a11y.open": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "เปิดเมนู",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "a11y.pause": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "หยุดข้อความเลื่อน",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "a11y.play": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "เล่นข้อความเลื่อนต่อ",
+   "reason": "Accessible-name / state label for a new or existing control."
+  },
+  "menu.photo": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "(set from script)",
+   "th_before": null,
+   "th_after": "ดูรูป",
+   "reason": "BB-04 explicit photo action (label of a script-created button)."
+  }
+ },
+ "menu": {
+  "before_count": 27,
+  "after_count": 27,
+  "identical": true,
+  "items": [
+   {
+    "group": "burgers",
+    "name": "Burger Bro",
+    "description": "Graded beef, smoked bacon strips, secret sauce · B P C",
+    "price": "149",
+    "tags": [
+     "SIGNATURE"
+    ],
+    "photo": "media/menu-burger-bro.jpg"
+   },
+   {
+    "group": "burgers",
+    "name": "Big Bro",
+    "description": "Double patty, double cheddar, bro sauce · B P C",
+    "price": "200",
+    "tags": [],
+    "photo": "media/big-bro.jpg"
+   },
+   {
+    "group": "burgers",
+    "name": "Smokey Bro",
+    "description": "Stuffed with smoked bacon, smoked BBQ sauce · B P C",
+    "price": "159",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "burgers",
+    "name": "Boss Burger",
+    "description": "Homemade thousand island — \"have it like a boss\"",
+    "price": "159",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "burgers",
+    "name": "Cheese Burger",
+    "description": "The deluxe basic · B P C",
+    "price": "109",
+    "tags": [],
+    "photo": "media/menu-cheese-burger.jpg"
+   },
+   {
+    "group": "burgers",
+    "name": "Shrimp Bro",
+    "description": "Crunchy shrimp, tom yum or wasabi sauce",
+    "price": "150",
+    "tags": [
+     "VERY BANGKOK"
+    ],
+    "photo": null
+   },
+   {
+    "group": "burgers",
+    "name": "Fish Bro",
+    "description": "Crunchy fish, house dill sauce",
+    "price": "150",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "burgers",
+    "name": "Veggie Cheese Burger",
+    "description": "Plant-based patty, tangy spice sauce",
+    "price": "140",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "burgers",
+    "name": "Angus Burger",
+    "description": "USDA-certified Angus in a charcoal bun, spicy Bro sauce",
+    "price": "249",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "burgers",
+    "name": "Love 'Em Wagyu",
+    "description": "200 g of tender wagyu — a beef lover's heaven",
+    "price": "319",
+    "tags": [],
+    "photo": "media/menu-wagyu.jpg"
+   },
+   {
+    "group": "dogs",
+    "name": "Hot Dog",
+    "description": "Smoked sausage in a homemade bun",
+    "price": "79",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "dogs",
+    "name": "Chilli Dog",
+    "description": "Chilli & minced pork, cheddar, jalapeño",
+    "price": "119",
+    "tags": [
+     "SIGNATURE"
+    ],
+    "photo": null
+   },
+   {
+    "group": "dogs",
+    "name": "Cheesy Bacon Dog",
+    "description": "Caramelized onions, bacon bits, cheddar",
+    "price": "139",
+    "tags": [
+     "MUST TRY"
+    ],
+    "photo": null
+   },
+   {
+    "group": "dogs",
+    "name": "Hawaiian Dog",
+    "description": "Grilled ham & pineapple, salsa, cheddar, jalapeño",
+    "price": "139",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "crunchy",
+    "name": "Curly Fries",
+    "description": "Seasoned spirals, basket-sized",
+    "price": "70",
+    "tags": [],
+    "photo": "media/menu-curly-fries.jpg"
+   },
+   {
+    "group": "crunchy",
+    "name": "Onion Rings",
+    "description": "Fried to order, still hissing",
+    "price": "89",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "crunchy",
+    "name": "Potato Wedges",
+    "description": "Fat-cut, skin on",
+    "price": "79",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "crunchy",
+    "name": "Fried Corn",
+    "description": "Sweet corn, crisped",
+    "price": "79",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "crunchy",
+    "name": "Chicken Bro",
+    "description": "Fried chicken, house brine",
+    "price": "119",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "crunchy",
+    "name": "Lake Toba Fish & Chips",
+    "description": "The big one — for the table",
+    "price": "300",
+    "tags": [
+     "MUST TRY"
+    ],
+    "photo": null
+   },
+   {
+    "group": "steak",
+    "name": "Rib Eye",
+    "description": "250–350 g, priced per weight · gravy, champignon or peppercorn",
+    "price": "PER WT.",
+    "tags": [],
+    "photo": "media/menu-rib-eye.jpg"
+   },
+   {
+    "group": "steak",
+    "name": "BBQ Pork Ribs",
+    "description": "Low, slow, sticky",
+    "price": "450",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "steak",
+    "name": "BB Pork Knuckle",
+    "description": "Crackling on, bring friends",
+    "price": "450",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "drinks",
+    "name": "Milkshakes",
+    "description": "Vanilla · chocolate · strawberry — with or without whip",
+    "price": "80/90",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "drinks",
+    "name": "Root Beer",
+    "description": "The correct burger soda",
+    "price": "30",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "drinks",
+    "name": "Soft Drinks",
+    "description": "Coke, Coke Zero, Sprite, Fanta — large / jumbo",
+    "price": "40/55",
+    "tags": [],
+    "photo": null
+   },
+   {
+    "group": "drinks",
+    "name": "Thai Beers",
+    "description": "Leo 59 · Singha 65 · Heineken draft 60",
+    "price": "59–75",
+    "tags": [],
+    "photo": null
+   }
+  ],
+  "value_sets": [
+   "SET ABig Bro299",
+   "SET BSmokey Bro259",
+   "SET CWagyu Burger419",
+   "SET DAngus Burger349",
+   "SHARINGFor 2–3, from679"
+  ],
+  "value_sets_identical": true
+ },
+ "hours": {
+  "table_rows": [
+   "MON11:00 – 24:00",
+   "TUE11:00 – 23:30",
+   "WED – THU11:00 – 24:00",
+   "FRI – SAT11:00 – 02:00 LATE",
+   "SUN11:00 – 24:00"
+  ],
+  "identical": true,
+  "also_stated_in": [
+   "hero.meta1",
+   "nav.meta (mobile sheet)",
+   "mq.1 (marquee)",
+   "break.meta",
+   "JSON-LD"
+  ],
+  "structured_data_before": [
+   "Mo-Th 11:00-23:59",
+   "Fr-Sa 11:00-02:00",
+   "Su 11:00-23:59"
+  ],
+  "structured_data_after": [
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+     "Monday",
+     "Wednesday",
+     "Thursday",
+     "Sunday"
+    ],
+    "opens": "11:00",
+    "closes": "00:00"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "Tuesday",
+    "opens": "11:00",
+    "closes": "23:30"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+     "Friday",
+     "Saturday"
+    ],
+    "opens": "11:00",
+    "closes": "02:00"
+   }
+  ]
+ },
+ "receipt": {
+  "rows": [
+   "TABLE: YOURSBILL № 00049",
+   "1× BIG BRO (BEEF)200.00",
+   "1× CURLY FRIES70.00",
+   "1× ROOT BEER30.00",
+   "FREE POPCORN0.00",
+   "SUBTOTAL300.00",
+   "VAT 7%21.00",
+   "TOTAL฿321.00",
+   "HUNGRY?YES"
+  ],
+  "identical": true
+ },
+ "contact": {
+  "phone_display": "082-793-8855",
+  "phone_href": "tel:+66827938855",
+  "maps": "https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok",
+  "address_en": "443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM.",
+  "address_th": "443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250",
+  "social": [
+   {
+    "href": "https://www.facebook.com/BurgerbroThailand/",
+    "text": "FACEBOOK — BURGER BRO",
+    "key": ""
+   },
+   {
+    "href": "https://www.instagram.com/burgerbro_original/",
+    "text": "IG — @BURGERBRO_ORIGINAL",
+    "key": ""
+   }
+  ]
+ },
+ "links": {
+  "before": [
+   {
+    "href": "#main",
+    "text": "Skip to content",
+    "key": "a11y.skip"
+   },
+   {
+    "href": "#top",
+    "text": "BURGERBRO!",
+    "key": ""
+   },
+   {
+    "href": "#bro",
+    "text": "The Bro",
+    "key": "nav.bro"
+   },
+   {
+    "href": "#menu",
+    "text": "Menu",
+    "key": "nav.menu"
+   },
+   {
+    "href": "#story",
+    "text": "The Shop",
+    "key": "nav.story"
+   },
+   {
+    "href": "#find",
+    "text": "Find us",
+    "key": "nav.find"
+   },
+   {
+    "href": "#order",
+    "text": "Order",
+    "key": "nav.order"
+   },
+   {
+    "href": "#bro",
+    "text": "01The Bro",
+    "key": ""
+   },
+   {
+    "href": "#menu",
+    "text": "02Menu",
+    "key": ""
+   },
+   {
+    "href": "#story",
+    "text": "03The Shop",
+    "key": ""
+   },
+   {
+    "href": "#find",
+    "text": "04Find us",
+    "key": ""
+   },
+   {
+    "href": "#order",
+    "text": "Order now",
+    "key": "sheet.order"
+   },
+   {
+    "href": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+    "text": "Order delivery",
+    "key": "hero.order"
+   },
+   {
+    "href": "#menu",
+    "text": "See the menu",
+    "key": "hero.menu"
+   },
+   {
+    "href": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+    "text": "Order the signature",
+    "key": "bro.cta"
+   },
+   {
+    "href": "https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok",
+    "text": "Google Maps",
+    "key": "find.maps"
+   },
+   {
+    "href": "tel:+66827938855",
+    "text": "Call 082-793-8855",
+    "key": "find.call"
+   },
+   {
+    "href": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+    "text": "Order on foodpanda",
+    "key": "order.fp"
+   },
+   {
+    "href": "tel:+66827938855",
+    "text": "Call 082-793-8855",
+    "key": "order.call"
+   },
+   {
+    "href": "https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok",
+    "text": "Walk in — maps",
+    "key": "order.walk"
+   },
+   {
+    "href": "https://www.facebook.com/BurgerbroThailand/",
+    "text": "FACEBOOK — BURGER BRO",
+    "key": ""
+   },
+   {
+    "href": "https://www.instagram.com/burgerbro_original/",
+    "text": "IG — @BURGERBRO_ORIGINAL",
+    "key": ""
+   }
+  ],
+  "after": [
+   {
+    "href": "#main",
+    "text": "Skip to content",
+    "key": "a11y.skip"
+   },
+   {
+    "href": "#top",
+    "text": "BURGERBRO!",
+    "key": ""
+   },
+   {
+    "href": "#bro",
+    "text": "The Bro",
+    "key": "nav.bro"
+   },
+   {
+    "href": "#menu",
+    "text": "Menu",
+    "key": "nav.menu"
+   },
+   {
+    "href": "#story",
+    "text": "The Shop",
+    "key": "nav.story"
+   },
+   {
+    "href": "#find",
+    "text": "Find us",
+    "key": "nav.find"
+   },
+   {
+    "href": "#order",
+    "text": "Order",
+    "key": "nav.order"
+   },
+   {
+    "href": "#bro",
+    "text": "01The Bro",
+    "key": ""
+   },
+   {
+    "href": "#menu",
+    "text": "02Menu",
+    "key": ""
+   },
+   {
+    "href": "#story",
+    "text": "03The Shop",
+    "key": ""
+   },
+   {
+    "href": "#find",
+    "text": "04Find us",
+    "key": ""
+   },
+   {
+    "href": "#order",
+    "text": "Order now",
+    "key": "sheet.order"
+   },
+   {
+    "href": "tel:+66827938855",
+    "text": "Call 082-793-8855",
+    "key": "hero.call"
+   },
+   {
+    "href": "#menu",
+    "text": "See the menu",
+    "key": "hero.menu"
+   },
+   {
+    "href": "#menu",
+    "text": "SKIP TO THE MENU ↓",
+    "key": "bro.skip"
+   },
+   {
+    "href": "#menu",
+    "text": "See the full menu",
+    "key": "bro.menu"
+   },
+   {
+    "href": "#menu-burgers",
+    "text": "Burgers",
+    "key": "rail.g1"
+   },
+   {
+    "href": "#menu-dogs",
+    "text": "Sausage Bro!",
+    "key": "rail.g2"
+   },
+   {
+    "href": "#menu-crunchy",
+    "text": "Crunchy",
+    "key": "rail.g3"
+   },
+   {
+    "href": "#menu-steak",
+    "text": "Steak & slow",
+    "key": "rail.g4"
+   },
+   {
+    "href": "#menu-drinks",
+    "text": "Shakes & cold ones",
+    "key": "rail.g5"
+   },
+   {
+    "href": "#menu-sets",
+    "text": "Value sets",
+    "key": "rail.g6"
+   },
+   {
+    "href": "https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok",
+    "text": "Google Maps",
+    "key": "find.maps"
+   },
+   {
+    "href": "tel:+66827938855",
+    "text": "Call 082-793-8855",
+    "key": "find.call"
+   },
+   {
+    "href": "tel:+66827938855",
+    "text": "Call 082-793-8855",
+    "key": "order.call"
+   },
+   {
+    "href": "https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok",
+    "text": "Walk in — maps",
+    "key": "order.walk"
+   },
+   {
+    "href": "https://www.facebook.com/BurgerbroThailand/",
+    "text": "FACEBOOK — BURGER BRO",
+    "key": ""
+   },
+   {
+    "href": "https://www.instagram.com/burgerbro_original/",
+    "text": "IG — @BURGERBRO_ORIGINAL",
+    "key": ""
+   }
+  ],
+  "removed": [
+   {
+    "href": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+    "text": "Order delivery",
+    "key": "hero.order"
+   },
+   {
+    "href": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+    "text": "Order the signature",
+    "key": "bro.cta"
+   },
+   {
+    "href": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+    "text": "Order on foodpanda",
+    "key": "order.fp"
+   }
+  ],
+  "added": [
+   {
+    "href": "tel:+66827938855",
+    "text": "Call 082-793-8855",
+    "key": "hero.call"
+   },
+   {
+    "href": "#menu",
+    "text": "SKIP TO THE MENU ↓",
+    "key": "bro.skip"
+   },
+   {
+    "href": "#menu",
+    "text": "See the full menu",
+    "key": "bro.menu"
+   },
+   {
+    "href": "#menu-burgers",
+    "text": "Burgers",
+    "key": "rail.g1"
+   },
+   {
+    "href": "#menu-dogs",
+    "text": "Sausage Bro!",
+    "key": "rail.g2"
+   },
+   {
+    "href": "#menu-crunchy",
+    "text": "Crunchy",
+    "key": "rail.g3"
+   },
+   {
+    "href": "#menu-steak",
+    "text": "Steak & slow",
+    "key": "rail.g4"
+   },
+   {
+    "href": "#menu-drinks",
+    "text": "Shakes & cold ones",
+    "key": "rail.g5"
+   },
+   {
+    "href": "#menu-sets",
+    "text": "Value sets",
+    "key": "rail.g6"
+   }
+  ],
+  "historical": {
+   "foodpanda": "https://www.foodpanda.co.th/restaurant/xad4/burger-bro-rama-9",
+   "used_by_before": [
+    "hero.order",
+    "bro.cta",
+    "order.fp"
+   ]
+  }
+ },
+ "images": {
+  "before": [
+   {
+    "file": "media/big-bro.jpg",
+    "alt": "Big Bro double cheeseburger — two smashed beef patties with lacy seared edges, melted cheddar and bro sauce on a glossy homemade bun, served on Burger Bro wrapper paper"
+   },
+   {
+    "file": "media/bro-profile.jpg",
+    "alt": "Side profile of the Burger Bro signature burger on branded wrapper paper — glossy toasted crown, seared patty, sauce soaking the heel"
+   },
+   {
+    "file": "media/bro-inside.jpg",
+    "alt": "Cross-section of a double Burger Bro burger showing two juicy patties, melted cheddar and greens inside the homemade bun"
+   },
+   {
+    "file": "media/shop-front.jpg",
+    "alt": "Burger Bro's two-storey oxblood-red shopfront on Rama 9 Soi 49 — giant white BURGERBRO! letters, red-and-white sauce-doodle murals, string lights and outdoor tables"
+   },
+   {
+    "file": "media/shop-popcorn.jpg",
+    "alt": "Free popcorn on a black plate at a Burger Bro table, with the branded wooden condiment caddy behind"
+   },
+   {
+    "file": "media/shop-booths.jpg",
+    "alt": "Red diner booths inside Burger Bro, chalkboard menus over the counter and the popcorn machine in the back"
+   },
+   {
+    "file": "media/late-night.jpg",
+    "alt": "Low angle of a Burger Bro burger under the red ceiling and warm string lights of the shop"
+   }
+  ],
+  "after": [
+   {
+    "file": "media/big-bro.jpg",
+    "alt": "Big Bro double cheeseburger — two smashed beef patties with lacy seared edges, melted cheddar and bro sauce on a glossy homemade bun, served on Burger Bro wrapper paper"
+   },
+   {
+    "file": "media/bro-profile.jpg",
+    "alt": "Side profile of the Burger Bro signature burger on branded wrapper paper — glossy toasted crown, seared patty, sauce soaking the heel"
+   },
+   {
+    "file": "media/bro-inside.jpg",
+    "alt": "Cross-section of a double Burger Bro burger showing two juicy patties, melted cheddar and greens inside the homemade bun"
+   },
+   {
+    "file": "media/shop-front.jpg",
+    "alt": "Burger Bro's two-storey oxblood-red shopfront on Rama 9 Soi 49 — giant white BURGERBRO! letters, red-and-white sauce-doodle murals, string lights and outdoor tables"
+   },
+   {
+    "file": "media/shop-popcorn.jpg",
+    "alt": "Free popcorn on a black plate at a Burger Bro table, with the branded wooden condiment caddy behind"
+   },
+   {
+    "file": "media/shop-booths.jpg",
+    "alt": "Red diner booths inside Burger Bro, chalkboard menus over the counter and the popcorn machine in the back"
+   },
+   {
+    "file": "media/late-night.jpg",
+    "alt": "Low angle of a Burger Bro burger under the red ceiling and warm string lights of the shop"
+   }
+  ],
+  "identical_set": true
+ },
+ "image_alt_translations_identical": {
+  "hero.alt": true,
+  "bro.alt": true,
+  "bro.endalt": true,
+  "story.alta": true,
+  "story.altb": true,
+  "story.altc": true,
+  "break.alt": true
+ },
+ "metadata": {
+  "before": [
+   [
+    "viewport",
+    "width=device-width, initial-scale=1"
+   ],
+   [
+    "color-scheme",
+    "light"
+   ]
+  ],
+  "after": [
+   [
+    "viewport",
+    "width=device-width, initial-scale=1"
+   ],
+   [
+    "color-scheme",
+    "light"
+   ],
+   [
+    "description",
+    "Burger Bro — homemade American burgers on Rama 9 Soi 49, Bangkok. Hand-formed patties, buns baked in-house and a five-pump sauce bar. Open daily from 11:00, Fri–Sat till 02:00."
+   ],
+   [
+    "theme-color",
+    "#F5EEDF"
+   ],
+   [
+    "og:type",
+    "website"
+   ],
+   [
+    "og:title",
+    "Burger Bro! — homemade American burgers, Rama 9"
+   ],
+   [
+    "og:description",
+    "Hand-formed patties, buns baked in-house, and a sauce bar that takes tom yum as seriously as thousand island."
+   ],
+   [
+    "og:image",
+    "https://mpc0367.github.io/burger-bro/media/big-bro-960.jpg"
+   ],
+   [
+    "og:url",
+    "https://mpc0367.github.io/burger-bro/"
+   ]
+  ]
+ },
+ "media": [
+  {
+   "file": "media/big-bro.jpg",
+   "sha1": "d280a96b075f12e6699a94f704c484bce0ac3714",
+   "bytes": 242769,
+   "width": 1440,
+   "height": 1440,
+   "embedded_index": 1,
+   "uses": 2,
+   "role": [
+    "content image: Big Bro double cheeseburger — two smashed beef patties with lacy seare",
+    "menu photo for Big Bro"
+   ],
+   "derivatives": [
+    {
+     "file": "media/big-bro-640.jpg",
+     "width": 640,
+     "bytes": 66587,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/big-bro-960.jpg",
+     "width": 960,
+     "bytes": 129293,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/bro-profile.jpg",
+   "sha1": "c08580d19e33bf86b30d4356ab2ae9b1cd915426",
+   "bytes": 341752,
+   "width": 1440,
+   "height": 1920,
+   "embedded_index": 2,
+   "uses": 1,
+   "role": [
+    "content image: Side profile of the Burger Bro signature burger on branded wrapper pap"
+   ],
+   "derivatives": [
+    {
+     "file": "media/bro-profile-640.jpg",
+     "width": 640,
+     "bytes": 101595,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/bro-profile-960.jpg",
+     "width": 960,
+     "bytes": 199735,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/bro-inside.jpg",
+   "sha1": "fb1e9acab4f183ac438bbbd4b4150d52ed8bada9",
+   "bytes": 251687,
+   "width": 1440,
+   "height": 1440,
+   "embedded_index": 3,
+   "uses": 1,
+   "role": [
+    "content image: Cross-section of a double Burger Bro burger showing two juicy patties,"
+   ],
+   "derivatives": [
+    {
+     "file": "media/bro-inside-640.jpg",
+     "width": 640,
+     "bytes": 69740,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/bro-inside-960.jpg",
+     "width": 960,
+     "bytes": 134682,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/menu-burger-bro.jpg",
+   "sha1": "51f099f9ad82142ea2d147396527d4af86016e2b",
+   "bytes": 208536,
+   "width": 1440,
+   "height": 1080,
+   "embedded_index": 4,
+   "uses": 1,
+   "role": [
+    "menu photo for Burger Bro"
+   ],
+   "derivatives": [
+    {
+     "file": "media/menu-burger-bro-640.jpg",
+     "width": 640,
+     "bytes": 54195,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/menu-burger-bro-960.jpg",
+     "width": 960,
+     "bytes": 105712,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/menu-cheese-burger.jpg",
+   "sha1": "617453e23cf3017fb8f523b35bac76504e8fdcb2",
+   "bytes": 282802,
+   "width": 1440,
+   "height": 1920,
+   "embedded_index": 5,
+   "uses": 1,
+   "role": [
+    "menu photo for Cheese Burger"
+   ],
+   "derivatives": [
+    {
+     "file": "media/menu-cheese-burger-640.jpg",
+     "width": 640,
+     "bytes": 79577,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/menu-cheese-burger-960.jpg",
+     "width": 960,
+     "bytes": 159258,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/menu-wagyu.jpg",
+   "sha1": "be3c4cbaae6e7b2b773f41781bc4c777bdaebea6",
+   "bytes": 244864,
+   "width": 1440,
+   "height": 1440,
+   "embedded_index": 6,
+   "uses": 1,
+   "role": [
+    "menu photo for Love 'Em Wagyu"
+   ],
+   "derivatives": [
+    {
+     "file": "media/menu-wagyu-640.jpg",
+     "width": 640,
+     "bytes": 68923,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/menu-wagyu-960.jpg",
+     "width": 960,
+     "bytes": 131404,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/menu-curly-fries.jpg",
+   "sha1": "edd54441f4fee5a6523910ff2f60e7ca36771c56",
+   "bytes": 280964,
+   "width": 1440,
+   "height": 1920,
+   "embedded_index": 7,
+   "uses": 1,
+   "role": [
+    "menu photo for Curly Fries"
+   ],
+   "derivatives": [
+    {
+     "file": "media/menu-curly-fries-640.jpg",
+     "width": 640,
+     "bytes": 85563,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/menu-curly-fries-960.jpg",
+     "width": 960,
+     "bytes": 163377,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/menu-rib-eye.jpg",
+   "sha1": "f5de3353f1f78b4772475176afdd1d06e3a1370c",
+   "bytes": 244760,
+   "width": 1440,
+   "height": 1440,
+   "embedded_index": 8,
+   "uses": 1,
+   "role": [
+    "menu photo for Rib Eye"
+   ],
+   "derivatives": [
+    {
+     "file": "media/menu-rib-eye-640.jpg",
+     "width": 640,
+     "bytes": 65095,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/menu-rib-eye-960.jpg",
+     "width": 960,
+     "bytes": 127758,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/shop-front.jpg",
+   "sha1": "40e27ae1eca0a47f5520ca41c4be3ccc0487c027",
+   "bytes": 281554,
+   "width": 1440,
+   "height": 1080,
+   "embedded_index": 9,
+   "uses": 1,
+   "role": [
+    "content image: Burger Bro's two-storey oxblood-red shopfront on Rama 9 Soi 49 — giant"
+   ],
+   "derivatives": [
+    {
+     "file": "media/shop-front-640.jpg",
+     "width": 640,
+     "bytes": 73181,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/shop-front-960.jpg",
+     "width": 960,
+     "bytes": 144535,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/shop-popcorn.jpg",
+   "sha1": "74c5b3f5690ce2139dc2846dd84e9d4b30729c57",
+   "bytes": 283475,
+   "width": 1440,
+   "height": 1920,
+   "embedded_index": 10,
+   "uses": 1,
+   "role": [
+    "content image: Free popcorn on a black plate at a Burger Bro table, with the branded "
+   ],
+   "derivatives": [
+    {
+     "file": "media/shop-popcorn-640.jpg",
+     "width": 640,
+     "bytes": 73252,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/shop-popcorn-960.jpg",
+     "width": 960,
+     "bytes": 145331,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/shop-booths.jpg",
+   "sha1": "797ee37012c1169de7b6e77f785364dbb34fd501",
+   "bytes": 296167,
+   "width": 1440,
+   "height": 1920,
+   "embedded_index": 11,
+   "uses": 1,
+   "role": [
+    "content image: Red diner booths inside Burger Bro, chalkboard menus over the counter "
+   ],
+   "derivatives": [
+    {
+     "file": "media/shop-booths-640.jpg",
+     "width": 640,
+     "bytes": 80872,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/shop-booths-960.jpg",
+     "width": 960,
+     "bytes": 162646,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/late-night.jpg",
+   "sha1": "a9c374bdbf57455149439a023dbfe218db36e1ef",
+   "bytes": 309207,
+   "width": 1440,
+   "height": 1920,
+   "embedded_index": 12,
+   "uses": 1,
+   "role": [
+    "content image: Low angle of a Burger Bro burger under the red ceiling and warm string"
+   ],
+   "derivatives": [
+    {
+     "file": "media/late-night-640.jpg",
+     "width": 640,
+     "bytes": 92680,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    },
+    {
+     "file": "media/late-night-960.jpg",
+     "width": 960,
+     "bytes": 181945,
+     "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+    }
+   ]
+  },
+  {
+   "file": "media/seq/f00.jpg",
+   "sha1": "f01b87314ed9c6c1066707497ee04c303cf0f7ea",
+   "bytes": 42884,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 13,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 00"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f01.jpg",
+   "sha1": "147a7f2d0d4bda55821e12a818b54389f93921f4",
+   "bytes": 43703,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 14,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 01"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f02.jpg",
+   "sha1": "c1c97615af11769c90dd3774cad0df8e9ad5271b",
+   "bytes": 45006,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 15,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 02"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f03.jpg",
+   "sha1": "254ff562ae64846b335d24b2aedeb5f8222eddbf",
+   "bytes": 44555,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 16,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 03"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f04.jpg",
+   "sha1": "72a31615f836c5c7ac6b5ce55139fd29cea359f4",
+   "bytes": 45119,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 17,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 04"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f05.jpg",
+   "sha1": "f66b5d31c92f472a4108417cbb6c3bc1472a9725",
+   "bytes": 45856,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 18,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 05"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f06.jpg",
+   "sha1": "09c628cb551dd69c0e9410dbc6e75fceaa1adf4b",
+   "bytes": 45380,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 19,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 06"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f07.jpg",
+   "sha1": "a5fbce2b3e08f53100bbe19861c8b166a19c1de5",
+   "bytes": 46189,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 20,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 07"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f08.jpg",
+   "sha1": "08e4626798a1af12756b9ae80fa9e4d8010bb02c",
+   "bytes": 45840,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 21,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 08"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f09.jpg",
+   "sha1": "6e3cde6535f5556ac99935528b76dca0235d26db",
+   "bytes": 46627,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 22,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 09"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f10.jpg",
+   "sha1": "e99a25703dfcad0b993a4134c1abdb3786e9415e",
+   "bytes": 47651,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 23,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 10"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f11.jpg",
+   "sha1": "a5a9fb56fad90861b31ad27430501c1da55d4296",
+   "bytes": 47485,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 24,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 11"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f12.jpg",
+   "sha1": "df5a78c5abbf5c8b52053a0f2c0cc1f74fb6b28a",
+   "bytes": 48558,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 25,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 12"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f13.jpg",
+   "sha1": "f01daec67d65af2f6fbb7f96ebc9ad246bc60182",
+   "bytes": 49478,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 26,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 13"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f14.jpg",
+   "sha1": "33937dac351771e1851be2da90dbf94c01e4455e",
+   "bytes": 50180,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 27,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 14"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f15.jpg",
+   "sha1": "433f0f84c43e01820ae9b5e7eff2fbb95b9d1faf",
+   "bytes": 51325,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 28,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 15"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f16.jpg",
+   "sha1": "a697e0f3d133b76b8d1f1a0d662d36c8dd960a0a",
+   "bytes": 51136,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 29,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 16"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f17.jpg",
+   "sha1": "d2ac3f4bcfe45ae3e77d846174f365179be10950",
+   "bytes": 52647,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 30,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 17"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f18.jpg",
+   "sha1": "8ae42b07c63ebfc56039c2e3f8556cffd053b04b",
+   "bytes": 53700,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 31,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 18"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f19.jpg",
+   "sha1": "69fc09670ea47d8013c5076b0f989c63ba30ec76",
+   "bytes": 54013,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 32,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 19"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f20.jpg",
+   "sha1": "7804bec781e42ef170c2d18ceedb0c00d91116d8",
+   "bytes": 54954,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 33,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 20"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f21.jpg",
+   "sha1": "64f889f84763c023f225283ade3431678b8f3922",
+   "bytes": 55909,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 34,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 21"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f22.jpg",
+   "sha1": "bb373182e77b8efe110a00dc0660d8ca965c1d12",
+   "bytes": 56719,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 35,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 22"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f23.jpg",
+   "sha1": "88ea39c055e25f333f7d081bb895b1114124c175",
+   "bytes": 57625,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 36,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 23"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f24.jpg",
+   "sha1": "eacc721e6909886659e93e472f34d6ab458dc0ef",
+   "bytes": 57728,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 37,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 24"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f25.jpg",
+   "sha1": "0336917e627d6ef1aa1e5cdd9bfbe5d8bbce3888",
+   "bytes": 58867,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 38,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 25"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f26.jpg",
+   "sha1": "90f566e392a745c1b18ac6470a4dad0bdc3d3d7b",
+   "bytes": 59033,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 39,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 26"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f27.jpg",
+   "sha1": "bb45bf65585898a0687904c0c589c1eb4a0e19a4",
+   "bytes": 59464,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 40,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 27"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f28.jpg",
+   "sha1": "8c872ab6cbc9453c9db6e2893d3625b95d2311c5",
+   "bytes": 60091,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 41,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 28"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f29.jpg",
+   "sha1": "09e7ad69e9552835860b458f96ac1f664224499b",
+   "bytes": 60281,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 42,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 29"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f30.jpg",
+   "sha1": "cbbd2a048a859ad4d8cd0eefc23fe5f0391fc2a8",
+   "bytes": 60644,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 43,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 30"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f31.jpg",
+   "sha1": "3ccde669723cb1b51b24c9baf57e8652a9a03609",
+   "bytes": 60827,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 44,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 31"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f32.jpg",
+   "sha1": "94a24e02a6e555d2295b5e499bcf02621ab8fa78",
+   "bytes": 60370,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 45,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 32"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f33.jpg",
+   "sha1": "5eaddc86e18e80b05e986bcc37668db66c4d1c16",
+   "bytes": 61025,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 46,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 33"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f34.jpg",
+   "sha1": "76b40eefd58818867c9d23779daee9a24cf9fbb2",
+   "bytes": 61421,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 47,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 34"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f35.jpg",
+   "sha1": "c036b8e12444e00b804915c9bc8a99364c76f89e",
+   "bytes": 61924,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 48,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 35"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f36.jpg",
+   "sha1": "c14333f16b3a8af82f56bd17e0f39e986a12964c",
+   "bytes": 62039,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 49,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 36"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f37.jpg",
+   "sha1": "dd795fc2d2363a18cd8f46188f6458f246c7ad6d",
+   "bytes": 62081,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 50,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 37"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f38.jpg",
+   "sha1": "8804a1f091c8f13212d19dcc606b228d0447dc6f",
+   "bytes": 62363,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 51,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 38"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f39.jpg",
+   "sha1": "d8e80e7d78182eb0b6a309c1d291d1f547e09b3a",
+   "bytes": 62706,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 52,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 39"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f40.jpg",
+   "sha1": "314f710102f7d51d2f099332ea3e762cd519bc9b",
+   "bytes": 62569,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 53,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 40"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f41.jpg",
+   "sha1": "ab78380c48f0af20a82fe28b9f368551246bd7d3",
+   "bytes": 63166,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 54,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 41"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f42.jpg",
+   "sha1": "3c861a08198b9ea1204863e5c99e4836da4c7b82",
+   "bytes": 63246,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 55,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 42"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f43.jpg",
+   "sha1": "38cc22045def1a0450c31c1299388d0835702093",
+   "bytes": 62956,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 56,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 43"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f44.jpg",
+   "sha1": "881ee715054904a7a08ef1180003f7678a346f3a",
+   "bytes": 63439,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 57,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 44"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f45.jpg",
+   "sha1": "3cf3ea3b58dac093326fa09e5dac64f07b5425c8",
+   "bytes": 63497,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 58,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 45"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f46.jpg",
+   "sha1": "1840122d8da1f64c0e2266315be5d60587cea47d",
+   "bytes": 63291,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 59,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 46"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f47.jpg",
+   "sha1": "6cb3b62e486315bbd99daa837291f4b553498340",
+   "bytes": 63615,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 60,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 47"
+   ],
+   "derivatives": []
+  },
+  {
+   "file": "media/seq/f48.jpg",
+   "sha1": "ca37d65fb678f84b1a8ea2f7aa3c95514e9acf2f",
+   "bytes": 62919,
+   "width": 640,
+   "height": 853,
+   "embedded_index": 61,
+   "uses": 1,
+   "role": [
+    "burger-breakdown scrubber frame 48"
+   ],
+   "derivatives": []
+  }
+ ]
+}
