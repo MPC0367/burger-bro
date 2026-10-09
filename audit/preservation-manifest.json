@@ -13,8 +13,8 @@
  },
  "working_tree": {
   "branch": "enhance/v2",
-  "html_bytes": 132375,
-  "html_gzip_bytes": 34433
+  "html_bytes": 134584,
+  "html_gzip_bytes": 35016
  },
  "stack": "single static index.html (inline CSS + vanilla JS, no build, no libraries), Google Fonts (Anton, Kanit, Libre Franklin, Space Mono), GitHub Pages from main /",
  "analytics": "none found in baseline or working tree",

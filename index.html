@@ -833,6 +833,8 @@ body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .mrow-photo[hidden] { display: none; }
 .mrow-photo > div { min-height: 0; overflow: hidden; }
 .mrow.is-open .mrow-photo { grid-template-rows: 1fr; }
+.mrow-float.is-wait { opacity: 0; }                  /* plate waits for its own picture */
+.mrow-drop img { background: var(--paper-deep); }    /* a calm placeholder, not a white hole */
 .mrow-photo img {
   width: min(calc(100% - 12px), 460px); height: auto; aspect-ratio: 4 / 3; object-fit: cover;
   margin: 10px 0 22px;
@@ -2141,6 +2143,7 @@ window.BB_TH = {
       for (var i = 0; i < BRO_FRAMES; i++) {
         (function (n) {
           var im = new Image();
+          im.fetchPriority = "low";
           im.src = "media/seq/f" + (n < 10 ? "0" + n : n) + ".jpg";
           if (im.decode) im.decode().then(seqReady, seqReady); // count even on decode failure
           else im.onload = seqReady;
@@ -2318,6 +2321,50 @@ window.BB_TH = {
   var photoRows = Array.prototype.slice.call(document.querySelectorAll(".mrow[data-img]"));
   var hideFloat = function () {}; // replaced below when the hover plate is active
 
+  /* The photos are files now, not inline data, so they are fetched ahead of need: as the
+     menu comes within a few screens, every plate picture is requested at high priority.
+     By the time a row is hovered (or reaches mid-screen on a phone) its photo is in hand. */
+  var plateSuffix = window.devicePixelRatio > 2.2 ? "-960." : "-640."; // phone plates are ~330px wide
+  var menuWarm = false;
+  function warmMenuPhotos() {
+    if (menuWarm) return;
+    menuWarm = true;
+    photoRows.forEach(function (row) {
+      var im = new Image();
+      im.fetchPriority = "high";
+      im.src = wideScreen.matches ? row.getAttribute("data-img") : row.getAttribute("data-img").replace("-640.", plateSuffix);
+      row.__warm = im; // hold the reference so the decoded picture stays cached
+    });
+    document.querySelectorAll(".mrow-drop img").forEach(function (im) { im.loading = "eager"; });
+  }
+  if (photoRows.length && !(navigator.connection && navigator.connection.saveData)) {
+    if ("IntersectionObserver" in window) {
+      var warmIO = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (en) { return en.isIntersecting; })) return;
+        warmIO.disconnect();
+        warmMenuPhotos();
+      }, { rootMargin: "250% 0px" });
+      warmIO.observe(document.getElementById("menu"));
+    } else {
+      warmMenuPhotos();
+    }
+  }
+  /* Safety net for a slow line: the hover plate stays hidden until its own picture has
+     arrived — never an empty frame, never the previous row's photo. */
+  function floatSrc(row) {
+    var src = row.getAttribute("data-img");
+    if (floatImg.getAttribute("src") === src && floatImg.complete && floatImg.naturalWidth) {
+      floatEl.classList.remove("is-wait");
+      return;
+    }
+    floatEl.classList.add("is-wait");
+    floatImg.src = src;
+  }
+  if (floatEl && floatImg) {
+    floatImg.addEventListener("load", function () { floatEl.classList.remove("is-wait"); });
+    floatImg.addEventListener("error", function () { floatEl.classList.remove("is-wait"); });
+  }
+
   /* keyboard access to the same photos: each photo row carries a Photo button that only
      appears on keyboard focus. Pointer and touch visitors never see it. */
   function rowToggle(row, btn, panel, open) {
@@ -2392,7 +2439,7 @@ window.BB_TH = {
       d.className = "mrow-drop";
       var im = document.createElement("img");
       im.loading = "lazy";
-      im.src = row.getAttribute("data-img").replace("-640.", "-960.");
+      im.src = row.getAttribute("data-img").replace("-640.", plateSuffix);
       im.alt = "";
       d.appendChild(im);
       row.appendChild(d);
@@ -2458,7 +2505,7 @@ window.BB_TH = {
     photoRows.forEach(function (row) {
       row.addEventListener("pointerenter", function (e) {
         if (!wideScreen.matches || row.classList.contains("is-open")) return; // photo already open inline
-        floatImg.src = row.getAttribute("data-img");
+        floatSrc(row);
         floatEl.classList.add("is-on");
         floatOn = true;
         ftx = e.clientX + 30; fty = e.clientY - 130;
@@ -2479,7 +2526,7 @@ window.BB_TH = {
         kb.addEventListener("focus", function () {
           if (!wideScreen.matches || !kb.matches(":focus-visible") || row.classList.contains("is-open")) return;
           var r = row.getBoundingClientRect(), b = kb.getBoundingClientRect();
-          floatImg.src = row.getAttribute("data-img");
+          floatSrc(row);
           floatEl.classList.add("is-on");
           floatOn = true;
           ftx = Math.min(b.right + 30, window.innerWidth - 310);
