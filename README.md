@@ -42,12 +42,13 @@ Anything pushed to `main` is live about a minute later. Work on a branch, check 
 
 foodpanda Thailand closed in May 2025 and is not linked.
 
-- **LINE MAN:** the mustard button in the footer (`data-i18n="order.lm"`) opens the shop's Wongnai × LINE MAN order page. The hero "Order delivery" and the "Order the signature" button both jump to that footer section (`#order`).
-- **GrabFood:** named in the `order.note` line without a link. When you have the shop's share link from the Grab app, add a second button in `.order-cta` next to the LINE MAN one (`Order on GrabFood`, `target="_blank" rel="noopener"`), add its Thai text to `BB_TH`, and delete the `order.note` line and its Thai entry.
+- **LINE MAN:** the button with `data-i18n="order.lm"` opens the shop's Wongnai × LINE MAN order page.
+- **GrabFood:** the button with `data-i18n="order.grab"` currently opens Grab's general GrabFood page (`https://www.grab.com/th/food/`), not the shop. When you have the shop's share link from the Grab app, replace that `href` and delete the `order.note` line and its Thai entry in `BB_TH`.
+- The hero "Order delivery" and the "Order the signature" button both jump to the footer order section (`#order`), where the two provider buttons are.
 
 ## Photos
 
-Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `name-640.jpg` and `name-960.jpg` from it and keep the file names. A menu row shows a Photo button only when it has a `data-img` attribute; add one only when the picture really is that item.
+Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `name-640.jpg` and `name-960.jpg` from it and keep the file names. A menu row with a `data-img` attribute shows its photo on hover (desktop), when it scrolls to mid-screen (phones), and through a Photo button that only appears on keyboard focus. Add `data-img` only when the picture really is that item.
 
 ## QA helpers built into the page
 

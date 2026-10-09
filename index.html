@@ -582,6 +582,14 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .mrow-price { font-size: 17px; font-weight: 700; justify-self: end; white-space: nowrap; }
 .mrow-price::before { content: "฿"; font-size: 12px; margin-right: 2px; opacity: .72; }
 
+.mrow-thumb {
+  grid-row: 1 / 3; grid-column: 4;
+  width: 74px; height: 74px; object-fit: cover;
+  border: 2px solid var(--ink);
+  align-self: center;
+}
+.mrow-drop { display: none; }
+
 .mrow-float {
   position: fixed; z-index: var(--z-float); top: 0; left: 0;
   width: 290px; height: 218px;
@@ -803,6 +811,12 @@ body[data-lang="th"] .menu-rail a { font-size: 14px; letter-spacing: .04em; }
 }
 body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .mrow-view::before { content: ""; position: absolute; inset: -13px -8px; } /* enlarges the hit area, not the look */
+/* keyboard path only: pointer and touch visitors get the hover plate / scroll plate, so the
+   button stays out of sight until it takes keyboard focus (and while its photo is open) */
+.mrow-view:not(:focus-visible):not([aria-expanded="true"]) {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
 .mrow-view::after {
   content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 7px;
   background:
@@ -874,6 +888,7 @@ body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .marquee.is-paused .marquee-track { animation-play-state: paused; }
 
 /* ---------- order: honest fallback + illustrative receipt ---------- */
+.order-cta + .order-cta-alt { margin-top: 18px; }
 .order-copy .order-note { margin-top: 20px; max-width: 54ch; color: rgba(255, 249, 238, .66); }
 .order-social { row-gap: 0; }
 .order-social a { padding-block: 12px; }
@@ -964,10 +979,32 @@ html.shot-full .cinema { height: 980px; }
   .mrow-name { grid-area: 1 / 1; }
   .mrow-price { grid-area: 1 / 2; }
   .mrow-desc { grid-area: 2 / 1 / 3 / 3; }
-  /* reading highlight only — the row crossing mid-screen gets the hover tint.
-     It never opens or moves anything; photos open from the Photo button. */
+  .mrow:has(.mrow-thumb) { grid-template-columns: minmax(0, 1fr) max-content 60px; }
+  .mrow:has(.mrow-thumb) .mrow-desc { grid-area: 2 / 1 / 3 / 3; }
+  .mrow-thumb { grid-area: 1 / 3 / 3 / 4; width: 60px; height: 60px; align-self: center; }
+
+  /* scroll spotlight — the row crossing mid-screen reads as hovered;
+     photo rows drop their plate. Fixed panel height keeps the list gliding. */
   .mrow.is-spot { background: rgba(196, 43, 28, .07); }
   .mrow.is-spot .mrow-name { color: var(--red); }
+  .mrow-drop {
+    display: block;
+    grid-area: 3 / 1 / 4 / 3;
+    height: 0; opacity: 0; margin-top: 0;
+    overflow: hidden;
+    transition: height .42s var(--e-out), opacity .3s ease, margin-top .42s var(--e-out);
+  }
+  .mrow.is-spot .mrow-drop { height: 212px; opacity: 1; margin-top: 12px; }
+  .mrow-drop img {
+    display: block;
+    width: calc(100% - 10px);
+    height: 202px;
+    object-fit: cover;
+    border: 2px solid var(--ink);
+    box-sizing: border-box;
+    box-shadow: 8px 8px 0 var(--red);
+  }
+  .mrow.is-open .mrow-drop { display: none; } /* opened from the keyboard button: one photo, not two */
 
   .sets-row { grid-template-columns: 1fr 1fr; }
   .set-stub { border-bottom: 2px dashed rgba(34, 21, 17, .4); }
@@ -1545,11 +1582,14 @@ html.shot-full .cinema { height: 980px; }
       </h2>
       <p data-i18n="order.p">Delivery to your door, or a booth with free popcorn — either way the answer is the same.</p>
       <div class="order-cta">
+        <a class="btn btn-mustard" href="https://www.grab.com/th/food/" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
         <a class="btn btn-mustard" href="https://www.wongnai.com/delivery/businesses/156615HR/order" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
+      </div>
+      <div class="order-cta order-cta-alt">
         <a class="btn btn-ghost" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
         <a class="btn btn-ghost" href="https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
-      <p class="order-note mono" data-i18n="order.note">ALSO ON GRABFOOD — SEARCH “BURGER BRO” IN THE GRAB APP.</p>
+      <p class="order-note mono" data-i18n="order.note">GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.</p>
       <div class="order-social mono">
         <a href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener">FACEBOOK — BURGER BRO</a>
         <a href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener">IG — @BURGERBRO_ORIGINAL</a>
@@ -1763,8 +1803,9 @@ window.BB_TH = {
   "order.l1": "จบคำถามนี้",
   "order.l2": "ซะที",
   "order.p": "ส่งถึงหน้าบ้าน หรือมานั่งบูธพร้อมป๊อปคอร์นฟรี — ยังไงคำตอบก็เหมือนเดิม",
+  "order.grab": "สั่งผ่าน GRABFOOD",
   "order.lm": "สั่งผ่าน LINE MAN",
-  "order.note": "มีใน GRABFOOD ด้วย — ค้นหา “BURGER BRO” ในแอป GRAB",
+  "order.note": "ปุ่ม GRABFOOD จะเปิดหน้า GRAB — ค้นหา “BURGER BRO” ได้เลย",
   "order.call": "โทร 082-793-8855",
   "order.walk": "เดินเข้าร้าน — แผนที่",
 
@@ -2269,22 +2310,16 @@ window.BB_TH = {
   }
 
   /* ============================================================
-     MENU — explicit photo disclosure, desktop hover plate,
-     narrow-screen reading highlight, section rail
+     MENU — floating plate on hover (fine) / scroll plates (coarse),
+     keyboard Photo button, section rail
      ============================================================ */
   var floatEl = document.getElementById("mrowFloat");
   var floatImg = document.getElementById("mrowFloatImg");
   var photoRows = Array.prototype.slice.call(document.querySelectorAll(".mrow[data-img]"));
-  var floatOn = false, floatRaf = false, fx = 0, fy = 0, ftx = 0, fty = 0;
+  var hideFloat = function () {}; // replaced below when the hover plate is active
 
-  function hideFloat() {
-    if (!floatEl) return;
-    floatEl.classList.remove("is-on");
-    floatOn = false;
-  }
-
-  /* every row that has a real photo gets a Photo button (keyboard, touch and mouse).
-     The picture is fetched on first open and nothing opens by itself while scrolling. */
+  /* keyboard access to the same photos: each photo row carries a Photo button that only
+     appears on keyboard focus. Pointer and touch visitors never see it. */
   function rowToggle(row, btn, panel, open) {
     var img = panel.querySelector("img");
     window.clearTimeout(panel.__t);
@@ -2332,60 +2367,37 @@ window.BB_TH = {
     row.appendChild(panel);
   });
 
-  /* desktop hover plate — follows the pointer sideways but parks above (or below) the
-     hovered row, so that row's own name, description and price stay readable. The same
-     plate answers keyboard focus on the Photo button. */
-  function floatFrame() {
-    fx += (ftx - fx) * 0.16;
-    fy += (fty - fy) * 0.16;
-    floatEl.style.transform = "translate(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px)"
-      + (floatOn ? " rotate(2deg)" : " scale(.86) rotate(-3deg)");
-    if (floatOn || Math.abs(ftx - fx) > 0.5) requestAnimationFrame(floatFrame);
-    else floatRaf = false;
-  }
-  function floatAim(row, clientX) {
-    var r = row.getBoundingClientRect();
-    ftx = Math.max(20, Math.min(clientX + 30, window.innerWidth - 310));
-    fty = r.top - 218 - 18;
-    if (fty < 140) fty = r.bottom + 18; // no room above (header + rail): sit below instead
-  }
-  function showFloat(row, clientX) {
-    if (!wideScreen.matches || row.classList.contains("is-open")) return;
-    floatImg.src = row.getAttribute("data-img");
-    floatAim(row, clientX);
-    if (!floatOn) { fx = ftx; fy = fty; }
-    floatEl.classList.add("is-on");
-    floatOn = true;
-    if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
-  }
-  if (floatEl && floatImg && !reduceMotion && !shotMode) {
+  var thumbsMade = false;
+  function ensureThumbs() {
+    if (thumbsMade) return;
+    thumbsMade = true;
     photoRows.forEach(function (row) {
-      if (finePointer) {
-        row.addEventListener("pointerenter", function (e) {
-          if (e.pointerType !== "touch") showFloat(row, e.clientX);
-        });
-        row.addEventListener("pointermove", function (e) {
-          if (!floatOn) return;
-          floatAim(row, e.clientX);
-          if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
-        });
-        row.addEventListener("pointerleave", hideFloat);
-      }
-      var btn = row.querySelector(".mrow-view");
-      if (btn) {
-        btn.addEventListener("focus", function () {
-          if (btn.matches(":focus-visible")) showFloat(row, btn.getBoundingClientRect().right);
-        });
-        btn.addEventListener("blur", hideFloat);
-      }
+      var t = document.createElement("img");
+      t.className = "mrow-thumb";
+      t.loading = "lazy";
+      t.src = row.getAttribute("data-img");
+      t.alt = "";
+      row.appendChild(t);
     });
-    window.addEventListener("scroll", function () { if (floatOn) hideFloat(); }, { passive: true });
   }
 
-  /* narrow-screen reading highlight — the row nearest mid-screen gets the quiet hover
-     tint. It is emphasis only: it never opens, moves or resizes anything. */
+  /* narrow-screen scroll spotlight — the row nearest mid-screen gets the
+     hover treatment; photo rows drop their plate inline */
   var spotAll = Array.prototype.slice.call(document.querySelectorAll(".mrow"));
   var spotOn = false, spotCur = null, spotRaf = false;
+  function ensureDrops() {
+    photoRows.forEach(function (row) {
+      if (row.querySelector(".mrow-drop")) return;
+      var d = document.createElement("div");
+      d.className = "mrow-drop";
+      var im = document.createElement("img");
+      im.loading = "lazy";
+      im.src = row.getAttribute("data-img").replace("-640.", "-960.");
+      im.alt = "";
+      d.appendChild(im);
+      row.appendChild(d);
+    });
+  }
   function spotEval() {
     spotRaf = false;
     if (wideScreen.matches) {
@@ -2418,19 +2430,73 @@ window.BB_TH = {
   function enableSpotlight() {
     if (spotOn) return;
     spotOn = true;
+    ensureDrops();
     window.addEventListener("scroll", spotSchedule, { passive: true });
     window.addEventListener("resize", spotSchedule);
     spotEval();
   }
   window.__spotCheck = spotEval; // QA hook: evaluate synchronously
-  if (!reduceMotion && !shotMode) {
-    if (!wideScreen.matches) enableSpotlight();
-    if (wideScreen.addEventListener) {
-      wideScreen.addEventListener("change", function (e) {
-        if (e.matches) spotEval(); // clears any lingering highlight
-        else enableSpotlight();
-      });
+
+  if (wideScreen.addEventListener) {
+    wideScreen.addEventListener("change", function (e) {
+      if (e.matches) { spotEval(); return; } // clears any lingering spotlight
+      if (reduceMotion) ensureThumbs();
+      else enableSpotlight();
+    });
+  }
+
+  if (finePointer && wideScreen.matches && !reduceMotion && floatEl && floatImg) {
+    var fx = 0, fy = 0, ftx = 0, fty = 0, floatOn = false, floatRaf = false;
+    function floatFrame() {
+      fx += (ftx - fx) * 0.16;
+      fy += (fty - fy) * 0.16;
+      floatEl.style.transform = "translate(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px)"
+        + (floatOn ? " rotate(2deg)" : " scale(.86) rotate(-3deg)");
+      if (floatOn || Math.abs(ftx - fx) > 0.5) requestAnimationFrame(floatFrame);
+      else floatRaf = false;
     }
+    photoRows.forEach(function (row) {
+      row.addEventListener("pointerenter", function (e) {
+        if (!wideScreen.matches || row.classList.contains("is-open")) return; // photo already open inline
+        floatImg.src = row.getAttribute("data-img");
+        floatEl.classList.add("is-on");
+        floatOn = true;
+        ftx = e.clientX + 30; fty = e.clientY - 130;
+        fx = ftx; fy = fty;
+        if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
+      });
+      row.addEventListener("pointermove", function (e) {
+        ftx = Math.min(e.clientX + 30, window.innerWidth - 310);
+        fty = Math.max(20, Math.min(e.clientY - 130, window.innerHeight - 240));
+        if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
+      });
+      row.addEventListener("pointerleave", function () {
+        floatEl.classList.remove("is-on");
+        floatOn = false;
+      });
+      var kb = row.querySelector(".mrow-view");
+      if (kb) {
+        kb.addEventListener("focus", function () {
+          if (!wideScreen.matches || !kb.matches(":focus-visible") || row.classList.contains("is-open")) return;
+          var r = row.getBoundingClientRect(), b = kb.getBoundingClientRect();
+          floatImg.src = row.getAttribute("data-img");
+          floatEl.classList.add("is-on");
+          floatOn = true;
+          ftx = Math.min(b.right + 30, window.innerWidth - 310);
+          fty = r.top - 236 < 140 ? r.bottom + 18 : r.top - 236; // clear of the focused row
+          fx = ftx; fy = fty;
+          if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
+        });
+        kb.addEventListener("blur", function () { hideFloat(); });
+      }
+    });
+    hideFloat = function () {
+      floatEl.classList.remove("is-on");
+      floatOn = false;
+    };
+  } else if (photoRows.length && (!finePointer || !wideScreen.matches)) {
+    if (reduceMotion) ensureThumbs();
+    else enableSpotlight();
   }
 
   /* section rail — plain anchor links; this only keeps the "you are here" cue in step

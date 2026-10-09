@@ -13,8 +13,8 @@
  },
  "working_tree": {
   "branch": "enhance/v2",
-  "html_bytes": 129711,
-  "html_gzip_bytes": 33844
+  "html_bytes": 132375,
+  "html_gzip_bytes": 34433
  },
  "stack": "single static index.html (inline CSS + vanilla JS, no build, no libraries), Google Fonts (Anton, Kanit, Libre Franklin, Space Mono), GitHub Pages from main /",
  "analytics": "none found in baseline or working tree",
@@ -1063,6 +1063,14 @@
    "th_after": null,
    "reason": "BB-01: 'Order on foodpanda' removed (service closed in Thailand, May 2025). Replaced by order.lm (Order on LINE MAN)."
   },
+  "order.grab": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Order on GrabFood",
+   "th_before": null,
+   "th_after": "สั่งผ่าน GRABFOOD",
+   "reason": "BB-01: GrabFood button requested by the owner. Points at Grab's GrabFood page for Thailand because no public shop link could be found."
+  },
   "order.l1": {
    "status": "retained",
    "en_before": "SETTLE THE",
@@ -1088,10 +1096,10 @@
   "order.note": {
    "status": "added",
    "en_before": null,
-   "en_after": "ALSO ON GRABFOOD — SEARCH “BURGER BRO” IN THE GRAB APP.",
+   "en_after": "GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.",
    "th_before": null,
-   "th_after": "มีใน GRABFOOD ด้วย — ค้นหา “BURGER BRO” ในแอป GRAB",
-   "reason": "BB-01: GrabFood is named without a link until the shop's Grab share link is supplied."
+   "th_after": "ปุ่ม GRABFOOD จะเปิดหน้า GRAB — ค้นหา “BURGER BRO” ได้เลย",
+   "reason": "BB-01: says plainly that the GrabFood button opens Grab's own page, not the shop, until the shop's Grab share link is supplied."
   },
   "order.p": {
    "status": "retained",
@@ -1424,7 +1432,7 @@
    "en_after": "(set from script)",
    "th_before": null,
    "th_after": "ดูรูป",
-   "reason": "BB-04 explicit photo action (label of a script-created button)."
+   "reason": "BB-04 label of the keyboard-only Photo button (script-created; invisible to pointer and touch)."
   }
  },
  "menu": {
@@ -1986,6 +1994,11 @@
     "key": "find.call"
    },
    {
+    "href": "https://www.grab.com/th/food/",
+    "text": "Order on GrabFood",
+    "key": "order.grab"
+   },
+   {
     "href": "https://www.wongnai.com/delivery/businesses/156615HR/order",
     "text": "Order on LINE MAN",
     "key": "order.lm"
@@ -2073,6 +2086,11 @@
     "href": "#menu-sets",
     "text": "Value sets",
     "key": "rail.g6"
+   },
+   {
+    "href": "https://www.grab.com/th/food/",
+    "text": "Order on GrabFood",
+    "key": "order.grab"
    },
    {
     "href": "https://www.wongnai.com/delivery/businesses/156615HR/order",
