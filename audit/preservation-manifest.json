@@ -13,8 +13,8 @@
  },
  "working_tree": {
   "branch": "enhance/v2",
-  "html_bytes": 134584,
-  "html_gzip_bytes": 35016
+  "html_bytes": 135212,
+  "html_gzip_bytes": 35114
  },
  "stack": "single static index.html (inline CSS + vanilla JS, no build, no libraries), Google Fonts (Anton, Kanit, Libre Franklin, Space Mono), GitHub Pages from main /",
  "analytics": "none found in baseline or working tree",
@@ -1464,7 +1464,7 @@
     "description": "Stuffed with smoked bacon, smoked BBQ sauce · B P C",
     "price": "159",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-smokey-bro.jpg"
    },
    {
     "group": "burgers",
@@ -1472,7 +1472,7 @@
     "description": "Homemade thousand island — \"have it like a boss\"",
     "price": "159",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-boss-burger.jpg"
    },
    {
     "group": "burgers",
@@ -1498,7 +1498,7 @@
     "description": "Crunchy fish, house dill sauce",
     "price": "150",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-fish-bro.jpg"
    },
    {
     "group": "burgers",
@@ -1506,7 +1506,7 @@
     "description": "Plant-based patty, tangy spice sauce",
     "price": "140",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-veggie-cheese.jpg"
    },
    {
     "group": "burgers",
@@ -1514,7 +1514,7 @@
     "description": "USDA-certified Angus in a charcoal bun, spicy Bro sauce",
     "price": "249",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-angus-burger.jpg"
    },
    {
     "group": "burgers",
@@ -1530,7 +1530,7 @@
     "description": "Smoked sausage in a homemade bun",
     "price": "79",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-hot-dog.jpg"
    },
    {
     "group": "dogs",
@@ -1540,7 +1540,7 @@
     "tags": [
      "SIGNATURE"
     ],
-    "photo": null
+    "photo": "media/menu-chilli-dog.jpg"
    },
    {
     "group": "dogs",
@@ -1550,7 +1550,7 @@
     "tags": [
      "MUST TRY"
     ],
-    "photo": null
+    "photo": "media/menu-cheesy-bacon-dog.jpg"
    },
    {
     "group": "dogs",
@@ -1558,7 +1558,7 @@
     "description": "Grilled ham & pineapple, salsa, cheddar, jalapeño",
     "price": "139",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-hawaiian-dog.jpg"
    },
    {
     "group": "crunchy",
@@ -1574,7 +1574,7 @@
     "description": "Fried to order, still hissing",
     "price": "89",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-onion-rings.jpg"
    },
    {
     "group": "crunchy",
@@ -1582,7 +1582,7 @@
     "description": "Fat-cut, skin on",
     "price": "79",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-potato-wedges.jpg"
    },
    {
     "group": "crunchy",
@@ -1590,7 +1590,7 @@
     "description": "Sweet corn, crisped",
     "price": "79",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-fried-corn.jpg"
    },
    {
     "group": "crunchy",
@@ -1598,7 +1598,7 @@
     "description": "Fried chicken, house brine",
     "price": "119",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-chicken-bro.jpg"
    },
    {
     "group": "crunchy",
@@ -1624,7 +1624,7 @@
     "description": "Low, slow, sticky",
     "price": "450",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-bbq-ribs.jpg"
    },
    {
     "group": "steak",
@@ -1656,7 +1656,7 @@
     "description": "Coke, Coke Zero, Sprite, Fanta — large / jumbo",
     "price": "40/55",
     "tags": [],
-    "photo": null
+    "photo": "media/menu-soft-drinks.jpg"
    },
    {
     "group": "drinks",
@@ -1666,6 +1666,34 @@
     "tags": [],
     "photo": null
    }
+  ],
+  "photo_rows_before": 6,
+  "photo_rows_after": 21,
+  "original_photo_mapping_unchanged": true,
+  "photos_added_for": [
+   "Smokey Bro",
+   "Boss Burger",
+   "Fish Bro",
+   "Veggie Cheese Burger",
+   "Angus Burger",
+   "Hot Dog",
+   "Chilli Dog",
+   "Cheesy Bacon Dog",
+   "Hawaiian Dog",
+   "Onion Rings",
+   "Potato Wedges",
+   "Fried Corn",
+   "Chicken Bro",
+   "BBQ Pork Ribs",
+   "Soft Drinks"
+  ],
+  "rows_without_photo": [
+   "Shrimp Bro",
+   "Lake Toba Fish & Chips",
+   "BB Pork Knuckle",
+   "Milkshakes",
+   "Root Beer",
+   "Thai Beers"
   ],
   "value_sets": [
    "SET ABig Bro299",
@@ -3180,5 +3208,415 @@
    ],
    "derivatives": []
   }
- ]
+ ],
+ "media_added": {
+  "note": "Official product photos from the shop's own Wongnai x LINE MAN menu, added 10 Oct 2026 with the owner-side go-ahead. Not part of the baseline.",
+  "files": [
+   {
+    "file": "media/menu-smokey-bro.jpg",
+    "row_key": "m.b3n",
+    "item": "Smokey Bro",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/0dfd82f930ad4d24b7e7b65738311cdd.jpg",
+    "source_listing": "สโมกกี้โบรเนื้อ (Smokey Bro Beef)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "12fd7edaa5a664d3a2eca4238e8dd76413dc04e6",
+    "bytes": 69715,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-smokey-bro-640.jpg",
+      "width": 640,
+      "bytes": 22124,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-smokey-bro-960.jpg",
+      "width": 960,
+      "bytes": 44229,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-boss-burger.jpg",
+    "row_key": "m.b4n",
+    "item": "Boss Burger",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/a5160e30132c455bbd1a32f560afb564.jpg",
+    "source_listing": "Boss",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "d11bc967646b4ab0907fd51fe8116364d20043d9",
+    "bytes": 53727,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-boss-burger-640.jpg",
+      "width": 640,
+      "bytes": 20853,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-boss-burger-960.jpg",
+      "width": 960,
+      "bytes": 40998,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-fish-bro.jpg",
+    "row_key": "m.b7n",
+    "item": "Fish Bro",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/77694530646f488d97552ec078cc7049.jpg",
+    "source_listing": "เบอร์เกอร์ปลา (FISH BURGER)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "23ece228dc1de209b969db80c8279a727e53ef59",
+    "bytes": 73244,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-fish-bro-640.jpg",
+      "width": 640,
+      "bytes": 23844,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-fish-bro-960.jpg",
+      "width": 960,
+      "bytes": 46720,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-veggie-cheese.jpg",
+    "row_key": "m.b8n",
+    "item": "Veggie Cheese Burger",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/85bf194b098f4641a6260321745fdd3c.jpg",
+    "source_listing": "Veggie cheeseburger",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "72195a343b5a8cbfa701f6831e697a847e3f60ad",
+    "bytes": 70998,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-veggie-cheese-640.jpg",
+      "width": 640,
+      "bytes": 23762,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-veggie-cheese-960.jpg",
+      "width": 960,
+      "bytes": 45864,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-angus-burger.jpg",
+    "row_key": "m.b9n",
+    "item": "Angus Burger",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/617c37cc05934166b3ae18a2acd43b56.jpg",
+    "source_listing": "แองกัสเบอร์เกอร์ (ANGUS BURGER)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "f4640523bf377eab6917b0eab4057b6fc63ff1ce",
+    "bytes": 62801,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-angus-burger-640.jpg",
+      "width": 640,
+      "bytes": 20960,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-angus-burger-960.jpg",
+      "width": 960,
+      "bytes": 41013,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-hot-dog.jpg",
+    "row_key": "m.d1n",
+    "item": "Hot Dog",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/f0acafba96ae4e2fa329a925152f05a8.jpg",
+    "source_listing": "ฮอทด็อก (HOT DOG)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "4c4d224af3b7b61a6bd038a94ebe7c0c09526e22",
+    "bytes": 103978,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-hot-dog-640.jpg",
+      "width": 640,
+      "bytes": 37502,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-hot-dog-960.jpg",
+      "width": 960,
+      "bytes": 67867,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-chilli-dog.jpg",
+    "row_key": "m.d2n",
+    "item": "Chilli Dog",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/bd74c2fa923b405688a3c29ce5b77068.jpg",
+    "source_listing": "ชิลลี่ด็อก (CHILLI DOG)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "da857978a676e64e0f2e4970b45b4cafa2a975ef",
+    "bytes": 99053,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-chilli-dog-640.jpg",
+      "width": 640,
+      "bytes": 35591,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-chilli-dog-960.jpg",
+      "width": 960,
+      "bytes": 64366,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-cheesy-bacon-dog.jpg",
+    "row_key": "m.d3n",
+    "item": "Cheesy Bacon Dog",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/c5c11a0de1024467a12e4b7f1ef5b20b.jpg",
+    "source_listing": "Cheesy Bacon Dog",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "08e563b223c097aa0c00d38749a30a983b1861bd",
+    "bytes": 102134,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-cheesy-bacon-dog-640.jpg",
+      "width": 640,
+      "bytes": 35463,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-cheesy-bacon-dog-960.jpg",
+      "width": 960,
+      "bytes": 65958,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-hawaiian-dog.jpg",
+    "row_key": "m.d4n",
+    "item": "Hawaiian Dog",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/a2265aa1416a4d0b8359165826fcbcbb.jpg",
+    "source_listing": "Hawaiian Dog",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "45c5dda0f371e9c86d5eb04aab5c7b2d683623a1",
+    "bytes": 100064,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-hawaiian-dog-640.jpg",
+      "width": 640,
+      "bytes": 35504,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-hawaiian-dog-960.jpg",
+      "width": 960,
+      "bytes": 65374,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-onion-rings.jpg",
+    "row_key": "m.c2n",
+    "item": "Onion Rings",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/a932a23e33df410eb2f754dd280d9425.jpg",
+    "source_listing": "หัวหอมทอด (ONION RINGS)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "72bcc199ff123de9bbe067d3bbf225a913c129d1",
+    "bytes": 103957,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-onion-rings-640.jpg",
+      "width": 640,
+      "bytes": 34982,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-onion-rings-960.jpg",
+      "width": 960,
+      "bytes": 65870,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-potato-wedges.jpg",
+    "row_key": "m.c3n",
+    "item": "Potato Wedges",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/1fad2a1a74564c5a9ce3f292a1c9616f.jpg",
+    "source_listing": "POTATO WEDGESS",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "fe60a704d271a8ad528517bf400cca3bdff47e5b",
+    "bytes": 97546,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-potato-wedges-640.jpg",
+      "width": 640,
+      "bytes": 33696,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-potato-wedges-960.jpg",
+      "width": 960,
+      "bytes": 62757,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-fried-corn.jpg",
+    "row_key": "m.c4n",
+    "item": "Fried Corn",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/cdfbaab0b1594244933b669fcd0227cf.jpg",
+    "source_listing": "ข้าวโพดทอดกรอบ (FRIED CORN)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "311d4fadac44af2569d70f8101916b46e2715348",
+    "bytes": 98704,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-fried-corn-640.jpg",
+      "width": 640,
+      "bytes": 35012,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-fried-corn-960.jpg",
+      "width": 960,
+      "bytes": 64362,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-chicken-bro.jpg",
+    "row_key": "m.c5n",
+    "item": "Chicken Bro",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/3dc9ca048ebd4782bc70957de70b85a1.jpg",
+    "source_listing": "ไก่ทอด (CHICKEN BRO)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "caaf33b142221b77f6a1334f8088f9f937dfa1cc",
+    "bytes": 115078,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-chicken-bro-640.jpg",
+      "width": 640,
+      "bytes": 38793,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-chicken-bro-960.jpg",
+      "width": 960,
+      "bytes": 72445,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-bbq-ribs.jpg",
+    "row_key": "m.s2n",
+    "item": "BBQ Pork Ribs",
+    "source": "https://img.wongnai.com/p/l/2023/09/01/d484e926790e4926b042bf0b3d3d6078.jpg",
+    "source_listing": "BBQ RIBs",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "5da168cd75fe42448a1c10652c38e00ac914ad18",
+    "bytes": 90241,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-bbq-ribs-640.jpg",
+      "width": 640,
+      "bytes": 29107,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-bbq-ribs-960.jpg",
+      "width": 960,
+      "bytes": 56730,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   },
+   {
+    "file": "media/menu-soft-drinks.jpg",
+    "row_key": "m.k3n",
+    "item": "Soft Drinks",
+    "source": "https://img.wongnai.com/p/l/2023/09/03/2a3db0f960a94245af8b975e9e276322.jpg",
+    "source_listing": "Coke (L)",
+    "source_page": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "fetched": "2026-10-10",
+    "sha1": "5e9f44a84dfccafeca71781ce570cd5b92e48910",
+    "bytes": 39246,
+    "width": 1280,
+    "height": 853,
+    "derivatives": [
+     {
+      "file": "media/menu-soft-drinks-640.jpg",
+      "width": 640,
+      "bytes": 14934,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     },
+     {
+      "file": "media/menu-soft-drinks-960.jpg",
+      "width": 960,
+      "bytes": 28713,
+      "made_with": "System.Drawing HighQualityBicubic, JPEG quality 80"
+     }
+    ]
+   }
+  ]
+ }
 }

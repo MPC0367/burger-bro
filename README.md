@@ -9,7 +9,7 @@ Live: https://mpc0367.github.io/burger-bro/ (GitHub Pages, `main` branch, reposi
 | Path | What it is |
 |---|---|
 | `index.html` | The whole page: markup, styles, Thai dictionary, script |
-| `media/*.jpg` | 12 original photos (1440px wide) and their `-640` / `-960` resized copies |
+| `media/*.jpg` | 12 original photos (1440px wide), 15 official menu photos from the shop's LINE MAN listing (1280px wide), and a `-640` / `-960` resized copy of each |
 | `media/seq/f00.jpg … f48.jpg` | 49 frames for the burger breakdown animation |
 | `media/favicon.svg` | The nav badge as a favicon |
 | `audit/` | Findings, inventory, before/after reconciliation and screenshots from the V2 pass |
