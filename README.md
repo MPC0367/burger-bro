@@ -36,15 +36,14 @@ Anything pushed to `main` is live about a minute later. Work on a branch, check 
 - **English text** is in the HTML. **Thai text** is in the `window.BB_TH` object near the bottom, matched by each element's `data-i18n` key. Menu item names stay in English in both languages.
 - **Prices** are plain text in the menu rows. The receipt at the bottom is a fixed illustration and does not read from the menu.
 - **Opening hours appear in six places.** Change all of them together: the hours table, `hero.meta1`, `nav.meta`, `mq.1`, `break.meta`, and the JSON-LD block in `<head>`.
-- **Phone** (`tel:+66827938855`, shown as 082-793-8855) appears in the hero, Find us and the footer.
+- **Phone** (`tel:+66827938855`, shown as 082-793-8855) appears in Find us and the footer.
 
-## Adding a delivery provider
+## Delivery links
 
-foodpanda Thailand closed in May 2025, so the page currently offers a call button and a walk-in map link instead. When there is a confirmed shop link:
+foodpanda Thailand closed in May 2025 and is not linked.
 
-1. Hero: change the red button's `href` to the shop link, add `target="_blank" rel="noopener"`, and set the text to `Order on <provider>`. Update `hero.call` in `BB_TH` (or give it a new key).
-2. Footer: add the same link as the first button in `.order-cta`.
-3. Delete the `order.note` line and its Thai entry.
+- **LINE MAN:** the mustard button in the footer (`data-i18n="order.lm"`) opens the shop's Wongnai × LINE MAN order page. The hero "Order delivery" and the "Order the signature" button both jump to that footer section (`#order`).
+- **GrabFood:** named in the `order.note` line without a link. When you have the shop's share link from the Grab app, add a second button in `.order-cta` next to the LINE MAN one (`Order on GrabFood`, `target="_blank" rel="noopener"`), add its Thai text to `BB_TH`, and delete the `order.note` line and its Thai entry.
 
 ## Photos
 

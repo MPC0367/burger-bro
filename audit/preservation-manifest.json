@@ -13,8 +13,8 @@
  },
  "working_tree": {
   "branch": "enhance/v2",
-  "html_bytes": 129591,
-  "html_gzip_bytes": 33767
+  "html_bytes": 129711,
+  "html_gzip_bytes": 33844
  },
  "stack": "single static index.html (inline CSS + vanilla JS, no build, no libraries), Google Fonts (Anton, Kanit, Libre Franklin, Space Mono), GitHub Pages from main /",
  "analytics": "none found in baseline or working tree",
@@ -144,12 +144,11 @@
    "th_after": "ครัวเปิดถึงดึก · ศุกร์–เสาร์ ถึง 02:00"
   },
   "bro.cta": {
-   "status": "removed",
+   "status": "retained",
    "en_before": "Order the signature",
-   "en_after": null,
+   "en_after": "Order the signature",
    "th_before": "สั่งซิกเนเจอร์เลย",
-   "th_after": null,
-   "reason": "BB-01: 'Order the signature' pointed at Foodpanda. Replaced by bro.menu (See the full menu -> #menu)."
+   "th_after": "สั่งซิกเนเจอร์เลย"
   },
   "bro.endp": {
    "status": "retained",
@@ -178,14 +177,6 @@
    "en_after": "TOP TO BOTTOM.",
    "th_before": "จากบนลงล่าง",
    "th_after": "จากบนลงล่าง"
-  },
-  "bro.menu": {
-   "status": "added",
-   "en_before": null,
-   "en_after": "See the full menu",
-   "th_before": null,
-   "th_after": "ดูเมนูทั้งหมด",
-   "reason": "BB-01 replacement for bro.cta."
   },
   "bro.meta": {
    "status": "retained",
@@ -391,14 +382,6 @@
    "th_before": "พุธ – พฤหัส",
    "th_after": "พุธ – พฤหัส"
   },
-  "hero.call": {
-   "status": "added",
-   "en_before": null,
-   "en_after": "Call 082-793-8855",
-   "th_before": null,
-   "th_after": "โทร 082-793-8855",
-   "reason": "BB-01 fallback action (existing phone number, existing wording from find.call/order.call)."
-  },
   "hero.cap": {
    "status": "retained",
    "en_before": "BIG BRO (BEEF) — ฿200 · DOUBLE PATTY · DOUBLE CHEDDAR · BRO SAUCE",
@@ -450,12 +433,11 @@
    "th_after": "4.4★ TRIPADVISOR<br>฿101–250 ต่อคน"
   },
   "hero.order": {
-   "status": "removed",
+   "status": "retained",
    "en_before": "Order delivery",
-   "en_after": null,
+   "en_after": "Order delivery",
    "th_before": "สั่งเดลิเวอรี",
-   "th_after": null,
-   "reason": "BB-01: label belonged to the Foodpanda link (service closed 24 May 2025). Replaced by hero.call (Call 082-793-8855)."
+   "th_after": "สั่งเดลิเวอรี"
   },
   "hero.sub": {
    "status": "retained",
@@ -1079,7 +1061,7 @@
    "en_after": null,
    "th_before": "สั่งผ่าน FOODPANDA",
    "th_after": null,
-   "reason": "BB-01: 'Order on foodpanda' removed; the existing Call button is now the primary action, plus order.note."
+   "reason": "BB-01: 'Order on foodpanda' removed (service closed in Thailand, May 2025). Replaced by order.lm (Order on LINE MAN)."
   },
   "order.l1": {
    "status": "retained",
@@ -1095,13 +1077,21 @@
    "th_before": "ซะที",
    "th_after": "ซะที"
   },
+  "order.lm": {
+   "status": "added",
+   "en_before": null,
+   "en_after": "Order on LINE MAN",
+   "th_before": null,
+   "th_after": "สั่งผ่าน LINE MAN",
+   "reason": "BB-01: LINE MAN order page for the Rama 9 branch (owner confirmed the platform; link verified against the Wongnai listing)."
+  },
   "order.note": {
    "status": "added",
    "en_before": null,
-   "en_after": "NO DELIVERY LINK HERE RIGHT NOW — CALL THE SHOP OR WALK IN.",
+   "en_after": "ALSO ON GRABFOOD — SEARCH “BURGER BRO” IN THE GRAB APP.",
    "th_before": null,
-   "th_after": "ตอนนี้หน้านี้ยังไม่มีลิงก์สั่งเดลิเวอรี — โทรหาร้านหรือแวะมาที่ร้านได้เลย",
-   "reason": "BB-01 honest status line for the missing delivery route."
+   "th_after": "มีใน GRABFOOD ด้วย — ค้นหา “BURGER BRO” ในแอป GRAB",
+   "reason": "BB-01: GrabFood is named without a link until the shop's Grab share link is supplied."
   },
   "order.p": {
    "status": "retained",
@@ -1936,9 +1926,9 @@
     "key": "sheet.order"
    },
    {
-    "href": "tel:+66827938855",
-    "text": "Call 082-793-8855",
-    "key": "hero.call"
+    "href": "#order",
+    "text": "Order delivery",
+    "key": "hero.order"
    },
    {
     "href": "#menu",
@@ -1951,9 +1941,9 @@
     "key": "bro.skip"
    },
    {
-    "href": "#menu",
-    "text": "See the full menu",
-    "key": "bro.menu"
+    "href": "#order",
+    "text": "Order the signature",
+    "key": "bro.cta"
    },
    {
     "href": "#menu-burgers",
@@ -1996,6 +1986,11 @@
     "key": "find.call"
    },
    {
+    "href": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "text": "Order on LINE MAN",
+    "key": "order.lm"
+   },
+   {
     "href": "tel:+66827938855",
     "text": "Call 082-793-8855",
     "key": "order.call"
@@ -2035,9 +2030,9 @@
   ],
   "added": [
    {
-    "href": "tel:+66827938855",
-    "text": "Call 082-793-8855",
-    "key": "hero.call"
+    "href": "#order",
+    "text": "Order delivery",
+    "key": "hero.order"
    },
    {
     "href": "#menu",
@@ -2045,9 +2040,9 @@
     "key": "bro.skip"
    },
    {
-    "href": "#menu",
-    "text": "See the full menu",
-    "key": "bro.menu"
+    "href": "#order",
+    "text": "Order the signature",
+    "key": "bro.cta"
    },
    {
     "href": "#menu-burgers",
@@ -2078,6 +2073,11 @@
     "href": "#menu-sets",
     "text": "Value sets",
     "key": "rail.g6"
+   },
+   {
+    "href": "https://www.wongnai.com/delivery/businesses/156615HR/order",
+    "text": "Order on LINE MAN",
+    "key": "order.lm"
    }
   ],
   "historical": {
