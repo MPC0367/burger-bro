@@ -691,9 +691,24 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .find-addr-th { margin-top: 8px; color: var(--ink-soft); font-size: 15px; }
 .find-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 30px; }
 .find-b2 { margin-top: 34px; color: var(--ink-soft); border-top: 2px solid var(--ink); padding-top: 16px; line-height: 1.8; }
-.find-map svg { display: block; width: 100%; height: auto; border: 2px solid var(--ink); background: var(--paper); box-shadow: 12px 12px 0 var(--red); }
-.map-label { font-family: var(--font-mono); font-size: 15px; font-weight: 700; letter-spacing: .06em; }
-.map-label-th { font-family: var(--font-th); font-weight: 500; letter-spacing: 0; }
+.find-map {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  box-shadow: 12px 12px 0 var(--red);
+}
+.find-map-frame { aspect-ratio: 640 / 520; background: var(--paper-deep); }
+.find-map-embed { display: block; width: 100%; height: 100%; border: 0; }
+.find-map-bar { display: flex; border-top: 2px solid var(--ink); }
+.find-map-bar a {
+  flex: 1; padding: 14px 16px 12px;
+  font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--paper); text-decoration: none;
+  transition: background var(--t-hover), color var(--t-hover);
+}
+.find-map-bar a + a { border-left: 2px solid var(--paper); }
+.find-map-bar a::after { content: " \2197"; content: " \2197" / ""; } /* the arrow is decoration, not read aloud */
+.find-map-bar a:hover, .find-map-bar a:focus-visible { background: var(--red); color: var(--white); }
+body[data-lang="th"] .find-map-bar a { font-size: 14px; letter-spacing: .02em; }
 
 /* ============================================================
    ORDER / RECEIPT FOOTER
@@ -1020,6 +1035,7 @@ html.shot-full .cinema { height: 980px; }
   .story-fig-b img, .story-fig-c img { aspect-ratio: 4 / 3.4; }
 
   .find-grid, .order-grid { grid-template-columns: 1fr; }
+  .find-map-frame { aspect-ratio: 1 / 1; } /* taller on a phone: room to pan with a finger */
   .receipt { max-width: 420px; justify-self: center; transform: rotate(-1.2deg); }
   .foot-disc { text-align: left; }
 }
@@ -1029,7 +1045,8 @@ html.shot-full .cinema { height: 980px; }
   .nav-brand-word { font-size: 20px; }
   .nav-badge { width: 36px; height: 36px; }
   .hero-h { font-size: clamp(64px, 21vw, 96px); }
-  .frame-red img, .find-map svg { box-shadow: 8px 8px 0 var(--red); }
+  .frame-red img { box-shadow: 8px 8px 0 var(--red); }
+  .find-map { box-shadow: 8px 8px 0 var(--red); }
   .frame-mustard .bro-fig-window { box-shadow: 8px 8px 0 var(--mustard); }
   .mrow-name { font-size: 21px; }
   .marquee-run { font-size: 11.5px; }
@@ -1057,7 +1074,7 @@ html.shot-full .cinema { height: 980px; }
   .bro-step { opacity: 1; }
   .cinema-media img { transform: none !important; height: 100%; }
   .bro-video { display: none !important; }
-  .mrow-float { display: none; }
+  .mrow-float, .mrow-float.is-on { transform: none; } /* plate still shows; script places it, no tilt */
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
@@ -1532,42 +1549,22 @@ html.shot-full .cinema { height: 980px; }
           <p class="find-addr-th" lang="th" data-i18n="find.addr2">443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250</p>
         </address>
         <div class="find-cta">
-          <a class="btn btn-red" href="https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok" target="_blank" rel="noopener" data-i18n="find.maps">Google Maps</a>
+          <a class="btn btn-red" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.maps">Google Maps</a>
           <a class="btn" href="tel:+66827938855" data-i18n="find.call">Call 082-793-8855</a>
         </div>
         <p class="find-b2 mono" data-i18n="find.b2">BRANCH 2 — BURGER BRO &amp; STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00</p>
       </div>
-      <figure class="find-map frame frame-red" aria-label="Sketch map to Burger Bro Rama 9">
-        <svg viewBox="0 0 640 520" role="img" aria-labelledby="mapTitle">
-          <title id="mapTitle">Sketch map: Rama 9 Road, turn into Soi 49, Burger Bro is past the second bend, next to the ATM</title>
-          <rect x="0" y="0" width="640" height="520" fill="var(--paper)"/>
-          <!-- Rama 9 road -->
-          <path d="M-10 84 H650" stroke="var(--ink)" stroke-width="34" fill="none"/>
-          <path d="M-10 84 H650" stroke="var(--paper)" stroke-width="2.5" stroke-dasharray="18 14" fill="none"/>
-          <text x="24" y="52" class="map-label" fill="var(--ink)">RAMA 9 RD → MOTORWAY</text>
-          <!-- Soi 49 -->
-          <path d="M470 101 V300 Q470 330 440 330 H330 Q300 330 300 360 V450" stroke="var(--ink)" stroke-width="20" fill="none"/>
-          <text x="488" y="180" class="map-label" fill="var(--ink)">SOI 49</text>
-          <text x="488" y="204" class="map-label map-label-th" fill="var(--ink)">ซ. 49</text>
-          <!-- ATM -->
-          <rect x="342" y="368" width="46" height="30" fill="var(--mustard)" stroke="var(--ink)" stroke-width="3"/>
-          <text x="365" y="388" class="map-label" text-anchor="middle" fill="var(--ink)">ATM</text>
-          <!-- The shop -->
-          <g class="map-pin">
-            <rect x="216" y="352" width="72" height="62" fill="var(--red)" stroke="var(--ink)" stroke-width="4"/>
-            <text x="252" y="378" class="map-label" text-anchor="middle" fill="var(--white)">BURGER</text>
-            <text x="252" y="398" class="map-label" text-anchor="middle" fill="var(--white)">BRO!</text>
-            <circle cx="252" cy="330" r="10" fill="var(--red)" stroke="var(--ink)" stroke-width="3"/>
-            <path d="M252 340 L252 352" stroke="var(--ink)" stroke-width="3"/>
-          </g>
-          <!-- doodles -->
-          <circle cx="80" cy="200" r="5" fill="var(--red)"/>
-          <circle cx="120" cy="260" r="8" fill="none" stroke="var(--red)" stroke-width="3"/>
-          <path d="M70 320 q14 -18 28 0 q14 18 28 0" stroke="var(--red)" stroke-width="3" fill="none"/>
-          <circle cx="560" cy="420" r="5" fill="var(--red)"/>
-          <path d="M520 460 q14 -18 28 0" stroke="var(--red)" stroke-width="3" fill="none"/>
-          <text x="24" y="492" class="map-label" fill="var(--red)">NOT TO SCALE — FOLLOW THE SMELL</text>
-        </svg>
+      <figure class="find-map">
+        <div class="find-map-frame">
+          <iframe class="find-map-embed"
+            src="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed"
+            title="Map: Burger Bro, Rama 9 Soi 49, Bangkok" aria-label="Map: Burger Bro, Rama 9 Soi 49, Bangkok" data-i18n-aria="a11y.map"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <figcaption class="find-map-bar mono">
+          <a href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.open">Open in Google Maps</a>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" target="_blank" rel="noopener" data-i18n="find.dir">Directions</a>
+        </figcaption>
       </figure>
     </div>
   </div>
@@ -1589,7 +1586,7 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <div class="order-cta order-cta-alt">
         <a class="btn btn-ghost" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
-        <a class="btn btn-ghost" href="https://maps.google.com/?q=Burger+Bro+Rama+9+Soi+49+Bangkok" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
+        <a class="btn btn-ghost" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
       <p class="order-note mono" data-i18n="order.note">GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.</p>
       <div class="order-social mono">
@@ -1649,6 +1646,7 @@ window.BB_TH = {
   "@aria:a11y.rail": "หมวดเมนู",
   "@aria:a11y.hours": "เวลาเปิดทำการ",
   "@aria:a11y.receipt": "ใบเสร็จตัวอย่าง",
+  "@aria:a11y.map": "แผนที่ Burger Bro ซอยพระราม 9 ซอย 49 กรุงเทพฯ",
 
   "nav.bro": "เดอะโบร",
   "nav.menu": "เมนู",
@@ -1799,6 +1797,8 @@ window.BB_TH = {
   "find.addr": "443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250 — ติดตู้ ATM สีเหลือง",
   "find.addr2": "443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM.",
   "find.maps": "GOOGLE MAPS",
+  "find.open": "เปิดใน Google Maps",
+  "find.dir": "นำทาง",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
 
@@ -1836,7 +1836,6 @@ window.BB_TH = {
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var finePointer = window.matchMedia("(pointer: fine)").matches;
   var wideScreen = window.matchMedia("(min-width: 901px)");
   var docEl = document.documentElement;
 
@@ -2484,37 +2483,59 @@ window.BB_TH = {
   }
   window.__spotCheck = spotEval; // QA hook: evaluate synchronously
 
+  /* Which photo treatment a screen gets is decided as it is used, not once at load:
+     a computer whose window was narrow at load, a touch laptop with a trackpad, or a
+     visitor with Reduce Motion on all still get the hover plate on a wide window.
+     Wide screens that cannot hover at all (a tablet held sideways) get thumbnails. */
+  var anyHover = window.matchMedia("(any-hover: hover)");
+  function widePhotos() { if (!anyHover.matches) ensureThumbs(); }
+
   if (wideScreen.addEventListener) {
     wideScreen.addEventListener("change", function (e) {
-      if (e.matches) { spotEval(); return; } // clears any lingering spotlight
+      if (e.matches) { spotEval(); widePhotos(); return; } // clears any lingering spotlight
       if (reduceMotion) ensureThumbs();
       else enableSpotlight();
     });
   }
 
-  if (finePointer && wideScreen.matches && !reduceMotion && floatEl && floatImg) {
+  if (floatEl && floatImg) {
     var fx = 0, fy = 0, ftx = 0, fty = 0, floatOn = false, floatRaf = false;
+    var floatEase = reduceMotion ? 1 : 0.16; // Reduce Motion: the plate sits by the pointer, no glide or tilt
     function floatFrame() {
-      fx += (ftx - fx) * 0.16;
-      fy += (fty - fy) * 0.16;
+      fx += (ftx - fx) * floatEase;
+      fy += (fty - fy) * floatEase;
       floatEl.style.transform = "translate(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px)"
-        + (floatOn ? " rotate(2deg)" : " scale(.86) rotate(-3deg)");
+        + (reduceMotion ? "" : floatOn ? " rotate(2deg)" : " scale(.86) rotate(-3deg)");
       if (floatOn || Math.abs(ftx - fx) > 0.5) requestAnimationFrame(floatFrame);
       else floatRaf = false;
     }
+    function floatAim(e) {
+      ftx = Math.min(e.clientX + 30, window.innerWidth - 310);
+      fty = Math.max(20, Math.min(e.clientY - 130, window.innerHeight - 240));
+    }
     photoRows.forEach(function (row) {
       row.addEventListener("pointerenter", function (e) {
+        if (e.pointerType === "touch") return; // fingers get the scroll plates or thumbnails
         if (!wideScreen.matches || row.classList.contains("is-open")) return; // photo already open inline
         floatSrc(row);
         floatEl.classList.add("is-on");
         floatOn = true;
-        ftx = e.clientX + 30; fty = e.clientY - 130;
+        floatAim(e);
         fx = ftx; fy = fty;
         if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
       });
       row.addEventListener("pointermove", function (e) {
-        ftx = Math.min(e.clientX + 30, window.innerWidth - 310);
-        fty = Math.max(20, Math.min(e.clientY - 130, window.innerHeight - 240));
+        if (e.pointerType === "touch") return;
+        if (!floatOn && wideScreen.matches && !row.classList.contains("is-open")) {
+          // the window widened, or the page scrolled a row under a still pointer
+          floatSrc(row);
+          floatEl.classList.add("is-on");
+          floatOn = true;
+          floatAim(e);
+          fx = ftx; fy = fty;
+        } else {
+          floatAim(e);
+        }
         if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
       });
       row.addEventListener("pointerleave", function () {
@@ -2541,9 +2562,14 @@ window.BB_TH = {
       floatEl.classList.remove("is-on");
       floatOn = false;
     };
-  } else if (photoRows.length && (!finePointer || !wideScreen.matches)) {
-    if (reduceMotion) ensureThumbs();
-    else enableSpotlight();
+  }
+  if (photoRows.length) {
+    if (!wideScreen.matches) {
+      if (reduceMotion) ensureThumbs();
+      else enableSpotlight();
+    } else {
+      widePhotos();
+    }
   }
 
   /* section rail — plain anchor links; this only keeps the "you are here" cue in step

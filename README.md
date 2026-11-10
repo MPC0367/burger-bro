@@ -49,7 +49,11 @@ foodpanda Thailand closed in May 2025 and is not linked.
 
 ## Photos
 
-Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `name-640.jpg` and `name-960.jpg` from it and keep the file names. A menu row with a `data-img` attribute shows its photo on hover (desktop), when it scrolls to mid-screen (phones), and through a Photo button that only appears on keyboard focus. Add `data-img` only when the picture really is that item.
+Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `name-640.jpg` and `name-960.jpg` from it and keep the file names. A menu row with a `data-img` attribute shows its photo on hover with a mouse or trackpad on any window wider than 900px (decided as the pointer moves, so a window resized after loading, a touch laptop and Reduce Motion all get it; under Reduce Motion the photo sits by the pointer without the glide and tilt), when it scrolls to mid-screen (phones), as a thumbnail on wide screens that cannot hover (tablets), and through a Photo button that only appears on keyboard focus. Add `data-img` only when the picture really is that item.
+
+## Map
+
+Find us shows a live Google map (`.find-map`, a keyless `maps.google.com/maps?…&output=embed` frame, loaded lazily) with "Open in Google Maps" and "Directions" under it. Every Google Maps link on the page opens the shop's own listing by its place number, `https://maps.google.com/?cid=4340520789969302256` (Burger Bro, 443 Rama IX Soi 49; checked 10 Nov 2026). The hand-drawn sketch map it replaced is in git history before that date.
 
 ## QA helpers built into the page
 
