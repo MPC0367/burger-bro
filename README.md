@@ -53,7 +53,12 @@ Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `
 
 ## Map
 
-Find us shows a live Google map (`.find-map`, a keyless `maps.google.com/maps?…&output=embed` frame, loaded lazily) with "Open in Google Maps" and "Directions" under it. Every Google Maps link on the page opens the shop's own listing by its place number, `https://maps.google.com/?cid=4340520789969302256` (Burger Bro, 443 Rama IX Soi 49; checked 10 Nov 2026). The hand-drawn sketch map it replaced is in git history before that date.
+Find us shows all three branches on one map in the site's own colours (paper ground, white streets, expressways in mustard with ink edges, pins styled like the buttons): **Rama 9**, **Pattanakarn** (1348 Phatthanakan Rd) and **Srinakarin** (Srinagarindra Rd, opposite Thanya Park). The tabs above it, or a pin, choose a branch: the map moves to it and "Open in Google Maps" and "Directions" under it follow. The info column lists branches 2 and 3, each with its own Google Maps link.
+
+- **How it is drawn:** MapLibre GL 5.24.0 from cdnjs (with integrity hashes) on OpenFreeMap's free OpenStreetMap tiles (`tiles.openfreemap.org/styles/positron`, recoloured in `mapPaint` in the script; no key, no account, no cookies). It loads only as the visitor nears Find us. Street names follow the page language.
+- **Fallback:** if the library, the tiles or WebGL fail, Google's map of the chosen branch takes the frame (each tab's `data-embed`); visitors without JavaScript get Google's map of Rama 9.
+- **Branch data** is on each tab: `data-lat`/`data-lng` (from each branch's Google listing), `data-open`, `data-dir`, `data-embed`. Rama 9 opens `https://maps.google.com/?cid=4340520789969302256`, Pattanakarn `?cid=12405364053160930417`. **Srinakarin's Google listing (888 Srinagarindra Rd, 082 717 8855) is marked "Permanently closed" by Google** while Wongnai still lists it open (11:00–21:00), so its links use its coordinates rather than the closed listing. Confirm with the shop; if it is open, its owner can mark the listing open again in Google Business Profile.
+- The hand-drawn sketch map that Find us had until 10 Nov 2026 is in git history.
 
 ## QA helpers built into the page
 

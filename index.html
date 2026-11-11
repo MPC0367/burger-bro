@@ -711,7 +711,35 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .find-map-tab:hover { background: var(--paper-deep); }
 .find-map-tab[aria-pressed="true"] { background: var(--red); color: var(--white); }
 body[data-lang="th"] .find-map-tab { font-size: 14px; letter-spacing: .02em; }
-.find-map-frame { aspect-ratio: 640 / 520; background: var(--paper-deep); }
+.find-map-frame { position: relative; aspect-ratio: 640 / 520; background: var(--paper-deep); overflow: hidden; }
+#findMapCanvas { position: absolute; inset: 0; } /* an id, so MapLibre's own .maplibregl-map { position: relative } cannot collapse it */
+.find-map-canvas[hidden], .find-map-embed[hidden] { display: none; }
+/* the styled map's pins and controls, in the site's own paper, ink and red */
+.bb-pin {
+  display: block; padding: 5px 9px 4px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  line-height: 1.25; text-align: center; white-space: nowrap;
+  color: var(--ink); background: var(--paper);
+  border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  transition: background var(--t-hover), color var(--t-hover);
+}
+.bb-pin::after { /* the point that touches the spot */
+  content: ""; position: absolute; left: 50%; bottom: -11px; margin-left: -8px;
+  border: 8px solid transparent; border-top: 9px solid var(--ink); border-bottom: 0;
+}
+.bb-pin-brand { display: block; font-size: 8.5px; letter-spacing: .16em; opacity: .75; }
+.bb-pin:hover { background: var(--white); }
+.bb-pin[aria-pressed="true"] { background: var(--red); color: var(--white); z-index: 2; }
+.bb-pin:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+body[data-lang="th"] .bb-pin-name { font-family: var(--font-th); letter-spacing: .02em; font-size: 13px; }
+#findMapCanvas .maplibregl-ctrl-group { border-radius: 0; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); background: var(--paper); }
+#findMapCanvas .maplibregl-ctrl-group button { width: 32px; height: 32px; }
+#findMapCanvas .maplibregl-ctrl-group button + button { border-top: 2px solid var(--ink); }
+#findMapCanvas .maplibregl-ctrl-group button:hover { background-color: var(--paper-deep); }
+#findMapCanvas .maplibregl-ctrl-attrib { font-family: var(--font-mono); font-size: 9.5px; background: rgba(245, 238, 223, .88); color: var(--ink-soft); }
+#findMapCanvas .maplibregl-ctrl-attrib a { color: var(--ink-soft); }
+#findMapCanvas .maplibregl-cooperative-gesture-screen { font-family: var(--font-mono); font-size: 13px; background: rgba(34, 21, 17, .78); color: var(--paper); }
 .find-map-embed { display: block; width: 100%; height: 100%; border: 0; }
 .find-map-bar { display: flex; border-top: 2px solid var(--ink); }
 .find-map-bar a {
@@ -1574,15 +1602,16 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <figure class="find-map" id="findMap">
         <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
-          <button type="button" class="find-map-tab" aria-pressed="true" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-i18n="br.r9">Rama 9</button>
-          <button type="button" class="find-map-tab" aria-pressed="false" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-i18n="br.pk">Pattanakarn</button>
-          <button type="button" class="find-map-tab" aria-pressed="false" data-embed="https://maps.google.com/maps?q=13.7266896,100.6412326&amp;z=16&amp;output=embed" data-open="https://www.google.com/maps/search/?api=1&amp;query=13.7266896%2C100.6412326" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=13.7266896%2C100.6412326" data-i18n="br.sr">Srinakarin</button>
+          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-i18n="br.r9">Rama 9</button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-i18n="br.pk">Pattanakarn</button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7266896" data-lng="100.6412326" data-embed="https://maps.google.com/maps?q=13.7266896,100.6412326&amp;z=16&amp;output=embed" data-open="https://www.google.com/maps/search/?api=1&amp;query=13.7266896%2C100.6412326" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=13.7266896%2C100.6412326" data-i18n="br.sr">Srinakarin</button>
         </div>
         <div class="find-map-frame">
-          <iframe class="find-map-embed"
-            src="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed"
+          <div class="find-map-canvas" id="findMapCanvas" role="region" aria-label="Map of Burger Bro's three branches" data-i18n-aria="a11y.mapAll"></div>
+          <iframe class="find-map-embed" hidden
             title="Map of the chosen Burger Bro branch" aria-label="Map of the chosen Burger Bro branch" data-i18n-aria="a11y.map"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <noscript><iframe class="find-map-embed" src="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" title="Map of Burger Bro, Rama 9" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
         </div>
         <figcaption class="find-map-bar mono">
           <a id="findMapOpen" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.open">Open in Google Maps</a>
@@ -1671,6 +1700,7 @@ window.BB_TH = {
   "@aria:a11y.receipt": "ใบเสร็จตัวอย่าง",
   "@aria:a11y.map": "แผนที่สาขา Burger Bro ที่เลือก",
   "@aria:a11y.branches": "เลือกสาขาบนแผนที่",
+  "@aria:a11y.mapAll": "แผนที่สามสาขาของ Burger Bro",
 
   "nav.bro": "เดอะโบร",
   "nav.menu": "เมนู",
@@ -2601,21 +2631,177 @@ window.BB_TH = {
     }
   }
 
-  /* Find us — branch tabs on the map. Each tab carries its branch's map and links;
-     the map frame only reloads when a different branch is chosen. */
+  /* Find us — the map. All three branches, drawn in the site's own colours with MapLibre
+     on OpenFreeMap's free OpenStreetMap tiles (no key, no cookies), loaded only as the
+     visitor nears Find us. The tabs and the pins choose a branch: the map moves to it and
+     the two links under it follow. If the library, the tiles or WebGL fail, Google's map
+     of the chosen branch takes the frame instead. */
   var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".find-map-tab"));
-  var mapFrame = document.querySelector(".find-map-embed");
+  var mapFrame = document.querySelector(".find-map-frame .find-map-embed[hidden]");
+  var mapCanvas = document.getElementById("findMapCanvas");
   var mapOpen = document.getElementById("findMapOpen");
   var mapDir = document.getElementById("findMapDir");
-  mapTabs.forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      if (tab.getAttribute("aria-pressed") === "true") return;
-      mapTabs.forEach(function (t) { t.setAttribute("aria-pressed", String(t === tab)); });
-      if (mapFrame) mapFrame.src = tab.getAttribute("data-embed");
-      if (mapOpen) mapOpen.href = tab.getAttribute("data-open");
-      if (mapDir) mapDir.href = tab.getAttribute("data-dir");
+  var bbMap = null, bbPins = [], mapMode = "none"; // none | loading | styled | google
+  var MAPLIBRE = "https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.24.0/";
+  var MAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
+  var MAP_C = { paper: "#F5EEDF", ink: "#221511", soft: "#4A382F", white: "#FFF9EE", mustard: "#F1A62B",
+    water: "#CFD2C6", green: "#E6E0C4", built: "#ECE1CB", edge: "#D9CAAE", line: "#B49E80" };
+  function mapIsThai() { return document.body.getAttribute("data-lang") === "th"; }
+  function mapPoint(tab) { return [parseFloat(tab.getAttribute("data-lng")), parseFloat(tab.getAttribute("data-lat"))]; }
+  function mapNames(th) {
+    return th ? ["coalesce", ["get", "name:th"], ["get", "name"]]
+      : ["coalesce", ["get", "name:en"], ["get", "name_en"], ["get", "name:latin"], ["get", "name"]];
+  }
+  function mapPaint(style, th) {
+    style.layers = style.layers.filter(function (l) { return l.type !== "raster" && !/shield/.test(l.id); });
+    style.layers.forEach(function (l) {
+      var id = l.id, p = l.paint = l.paint || {};
+      if (l.type === "background") p["background-color"] = MAP_C.paper;
+      else if (id === "water") p["fill-color"] = MAP_C.water;
+      else if (id === "waterway") p["line-color"] = MAP_C.water;
+      else if (id === "park" || /^landcover/.test(id)) p["fill-color"] = MAP_C.green;
+      else if (id === "landuse_residential") p["fill-color"] = "rgba(237, 226, 204, .45)";
+      else if (id === "building") { p["fill-color"] = MAP_C.built; p["fill-outline-color"] = MAP_C.edge; }
+      else if (/^aeroway/.test(id)) p[l.type + "-color"] = MAP_C.edge;
+      else if (id === "highway_path" || id === "road_pier") p["line-color"] = MAP_C.edge;
+      else if (id === "highway_minor") { p["line-color"] = MAP_C.white; p["line-opacity"] = 1; }
+      else if (/motorway.*casing/.test(id)) p["line-color"] = MAP_C.ink;
+      else if (/motorway.*inner/.test(id)) p["line-color"] = MAP_C.mustard;
+      else if (/major_casing/.test(id)) p["line-color"] = MAP_C.line;
+      else if (/major_inner/.test(id)) p["line-color"] = MAP_C.white;
+      else if (/subtle/.test(id)) p["line-color"] = MAP_C.edge;
+      else if (/^railway/.test(id)) p["line-color"] = MAP_C.line;
+      else if (/^boundary/.test(id)) p["line-color"] = MAP_C.line;
+      if (l.type === "symbol" && l.layout && l.layout["text-field"]) {
+        l.layout["text-field"] = mapNames(th);
+        p["text-color"] = /^highway|^road|^waterway/.test(id) ? MAP_C.soft : MAP_C.ink;
+        p["text-halo-color"] = MAP_C.paper;
+        p["text-halo-width"] = 1.5;
+      }
     });
+    return style;
+  }
+  function mapPressed() {
+    for (var k = 0; k < mapTabs.length; k++) if (mapTabs[k].getAttribute("aria-pressed") === "true") return k;
+    return 0;
+  }
+  function selectBranch(i, move) {
+    var tab = mapTabs[i];
+    mapTabs.forEach(function (t, k) { t.setAttribute("aria-pressed", String(k === i)); });
+    bbPins.forEach(function (pin, k) { pin.setAttribute("aria-pressed", String(k === i)); });
+    if (mapOpen) mapOpen.href = tab.getAttribute("data-open");
+    if (mapDir) mapDir.href = tab.getAttribute("data-dir");
+    if (mapMode === "styled" && move) {
+      var to = { center: mapPoint(tab), zoom: 16 };
+      if (reduceMotion) bbMap.jumpTo(to); else bbMap.flyTo({ center: to.center, zoom: to.zoom, speed: 1.6, curve: 1.3 });
+    } else if (mapMode === "google" && mapFrame) {
+      var src = tab.getAttribute("data-embed");
+      if (mapFrame.getAttribute("src") !== src) mapFrame.src = src;
+    }
+  }
+  mapTabs.forEach(function (tab, i) {
+    tab.addEventListener("click", function () { selectBranch(i, true); });
   });
+  function useGoogleMap() {
+    if (mapMode === "google" || !mapFrame) return;
+    mapMode = "google";
+    if (bbMap) { try { bbMap.remove(); } catch (e) {} bbMap = null; }
+    bbPins = [];
+    if (mapCanvas) mapCanvas.hidden = true;
+    mapFrame.hidden = false;
+    mapFrame.src = mapTabs[mapPressed()].getAttribute("data-embed");
+  }
+  function startStyledMap() {
+    var ml = window.maplibregl;
+    if (!ml || !mapCanvas) { useGoogleMap(); return; }
+    var th = mapIsThai();
+    fetch(MAP_STYLE).then(function (r) { if (!r.ok) throw new Error("style " + r.status); return r.json(); })
+      .then(function (style) {
+        if (mapMode !== "loading") return;
+        var pts = mapTabs.map(mapPoint);
+        var bounds = new ml.LngLatBounds(pts[0], pts[0]);
+        pts.forEach(function (pt) { bounds.extend(pt); });
+        var map;
+        try {
+          map = new ml.Map({
+            container: mapCanvas, style: mapPaint(style, th), bounds: bounds,
+            fitBoundsOptions: { padding: { top: 76, bottom: 44, left: 70, right: 70 }, maxZoom: 15 },
+            cooperativeGestures: true, attributionControl: false,
+            dragRotate: false, pitchWithRotate: false, touchPitch: false,
+            locale: th ? {
+              "NavigationControl.ZoomIn": "ขยาย", "NavigationControl.ZoomOut": "ย่อ",
+              "CooperativeGesturesHandler.WindowsHelpText": "กด Ctrl ค้างไว้แล้วเลื่อนเพื่อซูมแผนที่",
+              "CooperativeGesturesHandler.MacHelpText": "กด ⌘ ค้างไว้แล้วเลื่อนเพื่อซูมแผนที่",
+              "CooperativeGesturesHandler.MobileHelpText": "ใช้สองนิ้วเพื่อเลื่อนแผนที่",
+              "AttributionControl.ToggleAttribution": "ข้อมูลแผนที่", "Map.Title": "แผนที่"
+            } : {}
+          });
+        } catch (e) { useGoogleMap(); return; } // no WebGL
+        bbMap = map;
+        map.touchZoomRotate.disableRotation();
+        map.addControl(new ml.NavigationControl({ showCompass: false }), "top-right");
+        map.addControl(new ml.AttributionControl({ compact: false }), "bottom-right");
+        mapTabs.forEach(function (tab, i) {
+          var pin = document.createElement("button");
+          pin.type = "button";
+          pin.className = "bb-pin";
+          pin.setAttribute("aria-pressed", tab.getAttribute("aria-pressed"));
+          pin.innerHTML = '<span class="bb-pin-brand">Burger Bro!</span><span class="bb-pin-name"></span>';
+          pin.querySelector(".bb-pin-name").textContent = tab.textContent;
+          pin.setAttribute("aria-label", "Burger Bro " + tab.textContent);
+          pin.addEventListener("click", function (e) { e.stopPropagation(); selectBranch(i, true); });
+          bbPins.push(pin);
+          new ml.Marker({ element: pin, anchor: "bottom", offset: [0, -11] }).setLngLat(pts[i]).addTo(map);
+        });
+        var late = window.setTimeout(useGoogleMap, 12000); // nothing drawn in time: Google's map instead
+        map.once("load", function () { window.clearTimeout(late); if (mapMode === "loading") mapMode = "styled"; });
+      })
+      .catch(useGoogleMap);
+  }
+  function loadStyledMap() {
+    if (mapMode !== "none") return;
+    mapMode = "loading";
+    if (!window.fetch || !mapCanvas) { useGoogleMap(); return; }
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = MAPLIBRE + "maplibre-gl.css";
+    css.integrity = "sha512-KIMsMWIdnoG9OwZa+oaIafmbDonqck1UCmq+/zcUi2aaZ97N9QE6TqpTM+n36EO40HGh64hU/375zxtjx7WTyQ==";
+    css.crossOrigin = "anonymous";
+    document.head.appendChild(css);
+    var js = document.createElement("script");
+    js.src = MAPLIBRE + "maplibre-gl.js";
+    js.integrity = "sha512-rOFgoUgWaVi69JW1dzBu6PWF9xKW9rxYfY5u2SexFABHhWk0qUWkJoWNz4UuZRMvSXsNZG66+tU5B+HlwWF5kA==";
+    js.crossOrigin = "anonymous";
+    js.onload = startStyledMap;
+    js.onerror = useGoogleMap;
+    document.head.appendChild(js);
+  }
+  // the language switch: street names and pin names follow it
+  if (window.MutationObserver) {
+    new MutationObserver(function () {
+      var th = mapIsThai();
+      bbPins.forEach(function (pin, k) {
+        pin.querySelector(".bb-pin-name").textContent = mapTabs[k].textContent;
+        pin.setAttribute("aria-label", "Burger Bro " + mapTabs[k].textContent);
+      });
+      if (mapMode === "styled" && bbMap) {
+        bbMap.getStyle().layers.forEach(function (l) {
+          if (l.type === "symbol" && l.layout && l.layout["text-field"]) bbMap.setLayoutProperty(l.id, "text-field", mapNames(th));
+        });
+      }
+    }).observe(document.body, { attributes: true, attributeFilter: ["data-lang"] });
+  }
+  var findSection = document.getElementById("find");
+  if (findSection && "IntersectionObserver" in window) {
+    var mapIO = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (en) { return en.isIntersecting; })) return;
+      mapIO.disconnect();
+      loadStyledMap();
+    }, { rootMargin: "120% 0px" });
+    mapIO.observe(findSection);
+  } else {
+    loadStyledMap();
+  }
 
   /* section rail — plain anchor links; this only keeps the "you are here" cue in step
      with manual scrolling. It never moves the page or takes focus. */
