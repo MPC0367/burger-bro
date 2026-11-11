@@ -691,11 +691,26 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .find-addr-th { margin-top: 8px; color: var(--ink-soft); font-size: 15px; }
 .find-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 30px; }
 .find-b2 { margin-top: 34px; color: var(--ink-soft); border-top: 2px solid var(--ink); padding-top: 16px; line-height: 1.8; }
+.find-b2 p + p { margin-top: 10px; }
+.find-b2-map { color: var(--red); font-weight: 700; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
+.find-b2-map::after { content: " \2197"; content: " \2197" / ""; }
+.find-b2-map:hover, .find-b2-map:focus-visible { color: var(--ink); }
 .find-map {
   border: 2px solid var(--ink);
   background: var(--ink);
   box-shadow: 12px 12px 0 var(--red);
 }
+.find-map-tabs { display: flex; border-bottom: 2px solid var(--ink); background: var(--paper); }
+.find-map-tab {
+  flex: 1; padding: 13px 10px 11px;
+  font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink); background: transparent; border: 0; cursor: pointer;
+  transition: background var(--t-hover), color var(--t-hover);
+}
+.find-map-tab + .find-map-tab { border-left: 2px solid var(--ink); }
+.find-map-tab:hover { background: var(--paper-deep); }
+.find-map-tab[aria-pressed="true"] { background: var(--red); color: var(--white); }
+body[data-lang="th"] .find-map-tab { font-size: 14px; letter-spacing: .02em; }
 .find-map-frame { aspect-ratio: 640 / 520; background: var(--paper-deep); }
 .find-map-embed { display: block; width: 100%; height: 100%; border: 0; }
 .find-map-bar { display: flex; border-top: 2px solid var(--ink); }
@@ -1552,18 +1567,26 @@ html.shot-full .cinema { height: 980px; }
           <a class="btn btn-red" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.maps">Google Maps</a>
           <a class="btn" href="tel:+66827938855" data-i18n="find.call">Call 082-793-8855</a>
         </div>
-        <p class="find-b2 mono" data-i18n="find.b2">BRANCH 2 — BURGER BRO &amp; STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00</p>
+        <div class="find-b2 mono">
+          <p><span data-i18n="find.b2">BRANCH 2 — BURGER BRO &amp; STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00</span> <a class="find-b2-map" href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
+          <p><span data-i18n="find.b3">BRANCH 3 — SRINAKARIN RD (IN THE SUSCO STATION, OPPOSITE THANYA PARK) · 11:00–21:00</span> <a class="find-b2-map" href="https://www.google.com/maps/search/?api=1&amp;query=13.7266896%2C100.6412326" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
+        </div>
       </div>
-      <figure class="find-map">
+      <figure class="find-map" id="findMap">
+        <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
+          <button type="button" class="find-map-tab" aria-pressed="true" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-i18n="br.r9">Rama 9</button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-i18n="br.pk">Pattanakarn</button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-embed="https://maps.google.com/maps?q=13.7266896,100.6412326&amp;z=16&amp;output=embed" data-open="https://www.google.com/maps/search/?api=1&amp;query=13.7266896%2C100.6412326" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=13.7266896%2C100.6412326" data-i18n="br.sr">Srinakarin</button>
+        </div>
         <div class="find-map-frame">
           <iframe class="find-map-embed"
             src="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed"
-            title="Map: Burger Bro, Rama 9 Soi 49, Bangkok" aria-label="Map: Burger Bro, Rama 9 Soi 49, Bangkok" data-i18n-aria="a11y.map"
+            title="Map of the chosen Burger Bro branch" aria-label="Map of the chosen Burger Bro branch" data-i18n-aria="a11y.map"
             loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
         <figcaption class="find-map-bar mono">
-          <a href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.open">Open in Google Maps</a>
-          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" target="_blank" rel="noopener" data-i18n="find.dir">Directions</a>
+          <a id="findMapOpen" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.open">Open in Google Maps</a>
+          <a id="findMapDir" href="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" target="_blank" rel="noopener" data-i18n="find.dir">Directions</a>
         </figcaption>
       </figure>
     </div>
@@ -1646,7 +1669,8 @@ window.BB_TH = {
   "@aria:a11y.rail": "หมวดเมนู",
   "@aria:a11y.hours": "เวลาเปิดทำการ",
   "@aria:a11y.receipt": "ใบเสร็จตัวอย่าง",
-  "@aria:a11y.map": "แผนที่ Burger Bro ซอยพระราม 9 ซอย 49 กรุงเทพฯ",
+  "@aria:a11y.map": "แผนที่สาขา Burger Bro ที่เลือก",
+  "@aria:a11y.branches": "เลือกสาขาบนแผนที่",
 
   "nav.bro": "เดอะโบร",
   "nav.menu": "เมนู",
@@ -1799,6 +1823,11 @@ window.BB_TH = {
   "find.maps": "GOOGLE MAPS",
   "find.open": "เปิดใน Google Maps",
   "find.dir": "นำทาง",
+  "find.mapLink": "แผนที่",
+  "find.b3": "สาขา 3 — ถ.ศรีนครินทร์ (ในปั๊ม SUSCO ตรงข้ามธัญญาพาร์ค) · 11:00–21:00",
+  "br.r9": "พระราม 9",
+  "br.pk": "พัฒนาการ",
+  "br.sr": "ศรีนครินทร์",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
 
@@ -2571,6 +2600,22 @@ window.BB_TH = {
       widePhotos();
     }
   }
+
+  /* Find us — branch tabs on the map. Each tab carries its branch's map and links;
+     the map frame only reloads when a different branch is chosen. */
+  var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".find-map-tab"));
+  var mapFrame = document.querySelector(".find-map-embed");
+  var mapOpen = document.getElementById("findMapOpen");
+  var mapDir = document.getElementById("findMapDir");
+  mapTabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      if (tab.getAttribute("aria-pressed") === "true") return;
+      mapTabs.forEach(function (t) { t.setAttribute("aria-pressed", String(t === tab)); });
+      if (mapFrame) mapFrame.src = tab.getAttribute("data-embed");
+      if (mapOpen) mapOpen.href = tab.getAttribute("data-open");
+      if (mapDir) mapDir.href = tab.getAttribute("data-dir");
+    });
+  });
 
   /* section rail — plain anchor links; this only keeps the "you are here" cue in step
      with manual scrolling. It never moves the page or takes focus. */
