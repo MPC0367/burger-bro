@@ -711,6 +711,24 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .find-map-tab:hover { background: var(--paper-deep); }
 .find-map-tab[aria-pressed="true"] { background: var(--red); color: var(--white); }
 body[data-lang="th"] .find-map-tab { font-size: 14px; letter-spacing: .02em; }
+.find-map-km { display: block; margin-top: 2px; font-size: 10px; font-weight: 500; letter-spacing: .08em; opacity: .85; }
+.find-map-km:empty { display: none; }
+.find-map-near {
+  position: absolute; z-index: 3; top: 10px; left: 10px; padding: 8px 11px 7px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer; transition: background var(--t-hover);
+}
+.find-map-near[hidden] { display: none; }
+.find-map-near:hover { background: var(--white); }
+.find-map-near[data-state="on"] { background: var(--mustard); }
+body[data-lang="th"] .find-map-near { font-size: 13px; letter-spacing: .02em; }
+.bb-you { width: 18px; height: 18px; border-radius: 50%; background: var(--mustard); border: 3px solid var(--ink); box-shadow: 0 0 0 4px rgba(255, 249, 238, .9); }
+.bb-you-label {
+  position: absolute; left: 50%; top: -24px; transform: translateX(-50%); padding: 2px 6px 1px;
+  font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .14em; white-space: nowrap;
+  color: var(--paper); background: var(--ink);
+}
 .find-map-frame { position: relative; aspect-ratio: 640 / 520; background: var(--paper-deep); overflow: hidden; }
 #findMapCanvas { position: absolute; inset: 0; } /* an id, so MapLibre's own .maplibregl-map { position: relative } cannot collapse it */
 .find-map-canvas[hidden], .find-map-embed[hidden] { display: none; }
@@ -961,6 +979,20 @@ body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 
 /* ---------- order: honest fallback + illustrative receipt ---------- */
 .order-cta + .order-cta-alt { margin-top: 18px; }
+.order-branch { display: flex; align-items: center; flex-wrap: wrap; row-gap: 10px; margin-top: 38px; }
+.order-branch-label { margin-right: 14px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 249, 238, .7); }
+.order-branch-btn {
+  font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: 11px 16px 9px; color: var(--white); background: transparent; border: 2px solid var(--white); cursor: pointer;
+  transition: background var(--t-hover), color var(--t-hover);
+}
+.order-branch-btn + .order-branch-btn { border-left: 0; }
+.order-branch-btn:hover { background: rgba(255, 249, 238, .12); }
+.order-branch-btn[aria-pressed="true"] { background: var(--mustard); border-color: var(--mustard); color: var(--ink); }
+.order-branch-btn:focus-visible { outline: 3px solid var(--mustard); outline-offset: 3px; }
+body[data-lang="th"] .order-branch-btn, body[data-lang="th"] .order-branch-label { font-size: 14px; letter-spacing: .02em; }
+.order-branch + .order-cta { margin-top: 18px; }
+.order-cta .btn[hidden] { display: none; }
 .order-copy .order-note { margin-top: 20px; max-width: 54ch; color: rgba(255, 249, 238, .66); }
 .order-social { row-gap: 0; }
 .order-social a { padding-block: 12px; }
@@ -1609,17 +1641,16 @@ html.shot-full .cinema { height: 980px; }
         </div>
         <div class="find-b2 mono">
           <p><span data-i18n="find.b2">BRANCH 2 — BURGER BRO &amp; STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00</span> <a class="find-b2-map" href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
-          <p><span data-i18n="find.b3">BRANCH 3 — SRINAKARIN RD (IN THE SUSCO STATION, OPPOSITE THANYA PARK) · 11:00–21:00</span> <a class="find-b2-map" href="https://www.google.com/maps/search/?api=1&amp;query=13.7266896%2C100.6412326" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
         </div>
       </div>
       <figure class="find-map" id="findMap">
         <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
-          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-i18n="br.r9">Rama 9</button>
-          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-i18n="br.pk">Pattanakarn</button>
-          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7266896" data-lng="100.6412326" data-embed="https://maps.google.com/maps?q=13.7266896,100.6412326&amp;z=16&amp;output=embed" data-open="https://www.google.com/maps/search/?api=1&amp;query=13.7266896%2C100.6412326" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=13.7266896%2C100.6412326" data-i18n="br.sr">Srinakarin</button>
+          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-robinhood="https://static.robinhood.in.th/share_link.html?utm_source=consumerapp&amp;utm_medium=sharefavshopbutton&amp;utm_campaign=sharefavshop&amp;utm_content=61590&amp;URI=robinhoodth://merchantlanding/id/61590" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-lineman="https://lin.ee/nPi5Qzb" data-robinhood="https://static.robinhood.in.th/app_link.html?URI=robinhoodth://merchantlanding/id/257854"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
         </div>
         <div class="find-map-frame">
-          <div class="find-map-canvas" id="findMapCanvas" role="region" aria-label="Map of Burger Bro's three branches" data-i18n-aria="a11y.mapAll"></div>
+          <div class="find-map-canvas" id="findMapCanvas" role="region" aria-label="Map of Burger Bro's two branches" data-i18n-aria="a11y.mapAll"></div>
+          <button type="button" class="find-map-near mono" id="findMapNear" data-i18n="find.near" hidden>Nearest to me</button>
           <iframe class="find-map-embed" hidden
             title="Map of the chosen Burger Bro branch" aria-label="Map of the chosen Burger Bro branch" data-i18n-aria="a11y.map"
             referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -1644,13 +1675,19 @@ html.shot-full .cinema { height: 980px; }
         <span class="lm"><span class="l l-mustard" data-i18n="order.l2">QUESTION.</span></span>
       </h2>
       <p data-i18n="order.p">Delivery to your door, or a booth with free popcorn — either way the answer is the same.</p>
+      <div class="order-branch mono" role="group" aria-label="Choose the branch to order from" data-i18n-aria="a11y.orderBranch">
+        <span class="order-branch-label" data-i18n="order.from">Order from</span>
+        <button type="button" class="order-branch-btn" aria-pressed="true" data-i18n="br.r9">Rama 9</button>
+        <button type="button" class="order-branch-btn" aria-pressed="false" data-i18n="br.pk">Pattanakarn</button>
+      </div>
       <div class="order-cta">
+        <a class="btn btn-mustard" id="orderLineman" href="https://lin.ee/OyZp7FP" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
+        <a class="btn btn-mustard" id="orderRobinhood" href="https://static.robinhood.in.th/share_link.html?utm_source=consumerapp&amp;utm_medium=sharefavshopbutton&amp;utm_campaign=sharefavshop&amp;utm_content=61590&amp;URI=robinhoodth://merchantlanding/id/61590" target="_blank" rel="noopener" data-i18n="order.rh">Order on Robinhood</a>
         <a class="btn btn-mustard" href="https://www.grab.com/th/food/" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
-        <a class="btn btn-mustard" href="https://www.wongnai.com/delivery/businesses/156615HR/order" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
       </div>
       <div class="order-cta order-cta-alt">
-        <a class="btn btn-ghost" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
-        <a class="btn btn-ghost" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
+        <a class="btn btn-ghost" id="orderCall" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
+        <a class="btn btn-ghost" id="orderWalk" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
       <p class="order-note mono" data-i18n="order.note">GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.</p>
       <div class="order-social mono">
@@ -1713,7 +1750,8 @@ window.BB_TH = {
   "@aria:a11y.receipt": "ใบเสร็จตัวอย่าง",
   "@aria:a11y.map": "แผนที่สาขา Burger Bro ที่เลือก",
   "@aria:a11y.branches": "เลือกสาขาบนแผนที่",
-  "@aria:a11y.mapAll": "แผนที่สามสาขาของ Burger Bro",
+  "@aria:a11y.mapAll": "แผนที่สองสาขาของ Burger Bro",
+  "@aria:a11y.orderBranch": "เลือกสาขาที่จะสั่ง",
 
   "nav.bro": "เดอะโบร",
   "nav.menu": "เมนู",
@@ -1867,10 +1905,11 @@ window.BB_TH = {
   "find.open": "เปิดใน Google Maps",
   "find.dir": "นำทาง",
   "find.mapLink": "แผนที่",
-  "find.b3": "สาขา 3 — ถ.ศรีนครินทร์ (ในปั๊ม SUSCO ตรงข้ามธัญญาพาร์ค) · 11:00–21:00",
   "br.r9": "พระราม 9",
   "br.pk": "พัฒนาการ",
-  "br.sr": "ศรีนครินทร์",
+  "find.near": "สาขาใกล้ฉัน",
+  "order.from": "สั่งจากสาขา",
+  "order.rh": "สั่งผ่าน ROBINHOOD",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
 
@@ -2014,7 +2053,7 @@ window.BB_TH = {
   if (!reduceMotion && !shotMode && "IntersectionObserver" in window) {
     [".man-p", ".man-stats li", ".hero-sub", ".hero-cta", ".bro-meta", ".bro-end-copy p", ".bro-end-copy .btn",
      ".menu-note", ".menu-gtitle", ".menu-foot > *", ".story-copy p", ".cinema-meta",
-     ".find-info > *", ".find-map", ".order-copy p", ".order-cta", ".order-social", ".receipt"
+     ".find-info > *", ".find-map", ".order-copy p", ".order-branch", ".order-cta", ".order-social", ".receipt"
     ].forEach(function (sel) {
       document.querySelectorAll(sel).forEach(function (el) { el.classList.add("fade-up"); });
     });
@@ -2644,16 +2683,25 @@ window.BB_TH = {
     }
   }
 
-  /* Find us — the map. All three branches, drawn in the site's own colours with MapLibre
+  /* Find us — the map. Both branches, drawn in the site's own colours with MapLibre
      on OpenFreeMap's free OpenStreetMap tiles (no key, no cookies), loaded only as the
      visitor nears Find us. The tabs and the pins choose a branch: the map moves to it and
      the two links under it follow. If the library, the tiles or WebGL fail, Google's map
-     of the chosen branch takes the frame instead. */
+     of the chosen branch takes the frame instead. The chosen branch also sets the delivery
+     links in the footer (each tab's data-lineman / data-robinhood), and the footer's own
+     branch switch chooses the same way. With the visitor's permission the browser's location
+     is shown on the map and the nearest branch is chosen first; it never leaves the page. */
   var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".find-map-tab"));
   var mapFrame = document.querySelector(".find-map-frame .find-map-embed[hidden]");
   var mapCanvas = document.getElementById("findMapCanvas");
   var mapOpen = document.getElementById("findMapOpen");
   var mapDir = document.getElementById("findMapDir");
+  var mapNear = document.getElementById("findMapNear");
+  var orderBtns = Array.prototype.slice.call(document.querySelectorAll(".order-branch-btn"));
+  var orderLm = document.getElementById("orderLineman"), orderRh = document.getElementById("orderRobinhood");
+  var orderCall = document.getElementById("orderCall"), orderWalk = document.getElementById("orderWalk");
+  var userPos = null, userMarker = null, userPicked = false, geoAsking = false, kmAway = [];
+  function tabName(tab) { var n = tab.querySelector(".find-map-name"); return (n || tab).textContent; }
   var bbMap = null, bbPins = [], mapMode = "none"; // none | loading | styled | google
   var MAPLIBRE = "https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.24.0/";
   var MAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
@@ -2704,6 +2752,11 @@ window.BB_TH = {
     bbPins.forEach(function (pin, k) { pin.setAttribute("aria-pressed", String(k === i)); });
     if (mapOpen) mapOpen.href = tab.getAttribute("data-open");
     if (mapDir) mapDir.href = tab.getAttribute("data-dir");
+    orderBtns.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
+    if (orderLm) orderLm.href = tab.getAttribute("data-lineman");
+    if (orderRh) orderRh.href = tab.getAttribute("data-robinhood");
+    if (orderWalk) orderWalk.href = tab.getAttribute("data-open");
+    if (orderCall) orderCall.hidden = !tab.getAttribute("data-tel"); // only a number we know is that branch's
     if (mapMode === "styled" && move) {
       var to = { center: mapPoint(tab), zoom: 16 };
       if (reduceMotion) bbMap.jumpTo(to); else bbMap.flyTo({ center: to.center, zoom: to.zoom, speed: 1.6, curve: 1.3 });
@@ -2713,13 +2766,88 @@ window.BB_TH = {
     }
   }
   mapTabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { selectBranch(i, true); });
+    tab.addEventListener("click", function () { userPicked = true; selectBranch(i, true); });
   });
+  orderBtns.forEach(function (b, i) {
+    b.addEventListener("click", function () { userPicked = true; selectBranch(i, true); });
+  });
+  /* the visitor's own location */
+  function kmBetween(a, b) { // [lng, lat] pairs
+    var r = Math.PI / 180, dLat = (b[1] - a[1]) * r, dLng = (b[0] - a[0]) * r;
+    var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a[1] * r) * Math.cos(b[1] * r) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return 6371 * 2 * Math.asin(Math.sqrt(h));
+  }
+  function kmText(km) {
+    var th = mapIsThai();
+    if (km < 1) return Math.max(50, Math.round(km * 20) * 50) + (th ? " ม." : " m");
+    return (km < 100 ? km.toFixed(1) : String(Math.round(km))) + (th ? " กม." : " km");
+  }
+  function paintKm() {
+    mapTabs.forEach(function (t, k) {
+      var el = t.querySelector(".find-map-km");
+      if (el) el.textContent = kmAway[k] == null ? "" : kmText(kmAway[k]);
+    });
+    if (userMarker) userMarker.getElement().firstChild.textContent = mapIsThai() ? "คุณอยู่ตรงนี้" : "You";
+  }
+  function showUser() {
+    if (!userPos) return;
+    kmAway = mapTabs.map(function (t) { return kmBetween(userPos, mapPoint(t)); });
+    var near = 0;
+    kmAway.forEach(function (v, k) { if (v < kmAway[near]) near = k; });
+    if (!userPicked) selectBranch(near, false);
+    var at = mapPressed();
+    if (bbMap && window.maplibregl && (mapMode === "styled" || mapMode === "loading")) {
+      if (!userMarker) {
+        var dot = document.createElement("div");
+        dot.className = "bb-you";
+        dot.innerHTML = '<span class="bb-you-label"></span>';
+        userMarker = new window.maplibregl.Marker({ element: dot, anchor: "center" }).setLngLat(userPos).addTo(bbMap);
+      } else userMarker.setLngLat(userPos);
+      if (kmAway[at] <= 80) { // close enough to share a frame with the branch
+        var box = new window.maplibregl.LngLatBounds(userPos, userPos);
+        box.extend(mapPoint(mapTabs[at]));
+        bbMap.fitBounds(box, { padding: { top: 84, bottom: 50, left: 76, right: 76 }, maxZoom: 15, animate: !reduceMotion && mapMode === "styled" });
+      }
+    }
+    paintKm();
+    if (mapNear) mapNear.setAttribute("data-state", "on");
+  }
+  function askLocation(byHand) {
+    if (!navigator.geolocation || geoAsking) return;
+    geoAsking = true;
+    if (byHand) userPicked = false;
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      geoAsking = false;
+      userPos = [pos.coords.longitude, pos.coords.latitude];
+      showUser();
+    }, function () {
+      geoAsking = false;
+      if (byHand && mapNear) mapNear.textContent = mapIsThai() ? "ยังไม่ได้เปิดตำแหน่ง" : "Location is off";
+    }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
+  }
+  if (navigator.geolocation && !/[?&]shot=/.test(location.search)) {
+    if (mapNear) {
+      mapNear.hidden = false;
+      mapNear.addEventListener("click", function () { askLocation(true); });
+    }
+    // already allowed: place the visitor at once; otherwise ask when the map or the order buttons come into view
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: "geolocation" }).then(function (st) { if (st.state === "granted") askLocation(false); }, function () {});
+    }
+    if ("IntersectionObserver" in window) {
+      var geoIO = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (en) { return en.isIntersecting; })) return;
+        geoIO.disconnect();
+        if (!userPos) askLocation(false);
+      }, { threshold: 0.3 });
+      [document.getElementById("findMap"), document.querySelector(".order-branch")].forEach(function (el) { if (el) geoIO.observe(el); });
+    }
+  }
   function useGoogleMap() {
     if (mapMode === "google" || !mapFrame) return;
     mapMode = "google";
     if (bbMap) { try { bbMap.remove(); } catch (e) {} bbMap = null; }
-    bbPins = [];
+    bbPins = []; userMarker = null;
     if (mapCanvas) mapCanvas.hidden = true;
     mapFrame.hidden = false;
     mapFrame.src = mapTabs[mapPressed()].getAttribute("data-embed");
@@ -2760,12 +2888,13 @@ window.BB_TH = {
           pin.className = "bb-pin";
           pin.setAttribute("aria-pressed", tab.getAttribute("aria-pressed"));
           pin.innerHTML = '<span class="bb-pin-brand">Burger Bro!</span><span class="bb-pin-name"></span>';
-          pin.querySelector(".bb-pin-name").textContent = tab.textContent;
-          pin.setAttribute("aria-label", "Burger Bro " + tab.textContent);
+          pin.querySelector(".bb-pin-name").textContent = tabName(tab);
+          pin.setAttribute("aria-label", "Burger Bro " + tabName(tab));
           pin.addEventListener("click", function (e) { e.stopPropagation(); selectBranch(i, true); });
           bbPins.push(pin);
           new ml.Marker({ element: pin, anchor: "bottom", offset: [0, -11] }).setLngLat(pts[i]).addTo(map);
         });
+        if (userPos) showUser();
         var late = window.setTimeout(useGoogleMap, 12000); // nothing drawn in time: Google's map instead
         map.once("load", function () { window.clearTimeout(late); if (mapMode === "loading") mapMode = "styled"; });
       })
@@ -2793,9 +2922,10 @@ window.BB_TH = {
   if (window.MutationObserver) {
     new MutationObserver(function () {
       var th = mapIsThai();
+      paintKm();
       bbPins.forEach(function (pin, k) {
-        pin.querySelector(".bb-pin-name").textContent = mapTabs[k].textContent;
-        pin.setAttribute("aria-label", "Burger Bro " + mapTabs[k].textContent);
+        pin.querySelector(".bb-pin-name").textContent = tabName(mapTabs[k]);
+        pin.setAttribute("aria-label", "Burger Bro " + tabName(mapTabs[k]));
       });
       if (mapMode === "styled" && bbMap) {
         bbMap.getStyle().layers.forEach(function (l) {
