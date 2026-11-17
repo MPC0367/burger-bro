@@ -682,7 +682,7 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 }
 .rev-card.is-on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 .rev-head-row { display: flex; align-items: center; gap: 14px; }
-.rev-av { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 21px; font-weight: 700; border: 2px solid var(--ink); }
+.rev-av { flex: none; width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--paper-deep); display: grid; place-items: center; color: #fff; font-size: 21px; font-weight: 700; border: 2px solid var(--ink); }
 .rev-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
 .rev-sub { margin-top: 2px; font-size: 13.5px; color: var(--ink-soft); }
 .rev-line { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
@@ -3102,26 +3102,23 @@ window.BB_TH = {
   var REVIEWS = [
     { name: "KinTiewLen", guide: true, count: "502 reviews · 4,135 photos", rating: 5, date: "2026-08-17", lang: "en",
       text: "This is an amazing smash burger restaurant with a cool American style, making it a great spot to visit with family or friends. Their signature menu is the 'Magma Burger,' which features a burger in the middle of a hot tray surrounded by a huge portion of fries and melted cheese. Besides burgers, they also offer hot dogs, salads, milkshakes, and beef steaks, along with served beer at reasonable prices!!!",
-      photos: ["shop-front", "menu-hot-dog", "menu-milkshakes", "menu-rib-eye", "shop-booths"] },
+      avatar: "av-kintiewlen", photos: ["kintiewlen-1", "kintiewlen-2", "kintiewlen-3", "kintiewlen-4", "kintiewlen-5"] },
     { name: "MAJ_Raeine", guide: true, count: "11 reviews · 20 photos", rating: 5, date: "2026-03-17", lang: "en", meta: "Lunch | ฿200–400",
       text: "At this price point, this is the best burger ever. The quality are well-maintained for over 5 years.",
       scores: "Food: 5/5 | Service: 5/5 | Atmosphere: 3/5",
       details: [["Recommended dishes", "Curly Fries, Burger Bro Signature, Chilli Dog"], ["Noise level", "Quiet, easy to talk"], ["Vegetarian options", "Not for the weak."]],
-      photos: ["menu-curly-fries", "menu-burger-bro", "menu-chilli-dog"] },
+      avatar: "av-maj-raeine", photos: ["maj-raeine-1"] },
     { name: "Tony Lu", guide: true, count: "400 reviews · 772 photos", rating: 5, date: "2025-11-17", edited: true, lang: "en",
       text: "Great burger and great value. Dine in or take out. I am a big fan of this place.",
       scores: "Food: 5/5 | Service: 5/5 | Atmosphere: 5/5",
-      photos: ["menu-big-bro", "menu-cheese-burger", "menu-smokey-bro", "menu-boss-burger"] },
+      avatar: "av-tony-lu", photos: ["tony-lu-1", "tony-lu-2", "tony-lu-3", "tony-lu-4"] },
     { name: "Taters “Tatertots”", guide: true, count: "474 reviews · 4,477 photos", rating: 5, date: "2024-11-17", lang: "en",
       text: "Juicy Beef Burger\nCrunchy Onion rings, deep fried. A lotta frying oil. Crunchy munchies.\n\nExquisite A",
       scores: "Food: 4/5 | Service: 5/5 | Atmosphere: 5/5",
-      photos: ["menu-angus-burger", "menu-onion-rings", "bro-inside", "shop-popcorn"] }
+      avatar: "av-tatertots", photos: ["tatertots-1", "tatertots-2", "tatertots-3", "tatertots-4", "tatertots-5"] }
   ];
-  // the shop's own photos shown with each review (not the reviewers' photos), and their captions
-  var REV_PHOTO_NAMES = { "shop-front": "The Rama 9 shop", "shop-booths": "The booths", "shop-popcorn": "Free popcorn", "bro-inside": "Inside Burger Bro",
-    "menu-hot-dog": "Hot Dog", "menu-milkshakes": "Milkshakes", "menu-rib-eye": "Rib-Eye Steak", "menu-curly-fries": "Curly Fries",
-    "menu-burger-bro": "Burger Bro Signature", "menu-chilli-dog": "Chilli Dog", "menu-big-bro": "Big Bro", "menu-cheese-burger": "Cheese Burger",
-    "menu-smokey-bro": "Smokey Bro", "menu-boss-burger": "Boss Burger", "menu-angus-burger": "Angus Burger", "menu-onion-rings": "Onion Rings" };
+  // Each reviewer's own photos and profile picture (media/reviews/), from their Google review, used with
+  // their permission (asked by the owner, 17 Nov 2026). Thumbnails are <name>-400.jpg, the viewer <name>.jpg.
   var REV_RATING = { rating: 4.4, count: 913 }, REV_AS_OF = "2026-11-17";
   var REV_PLACE = "ChIJUUFUPsVhHTER8HJRUqmgPDw";
   var revSec = document.getElementById("reviews");
@@ -3155,17 +3152,17 @@ window.BB_TH = {
       return th ? y + " ปีที่แล้ว" : (y === 1 ? "a year ago" : y + " years ago");
     }
     var lb = document.getElementById("revLb"), lbImg = document.getElementById("revLbImg"), lbCap = document.getElementById("revLbCap");
-    var lbSet = [], lbAt = 0;
+    var lbRev = null, lbSet = [], lbAt = 0;
     function lbShow(i) {
       lbAt = (i + lbSet.length) % lbSet.length;
-      var ph = lbSet[lbAt];
-      lbImg.src = "media/" + ph + ".jpg";
-      lbImg.alt = REV_PHOTO_NAMES[ph] || "";
-      lbCap.textContent = (REV_PHOTO_NAMES[ph] || "") + " · " + (lbAt + 1) + " / " + lbSet.length;
+      var th = mapIsThai();
+      lbImg.src = "media/reviews/" + lbSet[lbAt] + ".jpg";
+      lbImg.alt = (th ? "รูปจากรีวิวของ " : "Photo from the review by ") + lbRev.name;
+      lbCap.textContent = (th ? "รูปโดย " : "Photo by ") + lbRev.name + " · " + (lbAt + 1) + " / " + lbSet.length;
     }
-    function openViewer(set, i) {
-      if (!lb || !lb.showModal) { window.open("media/" + set[i] + ".jpg", "_blank", "noopener"); return; }
-      lbSet = set; lbShow(i); held = true; tick(); lb.showModal();
+    function openViewer(r, i) {
+      if (!lb || !lb.showModal) { window.open("media/reviews/" + r.photos[i] + ".jpg", "_blank", "noopener"); return; }
+      lbRev = r; lbSet = r.photos; lbShow(i); held = true; tick(); lb.showModal();
     }
     if (lb && lb.showModal) {
       document.getElementById("revLbX").addEventListener("click", function () { lb.close(); });
@@ -3185,9 +3182,13 @@ window.BB_TH = {
         var card = document.createElement("article"); card.className = "rev-card";
         function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
         var head = el("div", "rev-head-row");
-        var av = el("span", "rev-av", (r.name || "G").replace(/[^A-Za-z0-9ก-๙]/g, "").charAt(0).toUpperCase());
+        var av;
+        if (r.avatar) { av = document.createElement("img"); av.className = "rev-av"; av.src = "media/reviews/" + r.avatar + ".jpg"; av.alt = ""; av.width = 46; av.height = 46; av.loading = "lazy"; }
+        else {
+          av = el("span", "rev-av", (r.name || "G").replace(/[^A-Za-z0-9ก-๙]/g, "").charAt(0).toUpperCase());
+          av.style.background = ["#E8622C", "#5B7DB1", "#3E8E6B", "#9B4FB8", "#C2410C"][(r.name || "").length % 5];
+        }
         av.setAttribute("aria-hidden", "true");
-        av.style.background = ["#E8622C", "#5B7DB1", "#3E8E6B", "#9B4FB8", "#C2410C"][(r.name || "").length % 5];
         var who = el("div", "rev-who");
         who.appendChild(el("p", "rev-name", r.name || "Google user"));
         who.appendChild(el("p", "rev-sub", (r.guide ? "Local Guide · " : "") + (r.count || "")));
@@ -3210,14 +3211,14 @@ window.BB_TH = {
           var strip = el("div", "rev-photos");
           r.photos.forEach(function (ph, k) {
             var b = el("button", "rev-photo"); b.type = "button";
-            b.setAttribute("aria-label", (th ? "เปิดรูป: " : "Open photo: ") + (REV_PHOTO_NAMES[ph] || ""));
-            var im = document.createElement("img"); im.src = "media/" + ph + "-640.jpg"; im.alt = ""; im.loading = "lazy"; im.decoding = "async";
+            b.setAttribute("aria-label", (th ? "เปิดรูปที่ " : "Open photo ") + (k + 1) + (th ? " จาก " : " of ") + r.photos.length + (th ? " ของ " : " by ") + r.name);
+            var im = document.createElement("img"); im.src = "media/reviews/" + ph + "-400.jpg"; im.alt = ""; im.loading = "lazy"; im.decoding = "async";
             b.appendChild(im);
-            b.addEventListener("click", function () { openViewer(r.photos, k); });
+            b.addEventListener("click", function () { openViewer(r, k); });
             strip.appendChild(b);
           });
           card.appendChild(strip);
-          card.appendChild(el("p", "rev-photo-note", th ? "รูปจากร้าน Burger Bro" : "Photos: Burger Bro's own"));
+          card.appendChild(el("p", "rev-photo-note", th ? "รูปโดย " + r.name + " · ใช้โดยได้รับอนุญาต" : "Photos by " + r.name + " · used with permission"));
         }
         cardsEl.appendChild(card); cards.push(card);
       });

@@ -66,3 +66,7 @@ Find us shows both branches on one map in the site's own colours (paper ground, 
 
 - `?lang=th` opens in Thai without saving the choice.
 - `?shot=full` renders a static full-length page for screenshots; `?shot=%23menu` jumps a static render to a section.
+
+## Google reviews
+
+The "Word on the street" section shows a selection of 4 and 5 star Google reviews of the Rama 9 listing, typed into `REVIEWS` in `index.html` word for word from the owner's screenshots (17 Nov 2026), with the 4.4 rating and 913 ratings as seen that day (`REV_RATING`). Nothing is fetched from Google. Each review's photos and profile picture are the reviewer's own, in `media/reviews/` (`<name>.jpg` up to 1440px for the viewer, `<name>-400.jpg` for the strip, `av-<name>.jpg`), **used with each reviewer's permission, which the owner asked for and received (17 Nov 2026)**; each card credits them ("Photos by … · used with permission"). To add a review, get the reviewer's permission first, then add an entry to `REVIEWS` and its files to `media/reviews/`.
