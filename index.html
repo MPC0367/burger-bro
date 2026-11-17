@@ -666,6 +666,43 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 /* ============================================================
    FIND US
    ============================================================ */
+/* ---------- Google reviews ---------- */
+.rev { padding: clamp(80px, 14vh, 150px) 0; background: var(--paper-deep); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+.rev[hidden] { display: none; }
+.rev-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 40px; }
+.rev-sum { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 10px; }
+.rev-sum b { color: var(--red); font-size: 1.5em; letter-spacing: 0; margin-right: 6px; }
+.rev-stage { margin-top: clamp(30px, 5vh, 54px); }
+.rev-cards { display: grid; }
+.rev-card {
+  grid-area: 1 / 1; display: flex; flex-direction: column; gap: 18px;
+  padding: clamp(24px, 3.4vw, 44px); background: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--mustard);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
+}
+.rev-card.is-on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.rev-stars { color: var(--red); font-size: 22px; letter-spacing: .12em; line-height: 1; }
+.rev-text { font-size: clamp(18px, 1.9vw, 24px); line-height: 1.5; max-width: 62ch; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7; line-clamp: 7; overflow: hidden; }
+.rev-by { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.rev-by img { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--ink); }
+.rev-by a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+.rev-more { color: var(--red); font-weight: 700; text-underline-offset: 3px; }
+.rev-ctl { display: flex; align-items: center; gap: 10px; margin-top: 26px; }
+.rev-btn {
+  width: 44px; height: 44px; display: inline-grid; place-items: center; font: inherit; font-size: 16px; font-weight: 700;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer;
+  transition: background var(--t-hover);
+}
+.rev-btn:hover { background: var(--white); }
+.rev-pause span { width: 12px; height: 14px; border-inline: 4px solid currentColor; }
+.rev-pause[aria-pressed="true"] span { width: 0; height: 0; border-block: 7px solid transparent; border-inline: 0; border-left: 12px solid currentColor; }
+.rev-count { margin-left: 8px; font-size: 12px; letter-spacing: .14em; color: var(--ink-soft); }
+.rev-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: clamp(30px, 5vh, 50px); }
+.rev-src { font-size: 11px; letter-spacing: .12em; color: var(--ink-soft); }
+body[data-lang="th"] .rev-sum, body[data-lang="th"] .rev-src, body[data-lang="th"] .rev-by { letter-spacing: .02em; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .rev-card { transition: none; transform: none; } }
+@media (max-width: 640px) { .rev-card { box-shadow: 6px 6px 0 var(--mustard); } .rev-text { -webkit-line-clamp: 10; line-clamp: 10; } }
+
 .find { padding: clamp(90px, 16vh, 170px) 0; }
 .find-grid {
   margin-top: clamp(40px, 7vh, 70px);
@@ -1620,6 +1657,30 @@ html.shot-full .cinema { height: 980px; }
   </div>
 </section>
 
+<!-- ============ GOOGLE REVIEWS ============ -->
+<!-- Filled by the script from Google's Places API (4 and 5 star reviews only); stays hidden when there is no key or nothing came back. -->
+<section class="rev" id="reviews" aria-labelledby="revTitle" hidden>
+  <div class="container">
+    <div class="rev-head">
+      <h2 class="h2" id="revTitle"><span class="lm"><span class="l" data-i18n="rev.l1">WORD ON THE STREET.</span></span></h2>
+      <p class="rev-sum mono" id="revSum"></p>
+    </div>
+    <div class="rev-stage" id="revStage" role="group" aria-roledescription="carousel" aria-label="Recent Google reviews" data-i18n-aria="a11y.reviews">
+      <div class="rev-cards" id="revCards" aria-live="off"></div>
+      <div class="rev-ctl mono">
+        <button type="button" class="rev-btn" id="revPrev" aria-label="Previous review" data-i18n-aria="a11y.revPrev">&larr;</button>
+        <button type="button" class="rev-btn rev-pause" id="revPause" aria-pressed="false" aria-label="Pause the reviews" data-i18n-aria="a11y.revPause"><span aria-hidden="true"></span></button>
+        <button type="button" class="rev-btn" id="revNext" aria-label="Next review" data-i18n-aria="a11y.revNext">&rarr;</button>
+        <span class="rev-count" id="revCount" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="rev-foot">
+      <a class="btn btn-red" id="revAll" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="rev.all">Read all reviews on Google</a>
+      <p class="rev-src mono" data-i18n="rev.src">REVIEWS FROM GOOGLE MAPS · 4 AND 5 STARS SHOWN · RAMA 9</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FIND US ============ -->
 <section class="find" id="find" aria-labelledby="findTitle">
   <div class="container">
@@ -1935,6 +1996,13 @@ window.BB_TH = {
   "grab.p": "การสั่ง GrabFood ทำในแอป Grab เปิดกล้องมือถือส่องโค้ดนี้ แล้วร้านจะเปิดขึ้นในแอป Grab",
   "grab.link": "เปิดลิงก์ในเครื่องนี้แทน",
   "@alt:grab.qr": "คิวอาร์โค้ดสำหรับเปิดสาขานี้ในแอป Grab",
+  "rev.l1": "ลูกค้าว่าไงบ้าง",
+  "rev.all": "อ่านรีวิวทั้งหมดบน Google",
+  "rev.src": "รีวิวจาก Google Maps · แสดงเฉพาะ 4 และ 5 ดาว · สาขาพระราม 9",
+  "@aria:a11y.reviews": "รีวิวล่าสุดจาก Google",
+  "@aria:a11y.revPrev": "รีวิวก่อนหน้า",
+  "@aria:a11y.revNext": "รีวิวถัดไป",
+  "@aria:a11y.revPause": "หยุดการเลื่อนรีวิว",
   "order.from": "สั่งจากสาขา",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
@@ -2991,6 +3059,103 @@ window.BB_TH = {
   } else {
     loadStyledMap();
   }
+
+  /* Google reviews — the Rama 9 listing's reviews from Google's Places API (New), asked for by
+     the visitor's browser as it nears the section and kept for a day in that browser. Only 4
+     and 5 star reviews are shown, newest first; Google returns at most five per place. One
+     card at a time, moving on by itself every 7 s; it stops for a pointer, for focus, for the
+     pause button and under Reduce Motion. No key, or nothing usable back: the section stays hidden.
+     The key is a browser key: restrict it in Google Cloud to this site's address and to the Places API (New). */
+  var REV = { key: "", place: "" };
+  var revSec = document.getElementById("reviews");
+  (function () {
+    if (!revSec || !REV.key || !REV.place || !window.fetch) return;
+    var cardsEl = document.getElementById("revCards"), sumEl = document.getElementById("revSum");
+    var countEl = document.getElementById("revCount"), pauseBtn = document.getElementById("revPause");
+    var allLink = document.getElementById("revAll");
+    var cards = [], at = 0, timer = null, held = false, paused = reduceMotion, seen = false, data = null;
+    function store(lang, v) {
+      try {
+        if (v) localStorage.setItem("bb-rev-" + lang, JSON.stringify({ t: Date.now(), d: v }));
+        else { var o = JSON.parse(localStorage.getItem("bb-rev-" + lang) || "null"); return o && Date.now() - o.t < 864e5 ? o.d : null; }
+      } catch (e) { return null; }
+    }
+    function show(i) {
+      if (!cards.length) return;
+      at = (i + cards.length) % cards.length;
+      cards.forEach(function (c, k) {
+        c.classList.toggle("is-on", k === at);
+        c.setAttribute("aria-hidden", String(k !== at));
+        Array.prototype.forEach.call(c.querySelectorAll("a"), function (a) { a.tabIndex = k === at ? 0 : -1; });
+      });
+      countEl.textContent = (at + 1) + " / " + cards.length;
+    }
+    function tick() {
+      window.clearInterval(timer); timer = null;
+      if (!paused && !held && seen && cards.length > 1) timer = window.setInterval(function () { show(at + 1); }, 7000);
+    }
+    function paint() {
+      var th = mapIsThai(), d = data;
+      var list = (d.reviews || []).filter(function (r) { return r.rating >= 4 && r.text && r.text.text; })
+        .sort(function (a, b) { return String(b.publishTime).localeCompare(String(a.publishTime)); });
+      if (!list.length) { revSec.hidden = true; return; }
+      cardsEl.textContent = ""; cards = [];
+      list.forEach(function (r) {
+        var card = document.createElement("article"); card.className = "rev-card";
+        var stars = document.createElement("p"); stars.className = "rev-stars";
+        stars.textContent = "★★★★★".slice(0, r.rating); stars.setAttribute("aria-label", r.rating + (th ? " ดาว" : " stars"));
+        var text = document.createElement("p"); text.className = "rev-text"; text.textContent = r.text.text;
+        if (r.text.languageCode) text.lang = r.text.languageCode;
+        var by = document.createElement("p"); by.className = "rev-by";
+        var who = r.authorAttribution || {};
+        if (who.photoUri) { var im = document.createElement("img"); im.src = who.photoUri; im.alt = ""; im.loading = "lazy"; im.referrerPolicy = "no-referrer"; by.appendChild(im); }
+        var name = document.createElement(who.uri ? "a" : "span"); name.textContent = who.displayName || "Google user";
+        if (who.uri) { name.href = who.uri; name.target = "_blank"; name.rel = "noopener"; }
+        by.appendChild(name);
+        if (r.relativePublishTimeDescription) { var when = document.createElement("span"); when.textContent = r.relativePublishTimeDescription; by.appendChild(when); }
+        if (r.googleMapsUri) { var more = document.createElement("a"); more.className = "rev-more"; more.href = r.googleMapsUri; more.target = "_blank"; more.rel = "noopener"; more.textContent = th ? "อ่านบน Google ↗" : "Read on Google ↗"; by.appendChild(more); }
+        card.appendChild(stars); card.appendChild(text); card.appendChild(by);
+        cardsEl.appendChild(card); cards.push(card);
+      });
+      sumEl.textContent = "";
+      if (d.rating) {
+        var b = document.createElement("b"); b.textContent = Number(d.rating).toFixed(1) + " ★"; sumEl.appendChild(b);
+        sumEl.appendChild(document.createTextNode(th ? "บน Google" + (d.userRatingCount ? " · " + d.userRatingCount.toLocaleString() + " รีวิว" : "")
+          : "on Google" + (d.userRatingCount ? " · " + d.userRatingCount.toLocaleString() + " reviews" : "")));
+      }
+      allLink.href = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(REV.place);
+      revSec.hidden = false;
+      show(0); tick();
+    }
+    function load() {
+      var lang = mapIsThai() ? "th" : "en", kept = store(lang);
+      if (kept) { data = kept; paint(); return; }
+      fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(REV.place) + "?languageCode=" + lang, {
+        headers: { "X-Goog-Api-Key": REV.key, "X-Goog-FieldMask": "rating,userRatingCount,reviews" }
+      }).then(function (r) { if (!r.ok) throw new Error("reviews " + r.status); return r.json(); })
+        .then(function (d) { data = d; store(lang, d); paint(); })
+        .catch(function () {});
+    }
+    document.getElementById("revPrev").addEventListener("click", function () { show(at - 1); tick(); });
+    document.getElementById("revNext").addEventListener("click", function () { show(at + 1); tick(); });
+    pauseBtn.setAttribute("aria-pressed", String(paused));
+    pauseBtn.addEventListener("click", function () { paused = !paused; pauseBtn.setAttribute("aria-pressed", String(paused)); tick(); });
+    var stage = document.getElementById("revStage");
+    stage.addEventListener("pointerenter", function () { held = true; tick(); });
+    stage.addEventListener("pointerleave", function () { held = false; tick(); });
+    stage.addEventListener("focusin", function () { held = true; tick(); });
+    stage.addEventListener("focusout", function () { held = false; tick(); });
+    if (window.MutationObserver) new MutationObserver(load).observe(document.body, { attributes: true, attributeFilter: ["data-lang"] });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { seen = en.some(function (e) { return e.isIntersecting; }); tick(); }, { threshold: 0.2 }).observe(stage);
+      var near = new IntersectionObserver(function (en) {
+        if (!en.some(function (e) { return e.isIntersecting; })) return;
+        near.disconnect(); load();
+      }, { rootMargin: "150% 0px" });
+      // a hidden section has no box to watch: watch the section after it
+      near.observe(document.getElementById("find") || document.body);
+    } else { seen = true; load(); }
+  })();
 
   /* section rail — plain anchor links; this only keeps the "you are here" cue in step
      with manual scrolling. It never moves the page or takes focus. */
