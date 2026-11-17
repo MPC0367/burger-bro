@@ -979,6 +979,19 @@ body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 
 /* ---------- order: honest fallback + illustrative receipt ---------- */
 .order-cta + .order-cta-alt { margin-top: 18px; }
+.grab-dlg {
+  width: min(420px, calc(100vw - 32px)); padding: 26px 26px 24px; text-align: center;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--mustard);
+}
+.grab-dlg::backdrop { background: rgba(34, 21, 17, .72); }
+.grab-dlg-x { display: block; margin-left: auto; padding: 6px 10px 5px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); background: transparent; border: 2px solid var(--ink); cursor: pointer; }
+.grab-dlg-x:hover { background: var(--paper-deep); }
+.grab-dlg-title { margin-top: 14px; font-family: var(--font-display, inherit); font-size: 30px; line-height: 1.05; text-transform: uppercase; }
+body[data-lang="th"] .grab-dlg-title { font-family: var(--font-display-th); }
+.grab-dlg-branch { margin-top: 8px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+.grab-dlg-qr { display: block; width: 220px; height: 220px; margin: 18px auto 0; padding: 10px; background: #fff; border: 2px solid var(--ink); image-rendering: pixelated; }
+.grab-dlg-p { margin-top: 16px; font-size: 15px; line-height: 1.5; }
+.grab-dlg-link { display: inline-block; margin-top: 14px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); text-underline-offset: 3px; }
 .order-branch { display: flex; align-items: center; flex-wrap: wrap; row-gap: 10px; margin-top: 38px; }
 .order-branch-label { margin-right: 14px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 249, 238, .7); }
 .order-branch-btn {
@@ -1645,7 +1658,7 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <figure class="find-map" id="findMap">
         <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
-          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-grab="https://app.grab.com/s/olrOpBCF" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
+          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-grab="https://app.grab.com/s/olrOpBCF" data-grab-qr="media/grab-rama9-qr.png" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
           <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-lineman="https://lin.ee/nPi5Qzb"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
         </div>
         <div class="find-map-frame">
@@ -1665,6 +1678,16 @@ html.shot-full .cinema { height: 980px; }
   </div>
 </section>
 
+<!-- GrabFood has no shop pages on the web: on a computer the button shows this code to scan; on a phone it opens the Grab app. -->
+<dialog class="grab-dlg" id="grabDlg" aria-labelledby="grabDlgTitle">
+  <button type="button" class="grab-dlg-x mono" id="grabDlgX" data-i18n="grab.close">Close</button>
+  <h2 class="grab-dlg-title" id="grabDlgTitle" data-i18n="grab.title">Scan to order on GrabFood</h2>
+  <p class="grab-dlg-branch mono">BURGER BRO! — <span id="grabDlgBranch"></span></p>
+  <img class="grab-dlg-qr" id="grabDlgQr" src="" alt="QR code that opens this branch in the Grab app" data-i18n-alt="grab.qr" width="372" height="372">
+  <p class="grab-dlg-p" data-i18n="grab.p">GrabFood orders happen in the Grab app. Point your phone's camera at the code and the shop opens in Grab.</p>
+  <a class="grab-dlg-link mono" id="grabDlgLink" href="https://app.grab.com/s/olrOpBCF" target="_blank" rel="noopener" data-i18n="grab.link">Open the link here instead</a>
+</dialog>
+
 <!-- ============ ORDER / RECEIPT FOOTER ============ -->
 <footer class="order" id="order" aria-labelledby="orderTitle">
   <div class="doodle-band" aria-hidden="true"></div>
@@ -1682,7 +1705,7 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <div class="order-cta">
         <a class="btn btn-mustard" id="orderLineman" href="https://lin.ee/OyZp7FP" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
-        <a class="btn btn-mustard" id="orderGrab" href="https://app.grab.com/s/olrOpBCF" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
+        <a class="btn btn-mustard" id="orderGrab" href="https://app.grab.com/s/olrOpBCF" data-qr="media/grab-rama9-qr.png" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
       </div>
       <div class="order-cta order-cta-alt">
         <a class="btn btn-ghost" id="orderCall" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
@@ -1907,6 +1930,11 @@ window.BB_TH = {
   "br.r9": "พระราม 9",
   "br.pk": "พัฒนาการ",
   "find.near": "สาขาใกล้ฉัน",
+  "grab.close": "ปิด",
+  "grab.title": "สแกนเพื่อสั่งผ่าน GrabFood",
+  "grab.p": "การสั่ง GrabFood ทำในแอป Grab เปิดกล้องมือถือส่องโค้ดนี้ แล้วร้านจะเปิดขึ้นในแอป Grab",
+  "grab.link": "เปิดลิงก์ในเครื่องนี้แทน",
+  "@alt:grab.qr": "คิวอาร์โค้ดสำหรับเปิดสาขานี้ในแอป Grab",
   "order.from": "สั่งจากสาขา",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
@@ -2756,6 +2784,7 @@ window.BB_TH = {
     var grab = tab.getAttribute("data-grab"), orderGrab = document.getElementById("orderGrab"), orderNote = document.getElementById("orderNote");
     if (orderGrab) orderGrab.href = grab || "https://www.grab.com/th/food/"; // no shop link yet: Grab's own page, and the note says to search
     if (orderNote) orderNote.hidden = !!grab;
+    if (orderGrab) orderGrab.setAttribute("data-qr", tab.getAttribute("data-grab-qr") || "");
     if (orderCall) orderCall.hidden = !tab.getAttribute("data-tel"); // only a number we know is that branch's
     if (mapMode === "styled" && move) {
       var to = { center: mapPoint(tab), zoom: 16 };
@@ -2771,6 +2800,23 @@ window.BB_TH = {
   orderBtns.forEach(function (b, i) {
     b.addEventListener("click", function () { userPicked = true; selectBranch(i, true); });
   });
+  /* GrabFood on a computer: Grab has no shop pages on the web (its share link lands on Grab's
+     general page there), so show the branch's code to scan. A phone goes straight to the app. */
+  (function () {
+    var btn = document.getElementById("orderGrab"), dlg = document.getElementById("grabDlg");
+    if (!btn || !dlg || !dlg.showModal) return;
+    btn.addEventListener("click", function (e) {
+      var qr = btn.getAttribute("data-qr");
+      if (!qr || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+      e.preventDefault();
+      document.getElementById("grabDlgQr").src = qr;
+      document.getElementById("grabDlgLink").href = btn.href;
+      document.getElementById("grabDlgBranch").textContent = tabName(mapTabs[mapPressed()]);
+      dlg.showModal();
+    });
+    document.getElementById("grabDlgX").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); }); // the backdrop
+  })();
   /* the visitor's own location */
   function kmBetween(a, b) { // [lng, lat] pairs
     var r = Math.PI / 180, dLat = (b[1] - a[1]) * r, dLng = (b[0] - a[0]) * r;
