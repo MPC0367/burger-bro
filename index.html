@@ -1645,7 +1645,7 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <figure class="find-map" id="findMap">
         <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
-          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
+          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-grab="https://app.grab.com/s/olrOpBCF" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
           <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-lineman="https://lin.ee/nPi5Qzb"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
         </div>
         <div class="find-map-frame">
@@ -1682,13 +1682,13 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <div class="order-cta">
         <a class="btn btn-mustard" id="orderLineman" href="https://lin.ee/OyZp7FP" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
-        <a class="btn btn-mustard" href="https://www.grab.com/th/food/" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
+        <a class="btn btn-mustard" id="orderGrab" href="https://app.grab.com/s/olrOpBCF" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
       </div>
       <div class="order-cta order-cta-alt">
         <a class="btn btn-ghost" id="orderCall" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
         <a class="btn btn-ghost" id="orderWalk" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
-      <p class="order-note mono" data-i18n="order.note">GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.</p>
+      <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.</p>
       <div class="order-social mono">
         <a href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener">FACEBOOK — BURGER BRO</a>
         <a href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener">IG — @BURGERBRO_ORIGINAL</a>
@@ -2753,6 +2753,9 @@ window.BB_TH = {
     orderBtns.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
     if (orderLm) orderLm.href = tab.getAttribute("data-lineman");
     if (orderWalk) orderWalk.href = tab.getAttribute("data-open");
+    var grab = tab.getAttribute("data-grab"), orderGrab = document.getElementById("orderGrab"), orderNote = document.getElementById("orderNote");
+    if (orderGrab) orderGrab.href = grab || "https://www.grab.com/th/food/"; // no shop link yet: Grab's own page, and the note says to search
+    if (orderNote) orderNote.hidden = !!grab;
     if (orderCall) orderCall.hidden = !tab.getAttribute("data-tel"); // only a number we know is that branch's
     if (mapMode === "styled" && move) {
       var to = { center: mapPoint(tab), zoom: 16 };

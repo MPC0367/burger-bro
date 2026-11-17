@@ -44,7 +44,7 @@ Anything pushed to `main` is live about a minute later. Work on a branch, check 
 foodpanda Thailand closed in May 2025 and is not linked.
 
 - **Delivery follows the branch.** The footer has a branch switch (Rama 9 | Pattanakarn) that is the same choice as the map tabs: choosing a branch in either place sets the LINE MAN button to that branch's own shop page (`data-lineman` on each map tab; the shop's own short links of Nov 2026, resolved) and "Walk in" to its Google listing. The Call button shows only for a branch whose number is on its tab (`data-tel`; Rama 9 today). foodpanda is not offered: it stopped operating in Thailand. Robinhood was removed on 17 Nov 2026: its listings could not be confirmed. GrabFood has no restaurant web pages in Thailand any more; a per-branch link has to be a share link copied from the Grab app.
-- **GrabFood:** the button with `data-i18n="order.grab"` currently opens Grab's general GrabFood page (`https://www.grab.com/th/food/`), not the shop. When you have the shop's share link from the Grab app, replace that `href` and delete the `order.note` line and its Thai entry in `BB_TH`.
+- **GrabFood:** follows the branch like LINE MAN (`data-grab` on each map tab). Rama 9 opens the shop's own GrabFood page through its share link from the Grab app (`https://app.grab.com/s/olrOpBCF`, merchant `3-C4M1A7CXNBAJJ6`). A branch without `data-grab` (Pattanakarn, until its share link is supplied) opens Grab's general page and shows the "search Burger Bro" note. GrabFood has no restaurant web pages in Thailand: a link must be copied from the Grab app (shop page → Share).
 - The hero "Order delivery" and the "Order the signature" button both jump to the footer order section (`#order`), where the two provider buttons are.
 
 ## Photos
