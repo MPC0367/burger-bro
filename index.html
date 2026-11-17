@@ -1658,7 +1658,7 @@ html.shot-full .cinema { height: 980px; }
 </section>
 
 <!-- ============ GOOGLE REVIEWS ============ -->
-<!-- Filled by the script from Google's Places API (4 and 5 star reviews only); stays hidden when there is no key or nothing came back. -->
+<!-- Filled by the script from the REVIEWS list (a selection of 4 and 5 star Google reviews); hidden while the list is empty. -->
 <section class="rev" id="reviews" aria-labelledby="revTitle" hidden>
   <div class="container">
     <div class="rev-head">
@@ -1676,7 +1676,7 @@ html.shot-full .cinema { height: 980px; }
     </div>
     <div class="rev-foot">
       <a class="btn btn-red" id="revAll" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="rev.all">Read all reviews on Google</a>
-      <p class="rev-src mono" data-i18n="rev.src">REVIEWS FROM GOOGLE MAPS · 4 AND 5 STARS SHOWN · RAMA 9</p>
+      <p class="rev-src mono" data-i18n="rev.src">A SELECTION OF 4 AND 5 STAR GOOGLE REVIEWS · RAMA 9</p>
     </div>
   </div>
 </section>
@@ -1998,7 +1998,7 @@ window.BB_TH = {
   "@alt:grab.qr": "คิวอาร์โค้ดสำหรับเปิดสาขานี้ในแอป Grab",
   "rev.l1": "ลูกค้าว่าไงบ้าง",
   "rev.all": "อ่านรีวิวทั้งหมดบน Google",
-  "rev.src": "รีวิวจาก Google Maps · แสดงเฉพาะ 4 และ 5 ดาว · สาขาพระราม 9",
+  "rev.src": "รีวิว 4 และ 5 ดาวบางส่วนจาก Google · สาขาพระราม 9",
   "@aria:a11y.reviews": "รีวิวล่าสุดจาก Google",
   "@aria:a11y.revPrev": "รีวิวก่อนหน้า",
   "@aria:a11y.revNext": "รีวิวถัดไป",
@@ -3060,26 +3060,22 @@ window.BB_TH = {
     loadStyledMap();
   }
 
-  /* Google reviews — the Rama 9 listing's reviews from Google's Places API (New), asked for by
-     the visitor's browser as it nears the section and kept for a day in that browser. Only 4
-     and 5 star reviews are shown, newest first; Google returns at most five per place. One
-     card at a time, moving on by itself every 7 s; it stops for a pointer, for focus, for the
-     pause button and under Reduce Motion. No key, or nothing usable back: the section stays hidden.
-     The key is a browser key: restrict it in Google Cloud to this site's address and to the Places API (New). */
-  var REV = { key: "AIzaSyDzSYQUOlENqk5jPAHAxjtGBen6Sbp3r3U", place: "ChIJUUFUPsVhHTER8HJRUqmgPDw" }; // browser key: usable only from mpc0367.github.io, Places API (New) only
+  /* Google reviews — a hand-picked selection from the Rama 9 listing, typed into REVIEWS below
+     (4 and 5 stars only; nothing is fetched from Google, so the list changes only when someone
+     edits it). One card at a time, moving on by itself every 7 s; it stops for a pointer, for
+     focus, for the pause button and under Reduce Motion. With an empty list the section stays hidden.
+     Each entry: { name, rating (4 or 5), date: "YYYY-MM-DD", text, lang: "en" | "th", url (optional link to the review) }.
+     REV_RATING is the listing's rating as seen on REV_AS_OF. */
+  var REVIEWS = [];
+  var REV_RATING = { rating: 4.4, count: 913 }, REV_AS_OF = "2026-11-17";
+  var REV_PLACE = "ChIJUUFUPsVhHTER8HJRUqmgPDw";
   var revSec = document.getElementById("reviews");
   (function () {
-    if (!revSec || !REV.key || !REV.place || !window.fetch) return;
+    if (!revSec || !REVIEWS.length) return;
     var cardsEl = document.getElementById("revCards"), sumEl = document.getElementById("revSum");
     var countEl = document.getElementById("revCount"), pauseBtn = document.getElementById("revPause");
     var allLink = document.getElementById("revAll");
-    var cards = [], at = 0, timer = null, held = false, paused = reduceMotion, seen = false, data = null;
-    function store(lang, v) {
-      try {
-        if (v) localStorage.setItem("bb-rev-" + lang, JSON.stringify({ t: Date.now(), d: v }));
-        else { var o = JSON.parse(localStorage.getItem("bb-rev-" + lang) || "null"); return o && Date.now() - o.t < 864e5 ? o.d : null; }
-      } catch (e) { return null; }
-    }
+    var cards = [], at = 0, timer = null, held = false, paused = reduceMotion, seen = false;
     function show(i) {
       if (!cards.length) return;
       at = (i + cards.length) % cards.length;
@@ -3095,46 +3091,38 @@ window.BB_TH = {
       if (!paused && !held && seen && cards.length > 1) timer = window.setInterval(function () { show(at + 1); }, 7000);
     }
     function paint() {
-      var th = mapIsThai(), d = data;
-      var list = (d.reviews || []).filter(function (r) { return r.rating >= 4 && r.text && r.text.text; })
-        .sort(function (a, b) { return String(b.publishTime).localeCompare(String(a.publishTime)); });
+      var th = mapIsThai(), d = REV_RATING;
+      var list = REVIEWS.filter(function (r) { return r.rating >= 4 && r.text; })
+        .sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
       if (!list.length) { revSec.hidden = true; return; }
       cardsEl.textContent = ""; cards = [];
       list.forEach(function (r) {
         var card = document.createElement("article"); card.className = "rev-card";
         var stars = document.createElement("p"); stars.className = "rev-stars";
         stars.textContent = "★★★★★".slice(0, r.rating); stars.setAttribute("aria-label", r.rating + (th ? " ดาว" : " stars"));
-        var text = document.createElement("p"); text.className = "rev-text"; text.textContent = r.text.text;
-        if (r.text.languageCode) text.lang = r.text.languageCode;
+        var text = document.createElement("p"); text.className = "rev-text"; text.textContent = r.text;
+        if (r.lang) text.lang = r.lang;
         var by = document.createElement("p"); by.className = "rev-by";
-        var who = r.authorAttribution || {};
-        if (who.photoUri) { var im = document.createElement("img"); im.src = who.photoUri; im.alt = ""; im.loading = "lazy"; im.referrerPolicy = "no-referrer"; by.appendChild(im); }
-        var name = document.createElement(who.uri ? "a" : "span"); name.textContent = who.displayName || "Google user";
-        if (who.uri) { name.href = who.uri; name.target = "_blank"; name.rel = "noopener"; }
+        var name = document.createElement("span"); name.textContent = r.name || "Google user";
         by.appendChild(name);
-        if (r.relativePublishTimeDescription) { var when = document.createElement("span"); when.textContent = r.relativePublishTimeDescription; by.appendChild(when); }
-        if (r.googleMapsUri) { var more = document.createElement("a"); more.className = "rev-more"; more.href = r.googleMapsUri; more.target = "_blank"; more.rel = "noopener"; more.textContent = th ? "อ่านบน Google ↗" : "Read on Google ↗"; by.appendChild(more); }
+        if (r.date) {
+          var when = document.createElement("span"), dt = new Date(r.date + "T00:00:00");
+          when.textContent = isNaN(dt) ? r.date : dt.toLocaleDateString(th ? "th-TH" : "en-GB", { year: "numeric", month: "short" });
+          by.appendChild(when);
+        }
+        if (r.url) { var more = document.createElement("a"); more.className = "rev-more"; more.href = r.url; more.target = "_blank"; more.rel = "noopener"; more.textContent = th ? "อ่านบน Google ↗" : "Read on Google ↗"; by.appendChild(more); }
         card.appendChild(stars); card.appendChild(text); card.appendChild(by);
         cardsEl.appendChild(card); cards.push(card);
       });
       sumEl.textContent = "";
       if (d.rating) {
         var b = document.createElement("b"); b.textContent = Number(d.rating).toFixed(1) + " ★"; sumEl.appendChild(b);
-        sumEl.appendChild(document.createTextNode(th ? "บน Google" + (d.userRatingCount ? " · " + d.userRatingCount.toLocaleString() + " รีวิว" : "")
-          : "on Google" + (d.userRatingCount ? " · " + d.userRatingCount.toLocaleString() + " reviews" : "")));
+        sumEl.appendChild(document.createTextNode(th ? " บน Google" + (d.count ? " · " + d.count.toLocaleString() + " เรตติ้ง" : "")
+          : " on Google" + (d.count ? " · " + d.count.toLocaleString() + " ratings" : "")));
       }
-      allLink.href = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(REV.place);
+      allLink.href = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(REV_PLACE);
       revSec.hidden = false;
       show(0); tick();
-    }
-    function load() {
-      var lang = mapIsThai() ? "th" : "en", kept = store(lang);
-      if (kept) { data = kept; paint(); return; }
-      fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(REV.place) + "?languageCode=" + lang, {
-        headers: { "X-Goog-Api-Key": REV.key, "X-Goog-FieldMask": "rating,userRatingCount,reviews" }
-      }).then(function (r) { if (!r.ok) throw new Error("reviews " + r.status); return r.json(); })
-        .then(function (d) { data = d; store(lang, d); paint(); })
-        .catch(function () {});
     }
     document.getElementById("revPrev").addEventListener("click", function () { show(at - 1); tick(); });
     document.getElementById("revNext").addEventListener("click", function () { show(at + 1); tick(); });
@@ -3145,16 +3133,11 @@ window.BB_TH = {
     stage.addEventListener("pointerleave", function () { held = false; tick(); });
     stage.addEventListener("focusin", function () { held = true; tick(); });
     stage.addEventListener("focusout", function () { held = false; tick(); });
-    if (window.MutationObserver) new MutationObserver(load).observe(document.body, { attributes: true, attributeFilter: ["data-lang"] });
+    if (window.MutationObserver) new MutationObserver(paint).observe(document.body, { attributes: true, attributeFilter: ["data-lang"] });
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (en) { seen = en.some(function (e) { return e.isIntersecting; }); tick(); }, { threshold: 0.2 }).observe(stage);
-      var near = new IntersectionObserver(function (en) {
-        if (!en.some(function (e) { return e.isIntersecting; })) return;
-        near.disconnect(); load();
-      }, { rootMargin: "150% 0px" });
-      // a hidden section has no box to watch: watch the section after it
-      near.observe(document.getElementById("find") || document.body);
-    } else { seen = true; load(); }
+    } else { seen = true; }
+    paint();
   })();
 
   /* section rail — plain anchor links; this only keeps the "you are here" cue in step
