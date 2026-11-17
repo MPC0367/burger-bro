@@ -1645,8 +1645,8 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <figure class="find-map" id="findMap">
         <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
-          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-robinhood="https://static.robinhood.in.th/share_link.html?utm_source=consumerapp&amp;utm_medium=sharefavshopbutton&amp;utm_campaign=sharefavshop&amp;utm_content=61590&amp;URI=robinhoodth://merchantlanding/id/61590" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
-          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-lineman="https://lin.ee/nPi5Qzb" data-robinhood="https://static.robinhood.in.th/app_link.html?URI=robinhoodth://merchantlanding/id/257854"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
+          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-lineman="https://lin.ee/nPi5Qzb"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
         </div>
         <div class="find-map-frame">
           <div class="find-map-canvas" id="findMapCanvas" role="region" aria-label="Map of Burger Bro's two branches" data-i18n-aria="a11y.mapAll"></div>
@@ -1682,7 +1682,6 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <div class="order-cta">
         <a class="btn btn-mustard" id="orderLineman" href="https://lin.ee/OyZp7FP" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
-        <a class="btn btn-mustard" id="orderRobinhood" href="https://static.robinhood.in.th/share_link.html?utm_source=consumerapp&amp;utm_medium=sharefavshopbutton&amp;utm_campaign=sharefavshop&amp;utm_content=61590&amp;URI=robinhoodth://merchantlanding/id/61590" target="_blank" rel="noopener" data-i18n="order.rh">Order on Robinhood</a>
         <a class="btn btn-mustard" href="https://www.grab.com/th/food/" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
       </div>
       <div class="order-cta order-cta-alt">
@@ -1909,7 +1908,6 @@ window.BB_TH = {
   "br.pk": "พัฒนาการ",
   "find.near": "สาขาใกล้ฉัน",
   "order.from": "สั่งจากสาขา",
-  "order.rh": "สั่งผ่าน ROBINHOOD",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
 
@@ -2688,7 +2686,7 @@ window.BB_TH = {
      visitor nears Find us. The tabs and the pins choose a branch: the map moves to it and
      the two links under it follow. If the library, the tiles or WebGL fail, Google's map
      of the chosen branch takes the frame instead. The chosen branch also sets the delivery
-     links in the footer (each tab's data-lineman / data-robinhood), and the footer's own
+     link in the footer (each tab's data-lineman), and the footer's own
      branch switch chooses the same way. With the visitor's permission the browser's location
      is shown on the map and the nearest branch is chosen first; it never leaves the page. */
   var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".find-map-tab"));
@@ -2698,7 +2696,7 @@ window.BB_TH = {
   var mapDir = document.getElementById("findMapDir");
   var mapNear = document.getElementById("findMapNear");
   var orderBtns = Array.prototype.slice.call(document.querySelectorAll(".order-branch-btn"));
-  var orderLm = document.getElementById("orderLineman"), orderRh = document.getElementById("orderRobinhood");
+  var orderLm = document.getElementById("orderLineman");
   var orderCall = document.getElementById("orderCall"), orderWalk = document.getElementById("orderWalk");
   var userPos = null, userMarker = null, userPicked = false, geoAsking = false, kmAway = [];
   function tabName(tab) { var n = tab.querySelector(".find-map-name"); return (n || tab).textContent; }
@@ -2754,7 +2752,6 @@ window.BB_TH = {
     if (mapDir) mapDir.href = tab.getAttribute("data-dir");
     orderBtns.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
     if (orderLm) orderLm.href = tab.getAttribute("data-lineman");
-    if (orderRh) orderRh.href = tab.getAttribute("data-robinhood");
     if (orderWalk) orderWalk.href = tab.getAttribute("data-open");
     if (orderCall) orderCall.hidden = !tab.getAttribute("data-tel"); // only a number we know is that branch's
     if (mapMode === "styled" && move) {
