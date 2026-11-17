@@ -673,20 +673,39 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .rev-sum { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 10px; }
 .rev-sum b { color: var(--red); font-size: 1.5em; letter-spacing: 0; margin-right: 6px; }
 .rev-stage { margin-top: clamp(30px, 5vh, 54px); }
-.rev-cards { display: grid; }
+.rev-cards { display: grid; grid-template-columns: minmax(0, 1fr); }
 .rev-card {
-  grid-area: 1 / 1; display: flex; flex-direction: column; gap: 18px;
+  grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column; gap: 12px;
   padding: clamp(24px, 3.4vw, 44px); background: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--mustard);
   opacity: 0; visibility: hidden; transform: translateY(10px);
   transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
 }
 .rev-card.is-on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.rev-stars { color: var(--red); font-size: 22px; letter-spacing: .12em; line-height: 1; }
-.rev-text { font-size: clamp(18px, 1.9vw, 24px); line-height: 1.5; max-width: 62ch; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7; line-clamp: 7; overflow: hidden; }
-.rev-by { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
-.rev-by img { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--ink); }
-.rev-by a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
-.rev-more { color: var(--red); font-weight: 700; text-underline-offset: 3px; }
+.rev-head-row { display: flex; align-items: center; gap: 14px; }
+.rev-av { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 21px; font-weight: 700; border: 2px solid var(--ink); }
+.rev-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+.rev-sub { margin-top: 2px; font-size: 13.5px; color: var(--ink-soft); }
+.rev-line { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
+.rev-stars { color: #E7A21B; font-size: 19px; letter-spacing: .06em; line-height: 1; }
+.rev-when, .rev-meta { font-size: 14px; color: var(--ink-soft); }
+.rev-box { display: flex; flex-direction: column; gap: 12px; padding: 14px 18px; background: var(--paper-deep); border: 2px solid var(--ink); max-width: 70ch; }
+.rev-scores { font-weight: 700; font-size: 15px; }
+.rev-dt { font-weight: 700; font-size: 14.5px; }
+.rev-dd { font-size: 14.5px; margin-top: 2px; }
+.rev-photos { display: flex; gap: 10px; overflow-x: auto; padding: 4px 4px 8px; scrollbar-width: thin; }
+.rev-photo { flex: none; width: clamp(96px, 13vw, 150px); aspect-ratio: 1; padding: 0; border: 2px solid var(--ink); background: var(--paper-deep); cursor: zoom-in; overflow: hidden; }
+.rev-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+.rev-photo:hover img { transform: scale(1.06); }
+.rev-photo:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+.rev-photo-note { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+.rev-lb { width: min(960px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; background: var(--ink); color: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--mustard); }
+.rev-lb::backdrop { background: rgba(34, 21, 17, .86); }
+.rev-lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px 10px 16px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.rev-lb-x { font: inherit; font-weight: 700; padding: 7px 10px 6px; color: var(--paper); background: transparent; border: 2px solid var(--paper); cursor: pointer; }
+.rev-lb img { display: block; width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; background: #000; }
+.rev-lb-nav { display: flex; justify-content: center; gap: 10px; padding: 12px; }
+body[data-lang="th"] .rev-photo-note, body[data-lang="th"] .rev-lb-bar { letter-spacing: .02em; font-size: 13px; }
+.rev-text { font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; max-width: 70ch; white-space: pre-line; }
 .rev-ctl { display: flex; align-items: center; gap: 10px; margin-top: 26px; }
 .rev-btn {
   width: 44px; height: 44px; display: inline-grid; place-items: center; font: inherit; font-size: 16px; font-weight: 700;
@@ -699,9 +718,9 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .rev-count { margin-left: 8px; font-size: 12px; letter-spacing: .14em; color: var(--ink-soft); }
 .rev-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: clamp(30px, 5vh, 50px); }
 .rev-src { font-size: 11px; letter-spacing: .12em; color: var(--ink-soft); }
-body[data-lang="th"] .rev-sum, body[data-lang="th"] .rev-src, body[data-lang="th"] .rev-by { letter-spacing: .02em; font-size: 14px; }
+body[data-lang="th"] .rev-sum, body[data-lang="th"] .rev-src { letter-spacing: .02em; font-size: 14px; }
 @media (prefers-reduced-motion: reduce) { .rev-card { transition: none; transform: none; } }
-@media (max-width: 640px) { .rev-card { box-shadow: 6px 6px 0 var(--mustard); } .rev-text { -webkit-line-clamp: 10; line-clamp: 10; } }
+@media (max-width: 640px) { .rev-card { box-shadow: 6px 6px 0 var(--mustard); } .rev-av { width: 40px; height: 40px; font-size: 18px; } }
 
 .find { padding: clamp(90px, 16vh, 170px) 0; }
 .find-grid {
@@ -1680,6 +1699,17 @@ html.shot-full .cinema { height: 980px; }
     </div>
   </div>
 </section>
+<dialog class="rev-lb" id="revLb" aria-label="Photo" data-i18n-aria="a11y.photo">
+  <div class="rev-lb-bar mono">
+    <span id="revLbCap"></span>
+    <button type="button" class="rev-lb-x" id="revLbX" data-i18n="grab.close">Close</button>
+  </div>
+  <img id="revLbImg" src="" alt="">
+  <div class="rev-lb-nav">
+    <button type="button" class="rev-btn" id="revLbPrev" aria-label="Previous photo" data-i18n-aria="a11y.photoPrev">&larr;</button>
+    <button type="button" class="rev-btn" id="revLbNext" aria-label="Next photo" data-i18n-aria="a11y.photoNext">&rarr;</button>
+  </div>
+</dialog>
 
 <!-- ============ FIND US ============ -->
 <section class="find" id="find" aria-labelledby="findTitle">
@@ -2003,6 +2033,9 @@ window.BB_TH = {
   "@aria:a11y.revPrev": "รีวิวก่อนหน้า",
   "@aria:a11y.revNext": "รีวิวถัดไป",
   "@aria:a11y.revPause": "หยุดการเลื่อนรีวิว",
+  "@aria:a11y.photo": "รูปภาพ",
+  "@aria:a11y.photoPrev": "รูปก่อนหน้า",
+  "@aria:a11y.photoNext": "รูปถัดไป",
   "order.from": "สั่งจากสาขา",
   "find.call": "โทร 082-793-8855",
   "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
@@ -3066,7 +3099,29 @@ window.BB_TH = {
      focus, for the pause button and under Reduce Motion. With an empty list the section stays hidden.
      Each entry: { name, rating (4 or 5), date: "YYYY-MM-DD", text, lang: "en" | "th", url (optional link to the review) }.
      REV_RATING is the listing's rating as seen on REV_AS_OF. */
-  var REVIEWS = [];
+  var REVIEWS = [
+    { name: "KinTiewLen", guide: true, count: "502 reviews · 4,135 photos", rating: 5, date: "2026-08-17", lang: "en",
+      text: "This is an amazing smash burger restaurant with a cool American style, making it a great spot to visit with family or friends. Their signature menu is the 'Magma Burger,' which features a burger in the middle of a hot tray surrounded by a huge portion of fries and melted cheese. Besides burgers, they also offer hot dogs, salads, milkshakes, and beef steaks, along with served beer at reasonable prices!!!",
+      photos: ["shop-front", "menu-hot-dog", "menu-milkshakes", "menu-rib-eye", "shop-booths"] },
+    { name: "MAJ_Raeine", guide: true, count: "11 reviews · 20 photos", rating: 5, date: "2026-03-17", lang: "en", meta: "Lunch | ฿200–400",
+      text: "At this price point, this is the best burger ever. The quality are well-maintained for over 5 years.",
+      scores: "Food: 5/5 | Service: 5/5 | Atmosphere: 3/5",
+      details: [["Recommended dishes", "Curly Fries, Burger Bro Signature, Chilli Dog"], ["Noise level", "Quiet, easy to talk"], ["Vegetarian options", "Not for the weak."]],
+      photos: ["menu-curly-fries", "menu-burger-bro", "menu-chilli-dog"] },
+    { name: "Tony Lu", guide: true, count: "400 reviews · 772 photos", rating: 5, date: "2025-11-17", edited: true, lang: "en",
+      text: "Great burger and great value. Dine in or take out. I am a big fan of this place.",
+      scores: "Food: 5/5 | Service: 5/5 | Atmosphere: 5/5",
+      photos: ["menu-big-bro", "menu-cheese-burger", "menu-smokey-bro", "menu-boss-burger"] },
+    { name: "Taters “Tatertots”", guide: true, count: "474 reviews · 4,477 photos", rating: 5, date: "2024-11-17", lang: "en",
+      text: "Juicy Beef Burger\nCrunchy Onion rings, deep fried. A lotta frying oil. Crunchy munchies.\n\nExquisite A",
+      scores: "Food: 4/5 | Service: 5/5 | Atmosphere: 5/5",
+      photos: ["menu-angus-burger", "menu-onion-rings", "bro-inside", "shop-popcorn"] }
+  ];
+  // the shop's own photos shown with each review (not the reviewers' photos), and their captions
+  var REV_PHOTO_NAMES = { "shop-front": "The Rama 9 shop", "shop-booths": "The booths", "shop-popcorn": "Free popcorn", "bro-inside": "Inside Burger Bro",
+    "menu-hot-dog": "Hot Dog", "menu-milkshakes": "Milkshakes", "menu-rib-eye": "Rib-Eye Steak", "menu-curly-fries": "Curly Fries",
+    "menu-burger-bro": "Burger Bro Signature", "menu-chilli-dog": "Chilli Dog", "menu-big-bro": "Big Bro", "menu-cheese-burger": "Cheese Burger",
+    "menu-smokey-bro": "Smokey Bro", "menu-boss-burger": "Boss Burger", "menu-angus-burger": "Angus Burger", "menu-onion-rings": "Onion Rings" };
   var REV_RATING = { rating: 4.4, count: 913 }, REV_AS_OF = "2026-11-17";
   var REV_PLACE = "ChIJUUFUPsVhHTER8HJRUqmgPDw";
   var revSec = document.getElementById("reviews");
@@ -3090,6 +3145,36 @@ window.BB_TH = {
       window.clearInterval(timer); timer = null;
       if (!paused && !held && seen && cards.length > 1) timer = window.setInterval(function () { show(at + 1); }, 7000);
     }
+    function relTime(iso, th) {
+      var d = new Date(iso + "T00:00:00"), now = new Date();
+      if (isNaN(d)) return "";
+      var m = (now.getFullYear() - d.getFullYear()) * 12 + now.getMonth() - d.getMonth() - (now.getDate() < d.getDate() ? 1 : 0);
+      if (m < 1) return th ? "เดือนนี้" : "this month";
+      if (m < 12) return th ? m + " เดือนที่แล้ว" : (m === 1 ? "a month ago" : m + " months ago");
+      var y = Math.floor(m / 12);
+      return th ? y + " ปีที่แล้ว" : (y === 1 ? "a year ago" : y + " years ago");
+    }
+    var lb = document.getElementById("revLb"), lbImg = document.getElementById("revLbImg"), lbCap = document.getElementById("revLbCap");
+    var lbSet = [], lbAt = 0;
+    function lbShow(i) {
+      lbAt = (i + lbSet.length) % lbSet.length;
+      var ph = lbSet[lbAt];
+      lbImg.src = "media/" + ph + ".jpg";
+      lbImg.alt = REV_PHOTO_NAMES[ph] || "";
+      lbCap.textContent = (REV_PHOTO_NAMES[ph] || "") + " · " + (lbAt + 1) + " / " + lbSet.length;
+    }
+    function openViewer(set, i) {
+      if (!lb || !lb.showModal) { window.open("media/" + set[i] + ".jpg", "_blank", "noopener"); return; }
+      lbSet = set; lbShow(i); held = true; tick(); lb.showModal();
+    }
+    if (lb && lb.showModal) {
+      document.getElementById("revLbX").addEventListener("click", function () { lb.close(); });
+      document.getElementById("revLbPrev").addEventListener("click", function () { lbShow(lbAt - 1); });
+      document.getElementById("revLbNext").addEventListener("click", function () { lbShow(lbAt + 1); });
+      lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+      lb.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") lbShow(lbAt - 1); if (e.key === "ArrowRight") lbShow(lbAt + 1); });
+      lb.addEventListener("close", function () { held = false; tick(); });
+    }
     function paint() {
       var th = mapIsThai(), d = REV_RATING;
       var list = REVIEWS.filter(function (r) { return r.rating >= 4 && r.text; })
@@ -3098,20 +3183,42 @@ window.BB_TH = {
       cardsEl.textContent = ""; cards = [];
       list.forEach(function (r) {
         var card = document.createElement("article"); card.className = "rev-card";
-        var stars = document.createElement("p"); stars.className = "rev-stars";
-        stars.textContent = "★★★★★".slice(0, r.rating); stars.setAttribute("aria-label", r.rating + (th ? " ดาว" : " stars"));
-        var text = document.createElement("p"); text.className = "rev-text"; text.textContent = r.text;
-        if (r.lang) text.lang = r.lang;
-        var by = document.createElement("p"); by.className = "rev-by";
-        var name = document.createElement("span"); name.textContent = r.name || "Google user";
-        by.appendChild(name);
-        if (r.date) {
-          var when = document.createElement("span"), dt = new Date(r.date + "T00:00:00");
-          when.textContent = isNaN(dt) ? r.date : dt.toLocaleDateString(th ? "th-TH" : "en-GB", { year: "numeric", month: "short" });
-          by.appendChild(when);
+        function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+        var head = el("div", "rev-head-row");
+        var av = el("span", "rev-av", (r.name || "G").replace(/[^A-Za-z0-9ก-๙]/g, "").charAt(0).toUpperCase());
+        av.setAttribute("aria-hidden", "true");
+        av.style.background = ["#E8622C", "#5B7DB1", "#3E8E6B", "#9B4FB8", "#C2410C"][(r.name || "").length % 5];
+        var who = el("div", "rev-who");
+        who.appendChild(el("p", "rev-name", r.name || "Google user"));
+        who.appendChild(el("p", "rev-sub", (r.guide ? "Local Guide · " : "") + (r.count || "")));
+        head.appendChild(av); head.appendChild(who); card.appendChild(head);
+        var line = el("p", "rev-line");
+        var stars = el("span", "rev-stars", "★★★★★".slice(0, r.rating));
+        stars.setAttribute("role", "img"); stars.setAttribute("aria-label", r.rating + (th ? " ดาว" : " stars"));
+        line.appendChild(stars);
+        line.appendChild(el("span", "rev-when", (r.edited ? (th ? "แก้ไข " : "Edited ") : "") + relTime(r.date, th)));
+        card.appendChild(line);
+        if (r.meta) card.appendChild(el("p", "rev-meta", r.meta));
+        var text = el("p", "rev-text", r.text); if (r.lang) text.lang = r.lang; card.appendChild(text);
+        if (r.scores || r.details) {
+          var box = el("div", "rev-box"); if (r.lang) box.lang = r.lang;
+          if (r.scores) box.appendChild(el("p", "rev-scores", r.scores));
+          (r.details || []).forEach(function (dd) { var dl = el("div", "rev-detail"); dl.appendChild(el("p", "rev-dt", dd[0])); dl.appendChild(el("p", "rev-dd", dd[1])); box.appendChild(dl); });
+          card.appendChild(box);
         }
-        if (r.url) { var more = document.createElement("a"); more.className = "rev-more"; more.href = r.url; more.target = "_blank"; more.rel = "noopener"; more.textContent = th ? "อ่านบน Google ↗" : "Read on Google ↗"; by.appendChild(more); }
-        card.appendChild(stars); card.appendChild(text); card.appendChild(by);
+        if (r.photos && r.photos.length) {
+          var strip = el("div", "rev-photos");
+          r.photos.forEach(function (ph, k) {
+            var b = el("button", "rev-photo"); b.type = "button";
+            b.setAttribute("aria-label", (th ? "เปิดรูป: " : "Open photo: ") + (REV_PHOTO_NAMES[ph] || ""));
+            var im = document.createElement("img"); im.src = "media/" + ph + "-640.jpg"; im.alt = ""; im.loading = "lazy"; im.decoding = "async";
+            b.appendChild(im);
+            b.addEventListener("click", function () { openViewer(r.photos, k); });
+            strip.appendChild(b);
+          });
+          card.appendChild(strip);
+          card.appendChild(el("p", "rev-photo-note", th ? "รูปจากร้าน Burger Bro" : "Photos: Burger Bro's own"));
+        }
         cardsEl.appendChild(card); cards.push(card);
       });
       sumEl.textContent = "";
