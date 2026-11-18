@@ -675,8 +675,8 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .rev-stage { margin-top: clamp(30px, 5vh, 54px); }
 .rev-cards { display: grid; grid-template-columns: minmax(0, 1fr); }
 .rev-card {
-  grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column; gap: 12px;
-  padding: clamp(24px, 3.4vw, 44px); background: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--mustard);
+  grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(26px, 4vh, 40px) 0 0; border-top: 2px solid var(--ink);
   opacity: 0; visibility: hidden; transform: translateY(10px);
   transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
 }
@@ -688,7 +688,7 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .rev-line { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
 .rev-stars { color: #E7A21B; font-size: 19px; letter-spacing: .06em; line-height: 1; }
 .rev-when, .rev-meta { font-size: 14px; color: var(--ink-soft); }
-.rev-box { display: flex; flex-direction: column; gap: 12px; padding: 14px 18px; background: var(--paper-deep); border: 2px solid var(--ink); max-width: 70ch; }
+.rev-box { display: flex; flex-direction: column; gap: 12px; padding: 2px 0 2px 18px; border-left: 4px solid var(--mustard); max-width: 70ch; }
 .rev-scores { font-weight: 700; font-size: 15px; }
 .rev-dt { font-weight: 700; font-size: 14.5px; }
 .rev-dd { font-size: 14.5px; margin-top: 2px; }
@@ -705,7 +705,7 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .rev-lb img { display: block; width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; background: #000; }
 .rev-lb-nav { display: flex; justify-content: center; gap: 10px; padding: 12px; }
 body[data-lang="th"] .rev-photo-note, body[data-lang="th"] .rev-lb-bar { letter-spacing: .02em; font-size: 13px; }
-.rev-text { font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; max-width: 70ch; white-space: pre-line; }
+.rev-text { font-size: clamp(19px, 2.1vw, 28px); line-height: 1.4; font-weight: 500; max-width: 46ch; white-space: pre-line; }
 .rev-ctl { display: flex; align-items: center; gap: 10px; margin-top: 26px; }
 .rev-btn {
   width: 44px; height: 44px; display: inline-grid; place-items: center; font: inherit; font-size: 16px; font-weight: 700;
@@ -720,7 +720,7 @@ body[data-lang="th"] .rev-photo-note, body[data-lang="th"] .rev-lb-bar { letter-
 .rev-src { font-size: 11px; letter-spacing: .12em; color: var(--ink-soft); }
 body[data-lang="th"] .rev-sum, body[data-lang="th"] .rev-src { letter-spacing: .02em; font-size: 14px; }
 @media (prefers-reduced-motion: reduce) { .rev-card { transition: none; transform: none; } }
-@media (max-width: 640px) { .rev-card { box-shadow: 6px 6px 0 var(--mustard); } .rev-av { width: 40px; height: 40px; font-size: 18px; } }
+@media (max-width: 640px) { .rev-av { width: 40px; height: 40px; font-size: 18px; } }
 
 .find { padding: clamp(90px, 16vh, 170px) 0; }
 .find-grid {
