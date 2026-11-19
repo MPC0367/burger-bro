@@ -65,6 +65,28 @@
   </button>
 </div>
 
+<!-- the dialogs come before the page content so the O2 credit stays the last link -->
+<!-- an item's photo and details: opened by its button, closed by Close, Escape or the backdrop; focus returns to the opener -->
+<dialog class="mp-dlg" id="mpDlg" aria-labelledby="mpDlgT">
+  <div class="mp-dlg-bar mono"><span id="mpDlgCat"></span><button type="button" class="mp-dlg-x" id="mpDlgX" data-t="close">Close</button></div>
+  <div class="mp-dlg-media" id="mpDlgMedia" hidden></div>
+  <div class="mp-dlg-body">
+    <h2 class="mp-dlg-t" id="mpDlgT"></h2>
+    <p class="mp-dlg-d" id="mpDlgD"></p>
+    <p class="mp-dlg-meta mono" id="mpDlgMeta"></p>
+    <a class="btn btn-red mp-dlg-order" id="mpDlgOrder" href="#order" data-t="orderThis">Order this</a>
+    <p class="mp-dlg-note" data-t="orderThisNote">You choose it again in the delivery app — nothing is added for you here.</p>
+  </div>
+</dialog>
+<dialog class="grab-dlg" id="grabDlg" aria-labelledby="grabDlgTitle">
+  <button type="button" class="grab-dlg-x mono" id="grabDlgX" data-t="close">Close</button>
+  <h2 class="grab-dlg-title" id="grabDlgTitle" data-t="grabTitle">Scan to order on GrabFood</h2>
+  <p class="grab-dlg-branch mono">BURGER BRO! — <span id="grabDlgBranch"></span></p>
+  <div id="grabDlgQrBox"></div>
+  <p class="grab-dlg-p" data-t="grabP">GrabFood orders happen in the Grab app. Point your phone's camera at the code and the shop opens in Grab.</p>
+  <a class="grab-dlg-link mono" id="grabDlgLink" href="#" target="_blank" rel="noopener" data-t="grabLink">Open the link here instead</a>
+</dialog>
+
 <main id="main" class="mp">
   <section class="menu mp-menu" aria-labelledby="mpTitle">
     <div class="container">
@@ -141,26 +163,6 @@
   </section>
 </main>
 
-<!-- an item's photo and details: opened by its button, closed by Close, Escape or the backdrop; focus returns to the opener -->
-<dialog class="mp-dlg" id="mpDlg" aria-labelledby="mpDlgT">
-  <div class="mp-dlg-bar mono"><span id="mpDlgCat"></span><button type="button" class="mp-dlg-x" id="mpDlgX" data-t="close">Close</button></div>
-  <div class="mp-dlg-media" id="mpDlgMedia" hidden></div>
-  <div class="mp-dlg-body">
-    <h2 class="mp-dlg-t" id="mpDlgT"></h2>
-    <p class="mp-dlg-d" id="mpDlgD"></p>
-    <p class="mp-dlg-meta mono" id="mpDlgMeta"></p>
-    <a class="btn btn-red mp-dlg-order" id="mpDlgOrder" href="#order" data-t="orderThis">Order this</a>
-    <p class="mp-dlg-note" data-t="orderThisNote">You choose it again in the delivery app — nothing is added for you here.</p>
-  </div>
-</dialog>
-<dialog class="grab-dlg" id="grabDlg" aria-labelledby="grabDlgTitle">
-  <button type="button" class="grab-dlg-x mono" id="grabDlgX" data-t="close">Close</button>
-  <h2 class="grab-dlg-title" id="grabDlgTitle" data-t="grabTitle">Scan to order on GrabFood</h2>
-  <p class="grab-dlg-branch mono">BURGER BRO! — <span id="grabDlgBranch"></span></p>
-  <div id="grabDlgQrBox"></div>
-  <p class="grab-dlg-p" data-t="grabP">GrabFood orders happen in the Grab app. Point your phone's camera at the code and the shop opens in Grab.</p>
-  <a class="grab-dlg-link mono" id="grabDlgLink" href="#" target="_blank" rel="noopener" data-t="grabLink">Open the link here instead</a>
-</dialog>
 
 <script src="menu-data.js"></script>
 <script src="menu.js"></script>
