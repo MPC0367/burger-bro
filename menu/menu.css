@@ -1,0 +1,114 @@
+/* The full menu page's own pieces. Rows, type, colours, header and footer come from home.css
+   (the homepage's stylesheet), so a dish looks the same on both pages. */
+
+.mp-menu { padding-top: calc(var(--stack-h) + clamp(28px, 6vh, 64px)); }
+.mp-back { margin-bottom: 18px; }
+.mp-back a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; color: var(--red); text-underline-offset: 4px; }
+body[data-lang="th"] .mp-back a { font-family: var(--font-th); font-size: 15px; letter-spacing: .01em; }
+.mp .menu-head h1 { margin: 0; }
+
+/* branch */
+.mp-branch { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; row-gap: 8px; }
+.mp-branch-l { margin-right: 14px; font-size: 11px; font-weight: 700; color: var(--ink-soft); }
+.mp-branch-b {
+  min-height: 44px; padding: 0 16px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
+}
+.mp-branch-b + .mp-branch-b { border-left: 0; }
+.mp-branch-b:hover { background: var(--paper-deep); }
+.mp-branch-b[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+body[data-lang="th"] .mp-branch-b, body[data-lang="th"] .mp-branch-l { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+
+/* search, protein filter, reset */
+.mp-tools { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.mp-search {
+  flex: 1 1 340px; display: flex; align-items: center; gap: 10px;
+  min-height: 52px; padding: 0 14px;
+  background: var(--white); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+}
+.mp-search svg { flex: none; width: 18px; height: 18px; }
+.mp-search-l { flex: none; font-size: 11px; font-weight: 700; color: var(--ink-soft); }
+body[data-lang="th"] .mp-search-l { font-family: var(--font-th); font-size: 14px; letter-spacing: .01em; }
+.mp-search input { flex: 1; min-width: 0; height: 48px; padding: 0; font: inherit; font-size: 16px; color: var(--ink); background: transparent; border: 0; }
+.mp-search input:focus { outline: none; }
+.mp-search:focus-within { outline: 3px dashed var(--ink); outline-offset: 3px; }
+.mp-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.mp-chips-l { margin-right: 2px; font-size: 11px; font-weight: 700; color: var(--ink-soft); }
+.mp-chip {
+  min-height: 44px; padding: 0 14px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
+}
+.mp-chip:hover { background: var(--paper-deep); }
+.mp-chip[aria-pressed="true"] { background: var(--red); color: var(--white); }
+body[data-lang="th"] .mp-chip, body[data-lang="th"] .mp-chips-l { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.mp-reset {
+  min-height: 44px; padding: 0 4px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--red); background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 4px;
+}
+.mp-reset[disabled] { color: var(--ink-soft); text-decoration: none; cursor: default; }
+body[data-lang="th"] .mp-reset { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+
+/* category navigation: the homepage rail's look, as buttons that choose a category */
+.mp-cats { margin-top: 22px; }
+.mp-cat {
+  position: relative; display: block; padding: 17px 0 15px;
+  font: inherit; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-soft); background: none; border: 0; cursor: pointer; white-space: nowrap;
+}
+.mp-cat::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 9px; height: 3px; background: var(--red); transition: right var(--t-fast) var(--e-out); }
+.mp-cat:hover { color: var(--ink); }
+.mp-cat[aria-pressed="true"] { color: var(--red); }
+.mp-cat[aria-pressed="true"]::after, .mp-cat:hover::after, .mp-cat:focus-visible::after { right: 0; }
+.mp-cat:focus-visible { outline-offset: -5px; }
+body[data-lang="th"] .mp-cat { font-family: var(--font-th); font-size: 14px; letter-spacing: .04em; }
+
+.mp-count { margin-top: 18px; color: var(--ink-soft); }
+body[data-lang="th"] .mp-count { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.mp-empty { margin-top: 28px; padding: 22px; border: 2px dashed var(--ink); background: var(--paper-deep); }
+.mp-empty[hidden] { display: none; }
+.mp-empty p { max-width: 60ch; }
+.mp-empty-acts { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; }
+.mp .menu-group[hidden], .mp .menu-sets[hidden], .mp .set-stub[hidden], .mp .menu-foot > [hidden] { display: none; }
+
+/* the row's own detail button (visible: tap, click and keyboard alike) */
+/* on the homepage this button appears only on keyboard focus; here it is always visible */
+.mp .mrow-name .mrow-view.mrow-view {
+  position: relative; width: auto; height: auto; margin: 0 0 0 12px; padding: 4px 8px 2px;
+  border: 1.5px dashed var(--ink); overflow: visible; clip-path: none; white-space: nowrap;
+}
+
+/* detail dialog */
+.mp-dlg { width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--red); }
+.mp-dlg::backdrop { background: rgba(34, 21, 17, .78); }
+.mp-dlg-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 10px 8px 16px; border-bottom: 2px solid var(--ink); font-size: 11px; font-weight: 700; color: var(--red); }
+.mp-dlg-x { min-height: 44px; padding: 0 14px; font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); cursor: pointer; }
+.mp-dlg-media img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--paper-deep); border-bottom: 2px solid var(--ink); }
+.mp-dlg-body { padding: 18px 20px 22px; }
+.mp-dlg-t { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(30px, 6vw, 42px); line-height: 1; }
+.mp-dlg-d { margin-top: 10px; font-size: 16px; line-height: 1.55; }
+.mp-dlg-meta { margin-top: 12px; font-size: 12px; color: var(--ink-soft); }
+.mp-dlg-order { margin-top: 18px; }
+.mp-dlg-note { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
+body[data-lang="th"] .mp-dlg-bar, body[data-lang="th"] .mp-dlg-meta { font-family: var(--font-th); font-size: 13px; letter-spacing: .01em; }
+
+/* ordering */
+.mp-order-in { padding-block: clamp(60px, 10vh, 110px); }
+.mp-order-for { margin-top: 18px; color: var(--mustard); font-size: 13px; letter-spacing: .1em; }
+.mp-order .order-cta { margin-top: 26px; }
+.mp-order .order-cta .btn-mustard.is-search { background: transparent; color: var(--white); border-color: var(--white); box-shadow: 6px 6px 0 rgba(255, 249, 238, .28); }
+.mp-order .order-note { margin-top: 16px; max-width: 60ch; color: rgba(255, 249, 238, .74); }
+.mp-handoff, .mp-more { margin-top: 16px; max-width: 58ch; color: rgba(255, 249, 238, .82); font-size: 15px; }
+.mp-more a { color: var(--white); font-weight: 700; text-underline-offset: 3px; }
+.mp-more a:hover { color: var(--mustard); }
+.mp-pick { margin-top: 16px; max-width: 58ch; padding: 10px 14px 9px; border: 2px dashed var(--mustard); color: var(--white); }
+.mp-pick[hidden] { display: none; }
+body[data-lang="th"] .mp-order-for { font-family: var(--font-th); font-size: 15px; letter-spacing: .02em; }
+
+@media (max-width: 520px) {
+  .mp-search { flex-basis: 100%; }
+  /* the label leaves the screen, not the accessibility tree: the field keeps its name */
+  .mp-search-l { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
