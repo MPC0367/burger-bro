@@ -14,25 +14,17 @@
 <meta property="og:url" content="https://mpc0367.github.io/burger-bro/">
 <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
 <!-- one page, two languages: English at the plain address, Thai at ?lang=th (the page reads it before paint) -->
-<link rel="canonical" id="canonical" href="https://mpc0367.github.io/burger-bro/">
+<link rel="canonical" id="canonical" href="https://mpc0367.github.io/burger-bro/" data-th="https://mpc0367.github.io/burger-bro/?lang=th">
 <link rel="alternate" hreflang="en" href="https://mpc0367.github.io/burger-bro/">
 <link rel="alternate" hreflang="th" href="https://mpc0367.github.io/burger-bro/?lang=th">
 <link rel="alternate" hreflang="x-default" href="https://mpc0367.github.io/burger-bro/">
+<!-- shared with the full menu page: the language/branch resolver, branch data and bbTrack; it also sets <html lang> before paint -->
+<script src="shared/site.js"></script>
 <script>
-/* before first paint: mark JS as available, set the language on <html>
-   (a valid ?lang= in the address wins over the saved choice, which wins over English),
-   and skip the brand loader on repeat views within the same tab session */
+/* before first paint: mark JS as available and skip the brand loader on repeat views within the same tab session */
 (function (d) {
   var e = d.documentElement;
   e.classList.add("js");
-  var q = null;
-  try { q = new URLSearchParams(location.search).get("lang"); } catch (err) {}
-  if (q === "th" || q === "en") {
-    e.lang = q;
-    if (q === "th") d.getElementById("canonical").href = "https://mpc0367.github.io/burger-bro/?lang=th";
-  } else {
-    try { if (localStorage.getItem("bb-lang") === "th") e.lang = "th"; } catch (err) {}
-  }
   try {
     if (sessionStorage.getItem("bb-seen")) e.classList.add("no-loader");
     else sessionStorage.setItem("bb-seen", "1");
@@ -235,7 +227,7 @@ body[data-lang="th"] .h2, body[data-lang="th"] .hero-h, body[data-lang="th"] .h3
 .frame { position: relative; }
 .frame img { border: 2px solid var(--ink); }
 .frame-red img { box-shadow: 12px 12px 0 var(--red); }
-.frame-mustard img, .frame-mustard .bro-fig-window { box-shadow: 12px 12px 0 var(--mustard); }
+.frame-mustard img { box-shadow: 12px 12px 0 var(--mustard); }
 .frame figcaption { margin-top: 18px; color: var(--ink-soft); }
 
 /* ============================================================
@@ -551,86 +543,163 @@ body[data-lang="th"] .hero-h { font-size: clamp(56px, 11vw, 160px); line-height:
    THE BRO — sticky descent
    ============================================================ */
 .bro {
-  background: linear-gradient(178deg, var(--oxblood), var(--oxblood-2));
-  color: var(--white);
-}
-.bro-head { padding: clamp(90px, 15vh, 150px) 0 clamp(20px, 4vh, 44px); display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 72px); }
-.bro-meta { margin-top: 26px; color: var(--mustard); grid-column: 2; }
-.bro-sticky-zone { position: relative; height: 430vh; }
-.bro-sticky { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; overflow: clip; }
-.bro-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(28px, 5vw, 96px);
-  align-items: center;
-  width: min(100% - (var(--gutter) * 2), 1400px);
-}
-.bro-fig { justify-self: center; width: min(100%, 470px); }
-.bro-fig-window {
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 3 / 3.55;
-  border: 2px solid var(--ink);
-  background: var(--oxblood-2);
+  background: var(--paper);
+  color: var(--ink);
+  border-top: 2px solid var(--ink);
 }
-.bro-fig-window img {
-  position: absolute; top: 0; left: 50%;
-  width: 132%; max-width: none;
-  transform: translate(-50%, 0);
-  will-change: transform;
-  border: 0;
-}
-.bro-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: none;
-  border: 0;
-}
-html.has-brovideo .bro-video { display: block; }
-html.has-brovideo .bro-fig-window img { display: none; }
-html.has-brovideo .bro-fig { width: min(100%, 470px, calc((100svh - 140px) * 0.75)); }
-html.has-brovideo .bro-fig-window { aspect-ratio: 3 / 4; }
-.bro-scan {
-  position: absolute; left: -2px; right: -2px; top: 50%;
-  height: 0; border-top: 2px dashed var(--mustard);
-  opacity: .85;
-}
-.bro-scan::before, .bro-scan::after {
-  content: ""; position: absolute; top: -6px;
-  width: 10px; height: 10px; background: var(--mustard);
-}
-.bro-scan::before { left: 0; }
-.bro-scan::after { right: 0; }
-.bro-progress { color: var(--mustard); margin-bottom: 26px; font-size: 14px; }
-.bro-progress span { font-size: 30px; font-weight: 700; color: var(--white); }
-.bro-list { display: flex; flex-direction: column; }
-.bro-step {
+/* the track: only a pinned story is taller than its stage (height set by the script, about three usable screens) */
+.bro-zone { position: relative; }
+.bro-stage { position: relative; }
+.bro-grid {
   display: grid;
-  grid-template-columns: 52px 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 8px;
-  padding: 17px 0;
-  border-top: 1px solid rgba(255, 249, 238, .22);
-  opacity: .34;
-  transition: opacity .35s ease;
+  grid-template-columns: minmax(0, 1fr) var(--bro-copy-w, clamp(320px, 31vw, 460px));
+  gap: clamp(24px, 3vw, 56px);
+  align-items: center;
+  padding-block: clamp(56px, 9vh, 110px);
 }
-.bro-step:last-child { border-bottom: 1px solid rgba(255, 249, 238, .22); }
-.bro-step.is-on { opacity: 1; }
-.bro-step em { grid-row: 1 / 3; font-style: normal; color: var(--mustard); font-weight: 700; padding-top: 5px; }
-.bro-step h3 {
-  font-family: var(--font-display); font-weight: 400;
-  text-transform: uppercase; letter-spacing: .01em;
-  font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05;
+/* pinned (wide, tall enough, motion allowed, content fits): the stage holds still under the header */
+.bro.is-pinned .bro-stage {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  padding-top: var(--stack-h);
+  display: flex; align-items: stretch;
 }
-body[data-lang="th"] .bro-step h3 { font-family: var(--font-display-th); font-weight: 700; }
-.bro-step p { margin-top: 6px; max-width: 44ch; font-size: 15.5px; line-height: 1.6; color: rgba(255, 249, 238, .82); }
+.bro.is-pinned .bro-grid { width: min(100% - (var(--gutter) * 2), 1800px); height: 100%; padding-block: clamp(14px, 2.4vh, 28px); }
+.bro-media {
+  position: relative;
+  min-width: 0; min-height: 0;
+  height: var(--bro-media-h, min(78vh, 900px));
+  display: grid; place-items: center;
+}
+.bro.is-pinned .bro-media { height: 100%; }
+/* light: a soft, static cream-and-mustard glow behind the burger; texture: the page's own paper grain */
+.bro-glow {
+  position: absolute; inset: -6% -4%;
+  background:
+    radial-gradient(closest-side, rgba(241, 166, 43, .22), rgba(241, 166, 43, .08) 55%, transparent 78%),
+    radial-gradient(closest-side, rgba(255, 249, 238, .9), transparent 70%);
+  pointer-events: none;
+}
+/* the photograph: sized by the script with ONE scale from both axes (contain), never stretched */
+.bro-photo {
+  position: relative; z-index: 1;
+  width: var(--bro-photo-w, 300px); height: var(--bro-photo-h, 400px);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #5a1a12;
+  box-shadow: 0 0 0 1px rgba(34, 21, 17, .55), 0 18px 34px -18px rgba(34, 21, 17, .55);
+}
+.bro-poster, .bro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border: 0; }
+.bro-canvas { opacity: 0; }
+.bro.has-seq .bro-canvas { opacity: 1; }
+.bro.has-seq .bro-poster { visibility: hidden; }
+/* grounding: a soft shadow on the paper under the photograph */
+.bro-shadow {
+  position: absolute; z-index: 0; left: 50%; top: calc(50% + var(--bro-photo-h, 400px) / 2 - 6px);
+  width: calc(var(--bro-photo-w, 300px) * .9); height: 22px; transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(34, 21, 17, .28), transparent);
+  pointer-events: none;
+}
+.bro-copy { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+.bro.is-pinned .bro-copy { max-height: 100%; }
+.bro-kicker { color: var(--red); font-weight: 700; }
+.bro-h {
+  margin-top: 10px;
+  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(26px, 2.5vw, 38px); line-height: 1; letter-spacing: .005em;
+}
+body[data-lang="th"] .bro-h { font-family: var(--font-display-th); font-weight: 800; line-height: 1.2; }
+.bro-active {
+  width: 100%; margin-top: clamp(16px, 3vh, 30px);
+  padding-top: clamp(14px, 2.4vh, 22px);
+  border-top: 2px solid var(--ink);
+  min-height: var(--bro-active-h, 0px); /* the tallest description, so the controls below do not jump */
+}
+.bro-count { color: var(--ink-soft); font-size: 13px; }
+.bro-count b { font-size: 26px; color: var(--red); margin-right: 2px; }
+.bro-active-t {
+  margin-top: 4px;
+  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(34px, 3.6vw, 56px); line-height: .98;
+}
+body[data-lang="th"] .bro-active-t { font-family: var(--font-display-th); font-weight: 800; line-height: 1.15; }
+.bro-active-p { margin-top: 10px; max-width: 42ch; font-size: clamp(16px, .45vw + 12.5px, 18px); line-height: 1.55; color: var(--ink); }
+.bro-active.is-swap .bro-active-t, .bro-active.is-swap .bro-active-p { animation: broSwap .16s ease-out both; }
+@keyframes broSwap { from { opacity: .35; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.bro-ch-label { margin-top: clamp(16px, 3vh, 28px); font-size: 11px; color: var(--ink-soft); font-weight: 700; }
+.bro-chapters { width: 100%; margin-top: 8px; display: grid; gap: 6px; counter-reset: none; }
+.bro-ch {
+  width: 100%; min-height: 44px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 12px;
+  font: inherit; text-align: left; color: var(--ink);
+  background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
+  transition: background var(--t-hover), color var(--t-hover), transform var(--t-press);
+}
+.bro-ch:hover { background: var(--white); }
+.bro-ch:active { transform: translateY(1px); }
+.bro-ch:focus-visible { outline: 3px dashed var(--ink); outline-offset: 3px; }
+.bro-ch-n { font-size: 12px; font-weight: 700; color: var(--red); }
+.bro-ch-t { font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+body[data-lang="th"] .bro-ch-t { font-family: var(--font-th); font-size: 15px; letter-spacing: .01em; text-transform: none; }
+/* the selected chapter: solid red, its number, and a rule — not colour alone */
+.bro-ch[aria-current="step"] { background: var(--red); color: var(--white); box-shadow: 4px 4px 0 var(--ink); }
+.bro-ch[aria-current="step"] .bro-ch-n { color: var(--white); }
+.bro-ch[aria-current="step"] .bro-ch-t { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.bro-play {
+  margin-top: 12px; min-height: 44px; padding: 0 14px;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
+}
+.bro-play[hidden] { display: none; }
+.bro-play-i { width: 0; height: 0; border-block: 6px solid transparent; border-left: 10px solid currentColor; }
+.bro-play[aria-pressed="true"] .bro-play-i { width: 10px; height: 12px; border: 0; border-inline: 3.5px solid currentColor; }
+body[data-lang="th"] .bro-play { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.bro-all { width: 100%; margin-top: 14px; border-top: 1.5px solid rgba(34, 21, 17, .3); }
+.bro-all summary {
+  min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; list-style: none;
+}
+.bro-all summary::-webkit-details-marker { display: none; }
+.bro-all summary::after { content: "+"; font-size: 18px; color: var(--red); }
+.bro-all[open] summary::after { content: "–"; }
+body[data-lang="th"] .bro-all summary { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.bro-list { display: flex; flex-direction: column; gap: 14px; padding-bottom: 6px; }
+.bro-step h4 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: 22px; line-height: 1.05; }
+body[data-lang="th"] .bro-step h4 { font-family: var(--font-display-th); font-weight: 700; }
+.bro-step p { margin-top: 4px; max-width: 44ch; font-size: 16px; line-height: 1.55; }
+.bro-acts { margin-top: clamp(14px, 2.6vh, 24px); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; }
+.bro-full { padding: 13px 20px 11px; }
+.bro.is-pinned .bro-all[open] { max-height: none; }
+
+/* normal flow, narrow: media above copy */
+.bro.is-stack .bro-grid { grid-template-columns: minmax(0, 1fr); }
+.bro.is-stack .bro-copy { max-width: 560px; }
+.bro.is-stack .bro-chapters { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.bro.is-stack .bro-ch { justify-content: flex-start; }
+/* on a phone the picture stays in view (sticky under the header stack) while the chapters are chosen;
+   the page itself scrolls normally and no text is ever held inside it */
+.bro.is-stack .bro-media { position: sticky; top: var(--stack-h); z-index: 2; background: var(--paper); transition: top var(--t-ui) var(--e-out); }
+html.nav-hidden .bro.is-stack .bro-media { top: var(--act-h); }
+.bro:not(.is-pinned):not(.is-stack) .bro-media { position: sticky; top: calc(var(--stack-h) + 8px); align-self: start; }
+html.nav-hidden .bro:not(.is-pinned):not(.is-stack) .bro-media { top: calc(var(--act-h) + 8px); }
+.bro.is-stack .bro-ch, .bro.is-stack .bro-play, .bro.is-stack .bro-all summary { scroll-margin-top: calc(var(--stack-h) + var(--bro-media-h, 300px) + 12px); }
+.bro.is-stack .bro-grid { padding-top: clamp(28px, 5vh, 48px); row-gap: 16px; }
+.bro.is-stack .bro-kicker, .bro.is-stack .bro-h { order: 0; }
+.bro.is-stack .bro-ch-label { order: 1; margin-top: 14px; }
+.bro.is-stack .bro-chapters { order: 2; }
+.bro.is-stack .bro-play { order: 3; }
+.bro.is-stack .bro-active { order: 4; }
+.bro.is-stack .bro-all { order: 5; }
+.bro.is-stack .bro-acts { order: 6; }
 
 .bro-end { position: relative; }
 .bro-end-fig img { width: 100%; height: min(88svh, 860px); object-fit: cover; object-position: center 86%; filter: saturate(1.06) contrast(1.04) brightness(.97); }
 .bro-end::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, var(--oxblood-2) 0%, transparent 34%, transparent 52%, rgba(20, 8, 5, .9) 100%);
+  background: linear-gradient(180deg, transparent 52%, rgba(20, 8, 5, .9) 100%);
 }
 .bro-end-copy {
   position: absolute; bottom: clamp(40px, 9vh, 100px); left: 50%;
@@ -688,6 +757,7 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
   border: 2px solid var(--ink);
   align-self: center;
 }
+.mrow-drop { display: none; }
 
 .mrow-float {
   position: fixed; z-index: var(--z-float); top: 0; left: 0;
@@ -1082,8 +1152,12 @@ body[data-lang="th"] .menu-rail a { font-size: 14px; letter-spacing: .04em; }
 }
 body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .mrow-view::before { content: ""; position: absolute; inset: -13px -8px; } /* enlarges the hit area, not the look */
-/* "View photo" is visible for mouse, touch and keyboard alike; on a computer the photo also
-   follows the pointer as a hover plate, as an extra */
+/* keyboard path only: pointer and touch visitors get the hover plate / scroll plate, so the
+   button stays out of sight until it takes keyboard focus (and while its photo is open) */
+.mrow-view:not(:focus-visible):not([aria-expanded="true"]) {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
 .mrow-view::after {
   content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 7px;
   background:
@@ -1101,56 +1175,9 @@ body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .mrow-photo > div { min-height: 0; overflow: hidden; }
 .mrow.is-open .mrow-photo { grid-template-rows: 1fr; }
 .mrow-float.is-wait { opacity: 0; }                  /* plate waits for its own picture */
-.mrow-order {
-  display: inline-block; margin: 0 0 22px; padding: 10px 0;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--red); text-underline-offset: 4px;
-}
-.mrow-order:hover, .mrow-order:focus-visible { color: var(--ink); }
-body[data-lang="th"] .mrow-order { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
-.mrow-photo-p { margin: -14px 0 4px; font-size: 13px; color: var(--ink-soft); max-width: 52ch; }
-
-/* ---------- menu search and protein filter ---------- */
-.menu-tools[hidden] { display: none; }
-.menu-tools { margin-top: 26px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
-.menu-search {
-  flex: 1 1 320px; display: flex; align-items: center; gap: 10px;
-  min-height: 52px; padding: 0 14px;
-  background: var(--white); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
-}
-.menu-search svg { flex: none; width: 18px; height: 18px; }
-.menu-search input {
-  flex: 1; min-width: 0; height: 48px; padding: 0;
-  font: inherit; font-size: 16px; color: var(--ink); background: transparent; border: 0;
-}
-.menu-search input:focus { outline: none; }
-.menu-search:focus-within { outline: 3px dashed var(--ink); outline-offset: 3px; }
-.menu-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
-.menu-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.menu-filter-l { margin-right: 4px; font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--ink-soft); }
-.menu-chip {
-  min-height: 44px; padding: 0 14px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
-  transition: background var(--t-hover), color var(--t-hover);
-}
-.menu-chip:hover { background: var(--paper-deep); }
-.menu-chip[aria-pressed="true"] { background: var(--red); color: var(--white); }
-body[data-lang="th"] .menu-chip, body[data-lang="th"] .menu-filter-l { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
-.menu-count { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; color: var(--ink-soft); }
-body[data-lang="th"] .menu-count { font-size: 14px; letter-spacing: .02em; }
-.menu-reset {
-  min-height: 44px; padding: 0 2px;
-  font: inherit; font-weight: 700; color: var(--red); background: none; border: 0; cursor: pointer;
-  text-decoration: underline; text-underline-offset: 3px;
-}
-.menu-reset[hidden] { display: none; }
-.menu-empty { margin-top: 30px; padding: 22px 22px 20px; border: 2px dashed var(--ink); background: var(--paper-deep); display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
-.menu-empty[hidden] { display: none; }
-.mrow[hidden] { display: none; }
-.menu-gnone { margin-top: 12px; color: var(--ink-soft); font-size: 11px; }
-.menu-gnone[hidden] { display: none; }
-body[data-lang="th"] .menu-gnone { font-size: 13px; letter-spacing: .02em; }
+.mrow-drop img { background: var(--paper-deep); }    /* a calm placeholder, not a white hole */
+.menu-full { margin-top: 4px; }
+.menu-full-link { background: var(--paper); }
 .mrow-photo img {
   width: min(calc(100% - 12px), 460px); height: auto; aspect-ratio: 4 / 3; object-fit: cover;
   margin: 10px 0 22px;
@@ -1159,32 +1186,14 @@ body[data-lang="th"] .menu-gnone { font-size: 13px; letter-spacing: .02em; }
   background: var(--paper-deep);
 }
 
-/* ---------- the bro: skip link, step controls, progress ---------- */
+/* ---------- the bro: skip link ---------- */
 .bro-skip {
-  grid-column: 2; justify-self: start;
-  margin-top: 6px; padding: 12px 0;
-  color: var(--white); font-weight: 700;
-  text-decoration-color: var(--mustard); text-decoration-thickness: 2px; text-underline-offset: 6px;
+  padding: 12px 0;
+  color: var(--ink); font-weight: 700;
+  text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 6px;
   transition: color var(--t-hover);
 }
-.bro-skip:hover { color: var(--mustard); }
-.bro-step { position: relative; }
-.bro-step[aria-current]::before {
-  content: ""; position: absolute; left: -18px; top: 18px; bottom: 18px;
-  width: 4px; background: var(--mustard);
-}
-.bro-go {
-  position: relative;
-  font: inherit; letter-spacing: inherit; color: inherit;
-  background: none; border: 0; padding: 0; cursor: pointer;
-  text-decoration: underline dotted; text-underline-offset: 5px;
-}
-.bro-go::before { content: ""; position: absolute; inset: -14px -18px -14px -10px; }
-.bro-go:hover { color: var(--white); }
-.bro-progress::after {
-  content: ""; display: block; width: 132px; height: 3px; margin-top: 12px;
-  background: linear-gradient(90deg, var(--mustard) calc(var(--bro-p, 0) * 100%), rgba(255, 249, 238, .22) 0);
-}
+.bro-skip:hover { color: var(--red); }
 
 /* ---------- marquee pause ---------- */
 .marquee { position: relative; }
@@ -1264,7 +1273,6 @@ body.lang-out main, body.lang-out .nav-links { opacity: .2; }
 @media (max-width: 900px) {
   :root { --nav-h: 64px; --act-h: 62px; }
   .nav-arcade { display: none; } /* phones use the action row instead */
-  .bro-skip { grid-column: 1; }
   .receipt-wrap { justify-self: center; width: min(100%, 420px); }
   .mrow-photo img { width: calc(100% - 12px); }
 }
@@ -1279,12 +1287,6 @@ body.lang-out main, body.lang-out .nav-links { opacity: .2; }
    SHOT-FULL — QA-only: pin viewport units for full-page capture
    ============================================================ */
 html.shot-full .hero { min-height: 880px; }
-html.shot-full .bro-sticky-zone { height: auto; }
-html.shot-full .bro-sticky { position: static; height: auto; overflow: visible; padding: 40px 0 80px; }
-html.shot-full .bro-fig-window { aspect-ratio: auto; }
-html.shot-full .bro-fig-window img { position: static; width: 100%; transform: none !important; }
-html.shot-full .bro-scan { display: none; }
-html.shot-full .bro-step { opacity: 1; }
 html.shot-full .bro-end-fig img { height: 800px; }
 html.shot-full .cinema { height: 980px; }
 
@@ -1293,7 +1295,6 @@ html.shot-full .cinema { height: 980px; }
    ============================================================ */
 @media (max-width: 1100px) {
   .hero-side { width: min(100%, 380px); }
-  .bro-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 
 @media (max-width: 900px) {
@@ -1312,22 +1313,10 @@ html.shot-full .cinema { height: 980px; }
   .hero-foot { padding: 26px 0 40px; }
   .hero-meta { display: none; }
 
-  .man-grid, .bro-head { grid-template-columns: 1fr; }
+  .man-grid { grid-template-columns: 1fr; }
   .rail { writing-mode: horizontal-tb; transform: none; border-left: 0; border-top: 2px solid var(--red); padding: 10px 0 0; }
   .rail-light { border-color: var(--mustard); }
-  .bro-meta { grid-column: 1; }
 
-  /* sticky descent flattens to static on small screens */
-  .bro-sticky-zone { height: auto; }
-  .bro-sticky { position: static; height: auto; overflow: visible; }
-  .bro-stage { grid-template-columns: 1fr; padding-block: 10px 40px; }
-  .bro-fig { justify-self: center; width: min(100%, 380px); }
-  .bro-fig-window { aspect-ratio: 3 / 4; }
-  .bro-fig-window img { position: static; width: 100%; transform: none; }
-  .bro-scan { display: none; }
-  .bro-progress { display: none; }
-  .bro-step { opacity: 1; }
-  .bro-steps { margin-top: 26px; }
 
   .mrow { grid-template-columns: minmax(0, 1fr) max-content; grid-template-rows: auto auto; gap: 4px 14px; }
   .mrow-name { grid-area: 1 / 1; }
@@ -1337,9 +1326,28 @@ html.shot-full .cinema { height: 980px; }
   .mrow:has(.mrow-thumb) .mrow-desc { grid-area: 2 / 1 / 3 / 3; }
   .mrow-thumb { grid-area: 1 / 3 / 3 / 4; width: 60px; height: 60px; align-self: center; }
 
-  /* phones: no scroll-driven photo panels (they shifted the page while reading);
-     each photo opens only from its own "View photo" button */
-  .mrow-photo { grid-row: 3; }
+  /* scroll spotlight — the row crossing mid-screen reads as hovered;
+     photo rows drop their plate. Fixed panel height keeps the list gliding. */
+  .mrow.is-spot { background: rgba(196, 43, 28, .07); }
+  .mrow.is-spot .mrow-name { color: var(--red); }
+  .mrow-drop {
+    display: block;
+    grid-area: 3 / 1 / 4 / 3;
+    height: 0; opacity: 0; margin-top: 0;
+    overflow: hidden;
+    transition: height .42s var(--e-out), opacity .3s ease, margin-top .42s var(--e-out);
+  }
+  .mrow.is-spot .mrow-drop { height: 212px; opacity: 1; margin-top: 12px; }
+  .mrow-drop img {
+    display: block;
+    width: calc(100% - 10px);
+    height: 202px;
+    object-fit: cover;
+    border: 2px solid var(--ink);
+    box-sizing: border-box;
+    box-shadow: 8px 8px 0 var(--red);
+  }
+  .mrow.is-open .mrow-drop { display: none; } /* opened from the keyboard button: one photo, not two */
 
   .sets-row { grid-template-columns: 1fr 1fr; }
   .set-stub { border-bottom: 2px dashed rgba(34, 21, 17, .4); }
@@ -1365,7 +1373,6 @@ html.shot-full .cinema { height: 980px; }
   .hero-h { font-size: clamp(64px, 21vw, 96px); }
   .frame-red img { box-shadow: 8px 8px 0 var(--red); }
   .find-map { box-shadow: 8px 8px 0 var(--red); }
-  .frame-mustard .bro-fig-window { box-shadow: 8px 8px 0 var(--mustard); }
   .mrow-name { font-size: 21px; }
   .marquee-run { font-size: 11.5px; }
   .receipt { padding: 26px 18px 30px; }
@@ -1386,15 +1393,8 @@ html.shot-full .cinema { height: 980px; }
   .mq-anim .marquee-track { animation: none; }
   .marquee-toggle { display: none; }
   .loader { display: none !important; }
-  html.has-brovideo .bro-fig-window img { display: block; } /* the canvas rests; the photo is back */
   .nav-arcade[aria-busy="true"] .arcade-ico, .mob-act-arcade[aria-busy="true"] .arcade-ico, .sheet-arcade[aria-busy="true"] .arcade-ico { animation: none; opacity: .5; }
-  .bro-sticky-zone { height: auto; }
-  .bro-sticky { position: static; height: auto; }
-  .bro-fig-window img { position: static; width: 100%; transform: none !important; }
-  .bro-scan, .bro-progress { display: none; }
-  .bro-step { opacity: 1; }
   .cinema-media img { transform: none !important; height: 100%; }
-  .bro-video { display: none !important; }
   .mrow-float, .mrow-float.is-on { transform: none; } /* plate still shows; script places it, no tilt */
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
@@ -1539,58 +1539,52 @@ html.shot-full .cinema { height: 980px; }
 
 <!-- ============ THE BRO — TOP TO BOTTOM (signature) ============ -->
 <section class="bro" id="bro" aria-labelledby="broTitle">
-  <div class="container bro-head">
-    <p class="rail rail-light mono" data-i18n="bro.rail">ORDER № 149</p>
-    <h2 class="h2 h2-light" id="broTitle">
-      <span class="lm"><span class="l" data-i18n="bro.l1">THE BURGER BRO,</span></span>
-      <span class="lm"><span class="l l-mustard" data-i18n="bro.l2">TOP TO BOTTOM.</span></span>
-    </h2>
-    <p class="bro-meta mono" data-i18n="bro.meta">OUR SIGNATURE — ฿149 · KEEP SCROLLING TO DESCEND</p>
-    <a class="bro-skip mono" href="#menu" data-i18n="bro.skip">SKIP TO THE MENU ↓</a>
-  </div>
-
-  <div class="bro-sticky-zone" id="broZone">
-    <div class="bro-sticky">
-      <div class="container bro-stage">
-        <figure class="bro-fig frame frame-mustard">
-          <div class="bro-fig-window">
-            <canvas id="broCanvas" class="bro-video" width="640" height="853" role="img" data-i18n-aria="bro.canvas"
-                    aria-label="Exploded 3D diagram of the Burger Bro — the assembled burger lifts apart into floating layers and rotates as you scroll: bun crown, greens, melted cheddar, seared patty with bacon, sauce and heel"></canvas>
-            <img id="broImg" src="media/bro-profile.jpg" srcset="media/bro-profile-640.jpg 640w, media/bro-profile-960.jpg 960w, media/bro-profile.jpg 1440w" sizes="(max-width: 900px) min(100vw, 380px), 620px" width="1440" height="1920" loading="lazy"
-                 alt="Side profile of the Burger Bro signature burger on branded wrapper paper — glossy toasted crown, seared patty, sauce soaking the heel"
-                 data-i18n-alt="bro.alt">
+  <!-- The story: one state (normalised progress 0…1) drives the frame, the active ingredient, the counter
+       and the chapter buttons. Pinned to scroll on tall wide screens; normal flow elsewhere (see the script). -->
+  <div class="bro-zone" id="broZone">
+    <div class="bro-stage" id="broStage">
+      <div class="bro-grid container">
+        <div class="bro-media" id="broMedia">
+          <div class="bro-glow" aria-hidden="true"></div>
+          <!-- the 49 frames keep their baked red studio field: shown honestly as a framed photograph
+               (a seamless cream/alpha re-export is an open asset dependency) -->
+          <div class="bro-photo" id="broPhoto" role="img" aria-label="Exploded diagram of the Burger Bro — the assembled burger lifts apart into its layers: bun crown, greens, melted cheddar, seared patty with bacon, sauce and heel" data-i18n-aria="bro.canvas">
+            <img class="bro-poster" id="broPoster" src="media/seq/f00.jpg" width="640" height="853" alt="" decoding="async">
+            <canvas class="bro-canvas" id="broCanvas" width="640" height="853" aria-hidden="true"></canvas>
           </div>
-          <div class="bro-scan" id="broScan" aria-hidden="true"></div>
-        </figure>
-        <div class="bro-steps" id="broSteps">
-          <div class="bro-progress mono" aria-hidden="true"><span id="broIdx">01</span>/05</div>
-          <ol class="bro-list">
-            <li class="bro-step is-on" data-step="0">
-              <em class="mono">01</em>
-              <h3 id="broS1" data-i18n="bro.s1t">The crown</h3>
-              <p data-i18n="bro.s1p">Homemade bun, brushed and toasted on the flat-top. Bakery shine, zero sog.</p>
-            </li>
-            <li class="bro-step" data-step="1">
-              <em class="mono">02</em>
-              <h3 id="broS2" data-i18n="bro.s2t">The greens</h3>
-              <p data-i18n="bro.s2p">Lettuce and tomato, cold against the heat. All the salad a burger needs.</p>
-            </li>
-            <li class="bro-step" data-step="2">
-              <em class="mono">03</em>
-              <h3 id="broS3" data-i18n="bro.s3t">The melt</h3>
-              <p data-i18n="bro.s3p">American cheddar, melted onto the patty while it sears — never after.</p>
-            </li>
-            <li class="bro-step" data-step="3">
-              <em class="mono">04</em>
-              <h3 id="broS4" data-i18n="bro.s4t">The patty</h3>
-              <p data-i18n="bro.s4p">Graded beef, hand-formed, pressed for a lacy sear. Smoked bacon strips riding underneath.</p>
-            </li>
-            <li class="bro-step" data-step="4">
-              <em class="mono">05</em>
-              <h3 id="broS5" data-i18n="bro.s5t">The sauce &amp; heel</h3>
-              <p data-i18n="bro.s5p">Burger Bro secret sauce, soaking into the heel. The part you'll think about tomorrow.</p>
-            </li>
+          <div class="bro-shadow" aria-hidden="true"></div>
+        </div>
+        <div class="bro-copy" id="broCopy">
+          <p class="bro-kicker mono"><span data-i18n="bro.rail">ORDER № 149</span> · <span data-i18n="bro.meta">OUR SIGNATURE — ฿149</span></p>
+          <h2 class="bro-h" id="broTitle"><span data-i18n="bro.l1">THE BURGER BRO,</span> <span class="l-red" data-i18n="bro.l2">TOP TO BOTTOM.</span></h2>
+          <div class="bro-active" id="broActive">
+            <p class="bro-count mono" aria-hidden="true"><b id="broIdx">01</b> / 05</p>
+            <h3 class="bro-active-t" id="broActiveT">The crown</h3>
+            <p class="bro-active-p" id="broActiveP">Homemade bun, brushed and toasted on the flat-top. Bakery shine, zero sog.</p>
+          </div>
+          <p class="bro-ch-label mono" id="broChLabel" data-i18n="bro.explore">EXPLORE EACH INGREDIENT</p>
+          <ol class="bro-chapters" id="broChapters" aria-labelledby="broChLabel">
+            <li><button type="button" class="bro-ch" data-ch="0" aria-current="step"><span class="bro-ch-n mono">01</span><span class="bro-ch-t" data-i18n="bro.s1t">The crown</span></button></li>
+            <li><button type="button" class="bro-ch" data-ch="1"><span class="bro-ch-n mono">02</span><span class="bro-ch-t" data-i18n="bro.s2t">The greens</span></button></li>
+            <li><button type="button" class="bro-ch" data-ch="2"><span class="bro-ch-n mono">03</span><span class="bro-ch-t" data-i18n="bro.s3t">The melt</span></button></li>
+            <li><button type="button" class="bro-ch" data-ch="3"><span class="bro-ch-n mono">04</span><span class="bro-ch-t" data-i18n="bro.s4t">The patty</span></button></li>
+            <li><button type="button" class="bro-ch" data-ch="4"><span class="bro-ch-n mono">05</span><span class="bro-ch-t" data-i18n="bro.s5t">The sauce &amp; heel</span></button></li>
           </ol>
+          <button type="button" class="bro-play mono" id="broPlay" aria-pressed="false" hidden><span class="bro-play-i" aria-hidden="true"></span><span data-i18n="bro.play">Play</span></button>
+          <details class="bro-all" id="broAll">
+            <summary class="mono" data-i18n="bro.all">Read all ingredients</summary>
+            <ol class="bro-list">
+              <li class="bro-step" data-step="0"><h4 id="broS1" data-i18n="bro.s1t">The crown</h4><p data-i18n="bro.s1p">Homemade bun, brushed and toasted on the flat-top. Bakery shine, zero sog.</p></li>
+              <li class="bro-step" data-step="1"><h4 id="broS2" data-i18n="bro.s2t">The greens</h4><p data-i18n="bro.s2p">Lettuce and tomato, cold against the heat. All the salad a burger needs.</p></li>
+              <li class="bro-step" data-step="2"><h4 id="broS3" data-i18n="bro.s3t">The melt</h4><p data-i18n="bro.s3p">American cheddar, melted onto the patty while it sears — never after.</p></li>
+              <li class="bro-step" data-step="3"><h4 id="broS4" data-i18n="bro.s4t">The patty</h4><p data-i18n="bro.s4p">Graded beef, hand-formed, pressed for a lacy sear. Smoked bacon strips riding underneath.</p></li>
+              <li class="bro-step" data-step="4"><h4 id="broS5" data-i18n="bro.s5t">The sauce &amp; heel</h4><p data-i18n="bro.s5p">Burger Bro secret sauce, soaking into the heel. The part you'll think about tomorrow.</p></li>
+            </ol>
+          </details>
+          <div class="bro-acts">
+            <a class="btn btn-red bro-full" id="broFullMenu" href="menu/" data-carry="menu/" data-i18n="bro.fullmenu">Explore the full menu</a>
+            <a class="bro-skip mono" href="#menu" data-i18n="bro.skip">SKIP TO THE MENU ↓</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1617,30 +1611,6 @@ html.shot-full .cinema { height: 980px; }
       <h2 class="h2" id="menuTitle"><span class="lm"><span class="l" data-i18n="menu.l1">THE MENU</span></span></h2>
       <p class="menu-note mono" data-i18n="menu.meta">PRICES IN THB · BEFORE 7% VAT · <b>B</b> BEEF / <b>P</b> PORK / <b>C</b> CHICKEN WHERE MARKED</p>
     </header>
-
-    <!-- search and protein filter: shown by the script (no script, the full menu simply reads as before).
-         Each row's data-protein lists only what its own words say (B P C marks, "pork", "bacon", "ham",
-         "chicken", "fish", "shrimp", "Angus", "wagyu … beef", "rib eye"); no dietary or allergen claims. -->
-    <div class="menu-tools" id="menuTools" role="search" hidden>
-      <label class="menu-search">
-        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="var(--ink)" stroke-width="2.4"/><path d="M13 13l5.5 5.5" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="square"/></svg>
-        <span class="vh" data-i18n="menu.qLabel">Search the menu</span>
-        <input type="search" id="menuQ" placeholder="Search burgers, sides, shakes…" data-i18n-ph="menu.qPh" autocomplete="off" spellcheck="false" enterkeyhint="search">
-      </label>
-      <div class="menu-filter" role="group" aria-label="Filter by protein" data-i18n-aria="a11y.protein">
-        <span class="menu-filter-l mono" aria-hidden="true" data-i18n="menu.protein">PROTEIN</span>
-        <button type="button" class="menu-chip" aria-pressed="true" data-protein-f="" data-i18n="menu.pAll">All</button>
-        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="beef" data-i18n="menu.pBeef">Beef</button>
-        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="pork" data-i18n="menu.pPork">Pork</button>
-        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="chicken" data-i18n="menu.pChicken">Chicken</button>
-        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="seafood" data-i18n="menu.pSea">Fish &amp; shrimp</button>
-      </div>
-      <p class="menu-count mono"><span id="menuCount" role="status"></span><button type="button" class="menu-reset" id="menuReset" data-i18n="menu.clear" hidden>Clear search &amp; filter</button></p>
-    </div>
-    <div class="menu-empty" id="menuEmpty" hidden>
-      <p data-i18n="menu.none">Nothing on the menu matches that. Try another word, or clear the search.</p>
-      <button type="button" class="btn" id="menuReset2" data-i18n="menu.clear">Clear search &amp; filter</button>
-    </div>
 
     <nav class="menu-rail" id="menuRail" aria-label="Menu sections" data-i18n-aria="a11y.rail">
       <ul class="menu-rail-list mono">
@@ -1831,6 +1801,7 @@ html.shot-full .cinema { height: 980px; }
         </ul>
       </div>
       <p class="mono menu-vat" data-i18n="menu.vat">FULL BOARD AT THE SHOP · PRICES SUBJECT TO 7% VAT</p>
+      <p class="menu-full"><a class="btn menu-full-link" id="menuFullLink" href="menu/" data-carry="menu/" data-i18n="menu.full">View full menu →</a></p>
     </div>
   </div>
   <div class="mrow-float" id="mrowFloat" aria-hidden="true"><img id="mrowFloatImg" src="" alt=""></div>
@@ -2037,7 +2008,6 @@ html.shot-full .cinema { height: 980px; }
       </div>
       <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>NO GRAB LINK FOR PATTANAKARN YET — THE BUTTON OPENS GRAB, SEARCH “BURGER BRO PATTANAKARN” THERE. LINE MAN GOES STRAIGHT TO THE BRANCH. PHONE NOT CONFIRMED YET.</p>
       <p class="order-handoff" data-i18n="order.handoff">The order button takes you to the delivery app; you choose your food and pay there, not on this site.</p>
-      <p class="order-pick" id="orderPick" role="status" hidden></p>
       <div class="order-social mono">
         <a href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener">FACEBOOK — BURGER BRO</a>
         <a href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener">IG — @BURGERBRO_ORIGINAL</a>
@@ -2103,8 +2073,7 @@ window.BB_TH = {
   "@aria:a11y.cinema": "กลางคืนที่เบอร์เกอร์โบร",
   "@aria:a11y.sets": "ชุดคุ้มค่า",
   "@aria:a11y.amen": "ข้อมูลน่ารู้",
-  "@aria:a11y.protein": "กรองตามเนื้อสัตว์",
-  "@aria:bro.canvas": "ภาพแยกชั้นสามมิติของเบอร์เกอร์โบร — เบอร์เกอร์ทั้งชิ้นค่อย ๆ แยกออกเป็นชั้นลอย ๆ และหมุนตามการเลื่อน: ฝาขนมปัง ผักสด เชดดาร์ละลาย เนื้อย่างกับเบคอน ซอส และขนมปังฐาน",
+  "@aria:bro.canvas": "ภาพแยกชั้นของเบอร์เกอร์โบร — เบอร์เกอร์ทั้งชิ้นค่อย ๆ แยกออกเป็นชั้น: ฝาขนมปัง ผักสด เชดดาร์ละลาย เนื้อย่างกับเบคอน ซอส และขนมปังฐาน",
 
   "arcade.win": "ลุ้นรับคูปอง",
   "@aria:arcade.win": "ลุ้นรับคูปอง",
@@ -2148,7 +2117,12 @@ window.BB_TH = {
   "bro.rail": "ออเดอร์ № 149",
   "bro.l1": "เบอร์เกอร์โบร",
   "bro.l2": "จากบนลงล่าง",
-  "bro.meta": "เมนูซิกเนเจอร์ — ฿149 · เลื่อนลงเพื่อไล่ดูทีละชั้น",
+  "bro.meta": "เมนูซิกเนเจอร์ — ฿149",
+  "bro.explore": "ดูทีละส่วนผสม",
+  "bro.play": "เล่น",
+  "bro.pause": "หยุด",
+  "bro.all": "อ่านส่วนผสมทั้งหมด",
+  "bro.fullmenu": "ดูเมนูทั้งหมด",
   "@alt:bro.alt": "ภาพด้านข้างของเบอร์เกอร์โบรซิกเนเจอร์บนกระดาษห่อของร้าน — ฝาขนมปังปิ้งเงา เนื้อย่างขอบกรอบ และซอสซึมลงขนมปังฐาน",
   "bro.s1t": "ฝาบน",
   "bro.s1p": "ขนมปังโฮมเมด ทาเนยแล้วปิ้งบนเตาแบน เงาแบบเบเกอรี ไม่มีคำว่านิ่มแฉะ",
@@ -2180,18 +2154,7 @@ window.BB_TH = {
   "rail.g5": "เชค &amp; เครื่องดื่มเย็น ๆ",
   "rail.g6": "ชุดคุ้มค่า",
   "menu.photo": "ดูรูป",
-  "menu.orderThis": "สั่งเมนูนี้ →",
-  "menu.qLabel": "ค้นหาในเมนู",
-  "@ph:menu.qPh": "ค้นหาเบอร์เกอร์ ของกรอบ เชค…",
-  "menu.protein": "เนื้อสัตว์",
-  "menu.pAll": "ทั้งหมด",
-  "menu.pBeef": "เนื้อวัว",
-  "menu.pPork": "หมู",
-  "menu.pChicken": "ไก่",
-  "menu.pSea": "ปลา &amp; กุ้ง",
-  "menu.clear": "ล้างคำค้นและตัวกรอง",
-  "menu.none": "ไม่มีเมนูไหนตรงกับที่ค้น ลองคำอื่นดู หรือล้างคำค้น",
-  "menu.gnone": "หมวดนี้ไม่มีเมนูที่ตรงกัน",
+  "menu.full": "ดูเมนูทั้งหมด →",
 
   "m.b1d": "เนื้อเกรดดี เบคอนรมควัน ซอสสูตรลับ · B P C",
   "m.b2d": "เนื้อสองชั้น เชดดาร์สองแผ่น โบรซอส · B P C",
@@ -2330,27 +2293,6 @@ window.BB_TH = {
   "foot.disc": "งานออกแบบคอนเซปต์ · เมนูและราคาจากบอร์ดสาขาพระราม 9 ยังไม่รวม VAT 7% — เช็กที่ร้านอีกครั้ง"
 };
 
-</script>
-<script>
-/* ============================================================
-   bbTrack(name, props) — privacy-aware events. Does nothing at all unless window.BB_ANALYTICS_URL
-   is set (it is not, today). Then it sends {name, props, t} with navigator.sendBeacon.
-   Only these properties ever leave the page: branch, provider, locale, device (phone | tablet | desktop).
-   Never a phone number, a name, a username, a code or anything typed.
-   Events: menu_view, menu_search, branch_select, provider_handoff (a click, not a sale), arcade_open.
-   ============================================================ */
-window.bbTrack = function (name, props) {
-  var url = window.BB_ANALYTICS_URL;
-  if (!url || !navigator.sendBeacon || typeof name !== "string") return false;
-  var allow = { branch: 1, provider: 1, locale: 1, device: 1 }, clean = {};
-  props = props || {};
-  for (var k in props) if (allow[k] && typeof props[k] === "string") clean[k] = props[k].slice(0, 32);
-  if (!clean.locale) clean.locale = document.body && document.body.getAttribute("data-lang") === "th" ? "th" : "en";
-  if (!clean.device) { var w = window.innerWidth; clean.device = w < 600 ? "phone" : w < 1025 ? "tablet" : "desktop"; }
-  try {
-    return navigator.sendBeacon(url, new Blob([JSON.stringify({ name: name.slice(0, 40), props: clean, t: Date.now() })], { type: "application/json" }));
-  } catch (err) { return false; }
-};
 </script>
 <script>
 /* ============================================================
@@ -2638,282 +2580,365 @@ window.bbTrack = function (name, props) {
   onMotion(function (rm) { if (!rm && !shotMode) mqSetup(); }); // CSS stills it under reduced motion
 
   /* ============================================================
-     THE BRO — sticky descent (wide screens, motion allowed)
+     THE BRO — the story. ONE state, story.p (0…1), drives the frame, the active ingredient,
+     the counter and the chapter buttons. Modes:
+       pinned — wide, tall enough, motion allowed and the copy fits: the stage holds still under the
+                header and the page scroll (never intercepted) moves story.p; a chapter button scrolls
+                to its point on the track;
+       flow   — everything else (phones, short or narrow windows, 200% zoom, large text, reduced
+                motion, data saver): normal document flow; a chapter button sets story.p directly
+                (a short glide to it, or a jump under reduced motion). An optional Play previews the
+                sequence back and forth — never a jump from the last frame to the first.
+     The 49 frames load lazily (first and nearby frames first, a few at a time). Until a frame has
+     really decoded, the poster (a still) stays; a missing frame keeps the last good one on screen.
      ============================================================ */
+  var bro = document.getElementById("bro");
   var broZone = document.getElementById("broZone");
-  var broImg = document.getElementById("broImg");
-  var broIdx = document.getElementById("broIdx");
-  var broSteps = Array.prototype.slice.call(document.querySelectorAll(".bro-step"));
-  var broWindow = document.querySelector(".bro-fig-window");
-  var broTarget = 0, broCurrent = 0, broTicking = false;
-
-  /* exploded-diagram scrubber: a 49-frame image sequence drawn to a canvas.
-     No <video> pipeline — frame draws are synchronous and work in every
-     browser. Photo pan stays as the reduced-motion / capture / no-load
-     fallback. Wide screens: frame follows scroll; narrow: gentle loop. */
+  var broMedia = document.getElementById("broMedia");
+  var broPhoto = document.getElementById("broPhoto");
+  var broPoster = document.getElementById("broPoster");
   var broCanvas = document.getElementById("broCanvas");
-  var broCtx = broCanvas ? broCanvas.getContext("2d") : null;
+  var broCopy = document.getElementById("broCopy");
+  var broActive = document.getElementById("broActive");
+  var broActiveT = document.getElementById("broActiveT");
+  var broActiveP = document.getElementById("broActiveP");
+  var broIdx = document.getElementById("broIdx");
+  var broPlay = document.getElementById("broPlay");
+  var broChs = Array.prototype.slice.call(document.querySelectorAll(".bro-ch"));
+  var broSrc = Array.prototype.slice.call(document.querySelectorAll(".bro-list .bro-step"));
+  var broCtx = broCanvas && broCanvas.getContext ? broCanvas.getContext("2d") : null;
   var BRO_FRAMES = 49;
-  var BRO_MAX_MISSING = 4;   // a few frames may fail; each is drawn as its nearest good neighbour
-  var broSeqImgs = [];
-  var broSeqGood = [];       // per frame: true (decoded, has a size), false (failed), undefined (waiting)
-  var broSeqOk = 0, broSeqBad = 0;
-  var broVideoOn = false;    // sequence usable AND its first frame drawn (also gates the photo pan)
-  var broSeqCur = -1;
-  var broLoopRaf = 0, broLoopLast = 0, broLoopFrame = 0, broLoopActive = false, broInView = false;
+  /* chapter checkpoints, in frames: no single frame isolates one layer (the sequence opens the whole
+     burger steadily), so the five chapters sit at even points of the opening — 0, 12, 24, 36, 48 */
+  var BRO_CH = [0, 12, 24, 36, 48];
+  var BRO_DPR_CAP = 2, BRO_CONCURRENCY = 4;
+  var story = { p: 0, ch: 0, mode: "flow", drawn: -1, still: 0 };
+  var broData = !!(navigator.connection && navigator.connection.saveData);
 
-  /* the nearest frame that really decoded (frames are counted, not assumed) */
-  function broNearest(n) {
-    for (var d = 0; d < BRO_FRAMES; d++) {
-      if (broSeqGood[n - d]) return n - d;
-      if (broSeqGood[n + d]) return n + d;
-    }
-    return -1;
+  function frameOf(p) { return Math.round(Math.max(0, Math.min(1, p)) * (BRO_FRAMES - 1)); }
+  function chOf(p) {
+    var f = p * (BRO_FRAMES - 1), best = 0;
+    BRO_CH.forEach(function (c, i) { if (Math.abs(c - f) < Math.abs(BRO_CH[best] - f)) best = i; });
+    return best;
   }
-  /* the sequence goes back to the still photo (no usable frames, or drawing failed) */
-  function broSeqOff() {
-    broVideoOn = false;
-    docEl.classList.remove("has-brovideo");
-    broLoopStop();
-  }
-  function broPaint(n) { // draw one frame; false if it could not be drawn
-    var k = broNearest(n);
-    if (k < 0) return false;
-    try {
-      broCtx.drawImage(broSeqImgs[k], 0, 0, broCanvas.width, broCanvas.height);
-      return true;
-    } catch (err) {
-      broSeqGood[k] = false; // a broken frame: never try it again
-      return broNearest(n) >= 0 ? broPaint(n) : false;
+  function chP(i) { return BRO_CH[i] / (BRO_FRAMES - 1); }
+  function frameUrl(n, retry) { return "media/seq/f" + (n < 10 ? "0" + n : n) + ".jpg" + (retry ? "?retry=" + retry : ""); }
+
+  /* ---- the active ingredient (its words come from the "Read all ingredients" list, so they translate) */
+  function paintActive(i, announce) {
+    var src = broSrc[i];
+    if (!src) return;
+    broActiveT.innerHTML = src.querySelector("h4").innerHTML;
+    broActiveP.innerHTML = src.querySelector("p").innerHTML;
+    broIdx.textContent = "0" + (i + 1);
+    broChs.forEach(function (b, k) { if (k === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+    if (announce) { // only a deliberate chapter choice is announced, never a scroll tick
+      broActive.setAttribute("aria-live", "polite");
+      window.setTimeout(function () { broActive.removeAttribute("aria-live"); }, 1200);
     }
   }
-  function broDrawFrame(n) {
-    n = Math.max(0, Math.min(BRO_FRAMES - 1, Math.round(n)));
-    if (!broVideoOn || n === broSeqCur) return;
-    if (broPaint(n)) broSeqCur = n;
-    else broSeqOff();
+  function setChapter(i, announce) {
+    if (i === story.ch && !announce) return;
+    story.ch = i;
+    paintActive(i, announce);
+    if (!reduceMotion) { broActive.classList.remove("is-swap"); void broActive.offsetWidth; broActive.classList.add("is-swap"); }
   }
-  function broSeek(p) {
-    if (!wideScreen.matches) return; // narrow screens run the loop instead
-    broDrawFrame(p * (BRO_FRAMES - 1));
+
+  /* ---- frames: decode accounting (decoded AND has a size = ok; rejected decode or onerror = bad) */
+  var fr = []; // { im, state: "idle" | "loading" | "ok" | "bad", t, tries }
+  for (var fi = 0; fi < BRO_FRAMES; fi++) fr.push({ im: null, state: "idle", t: 0, tries: 0 });
+  var frActive = 0, frQueue = [], seqWanted = false, seqOn = false;
+  function frSettle(n, ok) {
+    var f = fr[n];
+    if (f.state !== "loading") return;
+    f.state = ok && f.im.naturalWidth > 0 && f.im.naturalHeight > 0 ? "ok" : "bad";
+    f.t = Date.now();
+    frActive--;
+    frPump();
+    if (f.state === "ok" && (n === frameOf(story.p) || !seqOn)) broDraw(true);
   }
-  function broLoopTick(ts) {
-    if (!broLoopActive) return;
-    if (ts - broLoopLast > 80) { // ~12.5 fps amble
-      broLoopLast = ts;
-      broLoopFrame = (broLoopFrame + 1) % BRO_FRAMES;
-      broSeqCur = -1;
-      broDrawFrame(broLoopFrame);
+  function frLoad(n) {
+    var f = fr[n];
+    f.state = "loading"; f.tries++; frActive++;
+    var im = new Image();
+    f.im = im;
+    im.decoding = "async";
+    im.onerror = function () { frSettle(n, false); };
+    im.src = frameUrl(n, f.tries > 1 ? f.tries : 0);
+    if (im.decode) im.decode().then(function () { frSettle(n, true); }, function () { frSettle(n, false); });
+    else im.onload = function () { frSettle(n, true); };
+  }
+  function frPump() {
+    while (frActive < BRO_CONCURRENCY && frQueue.length) {
+      var n = frQueue.shift();
+      if (fr[n].state === "idle") frLoad(n);
     }
-    broLoopRaf = requestAnimationFrame(broLoopTick);
   }
-  function broLoopStart() {
-    if (broLoopActive || !broVideoOn || wideScreen.matches || reduceMotion || quiet || !broInView) return;
-    broLoopActive = true;
-    broLoopRaf = requestAnimationFrame(broLoopTick);
-  }
-  function broLoopStop() {
-    broLoopActive = false;
-    if (broLoopRaf) cancelAnimationFrame(broLoopRaf);
-    broLoopRaf = 0;
-  }
-  /* all frames settled: switch to the canvas only if enough of them decoded and the first draw works;
-     until then (and otherwise) the still photo stays */
-  function broSeqSettled() {
-    if (broSeqOk < BRO_FRAMES - BRO_MAX_MISSING || reduceMotion) return;
-    broVideoOn = true;
-    broSeqCur = -1;
-    if (!broPaint(0)) { broSeqOff(); return; }
-    docEl.classList.add("has-brovideo");
-    if (broImg) broImg.style.transform = "";
-    if (wideScreen.matches) {
-      broSeqCur = -1; broDrawFrame(0); // settle the first rasterization
-      broOnScroll();
-    } else {
-      broLoopStart();
-    }
+  /* queue: the frame needed now, then its neighbours outward; failed frames are retried after a pause */
+  function frWant(center) {
+    if (!seqWanted) return;
+    var order = [center];
+    for (var d = 1; d < BRO_FRAMES; d++) { if (center - d >= 0) order.push(center - d); if (center + d < BRO_FRAMES) order.push(center + d); }
+    var now = Date.now();
+    order.forEach(function (n) { if (fr[n].state === "bad" && now - fr[n].t > 4000) fr[n].state = "idle"; });
+    frQueue = order.filter(function (n) { return fr[n].state === "idle"; });
+    frPump();
   }
   function broSeqStart() {
-    if (broSeqImgs.length || !broCanvas || !broCtx) return;
-    for (var i = 0; i < BRO_FRAMES; i++) {
-      (function (n) {
-        var im = new Image();
-        var done = function (ok) {
-          if (broSeqGood[n] !== undefined) return; // count each frame once
-          broSeqGood[n] = !!(ok && im.naturalWidth > 0);
-          if (broSeqGood[n]) broSeqOk++; else broSeqBad++;
-          if (broSeqOk + broSeqBad === BRO_FRAMES) broSeqSettled();
-        };
-        im.fetchPriority = "low";
-        im.onerror = function () { done(false); };
-        if (im.decode) {
-          im.src = "media/seq/f" + (n < 10 ? "0" + n : n) + ".jpg";
-          im.decode().then(function () { done(true); }, function () { done(false); });
-        } else {
-          im.onload = function () { done(true); };
-          im.src = "media/seq/f" + (n < 10 ? "0" + n : n) + ".jpg";
-        }
-        broSeqImgs.push(im);
-      })(i);
-    }
+    if (seqWanted || reduceMotion || shotMode || broData || !broCtx) return;
+    seqWanted = true;
+    frWant(frameOf(story.p));
   }
-  window.__broSeqState = function () { return { ok: broSeqOk, bad: broSeqBad, on: broVideoOn }; }; // QA hook
-
-  /* the frames are ordinary files: fetch them when the section is a little over half a screen
-     away instead of at page load, and not at all for data-saver visitors (the photo stays) */
-  var broSeqWired = false;
-  function broSeqInit() {
-    if (broSeqWired || !broCanvas || !broCtx || reduceMotion || shotMode) return;
-    broSeqWired = true;
-    var broSaveData = !!(navigator.connection && navigator.connection.saveData);
-    if (!broSaveData && "IntersectionObserver" in window) {
-      var broSeqIO = new IntersectionObserver(function (entries) {
-        if (!entries.some(function (en) { return en.isIntersecting; })) return;
-        broSeqIO.disconnect();
-        broSeqStart();
-      }, { rootMargin: "60% 0px" });
-      broSeqIO.observe(document.getElementById("bro"));
-    } else if (!broSaveData) {
-      broSeqStart();
-    }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          broInView = en.isIntersecting;
-          if (!broVideoOn || wideScreen.matches) return;
-          if (en.isIntersecting) broLoopStart();
-          else broLoopStop();
-        });
-      }, { rootMargin: "160px 0px" }).observe(broCanvas);
-    } else {
-      broInView = true;
-    }
-    if (wideScreen.addEventListener) {
-      wideScreen.addEventListener("change", function (e) {
-        if (!broVideoOn) return;
-        if (e.matches) { broLoopStop(); broSeqCur = -1; broOnScroll(); }
-        else broLoopStart();
-      });
-    }
-  }
-  broSeqInit();
-  onMotion(function (rm) {
-    if (rm) { broLoopStop(); return; }          // CSS shows the photo again under reduced motion
-    broSeqInit();
-    if (broSeqImgs.length && broSeqOk + broSeqBad === BRO_FRAMES && !broVideoOn) broSeqSettled();
-    else if (broVideoOn) { broSeqCur = -1; if (wideScreen.matches) broOnScroll(); else broLoopStart(); }
-  });
-  onQuiet(function (q) { if (q) broLoopStop(); else broLoopStart(); });
-
-  function broMeasure() {
-    if (!broWindow || !broImg) return { start: 0, span: 0 };
-    var winW = broWindow.clientWidth;
-    var winH = broWindow.clientHeight;
-    var imgH = winW * 1.32 * (1920 / 1440); // rendered width 132%, source ratio 4:3 portrait
-    var start = imgH * 0.12;               // skip the wrapper-paper band above the crown
-    var end = Math.max(start, imgH - winH - imgH * 0.03);
-    return { start: start, span: end - start };
-  }
-  var broPan = broMeasure();
-
-  function broFrame() {
-    broCurrent += (broTarget - broCurrent) * 0.09;
-    if (Math.abs(broTarget - broCurrent) < 0.0004) broCurrent = broTarget;
-    if (!broVideoOn) {
-      var y = -(broPan.start + broCurrent * broPan.span);
-      broImg.style.transform = "translate(-50%, " + y.toFixed(1) + "px)";
-    }
-    broSeek(broCurrent);
-    broMark(Math.min(4, Math.floor(broCurrent * 5)), broCurrent);
-    if (broCurrent !== broTarget) requestAnimationFrame(broFrame);
-    else broTicking = false;
-  }
-  function broOnScroll() {
-    if (!broZone || !wideScreen.matches || reduceMotion) return;
-    var rect = broZone.getBoundingClientRect();
-    var total = broZone.offsetHeight - window.innerHeight;
-    if (total <= 0) return;
-    var p = Math.min(1, Math.max(0, -rect.top / total));
-    broTarget = p;
-    if (!broTicking) { broTicking = true; requestAnimationFrame(broFrame); }
-  }
-  /* QA hook: jump the descent to progress p synchronously */
-  window.__broSet = function (p) {
-    broPan = broMeasure();
-    if (!broVideoOn) {
-      var y = -(broPan.start + p * broPan.span);
-      broImg.style.transform = "translate(-50%, " + y.toFixed(1) + "px)";
-    }
-    broSeek(p);
-    broMark(Math.min(4, Math.floor(p * 5)), p);
+  window.addEventListener("online", function () { frWant(frameOf(story.p)); });
+  window.__broSeqState = function () { // QA hook
+    var ok = 0, bad = 0;
+    fr.forEach(function (f) { if (f.state === "ok") ok++; else if (f.state === "bad") bad++; });
+    return { ok: ok, bad: bad, on: seqOn, drawn: story.drawn, p: story.p, ch: story.ch, mode: story.mode };
   };
 
-  /* one place that says which stage is current: class, aria-current, counter, progress bar */
-  var broStepsBox = document.getElementById("broSteps");
-  function broMark(step, p) {
-    broSteps.forEach(function (li, i) {
-      li.classList.toggle("is-on", i === step);
-      if (i === step) li.setAttribute("aria-current", "step");
-      else li.removeAttribute("aria-current");
-    });
-    if (broIdx) broIdx.textContent = "0" + (step + 1);
-    if (broStepsBox) broStepsBox.style.setProperty("--bro-p", p.toFixed(3));
+  /* ---- drawing: the canvas is the photograph's own size (contain, ONE scale for both axes, set in
+     broLayout); its backing store is that size times the device pixel ratio, capped at 2 */
+  var broCssW = 0, broCssH = 0;
+  function broDraw(force) {
+    if (!broCtx) return;
+    var n = frameOf(story.p);
+    if (!force && n === story.drawn) return;
+    if (seqWanted && fr[n].state !== "ok") frWant(n); // keep the last good frame on screen meanwhile
+    if (fr[n].state !== "ok" || !broCssW) { broStill(); return; }
+    try {
+      broCtx.setTransform(1, 0, 0, 1, 0, 0);
+      broCtx.clearRect(0, 0, broCanvas.width, broCanvas.height);
+      var k = broCanvas.width / broCssW;
+      broCtx.setTransform(k, 0, 0, k, 0, 0);
+      broCtx.drawImage(fr[n].im, 0, 0, 640, 853, 0, 0, broCssW, broCssH);
+      story.drawn = n;
+      if (!seqOn) { seqOn = true; bro.classList.add("has-seq"); }
+    } catch (err) {
+      fr[n].state = "bad"; fr[n].t = Date.now(); // a broken frame: the previous picture stays
+    }
   }
-  /* static list (narrow screens, reduced motion): all five stages readable at once */
-  function broStatic() {
-    broSteps.forEach(function (li) {
-      li.classList.add("is-on");
-      li.removeAttribute("aria-current");
+  /* without the sequence (reduced motion, data saver, not loaded yet, unavailable) the poster shows the
+     chapter's own still frame — a still, never an interpolation; if that still fails, the poster keeps
+     what it had */
+  var posterGood = null; // the last poster picture that really loaded
+  var POSTER_FALLBACK = "media/bro-profile-960.jpg"; // the shop's own photo of the burger, same 3:4 shape
+  if (broPoster) {
+    broPoster.addEventListener("load", function () { posterGood = broPoster.getAttribute("src"); });
+    broPoster.addEventListener("error", function () {
+      var next = posterGood || POSTER_FALLBACK; // keep the last good still; with none yet, the shop photo
+      if (broPoster.getAttribute("src") !== next) broPoster.src = next;
     });
+    if (broPoster.complete && broPoster.naturalWidth) posterGood = broPoster.getAttribute("src");
+    else if (broPoster.complete) broPoster.src = POSTER_FALLBACK;
   }
-  /* the numerals become real buttons only while the pinned descent is running;
-     in the static list they stay plain numerals, so nothing pretends to be a control */
-  function broGo(i) {
-    var total = broZone.offsetHeight - window.innerHeight;
-    var top = broZone.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + total * ((i + 0.5) / 5), behavior: "smooth" });
-  }
-  function broButtons(on) {
-    broSteps.forEach(function (li, i) {
-      var em = li.querySelector("em"), h = li.querySelector("h3"), num = "0" + (i + 1);
-      if (!em) return;
-      var has = !!em.querySelector("button");
-      if (on && !has) {
-        var b = document.createElement("button");
-        b.type = "button";
-        b.className = "bro-go";
-        b.id = "broGo" + (i + 1);
-        b.textContent = num;
-        if (h && h.id) b.setAttribute("aria-labelledby", b.id + " " + h.id);
-        b.addEventListener("click", function () { broGo(i); });
-        em.textContent = "";
-        em.appendChild(b);
-      } else if (!on && has) {
-        em.textContent = num;
-      }
-    });
+  function broStill() {
+    if (seqOn || !broPoster) return;
+    var want = reduceMotion || broData || story.mode === "pinned" || !seqWanted ? BRO_CH[story.ch] : 0;
+    if (want === story.still) return;
+    story.still = want;
+    broPoster.src = frameUrl(want);
   }
 
-  if (broZone && broImg && !shotMode) {
-    window.addEventListener("scroll", broOnScroll, { passive: true });
-    window.addEventListener("resize", function () {
-      broPan = broMeasure();
-      if (!wideScreen.matches) {
-        broImg.style.transform = "";
-        broStatic();
+  function setProgress(p, announce) {
+    story.p = Math.max(0, Math.min(1, p));
+    setChapter(chOf(story.p), announce);
+    broDraw(false);
+    if (!seqOn) broStill();
+  }
+
+  /* ---- layout: measured, not assumed. Mode from the viewport and whether the copy actually fits. */
+  function stackHeight() {
+    var n = document.getElementById("nav"), a = document.getElementById("mobAct");
+    var h = n ? n.offsetHeight : 0;
+    if (a && window.getComputedStyle(a).display !== "none") h += a.offsetHeight;
+    return h;
+  }
+  var broLayoutKey = "";
+  function broLayout(force) {
+    if (!bro || !broMedia) return;
+    var vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    var key = [vw, vh, reduceMotion, broCopy.offsetWidth, parseFloat(window.getComputedStyle(broCopy).fontSize), document.body.getAttribute("data-lang")].join("|");
+    if (!force && key === broLayoutKey) return;
+    broLayoutKey = key;
+    var stack = stackHeight(), usable = vh - stack;
+    var stackMode = vw < 700 || (vw < 900 && vh > vw); // narrow: media above copy
+    bro.classList.toggle("is-stack", stackMode);
+    /* the tallest description sets the panel height, so the controls below do not jump */
+    var cur = story.ch, tallest = 0;
+    broActive.style.setProperty("--bro-active-h", "0px");
+    broSrc.forEach(function (s, i) { paintActive(i, false); tallest = Math.max(tallest, broActive.offsetHeight); });
+    paintActive(cur, false);
+    broActive.style.setProperty("--bro-active-h", tallest + "px");
+    /* try pinned; keep it only if the copy column fits the stage */
+    var canPin = !stackMode && vw >= 1100 && vh >= 700 && !reduceMotion && !broData && !shotMode;
+    bro.classList.remove("is-pinned");
+    broZone.style.height = "";
+    var mode = "flow";
+    if (canPin) {
+      bro.classList.add("is-pinned");
+      var grid = broCopy.parentNode, cs = window.getComputedStyle(grid);
+      var room = grid.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      if (broCopy.scrollHeight <= room + 1 && room > 360) {
+        mode = "pinned";
+        broZone.style.height = Math.round(vh + usable * 2.2) + "px"; // a track of about 3.2 usable screens
+      } else {
+        bro.classList.remove("is-pinned");
       }
-      broButtons(wideScreen.matches && !reduceMotion);
-      broOnScroll();
-    });
-    if (!wideScreen.matches || reduceMotion) broStatic();
-    broButtons(wideScreen.matches && !reduceMotion);
-    broOnScroll();
-    onMotion(function (rm) {
-      broButtons(wideScreen.matches && !rm);
-      if (rm || !wideScreen.matches) { broImg.style.transform = ""; broStatic(); }
-      else { broPan = broMeasure(); broTarget = -1; broOnScroll(); } // the descent picks up where the page is
+    }
+    story.mode = mode;
+    if (mode !== "pinned") {
+      var mh = stackMode ? Math.min(usable * 0.48, vw * 1.15, 620) : Math.min(usable * 0.88, 900);
+      var mhpx = Math.max(stackMode ? 170 : 220, Math.round(mh)) + "px";
+      broMedia.style.setProperty("--bro-media-h", mhpx);
+      bro.style.setProperty("--bro-media-h", mhpx);
+    }
+    broFit();
+    broPlayVisible();
+    if (mode === "pinned") broOnScroll(); else setProgress(story.p, false);
+  }
+  /* contain fit: one scale from both axes; the canvas backing store follows the CSS size × capped DPR */
+  function broFit() {
+    var W = broMedia.clientWidth, H = broMedia.clientHeight;
+    if (W < 10 || H < 10) return; // a zero-sized slot: keep what is drawn
+    var pad = Math.round(Math.min(W, H) * 0.035);
+    var scale = Math.min((W - 2 * pad) / 640, (H - 2 * pad) / 853);
+    var cw = 640 * scale, ch = 853 * scale; // exact: the same single scale on both axes (no per-axis rounding)
+    broPhoto.style.setProperty("--bro-photo-w", cw.toFixed(2) + "px");
+    broPhoto.style.setProperty("--bro-photo-h", ch.toFixed(2) + "px");
+    broMedia.style.setProperty("--bro-photo-w", cw.toFixed(2) + "px");
+    broMedia.style.setProperty("--bro-photo-h", ch.toFixed(2) + "px");
+    var dpr = Math.min(BRO_DPR_CAP, window.devicePixelRatio || 1);
+    var bw = Math.round(cw * dpr), bh = Math.round(ch * dpr);
+    broCssW = cw; broCssH = ch;
+    if (broCanvas.width !== bw || broCanvas.height !== bh) { broCanvas.width = bw; broCanvas.height = bh; }
+    broDraw(true); // redraw at the current progress — never a flash back to frame 0
+  }
+  window.__broFit = function () { return { slotW: broMedia.clientWidth, slotH: broMedia.clientHeight, w: broCssW, h: broCssH, bw: broCanvas.width, bh: broCanvas.height, ratio: broCssW / broCssH }; }; // QA hook
+
+  /* ---- pinned: the page scroll moves story.p (one rAF per change; nothing runs when idle) */
+  var broScrollRaf = false;
+  function broOnScroll() {
+    if (story.mode !== "pinned" || broScrollRaf) return;
+    broScrollRaf = true;
+    requestAnimationFrame(function () {
+      broScrollRaf = false;
+      var span = broZone.offsetHeight - window.innerHeight;
+      if (span <= 0) return;
+      setProgress(-broZone.getBoundingClientRect().top / span, false);
     });
   }
+  window.addEventListener("scroll", broOnScroll, { passive: true });
+
+  /* ---- flow: a short glide to a chosen point (or a jump under reduced motion) */
+  var glideRaf = 0;
+  function glideTo(target, announce) {
+    cancelAnimationFrame(glideRaf);
+    var from = story.p;
+    if (reduceMotion || !seqOn || Math.abs(target - from) < 0.001) { setProgress(target, announce); return; }
+    var t0 = 0, dur = Math.min(700, 180 + Math.abs(target - from) * 900);
+    setChapter(chOf(target), announce); // the words change at once; the picture follows
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      story.p = from + (target - from) * e;
+      broDraw(false);
+      if (k < 1) glideRaf = requestAnimationFrame(step);
+      else glideRaf = 0;
+    }
+    glideRaf = requestAnimationFrame(step);
+  }
+
+  /* ---- chapter buttons: an ordered list of real buttons; arrow keys move within the group only */
+  broChs.forEach(function (b, i) {
+    b.addEventListener("click", function () {
+      playStop(true);
+      if (story.mode === "pinned") {
+        var span = broZone.offsetHeight - window.innerHeight;
+        var top = broZone.getBoundingClientRect().top + window.scrollY + chP(i) * span;
+        setChapter(i, true);
+        window.scrollTo({ top: Math.round(top), behavior: reduceMotion ? "instant" : "smooth" });
+      } else {
+        glideTo(chP(i), true);
+      }
+    });
+    b.addEventListener("keydown", function (e) {
+      var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      broChs[(i + d + broChs.length) % broChs.length].focus();
+    });
+  });
+
+  /* ---- optional Play (flow mode only): back and forth, never a jump from the last frame to the first;
+     a persistent Pause; stops on any manual choice; rests offscreen, in a hidden tab or under the arcade */
+  var playing = false, playRaf = 0, playDir = 1, playLast = 0, broInView = false;
+  function playLabel() {
+    if (!broPlay) return;
+    broPlay.setAttribute("aria-pressed", String(playing));
+    var l = broPlay.querySelector("[data-i18n]");
+    if (l) { l.setAttribute("data-i18n", playing ? "bro.pause" : "bro.play"); l.innerHTML = tr(playing ? "bro.pause" : "bro.play", playing ? "Pause" : "Play"); }
+  }
+  function playTick(ts) {
+    if (!playing) return;
+    if (!broInView || document.hidden || quiet) { playRaf = 0; playLast = 0; return; } // resumes when visible again
+    if (playLast) {
+      var p = story.p + playDir * (ts - playLast) / 3200;
+      if (p >= 1) { p = 1; playDir = -1; } else if (p <= 0) { p = 0; playDir = 1; }
+      setProgress(p, false);
+    }
+    playLast = ts;
+    playRaf = requestAnimationFrame(playTick);
+  }
+  function playResume() { if (playing && !playRaf) { playLast = 0; playRaf = requestAnimationFrame(playTick); } }
+  function playStart() {
+    if (reduceMotion || story.mode === "pinned") return;
+    broSeqStart();
+    playing = true; playDir = story.p >= 1 ? -1 : 1;
+    playLabel(); playResume();
+  }
+  function playStop() {
+    playing = false;
+    if (playRaf) cancelAnimationFrame(playRaf);
+    playRaf = 0; playLast = 0;
+    playLabel();
+  }
+  function broPlayVisible() {
+    if (!broPlay) return;
+    var show = story.mode !== "pinned" && !reduceMotion && !broData && !shotMode;
+    broPlay.hidden = !show;
+    if (!show && playing) playStop();
+  }
+  if (broPlay) broPlay.addEventListener("click", function () { if (playing) playStop(); else playStart(); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) playResume(); });
+  onQuiet(function (q) { if (!q) playResume(); }); // playTick itself rests while quiet
+
+  /* ---- start: poster now; frames once the story is near; layout on every real change */
+  if (bro && broZone && broCanvas && broPhoto) {
+    paintActive(0, false);
+    if ("IntersectionObserver" in window) {
+      var broNear = new IntersectionObserver(function (en) {
+        if (!en.some(function (e) { return e.isIntersecting; })) return;
+        broNear.disconnect();
+        broSeqStart();
+      }, { rootMargin: "60% 0px" });
+      broNear.observe(bro);
+      new IntersectionObserver(function (en) {
+        broInView = en.some(function (e) { return e.isIntersecting; });
+        if (broInView) playResume();
+      }, { rootMargin: "0px" }).observe(broMedia);
+    } else { broInView = true; broSeqStart(); }
+    var broRelayout = function () { requestAnimationFrame(function () { broLayout(false); }); };
+    window.addEventListener("resize", broRelayout);
+    window.addEventListener("orientationchange", broRelayout);
+    if (window.ResizeObserver) new ResizeObserver(broRelayout).observe(broCopy); // zoom, larger text, Thai wrapping
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { broLayout(true); });
+    if (window.MutationObserver) new MutationObserver(function () { paintActive(story.ch, false); playLabel(); broLayout(true); })
+      .observe(document.body, { attributes: true, attributeFilter: ["data-lang"] });
+    onMotion(function () { playStop(); broSeqStart(); broLayout(true); });
+    broLayout(true);
+  }
+  /* QA hook (?shot= captures): set the story's progress directly */
+  window.__broSet = function (p) { setProgress(p, false); };
 
   /* ============================================================
      CINEMA — slow parallax drift
@@ -2948,22 +2973,35 @@ window.bbTrack = function (name, props) {
   var photoRows = Array.prototype.slice.call(document.querySelectorAll(".mrow[data-img]"));
   var hideFloat = function () {}; // replaced below when the hover plate is active
 
-  /* Photos load when they are needed, at normal priority: only the hero photo is fetched with high
-     priority. The hover plate asks for a row's photo as the pointer reaches that row's list (so it is
-     usually in hand by the time the row is hovered) and stays hidden until its own picture arrives. */
-  var plateSuffix = window.devicePixelRatio > 2.2 ? "-960." : "-640."; // phone photos are ~330px wide
-  var saveData = !!(navigator.connection && navigator.connection.saveData);
-  document.querySelectorAll(".menu-list").forEach(function (list) {
-    list.addEventListener("pointerenter", function (e) {
-      if (e.pointerType === "touch" || saveData || !wideScreen.matches || list.__warm) return;
-      list.__warm = true;
-      list.querySelectorAll(".mrow[data-img]").forEach(function (row) {
-        var im = new Image();
-        im.src = row.getAttribute("data-img");
-        row.__warm = im; // hold the reference so the decoded picture stays cached
-      });
+  /* The photos are files now, not inline data, so they are fetched ahead of need as the menu
+     comes near. Only the hero photo is fetched at high priority (A09): these load at the
+     browser's normal priority, so they never compete with the first screen. */
+  var plateSuffix = window.devicePixelRatio > 2.2 ? "-960." : "-640."; // phone plates are ~330px wide
+  var menuWarm = false;
+  function warmMenuPhotos() {
+    if (menuWarm) return;
+    menuWarm = true;
+    photoRows.forEach(function (row) {
+      var im = new Image();
+      im.src = wideScreen.matches ? row.getAttribute("data-img") : row.getAttribute("data-img").replace("-640.", plateSuffix);
+      row.__warm = im; // hold the reference so the decoded picture stays cached
     });
-  });
+    document.querySelectorAll(".mrow-drop img").forEach(function (im) { im.loading = "eager"; });
+  }
+  if (photoRows.length && !(navigator.connection && navigator.connection.saveData)) {
+    if ("IntersectionObserver" in window) {
+      var warmIO = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (en) { return en.isIntersecting; })) return;
+        warmIO.disconnect();
+        warmMenuPhotos();
+      }, { rootMargin: "120% 0px" });
+      warmIO.observe(document.getElementById("menu"));
+    } else {
+      warmMenuPhotos();
+    }
+  }
+  /* Safety net for a slow line: the hover plate stays hidden until its own picture has
+     arrived — never an empty frame, never the previous row's photo. */
   function floatSrc(row) {
     var src = row.getAttribute("data-img");
     if (floatImg.getAttribute("src") === src && floatImg.complete && floatImg.naturalWidth) {
@@ -2978,14 +3016,13 @@ window.bbTrack = function (name, props) {
     floatImg.addEventListener("error", function () { floatEl.classList.remove("is-wait"); });
   }
 
-  /* "View photo": a visible button on every photo row, for mouse, touch and keyboard. The photo opens
-     in place under its own row (the rows above never move), and only when it is asked for. */
-  var lastPick = null;
+  /* keyboard access to the same photos: each photo row carries a Photo button that only
+     appears on keyboard focus. Pointer and touch visitors never see it. */
   function rowToggle(row, btn, panel, open) {
     var img = panel.querySelector("img");
     window.clearTimeout(panel.__t);
     if (open) {
-      if (!img.getAttribute("src")) img.src = wideScreen.matches ? row.getAttribute("data-img") : row.getAttribute("data-img").replace("-640.", plateSuffix);
+      if (!img.getAttribute("src")) img.src = row.getAttribute("data-img");
       panel.hidden = false;
       void panel.offsetHeight; // commit the collapsed state before expanding
       hideFloat();
@@ -3007,21 +3044,11 @@ window.bbTrack = function (name, props) {
     var inner = document.createElement("div");
     var im = document.createElement("img");
     im.alt = nameEl.textContent;
-    im.lang = "en"; // the dish names stay in English in both languages
+    im.lang = "en"; // dish names stay in English in both languages
     im.width = 640;
     im.height = 480;
     im.decoding = "async";
-    im.loading = "lazy";
     inner.appendChild(im);
-    /* the delivery apps have their own carts: this only takes the visitor to the order buttons,
-       and says plainly that the dish has to be chosen again there */
-    var order = document.createElement("a");
-    order.className = "mrow-order";
-    order.href = "#order";
-    order.setAttribute("data-i18n", "menu.orderThis");
-    order.textContent = "Order this →";
-    order.addEventListener("click", function () { lastPick = nameEl.textContent; paintPick(); });
-    inner.appendChild(order);
     panel.appendChild(inner);
     var btn = document.createElement("button");
     btn.type = "button";
@@ -3031,21 +3058,13 @@ window.bbTrack = function (name, props) {
     btn.setAttribute("aria-expanded", "false");
     btn.setAttribute("aria-controls", panel.id);
     btn.setAttribute("aria-labelledby", btn.id + " " + nameEl.id);
-    btn.textContent = "View photo";
+    btn.textContent = "Photo";
     btn.addEventListener("click", function () {
       rowToggle(row, btn, panel, !row.classList.contains("is-open"));
     });
     nameBox.appendChild(btn);
     row.appendChild(panel);
   });
-  var orderPick = document.getElementById("orderPick");
-  function paintPick() {
-    if (!orderPick || !lastPick) return;
-    orderPick.textContent = mapIsThai()
-      ? "เลือก " + lastPick + " ในแอปเดลิเวอรีอีกครั้งนะ — เว็บนี้ไม่ได้ใส่ให้ในตะกร้า"
-      : "Find " + lastPick + " in the delivery app and add it there — nothing is added for you from this site.";
-    orderPick.hidden = false;
-  }
 
   var thumbsMade = false;
   function ensureThumbs() {
@@ -3060,18 +3079,84 @@ window.bbTrack = function (name, props) {
       row.appendChild(t);
     });
   }
-  /* wide screens that cannot hover at all (a tablet held sideways) also get a fixed thumbnail */
+
+  /* narrow-screen scroll spotlight — the row nearest mid-screen gets the
+     hover treatment; photo rows drop their plate inline */
+  var spotAll = Array.prototype.slice.call(document.querySelectorAll(".mrow"));
+  var spotOn = false, spotCur = null, spotRaf = false;
+  function ensureDrops() {
+    photoRows.forEach(function (row) {
+      if (row.querySelector(".mrow-drop")) return;
+      var d = document.createElement("div");
+      d.className = "mrow-drop";
+      var im = document.createElement("img");
+      im.loading = "lazy";
+      im.src = row.getAttribute("data-img").replace("-640.", plateSuffix);
+      im.alt = "";
+      d.appendChild(im);
+      row.appendChild(d);
+    });
+  }
+  function spotEval() {
+    spotRaf = false;
+    if (wideScreen.matches) {
+      if (spotCur) { spotCur.classList.remove("is-spot"); spotCur = null; }
+      return;
+    }
+    var mid = window.innerHeight * 0.5;
+    var best = null, bestD = Infinity;
+    for (var i = 0; i < spotAll.length; i++) {
+      var r = spotAll[i].getBoundingClientRect();
+      var d = Math.abs((r.top + r.bottom) / 2 - mid);
+      if (d < bestD) { bestD = d; best = spotAll[i]; }
+    }
+    if (!best || bestD > window.innerHeight * 0.45) best = null;
+    if (best && spotCur && best !== spotCur) {
+      var rc = spotCur.getBoundingClientRect();
+      var curD = Math.abs((rc.top + rc.bottom) / 2 - mid);
+      if (bestD > curD - 24) best = spotCur; // hysteresis: beat the holder clearly
+    }
+    if (best === spotCur) return;
+    if (spotCur) spotCur.classList.remove("is-spot");
+    spotCur = best;
+    if (spotCur) spotCur.classList.add("is-spot");
+  }
+  function spotSchedule() {
+    if (!spotOn || spotRaf) return;
+    spotRaf = true;
+    requestAnimationFrame(spotEval);
+  }
+  function enableSpotlight() {
+    if (spotOn) return;
+    spotOn = true;
+    ensureDrops();
+    window.addEventListener("scroll", spotSchedule, { passive: true });
+    window.addEventListener("resize", spotSchedule);
+    spotEval();
+  }
+  window.__spotCheck = spotEval; // QA hook: evaluate synchronously
+
+  /* Which photo treatment a screen gets is decided as it is used, not once at load:
+     a computer whose window was narrow at load, a touch laptop with a trackpad, or a
+     visitor with Reduce Motion on all still get the hover plate on a wide window.
+     Wide screens that cannot hover at all (a tablet held sideways) get thumbnails. */
   var anyHover = window.matchMedia("(any-hover: hover)");
-  function widePhotos() { if (wideScreen.matches && !anyHover.matches) ensureThumbs(); }
-  if (wideScreen.addEventListener) wideScreen.addEventListener("change", widePhotos);
-  widePhotos();
+  function widePhotos() { if (!anyHover.matches) ensureThumbs(); }
+
+  if (wideScreen.addEventListener) {
+    wideScreen.addEventListener("change", function (e) {
+      if (e.matches) { spotEval(); widePhotos(); return; } // clears any lingering spotlight
+      if (reduceMotion) ensureThumbs();
+      else enableSpotlight();
+    });
+  }
 
   if (floatEl && floatImg) {
     var fx = 0, fy = 0, ftx = 0, fty = 0, floatOn = false, floatRaf = false;
     function floatFrame() {
-      var ease = reduceMotion ? 1 : 0.16; // Reduce Motion: the plate sits by the pointer, no glide or tilt
-      fx += (ftx - fx) * ease;
-      fy += (fty - fy) * ease;
+      var floatEase = reduceMotion ? 1 : 0.16; // Reduce Motion: the plate sits by the pointer, no glide or tilt (read live)
+      fx += (ftx - fx) * floatEase;
+      fy += (fty - fy) * floatEase;
       floatEl.style.transform = "translate(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px)"
         + (reduceMotion ? "" : floatOn ? " rotate(2deg)" : " scale(.86) rotate(-3deg)");
       if (floatOn || Math.abs(ftx - fx) > 0.5) requestAnimationFrame(floatFrame);
@@ -3081,125 +3166,66 @@ window.bbTrack = function (name, props) {
       ftx = Math.min(e.clientX + 30, window.innerWidth - 310);
       fty = Math.max(20, Math.min(e.clientY - 130, window.innerHeight - 240));
     }
-    function floatShow(row, e) {
-      floatSrc(row);
-      floatEl.classList.add("is-on");
-      floatOn = true;
-      floatAim(e);
-      fx = ftx; fy = fty;
-    }
     photoRows.forEach(function (row) {
       row.addEventListener("pointerenter", function (e) {
-        if (e.pointerType === "touch") return; // fingers use the View photo button
+        if (e.pointerType === "touch") return; // fingers get the scroll plates or thumbnails
         if (!wideScreen.matches || row.classList.contains("is-open")) return; // photo already open inline
-        floatShow(row, e);
+        floatSrc(row);
+        floatEl.classList.add("is-on");
+        floatOn = true;
+        floatAim(e);
+        fx = ftx; fy = fty;
         if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
       });
       row.addEventListener("pointermove", function (e) {
         if (e.pointerType === "touch") return;
-        if (!floatOn && wideScreen.matches && !row.classList.contains("is-open")) floatShow(row, e); // the window widened, or the page scrolled a row under a still pointer
-        else floatAim(e);
+        if (!floatOn && wideScreen.matches && !row.classList.contains("is-open")) {
+          // the window widened, or the page scrolled a row under a still pointer
+          floatSrc(row);
+          floatEl.classList.add("is-on");
+          floatOn = true;
+          floatAim(e);
+          fx = ftx; fy = fty;
+        } else {
+          floatAim(e);
+        }
         if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
       });
       row.addEventListener("pointerleave", function () {
         floatEl.classList.remove("is-on");
         floatOn = false;
       });
+      var kb = row.querySelector(".mrow-view");
+      if (kb) {
+        kb.addEventListener("focus", function () {
+          if (!wideScreen.matches || !kb.matches(":focus-visible") || row.classList.contains("is-open")) return;
+          var r = row.getBoundingClientRect(), b = kb.getBoundingClientRect();
+          floatSrc(row);
+          floatEl.classList.add("is-on");
+          floatOn = true;
+          ftx = Math.min(b.right + 30, window.innerWidth - 310);
+          fty = r.top - 236 < 140 ? r.bottom + 18 : r.top - 236; // clear of the focused row
+          fx = ftx; fy = fty;
+          if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
+        });
+        kb.addEventListener("blur", function () { hideFloat(); });
+      }
     });
     hideFloat = function () {
       floatEl.classList.remove("is-on");
       floatOn = false;
     };
   }
+  if (photoRows.length) {
+    if (!wideScreen.matches) {
+      if (reduceMotion) ensureThumbs();
+      else enableSpotlight();
+    } else {
+      widePhotos();
+    }
+  }
+  onMotion(function (rm) { if (photoRows.length && !wideScreen.matches) { if (rm) ensureThumbs(); else enableSpotlight(); } });
 
-  /* search and protein filter. The protein list per row is in its data-protein attribute, written
-     from the menu's own words. Searching reads names and descriptions in the language on screen and
-     in English. Filter state lives on the page, so jumping between sections keeps it. */
-  var menuTools = document.getElementById("menuTools");
-  var menuQ = document.getElementById("menuQ");
-  var menuCount = document.getElementById("menuCount");
-  var menuEmpty = document.getElementById("menuEmpty");
-  var menuResetBtns = [document.getElementById("menuReset"), document.getElementById("menuReset2")];
-  var menuChips = Array.prototype.slice.call(document.querySelectorAll(".menu-chip"));
-  var menuRows = Array.prototype.slice.call(document.querySelectorAll(".mrow"));
-  var menuProtein = "", menuShown = menuRows.length, menuSearchSent = 0;
-  menuRows.forEach(function (row) {
-    var n = row.querySelector(".mrow-name [data-i18n]"), d = row.querySelector(".mrow-desc");
-    row.__en = ((n ? n.textContent : "") + " " + (d ? d.textContent : "")).toLowerCase(); // English, captured before any switch
-  });
-  document.querySelectorAll(".menu-group").forEach(function (g) {
-    var p = document.createElement("p");
-    p.className = "menu-gnone mono";
-    p.setAttribute("data-i18n", "menu.gnone");
-    p.textContent = "Nothing in this section matches.";
-    p.hidden = true;
-    g.appendChild(p);
-  });
-  function menuText(row) {
-    var n = row.querySelector(".mrow-name [data-i18n]"), d = row.querySelector(".mrow-desc");
-    return ((n ? n.textContent : "") + " " + (d ? d.textContent : "")).toLowerCase();
-  }
-  function menuCountText() {
-    if (!menuCount) return;
-    var total = menuRows.length, th = mapIsThai();
-    menuCount.textContent = menuShown === total
-      ? (th ? "ทั้งหมด " + total + " รายการ" : total + " items")
-      : (th ? "แสดง " + menuShown + " จาก " + total + " รายการ" : menuShown + " of " + total + " items");
-  }
-  function menuApply() {
-    var q = menuQ ? menuQ.value.trim().toLowerCase() : "";
-    var words = q ? q.split(/\s+/) : [];
-    menuShown = 0;
-    menuRows.forEach(function (row) {
-      var hay = row.__en + " " + menuText(row);
-      var pro = (row.getAttribute("data-protein") || "").split(" ");
-      var ok = (!menuProtein || pro.indexOf(menuProtein) > -1) && words.every(function (w) { return hay.indexOf(w) > -1; });
-      if (!ok && row.classList.contains("is-open")) { // a hidden row closes its photo
-        var b = row.querySelector(".mrow-view"), pn = row.querySelector(".mrow-photo");
-        if (b && pn) rowToggle(row, b, pn, false);
-      }
-      row.hidden = !ok;
-      if (ok) menuShown++;
-    });
-    document.querySelectorAll(".menu-group").forEach(function (g) {
-      var any = g.querySelector(".mrow:not([hidden])");
-      var none = g.querySelector(".menu-gnone");
-      if (none) none.hidden = !!any || menuShown === 0;
-    });
-    var active = !!q || !!menuProtein;
-    menuResetBtns.forEach(function (b) { if (b && b.id === "menuReset") b.hidden = !active; });
-    if (menuEmpty) menuEmpty.hidden = menuShown > 0;
-    menuCountText();
-  }
-  function menuReset() {
-    if (menuQ) menuQ.value = "";
-    menuProtein = "";
-    menuChips.forEach(function (c) { c.setAttribute("aria-pressed", String(c.getAttribute("data-protein-f") === "")); });
-    menuApply();
-  }
-  if (menuTools && menuRows.length) {
-    menuTools.hidden = false;
-    var menuQTimer = 0;
-    if (menuQ) menuQ.addEventListener("input", function () {
-      menuApply();
-      window.clearTimeout(menuQTimer);
-      menuQTimer = window.setTimeout(function () { // one event per pause in typing; never the words typed
-        if (menuQ.value.trim() && menuSearchSent < 20) { menuSearchSent++; track("menu_search", {}); }
-      }, 1200);
-    });
-    if (menuQ) menuQ.addEventListener("keydown", function (e) { if (e.key === "Escape" && menuQ.value) { e.preventDefault(); menuReset(); } });
-    menuChips.forEach(function (c) {
-      c.addEventListener("click", function () {
-        menuProtein = c.getAttribute("data-protein-f") || "";
-        menuChips.forEach(function (o) { o.setAttribute("aria-pressed", String(o === c)); });
-        menuApply();
-      });
-    });
-    menuResetBtns.forEach(function (b) {
-      if (b) b.addEventListener("click", function () { menuReset(); if (menuQ) menuQ.focus({ preventScroll: true }); });
-    });
-    menuApply();
-  }
   var menuSec = document.getElementById("menu");
   if (menuSec && "IntersectionObserver" in window) {
     var menuViewIO = new IntersectionObserver(function (entries) {
@@ -3218,28 +3244,10 @@ window.bbTrack = function (name, props) {
      link in the footer (each tab's data-lineman), and the footer's own
      branch switch chooses the same way. With the visitor's permission the browser's location
      is shown on the map and the nearest branch is chosen first; it never leaves the page. */
-  /* ONE model for each branch: the map, Find us, the footer's ordering buttons and the JSON-LD in <head>
-     (keep that block in step by hand) all read these facts. A fact a branch has not confirmed is null,
+  /* ONE model for each branch (shared/site.js, also used by the full menu page): the map, Find us,
+     the footer's ordering buttons and Open now all read it. A fact a branch has not confirmed is null,
      and the page says so; it never borrows the other branch's. */
-  var BRANCHES = [
-    { id: "rama9", lat: 13.7437797, lng: 100.6320785,
-      open: "https://maps.google.com/?cid=4340520789969302256",
-      dir: "https://www.google.com/maps/dir/?api=1&destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok",
-      embed: "https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&z=16&output=embed",
-      lineman: "https://lin.ee/OyZp7FP",
-      grab: "https://app.grab.com/s/olrOpBCF", grabQr: "media/grab-rama9-qr.png",  // the shop's own share link, verified
-      tel: "+66827938855",
-      // Asia/Bangkok, minutes from midnight, by weekday (0 = Sunday); a close past 1440 runs past midnight
-      hours: [[660, 1440], [660, 1440], [660, 1410], [660, 1440], [660, 1440], [660, 1560], [660, 1560]] },
-    { id: "pattanakarn", lat: 13.7360497, lng: 100.6234688,
-      open: "https://maps.google.com/?cid=12405364053160930417",
-      dir: "https://www.google.com/maps/dir/?api=1&destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok",
-      embed: "https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&z=16&output=embed",
-      lineman: "https://lin.ee/nPi5Qzb",
-      grab: null, grabQr: null,   // no verified Grab share link yet: the button says it searches
-      tel: null,                  // not confirmed
-      hours: null }               // not confirmed
-  ];
+  var BRANCHES = window.BB_BRANCHES;
   var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".find-map-tab"));
   var branchAt = 0; // the chosen branch
   var mapFrame = document.querySelector(".find-map-frame .find-map-embed[hidden]");
@@ -3297,15 +3305,29 @@ window.bbTrack = function (name, props) {
   var orderFor = Array.prototype.slice.call(document.querySelectorAll("[data-order-for]"));
   /* the chosen branch is kept in the address (?branch=pattanakarn), so a reload, a shared link or
      coming back to the page keeps it; replaceState adds no history steps */
-  function branchToUrl(i) {
-    try {
-      var u = new URL(window.location.href);
-      if (i === 0) u.searchParams.delete("branch"); else u.searchParams.set("branch", BRANCHES[i].id);
-      window.history.replaceState(window.history.state, "", u.pathname + u.search + u.hash);
-    } catch (err) {}
+  /* links to the full menu carry the visitor's language and branch */
+  function paintCarry() {
+    var lang = document.body.getAttribute("data-lang") === "th" ? "th" : "en";
+    document.querySelectorAll("[data-carry]").forEach(function (a) {
+      a.href = window.BBPrefs.carry(a.getAttribute("data-carry"), lang, BRANCHES[branchAt].id);
+    });
   }
+  /* B06 — EVERY branch choice goes through chooseBranch(i, origin). Deliberate origins (a map tab, a map
+     marker, the footer switch, the "Show it" button, a nearest-branch result the visitor asked for) count
+     as the visitor's choice: they bump choiceSeq, are saved and go into the address. A location result
+     that arrives later checks choiceSeq first, so it can never undo a newer manual choice. */
+  var choiceSeq = 0;
+  var DELIBERATE = { tab: 1, marker: 1, footer: 1, panel: 1, nearest: 1 };
+  function chooseBranch(i, origin) {
+    if (!BRANCHES[i]) return;
+    var deliberate = !!DELIBERATE[origin];
+    if (deliberate) { choiceSeq++; userPicked = true; }
+    if (origin === "url" || origin === "saved") userPicked = true; // a choice made earlier
+    selectBranch(i, deliberate || origin === "location", deliberate);
+  }
+  window.__bbChoose = chooseBranch; // QA hook
   function selectBranch(i, move, byVisitor) {
-    var b = BRANCHES[i];
+    var b = BRANCHES[i], tab = mapTabs[i];
     if (!b) return;
     branchAt = i;
     mapTabs.forEach(function (t, k) { t.setAttribute("aria-pressed", String(k === i)); });
@@ -3319,7 +3341,7 @@ window.bbTrack = function (name, props) {
     if (orderWalk) orderWalk.href = b.open;
     var orderGrab = document.getElementById("orderGrab"), orderNote = document.getElementById("orderNote");
     if (orderGrab) {
-      orderGrab.href = b.grab || "https://www.grab.com/th/food/"; // no verified shop link: Grab's own page, labelled as a search
+      orderGrab.href = b.grab || window.BBSite.GRAB_SEARCH; // no verified shop link: Grab's own page, labelled as a search
       orderGrab.setAttribute("data-qr", b.grabQr || "");
       orderGrab.classList.toggle("is-search", !b.grab);
       var gl = orderGrab.querySelectorAll("span");
@@ -3328,8 +3350,10 @@ window.bbTrack = function (name, props) {
     if (orderNote) orderNote.hidden = !!b.grab;
     if (orderCall) orderCall.hidden = !b.tel; // only a number we know is that branch's
     paintOpenNow();
+    paintCarry();
     if (byVisitor) {
-      branchToUrl(i);
+      window.BBPrefs.save("branch", b.id);
+      window.BBPrefs.toUrl("branch", b.id, i === 0);
       track("branch_select", { branch: b.id });
     }
     if (mapMode === "styled" && move) {
@@ -3341,16 +3365,15 @@ window.bbTrack = function (name, props) {
     }
   }
   mapTabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { userPicked = true; selectBranch(i, true, true); });
+    tab.addEventListener("click", function () { chooseBranch(i, "tab"); });
   });
   orderBtns.forEach(function (b, i) {
-    b.addEventListener("click", function () { userPicked = true; selectBranch(i, true, true); });
+    b.addEventListener("click", function () { chooseBranch(i, "footer"); });
   });
   document.querySelectorAll("[data-branch-go]").forEach(function (b) {
     b.hidden = false;
     b.addEventListener("click", function () {
-      userPicked = true;
-      selectBranch(+b.getAttribute("data-branch-go"), true, true);
+      chooseBranch(+b.getAttribute("data-branch-go"), "panel");
       var other = document.querySelector('[data-branch-panel="' + b.getAttribute("data-branch-go") + '"] .find-sub');
       if (other) { other.tabIndex = -1; other.focus({ preventScroll: true }); } // focus follows the panel that replaced this one
     });
@@ -3360,14 +3383,11 @@ window.bbTrack = function (name, props) {
     var el = document.getElementById(p[0]);
     if (el) el.addEventListener("click", function () { track("provider_handoff", { provider: p[1], branch: BRANCHES[branchAt].id }); });
   });
-  /* a branch named in the address (?branch=) is the visitor's choice, so location never overrides it */
+  /* the first branch: a valid ?branch= in the address, then the visitor's saved choice, then Rama 9
+     (shared resolver). An address or saved branch is a choice already made, so location never overrides it. */
   (function () {
-    var want = null;
-    try { want = new URLSearchParams(window.location.search).get("branch"); } catch (err) {}
-    var k = -1;
-    BRANCHES.forEach(function (b, i) { if (b.id === want) k = i; });
-    if (k > -1) userPicked = true;
-    selectBranch(k > -1 ? k : 0, false);
+    var r = window.BBPrefs.resolve("branch");
+    chooseBranch(Math.max(0, window.BBSite.branchIndex(r.value)), r.source);
   })();
   /* GrabFood on a computer: Grab has no shop pages on the web (its share link lands on Grab's
      general page there), so show the branch's code to scan. A phone goes straight to the app. */
@@ -3407,9 +3427,6 @@ window.bbTrack = function (name, props) {
   function showUser() {
     if (!userPos) return;
     kmAway = mapTabs.map(function (t) { return kmBetween(userPos, mapPoint(t)); });
-    var near = 0;
-    kmAway.forEach(function (v, k) { if (v < kmAway[near]) near = k; });
-    if (!userPicked) selectBranch(near, false);
     var at = mapPressed();
     if (bbMap && window.maplibregl && (mapMode === "styled" || mapMode === "loading")) {
       if (!userMarker) {
@@ -3432,18 +3449,27 @@ window.bbTrack = function (name, props) {
     if (!mapNear) return;
     mapNear.textContent = nearOff ? (mapIsThai() ? "ยังไม่ได้เปิดตำแหน่ง" : "Location is off") : (mapIsThai() ? "สาขาใกล้ฉัน" : "Nearest to me");
   }
+  function nearestIndex() {
+    var near = 0;
+    BRANCHES.forEach(function (b, k) { if (kmBetween(userPos, [b.lng, b.lat]) < kmBetween(userPos, [BRANCHES[near].lng, BRANCHES[near].lat])) near = k; });
+    return near;
+  }
   function askLocation(byHand) {
     if (!navigator.geolocation || geoAsking) return;
     geoAsking = true;
-    if (byHand) userPicked = false; // the visitor asked for the nearest branch
+    var asked = choiceSeq; // the choice in force when the request went out
     navigator.geolocation.getCurrentPosition(function (pos) {
       geoAsking = false;
       nearOff = false; paintNear();
       userPos = [pos.coords.longitude, pos.coords.latitude];
+      if (choiceSeq === asked) { // no newer manual choice while the browser was answering
+        if (byHand) chooseBranch(nearestIndex(), "nearest");
+        else if (!userPicked) chooseBranch(nearestIndex(), "location");
+      }
       showUser();
     }, function () {
       geoAsking = false;
-      if (byHand) { nearOff = true; userPicked = true; paintNear(); } // manual choice stays; the branch does not change
+      if (byHand) { nearOff = true; paintNear(); } // the branch does not change
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
   }
   /* the browser is asked for the visitor's location only when they press "Nearest to me".
@@ -3506,7 +3532,7 @@ window.bbTrack = function (name, props) {
           pin.innerHTML = '<span class="bb-pin-brand">Burger Bro!</span><span class="bb-pin-name"></span>';
           pin.querySelector(".bb-pin-name").textContent = tabName(tab);
           pin.setAttribute("aria-label", "Burger Bro " + tabName(tab));
-          pin.addEventListener("click", function (e) { e.stopPropagation(); userPicked = true; selectBranch(i, true, true); });
+          pin.addEventListener("click", function (e) { e.stopPropagation(); chooseBranch(i, "marker"); });
           bbPins.push(pin);
           new ml.Marker({ element: pin, anchor: "bottom", offset: [0, -11] }).setLngLat(pts[i]).addTo(map);
         });
@@ -3540,7 +3566,6 @@ window.bbTrack = function (name, props) {
       var th = mapIsThai();
       paintKm();
       paintNear();
-      paintPick();
       paintOpenNow();
       var zi = mapCanvas && mapCanvas.querySelector(".maplibregl-ctrl-zoom-in"), zo = mapCanvas && mapCanvas.querySelector(".maplibregl-ctrl-zoom-out");
       if (zi) { zi.title = th ? "ขยาย" : "Zoom in"; zi.setAttribute("aria-label", zi.title); }
@@ -3792,25 +3817,14 @@ window.bbTrack = function (name, props) {
      Fri and Sat run past midnight. No waiting times, no holiday guesses: the note says holidays may differ.
      A branch without confirmed hours shows nothing.
      ============================================================ */
-  function openState(hours, at) {
-    var bkk = new Date((at ? at.getTime() : Date.now()) + 7 * 3600000);
-    var day = bkk.getUTCDay(), m = bkk.getUTCHours() * 60 + bkk.getUTCMinutes();
-    var today = hours[day], prev = hours[(day + 6) % 7];
-    var close = -1;
-    if (prev[1] > 1440 && m < prev[1] - 1440) close = prev[1] - 1440;   // still in last night's late opening
-    else if (m >= today[0] && m < today[1]) close = today[1];
-    function hm(x) { x = x % 1440; return (x < 600 ? "0" : "") + Math.floor(x / 60) + ":" + (x % 60 < 10 ? "0" : "") + (x % 60); }
-    if (close > -1) return { state: close - m <= 60 ? "soon" : "open", at: close === 1440 ? "24:00" : hm(close) };
-    return { state: "closed", at: hm(m < today[0] ? today[0] : hours[(day + 1) % 7][0]) };
-  }
-  window.__bbOpenAt = function (iso) { return openState(BRANCHES[0].hours, new Date(iso)); }; // QA hook
+  window.__bbOpenAt = function (iso) { return window.BBSite.openState(BRANCHES[0].hours, new Date(iso)); }; // QA hook
   function paintOpenNow() { // (its timer lives on the function: it is first called before this line runs)
     var el = document.getElementById("findNow"), note = document.getElementById("findNowNote");
     if (!el) return;
     var b = (typeof BRANCHES !== "undefined" && BRANCHES[branchAt]) || null;
     var hours = b && b.hours;
     if (!hours) { el.hidden = true; if (note) note.hidden = true; window.clearTimeout(paintOpenNow.t); return; }
-    var st = openState(hours), th = mapIsThai();
+    var st = window.BBSite.openState(hours), th = mapIsThai();
     var words = {
       open: th ? "เปิดอยู่ · ปิด " : "OPEN NOW · CLOSES ",
       soon: th ? "ใกล้ปิดแล้ว · ปิด " : "CLOSES SOON · AT ",
@@ -3866,13 +3880,9 @@ window.bbTrack = function (name, props) {
   if (!document.body.getAttribute("data-lang")) document.body.setAttribute("data-lang", "en");
   var langBtn = document.getElementById("langBtn");
   function langToUrl(lang) {
-    try {
-      var u = new URL(window.location.href);
-      u.searchParams.set("lang", lang);
-      window.history.replaceState(window.history.state, "", u.pathname + u.search + u.hash);
-      var c = document.getElementById("canonical");
-      if (c) c.href = "https://mpc0367.github.io/burger-bro/" + (lang === "th" ? "?lang=th" : "");
-    } catch (err) {}
+    window.BBPrefs.toUrl("lang", lang, false);
+    var c = document.getElementById("canonical");
+    if (c) c.href = lang === "th" ? c.getAttribute("data-th") : "https://mpc0367.github.io/burger-bro/";
   }
   function setLang(lang, persist) {
     capture(); // anything added since the last switch keeps its English
@@ -3915,10 +3925,8 @@ window.bbTrack = function (name, props) {
     }
     sheetLabel();
     if (mqLabel) mqLabel();
-    menuCountText();
-    if (persist !== false) {
-      try { window.localStorage.setItem("bb-lang", lang); } catch (err) {}
-    }
+    if (persist !== false) window.BBPrefs.save("lang", lang);
+    paintCarry();
   }
   /* user-initiated switch: a short dip instead of a hard swap, and the block being read
      stays put (Thai and English copy have different heights). Rapid clicks collapse
@@ -3947,16 +3955,9 @@ window.bbTrack = function (name, props) {
       langTimer = window.setTimeout(langCommit, 140);
     });
   }
-  /* which language first: a valid ?lang= in the address, then the saved choice, then English.
-     An address language is shown but not saved, so a shared link never changes someone's own setting. */
-  var urlLang = shotQ.get("lang");
-  if (urlLang === "th" || urlLang === "en") {
-    setLang(urlLang, false);
-  } else {
-    var saved = null;
-    try { saved = window.localStorage.getItem("bb-lang"); } catch (err) {}
-    setLang(saved === "th" ? "th" : "en", false);
-  }
+  /* which language first: the shared resolver (a valid ?lang= in the address, then the saved choice,
+     then English). An address language is shown but not saved, so a shared link never changes someone's own setting. */
+  setLang(window.BBPrefs.resolve("lang").value, false);
 
 })();
 
