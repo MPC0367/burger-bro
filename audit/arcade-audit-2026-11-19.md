@@ -1,5 +1,7 @@
 # Website audit A01–A13 — evidence log (19 Nov 2026)
 
+> A revised brief arrived the same day; its log is `upgrade-2026-11-19.md` (homepage menu restored, full menu page, story redesign, B01–B06, A01–A13 re-checked).
+
 Brief: `../documents/Burger_Bro_Arcade_and_Website_Audit_Claude_Prompt.pdf`, pages 23–30 (audit), 8 and 25 (arcade entry).
 Branch: `arcade-2026-11-19`. Nothing pushed, merged or deployed. The arcade itself (`arcade/`) is built separately; this pass adds only the entry points and the hook that loads it.
 
@@ -57,7 +59,10 @@ Branch: `arcade-2026-11-19`. Nothing pushed, merged or deployed. The arcade itse
 - On a Thai page, text the dictionary leaves in English (dish names) gets `lang="en"`; the second address line in each panel gets the right `lang` both ways (`data-lang-en` / `data-lang-th`). Map zoom buttons, the map pins, "You", "Nearest to me" / "Location is off", the review texts and the "order this" note re-render on switching.
 - Tested in TH and back to EN.
 
-## A08 — menu: stable photos, search and filters (P2) — done
+## A08 — menu: stable photos, search and filters (P2) — superseded
+
+> **Superseded the same day by the revised brief (p. 44, "latest instruction takes precedence"):** the homepage menu was restored exactly as it was on `main`, and search, filters and explicit photo/details controls moved to the new full menu page. See `upgrade-2026-11-19.md`. What follows describes the first pass.
+
 
 - The phone scroll spotlight (which opened 212 px photo panels by scroll position) is removed; tested that no row changes height while scrolling the menu on a 390 px phone. Every photo row has a visible **View photo** button (mouse, touch, keyboard), which opens the photo under its own row (rows above never move). Desktop hover plate kept as an extra; tablets that cannot hover keep thumbnails.
 - Search over names and descriptions (screen language + English), protein filters **All / Beef / Pork / Chicken / Fish & shrimp** from `data-protein` on each row (written only from the menu's own words; e.g. Hot Dog's "smoked sausage" names no meat, so it has none), an item count ("12 of 27 items"), a clear button, a no-results message, a "nothing here" line per empty section. Category links keep the filter (tested). Price/VAT wording and the rail unchanged. No dietary or allergen filters.

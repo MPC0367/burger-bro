@@ -1,6 +1,6 @@
 # Burger Bro! — website
 
-Static site for Burger Bro (Rama 9 and Pattanakarn, Bangkok). One `index.html` with inline CSS and vanilla JavaScript, photos in `media/`. No build step, no libraries.
+Static site for Burger Bro (Rama 9 and Pattanakarn, Bangkok): the homepage `index.html` (inline CSS and vanilla JavaScript) and the full menu page `menu/`, photos in `media/`. No build step for the site, no libraries.
 
 Live: https://mpc0367.github.io/burger-bro/ (GitHub Pages, `main` branch, repository root).
 
@@ -8,16 +8,19 @@ Live: https://mpc0367.github.io/burger-bro/ (GitHub Pages, `main` branch, reposi
 
 | Path | What it is |
 |---|---|
-| `index.html` | The whole page: markup, styles, Thai dictionary, script |
+| `index.html` | The homepage: markup, styles, Thai dictionary, script. **Its menu HTML is the one source of the menu.** |
+| `menu/index.html` | The full menu page (`/burger-bro/menu/`): search, category and protein filters, photo/details view, branch-aware ordering. `menu.js`, `menu.css` are its own; `menu-data.js` and `home.css` are **generated** from `index.html` (see "One menu, two pages") |
+| `shared/site.js` | Shared by both pages: the language/branch resolver (`BBPrefs`), the branch facts (`BB_BRANCHES`), Bangkok open-now (`BBSite.openState`) and `bbTrack` |
+| `tools/menu-data.mjs`, `tools/menu-parity.mjs` | Generate the menu page's data and styles from the homepage; check they are current (Node, no dependencies) |
 | `media/*.jpg` | Site photos (hero, burger section, shop) and 22 official menu photos from the shop's LINE MAN listings, each with a `-640` / `-960` resized copy |
 | `media/replaced/` | Four original menu photos that the official shots replaced. Kept for reference; nothing links to them. |
-| `media/seq/f00.jpg … f48.jpg` | 49 frames for the burger breakdown animation |
+| `media/seq/f00.jpg … f48.jpg` | 49 frames for the burger story (640×853, with a baked red studio background) |
 | `media/favicon.svg` | The nav badge as a favicon |
-| `audit/` | Findings, inventory, before/after reconciliation and screenshots from the V2 pass; `arcade-audit-2026-11-19.md` is the evidence log for the 19 Nov 2026 website audit (A01–A13) |
+| `audit/` | Findings, inventory, before/after reconciliation and screenshots from the V2 pass; `arcade-audit-2026-11-19.md` is the evidence log for the 19 Nov 2026 website audit (A01–A13) and the revised brief (B01–B06, menu page, story) |
 | `arcade/` | The coupon arcade, loaded only when a visitor presses an arcade entry (see below) |
 | `.nojekyll` | Tells GitHub Pages to serve the files as they are. Keep it. |
 
-All asset paths are relative (`media/…`, never `/media/…`), so the site works under `/burger-bro/` and would also work at a domain root.
+All asset paths are relative (`media/…` on the homepage, `../media/…` on the menu page, never `/media/…`), so the site works under `/burger-bro/` and at a domain root (`/` and `/menu/`) alike. The menu page is a real file (`menu/index.html`): it opens directly, reloads and can be bookmarked with no redirect trick.
 
 ## Preview locally
 
@@ -27,7 +30,7 @@ Serve the page under the same `/burger-bro/` base path as GitHub Pages, e.g. fro
 npx http-server -p 4173      # or any static server; python's http.server works too where Python is usable
 ```
 
-Then open `http://localhost:4173/burger-bro/`. (On the studio Mac, Python fails under `~/Documents`; use a Node static server.)
+Then open `http://localhost:4173/burger-bro/` and `http://localhost:4173/burger-bro/menu/`. (On the studio Mac, Python fails under `~/Documents`; use a Node static server.)
 
 ## Deploy
 
@@ -37,17 +40,22 @@ Anything pushed to `main` is live about a minute later. Work on a branch, check 
 
 - **English text** is in the HTML. **Thai text** is in the `window.BB_TH` object near the bottom, matched by each element's `data-i18n` key. Menu item names stay in English in both languages.
 - **Prices** are plain text in the menu rows. The receipt at the bottom is a fixed illustration and does not read from the menu.
-- **Opening hours (Rama 9) appear in seven places.** Change all of them together: the hours table, `hours` in `BRANCHES` in the script (drives "Open now / closes soon"), `hero.meta1`, `nav.meta`, `mq.1`, `break.meta`, and the JSON-LD block in `<head>`.
-- **Phone** (`tel:+66827938855`, shown as 082-793-8855) appears in Find us, the footer and `tel` in `BRANCHES`.
+- **After any change to the homepage menu or its Thai text, or to the homepage styles, run** `node tools/menu-data.mjs` (regenerates `menu/menu-data.js` and `menu/home.css`) and `node tools/menu-parity.mjs` (fails if the menu page and the homepage disagree).
+- **Opening hours (Rama 9) appear in seven places.** Change all of them together: the hours table, `hours` in `shared/site.js` (drives "Open now / closes soon"), `hero.meta1`, `nav.meta`, `mq.1`, `break.meta`, and the JSON-LD block in `<head>`.
+- **Phone** (`tel:+66827938855`, shown as 082-793-8855) appears in Find us, the footer and `tel` in `shared/site.js`.
 - **New text keys** need a Thai entry in `window.BB_TH`. Besides `data-i18n` (inner HTML), `data-i18n-alt` (`@alt:` keys), `data-i18n-aria` (`@aria:` keys) and `data-i18n-ph` (`@ph:` keys, placeholders) are translated. On a Thai page, text the dictionary leaves in English (dish names) gets `lang="en"`; `data-lang-en` / `data-lang-th` give an element's own language on each page (the second address line).
 
-## Branches: one model
+## Branches: one model, one way to choose
 
-`BRANCHES` in the script holds each branch's facts and links: map position, Google listing, directions, map embed, LINE MAN, GrabFood (+ QR), phone and hours. The map tabs, the Find us panel, the footer's ordering buttons and "Open now" all follow the one chosen branch (map tabs, pins, the footer switch, and each panel's "Show it" button choose it). The choice is kept in the address as `?branch=pattanakarn` (with `history.replaceState`, no extra history steps), so reloads, back/forward and shared links keep it. The JSON-LD in `<head>` repeats these facts for search engines: keep it in step by hand.
+`BB_BRANCHES` in `shared/site.js` holds each branch's facts and links: map position, Google listing, directions, map embed, LINE MAN, GrabFood (+ QR), phone and hours. On the homepage the map tabs, the Find us panel, the footer's ordering buttons, the full-menu links and "Open now" all follow the one chosen branch; on the menu page its branch selector drives its ordering buttons. The JSON-LD in `<head>` repeats these facts for search engines: keep it in step by hand.
 
-**Pattanakarn has only its name, address, position, Google listing and LINE MAN link confirmed.** Its hours, phone, Grab link and facilities are `null` in `BRANCHES` and its Find us panel says plainly that they are not confirmed yet (with its Google listing); nothing of Rama 9's is shown for it. The old line "Burger Bro & Steak · in the gas station · 11:00–22:00" was taken down on 19 Nov 2026 pending the owner's confirmation. When the owner supplies a fact: fill it in `BRANCHES`, replace the "not confirmed" text in panel 1 (`find.pk.*` keys, EN and TH), and add it to the second JSON-LD entity.
+**Every branch choice goes through one function** (`chooseBranch(i, origin)` on the homepage). Deliberate origins — a map tab, a map marker, the footer switch, a panel's "Show it", a "Nearest to me" result the visitor asked for, the menu page's selector — count as the visitor's choice: they are saved (`bb-branch`), put in the address (`?branch=pattanakarn`, `history.replaceState`) and numbered. A location answer that arrives later checks that number first, so it can never undo a newer manual choice.
 
-**Open now / closes soon** (Rama 9 only) is worked out from `hours` in Bangkok time (UTC+7), including the Fri/Sat opening that runs to 02:00. "Closes soon" is the last hour. It makes no holiday guesses and shows no waiting times; a branch without confirmed hours shows nothing.
+**Which branch and language first (both pages, `BBPrefs.resolve`):** a valid value in the address (`?branch=`, `?lang=`) wins, then the visitor's saved choice, then the default (Rama 9, English). Invalid values are ignored. A value from the address is shown but not saved, so a shared link never changes someone's own setting — and a stale saved Thai never overrides `?lang=en`. Links between the two pages carry both (`BBPrefs.carry`).
+
+**Pattanakarn has only its name, address, position, Google listing and LINE MAN link confirmed.** Its hours, phone, Grab link and facilities are `null` in `BRANCHES` and its Find us panel says plainly that they are not confirmed yet (with its Google listing); nothing of Rama 9's is shown for it. The old line "Burger Bro & Steak · in the gas station · 11:00–22:00" was taken down on 19 Nov 2026 pending the owner's confirmation. When the owner supplies a fact: fill it in `shared/site.js`, replace the "not confirmed" text in panel 1 (`find.pk.*` keys, EN and TH), and add it to the second JSON-LD entity.
+
+**Open now / closes soon** (Rama 9 only) is worked out from `hours` (`shared/site.js`) in Bangkok time (UTC+7), including the Fri/Sat opening that runs to 02:00. "Closes soon" is the last hour. It makes no holiday guesses and shows no waiting times; a branch without confirmed hours shows nothing.
 
 ## Delivery links
 
@@ -59,46 +67,58 @@ foodpanda Thailand closed in May 2025 and is not linked.
 
 ## Photos
 
-Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `name-640.jpg` and `name-960.jpg` from it and keep the file names. A menu row with a `data-img` attribute has a visible **View photo** button (mouse, touch and keyboard alike) that opens the photo under the row, with an "Order this →" link that jumps to the order buttons and says the dish has to be chosen again in the delivery app (the apps have their own carts). On a computer the photo also follows the pointer as a hover plate, as an extra (under Reduce Motion it sits by the pointer without the glide and tilt); wide screens that cannot hover (tablets) also get a thumbnail. Phones no longer open photos by scroll position (that shifted the page while reading). Add `data-img` only when the picture really is that item.
+Each photo exists at three widths. If you replace `media/name.jpg`, regenerate `name-640.jpg` and `name-960.jpg` from it and keep the file names.
 
-Only the hero photo loads with high priority. Menu photos load when asked for: a photo row's picture when its View photo button is pressed, and on a computer each section's pictures when the pointer reaches that section.
+## The homepage menu (kept exactly as it was)
 
-## Menu search and filter
+The homepage menu's content, appearance and photo interaction are the owner's baseline and are unchanged from `main` (24d07dd): a menu row with a `data-img` attribute shows its photo on hover with a mouse or trackpad on any window wider than 900px, when it scrolls to mid-screen (phones), as a thumbnail on wide screens that cannot hover (tablets), and through a Photo button that only appears on keyboard focus. Only non-visual fixes were made: menu photos are fetched ahead at the browser's normal priority (only the hero photo is high priority), dish names are marked `lang="en"` on a Thai page, and a Reduce Motion change applies without a reload. One link was added at the foot: **View full menu →** (to `menu/`, carrying language and branch). The row's `data-protein` attribute (invisible) feeds the full menu page's protein filter; it lists only what the row's own words say (the B P C marks, "pork", "bacon", "ham", "chicken", "fish", "shrimp", "Angus", "wagyu … beef", "rib eye"). Add `data-img` only when the picture really is that item.
 
-Above the section rail: a search over dish names and descriptions (in the language on screen and in English), protein filters (All, Beef, Pork, Chicken, Fish & shrimp), an item count, a clear button and a no-results message. Each row's proteins are in its `data-protein` attribute, written only from the menu's own words (the B P C marks, "pork", "bacon", "ham", "chicken", "fish", "shrimp", "Angus", "wagyu … beef", "rib eye"); a dish whose words name no meat has none. No dietary or allergen filter: the shop has not confirmed that information. Jumping between sections keeps the search and filter.
+## One menu, two pages
+
+The full menu page (`menu/`) uses **the same data and the same row styles** as the homepage, never a hand copy: `node tools/menu-data.mjs` reads the homepage's menu HTML and Thai dictionary and writes `menu/menu-data.js` (categories, 27 items with stable ids such as `burger-bro` and aliases such as `b1`, EN/TH names and descriptions, prices exactly as shown, B/P/C markers, proteins, tags, photos and alt text, add-ons, value sets and tax wording) and `menu/home.css` (the homepage stylesheet). `node tools/menu-parity.mjs` fails if either is out of date. On the menu page: Back to Burger Bro, the branch being ordered from, **Search menu** (EN and TH text, ids and aliases; a missing Thai translation never hides a dish), category buttons, protein filters (only proteins the data has), **Reset filters**, a result count, an empty state, a photo/details view (button on every row; a dialog that returns focus to its button) and the same branch-aware LINE MAN / GrabFood hand-off as the homepage (no basket). Its state is in the address — `?q=`, `?cat=`, `?protein=`, `?item=`, `?branch=`, `?lang=` — so it can be shared, typing replaces the address entry, and Back/Forward restore filters and close an open detail view. It loads no map, no burger sequence and no arcade.
+
+## The burger story
+
+The story (`#bro`) is on warm paper with a soft static cream/mustard glow and a grounded shadow. **One state** — normalised progress 0…1 — drives the frame, the active ingredient, the counter and the five chapter buttons (an ordered list of real buttons with `aria-current="step"`; arrow keys move within the list only). Chapter checkpoints are frames 0, 12, 24, 36 and 48: no frame isolates one layer (the sequence opens the whole burger steadily), so the five sit at even points of the opening.
+
+- **Pinned** (wide ≥1100px, ≥700px tall, motion allowed, and the copy column really fits): the stage holds still under the header and normal page scrolling moves the progress (track ≈ 3.2 usable screens); a chapter button scrolls to its point. Nothing intercepts the wheel.
+- **Normal flow** everywhere else (phones, short or narrow windows, 200% zoom, large text, Reduce Motion, data saver): the picture stays in view (sticky under the header stack) while chapters are chosen; a chapter button sets the progress directly. On phones and tablets an optional **Play** previews the sequence back and forth (it never jumps from the last frame to the first) with a persistent Pause; it stops on any chapter choice and rests offscreen, in a hidden tab and while the arcade is open.
+- **Fit:** the copy column is `clamp(320px, 31vw, 460px)`; the picture takes the rest of the width and most of the usable height (viewport minus the measured header stack) and is drawn with ONE scale from both axes (contain), never stretched or cropped; the canvas backing store is its CSS size × device pixel ratio (capped at 2). Resizes, font loading, orientation and text-size changes redraw at the current progress.
+- **Loading:** poster first (`f00`, or the chapter's still frame); frames load once the story is near, first and nearby frames first, four at a time; a frame counts only if it decoded with a real size. A missing frame keeps the last good one on screen; failed frames are retried (also on `online`). If even the poster frame fails, the shop's photo `bro-profile-960.jpg` shows. Reduce Motion and data saver get still frames per chapter and no sequence download.
+- **The frames still carry their baked red studio background**, shown honestly as a framed photograph inside the cream layout. A seamless cream/alpha re-export of the sequence (same camera, anchor and frame size) is an open asset dependency; no colour key, blend mode or per-frame crop is used.
 
 ## Map
 
-Find us shows both branches on one map in the site's own colours (paper ground, white streets, expressways in mustard with ink edges, pins styled like the buttons): **Rama 9** and **Pattanakarn** (1348 Phatthanakan Rd). The tabs above it, or a pin, choose a branch: the map moves to it, "Open in Google Maps" and "Directions" under it follow, and so do the delivery buttons in the footer. The Srinakarin branch closed permanently and was removed on 17 Nov 2026.
+Find us shows both branches on one map in the site's own colours (paper ground, white streets, expressways in mustard with ink edges, pins styled like the buttons): **Rama 9** and **Pattanakarn** (1348 Phatthanakan Rd). The tabs above it, or a pin, choose a branch (through the one branch-choice function): the map moves to it, "Open in Google Maps" and "Directions" under it follow, and so do the delivery buttons in the footer. The Srinakarin branch closed permanently and was removed on 17 Nov 2026.
 
-- **The visitor's location:** the browser is asked only when the visitor presses **Nearest to me** (top left of the map, under the branch tabs). If they allowed it on an earlier visit it is reused quietly, without a prompt, and the nearest branch is chosen unless they already picked one (a `?branch=` in the address counts as picked). If allowed, a "You" dot is drawn and each tab shows its distance. If refused or unavailable the button says "Location is off" and the chosen branch stays. The position is used in the page only and sent nowhere.
+- **The visitor's location:** the browser is asked only when the visitor presses **Nearest to me** (top left of the map, under the branch tabs). If they allowed it on an earlier visit it is reused quietly, without a prompt, and the nearest branch is chosen unless they already picked one (a `?branch=` in the address or a saved choice counts as picked). An answer that arrives after a newer manual choice is not applied. If allowed, a "You" dot is drawn and each tab shows its distance. If refused or unavailable the button says "Location is off" and the chosen branch stays. The position is used in the page only and sent nowhere.
 
 - **How it is drawn:** MapLibre GL 5.24.0 from cdnjs (with integrity hashes) on OpenFreeMap's free OpenStreetMap tiles (`tiles.openfreemap.org/styles/positron`, recoloured in `mapPaint` in the script; no key, no account, no cookies). It loads only as the visitor nears Find us. Street names follow the page language.
 - **Fallback:** if the library, the tiles or WebGL fail, Google's map of the chosen branch takes the frame (`embed` in `BRANCHES`); visitors without JavaScript get Google's map of Rama 9.
-- **Branch data** is in `BRANCHES` (see "Branches: one model"): `lat`/`lng` (from each branch's Google listing), `open`, `dir`, `embed`. Rama 9 opens `https://maps.google.com/?cid=4340520789969302256`, Pattanakarn `?cid=12405364053160930417`.
+- **Branch data** is in `shared/site.js` (see "Branches: one model"): `lat`/`lng` (from each branch's Google listing), `open`, `dir`, `embed`. Rama 9 opens `https://maps.google.com/?cid=4340520789969302256`, Pattanakarn `?cid=12405364053160930417`.
 - The hand-drawn sketch map that Find us had until 10 Nov 2026 is in git history.
 
 ## Language and addresses
 
-English is at the plain address and Thai at `?lang=th` (`<link rel="alternate" hreflang>` for en, th and x-default; the canonical follows). Which language shows: a valid `?lang=th` / `?lang=en` in the address first, then the visitor's saved choice, then English. A language from the address is shown but not saved. Switching language with the EN / ไทย button saves it and updates `?lang=` in the address, so a copied link opens as seen. Search indexing is unchanged (no `noindex`); there is a canonical URL and a Restaurant entity per branch in the JSON-LD.
+English is at the plain address and Thai at `?lang=th`, on both pages (`<link rel="alternate" hreflang>` for en, th and x-default; the canonical follows). Which language shows: the shared resolver — a valid `?lang=th` / `?lang=en` in the address first, then the visitor's saved choice, then English. A language from the address is shown but not saved. Switching language with the EN / ไทย button saves it and updates `?lang=` in the address, so a copied link opens as seen. Search indexing is unchanged (no `noindex`); there is a canonical URL and a Restaurant entity per branch in the JSON-LD.
 
 ## The arcade entry
 
-Every way into the arcade is a `<button type="button" data-arcade-open>`: the pixel cabinet emblem before **Order** in the desktop header (`.nav-arcade`, "Win a coupon" as a tooltip on hover and keyboard focus; on touch screens the words show beside it), the **Win a coupon** button in the phone action row (`.mob-act-arcade`, with **Order now**, under the header; it stays at the top when the header slides away), and the one beside **Order now** in the phone menu sheet (`.sheet-arcade`). Nothing of the arcade loads before a press: the hook script at the end of `index.html` then imports `./arcade/arcade.js` and calls `openArcade({ returnFocus })`; if that fails, a short message says the arcade isn't available and the page carries on. The arcade dispatches `bb:arcade-open` / `bb:arcade-close` on `document`; the page then pauses the marquee, the burger sequence and the review carousel, hides the phone action row (`body.bba-open`), and on close resumes them and puts the reading position back. The header, the action row, the menu rail and anchor jumps share one height: `--stack-h` = `--nav-h` + `--act-h` (0 on wide screens, 62px on phones).
+Every way into the arcade is a `<button type="button" data-arcade-open>`: the pixel cabinet emblem before **Order** in the desktop header (`.nav-arcade`, "Win a coupon" as a tooltip on hover and keyboard focus; on touch screens the words show beside it), the **Win a coupon** button in the phone action row (`.mob-act-arcade`, with **Order now**, under the header; it stays at the top when the header slides away), and the one beside **Order now** in the phone menu sheet (`.sheet-arcade`). Nothing of the arcade loads before a press: the hook script at the end of `index.html` then imports `./arcade/arcade.js` (the menu page imports `../arcade/arcade.js` the same way) and calls `openArcade({ returnFocus })`; if that fails, a short message says the arcade isn't available and the page carries on. The arcade dispatches `bb:arcade-open` / `bb:arcade-close` on `document`; the page then pauses the marquee, the story's Play and the review carousel, hides the phone action row (`body.bba-open`), and on close resumes them and puts the reading position back. The header, the action row, the menu rail and anchor jumps share one height: `--stack-h` = `--nav-h` + `--act-h` (0 on wide screens, 62px on phones).
 
 ## Motion
 
-A change to the Reduce Motion setting is applied in place (never a reload): the marquee, the burger sequence, the cinema drift and the review carousel rest or resume, and the reading position is held. The 49-frame burger sequence counts frames that really decoded; up to 4 failed frames are drawn as their nearest good neighbour, more than that (or a failed draw) keeps the still photo.
+A change to the Reduce Motion setting is applied in place (never a reload): the marquee, the story (pinning, sequence, Play), the cinema drift and the review carousel rest or resume, and the reading position is held.
 
 ## Analytics hook
 
-`window.bbTrack(name, props)` does nothing unless `window.BB_ANALYTICS_URL` is set (it is not). Set, it sends `{name, props, t}` with `navigator.sendBeacon`. Only `branch`, `provider`, `locale` and `device` (phone/tablet/desktop) are ever sent — never a phone number, a name or anything typed. Events: `menu_view`, `menu_search`, `branch_select`, `provider_handoff` (a click, not a sale), `arcade_open`.
+`window.bbTrack(name, props)` (in `shared/site.js`) does nothing unless `window.BB_ANALYTICS_URL` is set (it is not). Set, it sends `{name, props, t}` with `navigator.sendBeacon`. Only `branch`, `provider`, `locale` and `device` (phone/tablet/desktop) are ever sent — never a phone number, a name or anything typed. Events: `menu_view`, `menu_search`, `branch_select`, `provider_handoff` (a click, not a sale), `arcade_open`.
 
 ## QA helpers built into the page
 
 - `?lang=th` opens in Thai without saving the choice; `?lang=en` opens in English even if Thai was saved. `?branch=pattanakarn` opens with Pattanakarn chosen.
-- `window.__bbOpenAt("2026-11-21T18:00:00Z")` returns Rama 9's open state at that moment; `window.__broSeqState()` reports decoded/failed sequence frames.
-- `?shot=full` renders a static full-length page for screenshots; `?shot=%23menu` jumps a static render to a section.
+- `window.__bbOpenAt("2026-11-21T18:00:00Z")` returns Rama 9's open state at that moment; `window.__broSeqState()` reports the story (decoded/failed frames, frame drawn, progress, chapter, mode) and `window.__broFit()` the picture's fit; `window.__bbChoose(i, origin)` chooses a branch; on the menu page `window.__mpState()` reports its state.
+- `?shot=full` renders a static full-length page for screenshots; `?shot=%23menu` jumps a static render to a section. (Shot mode skips the story's sequence: test the story through the normal page.)
 
 ## Google reviews
 
