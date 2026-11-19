@@ -400,6 +400,13 @@
     var b = e.target && e.target.closest ? e.target.closest("[data-arcade-open]") : null;
     if (!b || b.getAttribute("aria-busy") === "true") return;
     e.preventDefault();
+    // On a host without the arcade server (GitHub Pages), the arcade lives at its own address.
+    var playMeta = document.querySelector('meta[name="bb-arcade-play"]');
+    if (playMeta && !document.querySelector('meta[name="bb-arcade-api"]')) {
+      var dest = playMeta.getAttribute("content");
+      window.location.href = dest + (dest.indexOf("?") < 0 ? "?" : "&") + "lang=" + (document.body.getAttribute("data-lang") === "th" ? "th" : "en");
+      return;
+    }
     b.setAttribute("aria-busy", "true");
     try { if (window.bbTrack) window.bbTrack("arcade_open", {}); } catch (err) {}
     import("../arcade/arcade.js").then(function (mod) {

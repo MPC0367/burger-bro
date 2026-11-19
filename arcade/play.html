@@ -31,7 +31,12 @@
   lang = lang === "th" ? "th" : "en";
   document.documentElement.lang = lang;
   document.body.dataset.lang = lang;
-  document.addEventListener("bb:arcade-close", () => { location.href = "../" + (lang === "th" ? "?lang=th" : ""); });
+  // Leaving goes back where the visitor came from (the restaurant page on GitHub Pages, at
+  // the same scroll position); opened directly, it goes to this copy's home page.
+  document.addEventListener("bb:arcade-close", () => {
+    if (document.referrer && history.length > 1) history.back();
+    else location.href = "../" + (lang === "th" ? "?lang=th" : "");
+  });
   import("./arcade.js").then((m) => m.openArcade({ returnFocus: null }));
 </script>
 </body>
