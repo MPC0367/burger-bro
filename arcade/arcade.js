@@ -554,7 +554,7 @@ function hud(h) {
   set("score", fmt(h.score)); set("score2", fmt(h.score));
   set("level", h.level); set("level2", h.level);
   set("lines", t("linesOf", { n: h.lines, m: h.target })); set("lines2", t("linesOf", { n: h.lines, m: h.target }));
-  const p = m.querySelector('[data-hud="prog"]'); if (p) p.style.width = (h.progress * 100).toFixed(1) + "%";
+  const p = m.querySelector('[data-hud="prog"]'); if (p) p.style.transform = `scaleX(${h.progress.toFixed(3)})`;
   set("runlab", state.run && state.run.choice === "continue" ? t("runKeep") : t("runLevel1"));
 }
 

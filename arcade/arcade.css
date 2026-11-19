@@ -66,8 +66,8 @@
 .bba-big { min-height: 60px; font-size: 16px; padding: 12px 34px; }
 .bba-link { background: none; border: 0; padding: 10px 0; min-height: 44px; color: var(--b-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-weight: 600; }
 .bba-tag { display: inline-block; margin-bottom: 10px; padding: 2px 8px; background: var(--b-mustard); border: 2px solid var(--b-ink); font-family: var(--b-mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.bba-err { color: #8E1A10; font-weight: 600; background: #FBE4DE; border-left: 4px solid var(--b-red); padding: 8px 10px; }
-.bba-note { background: var(--b-deep); border-left: 4px solid var(--b-mustard); padding: 8px 10px; font-size: 14px; }
+.bba-err { color: #8E1A10; font-weight: 600; background: #FBE4DE; border: 2px solid var(--b-red); padding: 8px 12px; }
+.bba-note { background: var(--b-deep); border: 2px solid var(--b-ink); padding: 8px 12px; font-size: 14px; }
 .bba-demo { background: var(--b-mustard); border: 2px solid var(--b-ink); padding: 8px 10px; font-size: 14px; }
 .bba-demo a { color: var(--b-ink); font-weight: 700; }
 .bba-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
@@ -105,7 +105,7 @@
 .bba-score { font-family: var(--b-display); font-size: clamp(34px, 4vw, 52px); color: var(--b-red); line-height: 1; margin: 0; font-variant-numeric: tabular-nums; }
 .bba-lvl { display: flex; justify-content: space-between; gap: 8px; margin: 10px 0 6px; font-size: 13px; }
 .bba-prog { height: 10px; border: 2px solid var(--b-ink); background: var(--b-paper); }
-.bba-prog i { display: block; height: 100%; width: 0; background: var(--b-mustard); transition: width .2s; }
+.bba-prog i { display: block; height: 100%; width: 100%; background: var(--b-mustard); transform: scaleX(0); transform-origin: left; transition: transform .2s; }
 .bba-prev { display: flex; gap: 14px; margin: 6px 0; }
 .bba-pv { display: block; background: #1C110D; border: 2px solid var(--b-ink); margin-top: 2px; }
 .bba-pv-s { margin-top: 6px; }
