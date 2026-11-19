@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Burger Bro!</title>
-<meta name="description" content="Burger Bro — homemade American burgers on Rama 9 Soi 49, Bangkok. Hand-formed patties, buns baked in-house and a five-pump sauce bar. Open daily from 11:00, Fri–Sat till 02:00.">
+<title>Burger Bro! — homemade American burgers, Rama 9 &amp; Pattanakarn, Bangkok</title>
+<meta name="description" content="Burger Bro — homemade American burgers on Rama 9 Soi 49, Bangkok, and on Phatthanakan Rd. Hand-formed patties, buns baked in-house and a five-pump sauce bar. Rama 9 opens daily from 11:00, Fri–Sat till 02:00.">
 <meta name="theme-color" content="#F5EEDF">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Burger Bro! — homemade American burgers, Rama 9">
@@ -13,14 +13,27 @@
 <meta property="og:image" content="https://mpc0367.github.io/burger-bro/media/big-bro-960.jpg">
 <meta property="og:url" content="https://mpc0367.github.io/burger-bro/">
 <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
+<!-- one page, two languages: English at the plain address, Thai at ?lang=th (the page reads it before paint) -->
+<link rel="canonical" id="canonical" href="https://mpc0367.github.io/burger-bro/">
+<link rel="alternate" hreflang="en" href="https://mpc0367.github.io/burger-bro/">
+<link rel="alternate" hreflang="th" href="https://mpc0367.github.io/burger-bro/?lang=th">
+<link rel="alternate" hreflang="x-default" href="https://mpc0367.github.io/burger-bro/">
 <script>
-/* before first paint: mark JS as available, restore the saved language on <html>,
+/* before first paint: mark JS as available, set the language on <html>
+   (a valid ?lang= in the address wins over the saved choice, which wins over English),
    and skip the brand loader on repeat views within the same tab session */
 (function (d) {
   var e = d.documentElement;
   e.classList.add("js");
+  var q = null;
+  try { q = new URLSearchParams(location.search).get("lang"); } catch (err) {}
+  if (q === "th" || q === "en") {
+    e.lang = q;
+    if (q === "th") d.getElementById("canonical").href = "https://mpc0367.github.io/burger-bro/?lang=th";
+  } else {
+    try { if (localStorage.getItem("bb-lang") === "th") e.lang = "th"; } catch (err) {}
+  }
   try {
-    if (new URLSearchParams(location.search).get("lang") === "th" || localStorage.getItem("bb-lang") === "th") e.lang = "th";
     if (sessionStorage.getItem("bb-seen")) e.classList.add("no-loader");
     else sessionStorage.setItem("bb-seen", "1");
   } catch (err) {}
@@ -30,7 +43,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Kanit:wght@400;500;600;700;800&family=Libre+Franklin:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Restaurant","name":"Burger Bro","alternateName":"เบอร์เกอร์โบร","servesCuisine":["American","Burgers"],"priceRange":"฿101–250","telephone":"+66-82-793-8855","address":{"@type":"PostalAddress","streetAddress":"443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang","addressLocality":"Bangkok","postalCode":"10250","addressCountry":"TH"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Sunday"],"opens":"11:00","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"11:00","closes":"23:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"11:00","closes":"02:00"}],"acceptsReservations":"False"}
+{"@context":"https://schema.org","@graph":[
+{"@type":"Restaurant","@id":"https://mpc0367.github.io/burger-bro/#rama9","url":"https://mpc0367.github.io/burger-bro/","name":"Burger Bro","alternateName":"เบอร์เกอร์โบร","servesCuisine":["American","Burgers"],"priceRange":"฿101–250","telephone":"+66-82-793-8855","address":{"@type":"PostalAddress","streetAddress":"443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang","addressLocality":"Bangkok","postalCode":"10250","addressCountry":"TH"},"geo":{"@type":"GeoCoordinates","latitude":13.7437797,"longitude":100.6320785},"hasMap":"https://maps.google.com/?cid=4340520789969302256","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Sunday"],"opens":"11:00","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"11:00","closes":"23:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"11:00","closes":"02:00"}],"acceptsReservations":"False"},
+{"@type":"Restaurant","@id":"https://mpc0367.github.io/burger-bro/#pattanakarn","name":"Burger Bro Pattanakarn","address":{"@type":"PostalAddress","streetAddress":"1348 Phatthanakan Rd, Suan Luang","addressLocality":"Bangkok","addressCountry":"TH"},"geo":{"@type":"GeoCoordinates","latitude":13.7360497,"longitude":100.6234688},"hasMap":"https://maps.google.com/?cid=12405364053160930417"}
+]}
 </script>
 <style>
 /* ============================================================
@@ -80,12 +96,15 @@
 
   /* fixed-UI metrics used for sticky offsets and anchor clearance */
   --nav-h: 72px;
+  --act-h: 0px;   /* the phone action row under the header (Order now + Win a coupon); 0 on wide screens */
+  --stack-h: calc(var(--nav-h) + var(--act-h)); /* everything fixed at the top: sticky offsets and anchor clearance */
   --rail-h: 52px;
 
   /* stacking order, lowest to highest */
   --z-rail: 50;
   --z-float: 60;
   --z-grain: 70;
+  --z-act: 85;
   --z-sheet: 90;
   --z-nav: 100;
   --z-loader: 150;
@@ -115,7 +134,8 @@ address { font-style: normal; }
 :focus-visible { outline: 3px dashed currentColor; outline-offset: 3px; }
 
 .container { width: min(100% - (var(--gutter) * 2), 1400px); margin-inline: auto; }
-[id] { scroll-margin-top: 84px; }
+[id] { scroll-margin-top: calc(var(--stack-h) + 12px); }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .mono { font-family: var(--font-mono); font-size: var(--fs-mono); letter-spacing: .08em; text-transform: uppercase; }
 
 /* paper grain over everything */
@@ -327,8 +347,88 @@ html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 
 }
 body[data-lang="th"] .sheet-links a { font-family: var(--font-display-th); font-weight: 800; }
 .sheet-links a em { font-style: normal; font-size: 13px; color: var(--mustard); }
-.sheet-order { align-self: flex-start; background: var(--mustard); color: var(--ink); border-color: var(--ink); }
+.sheet-order { background: var(--mustard); color: var(--ink); border-color: var(--ink); }
+.sheet-acts { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.sheet-arcade { display: inline-flex; align-items: center; gap: 10px; background: var(--paper); color: var(--ink); cursor: pointer; }
 .sheet-meta { color: var(--white); opacity: .8; }
+
+/* ---------- arcade entry: the emblem (desktop), the action row (phones) ----------
+   every entry is a <button data-arcade-open>; the script loads the arcade only on a press */
+.arcade-ico { display: block; width: 22px; height: 26px; flex: none; image-rendering: pixelated; }
+.nav-arcade {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-width: 44px; height: 44px; padding: 0 9px;
+  background: var(--red); color: var(--white);
+  border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+  transition: transform var(--t-hover) var(--e-press), box-shadow var(--t-hover) var(--e-press), background var(--t-hover);
+}
+.nav-arcade:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); background: var(--red-hot); }
+.nav-arcade:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); transition-duration: var(--t-press); }
+.nav-arcade-txt {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  white-space: nowrap;
+}
+body[data-lang="th"] .nav-arcade-txt { font-family: var(--font-th); font-size: 13px; letter-spacing: .02em; }
+/* pointer screens: the words are a tooltip under the emblem — shown on hover and on keyboard focus,
+   placed outside the button's box and click-through, so it never moves the header or takes a click */
+@media (hover: hover) {
+  .nav-arcade-txt {
+    position: absolute; top: calc(100% + 12px); left: 50%;
+    padding: 7px 11px 6px;
+    color: var(--white); background: var(--ink);
+    pointer-events: none;
+    opacity: 0; visibility: hidden; transform: translate(-50%, -4px);
+    transition: opacity var(--t-hover) ease, transform var(--t-hover) var(--e-out), visibility 0s linear var(--t-hover);
+  }
+  .nav-arcade-txt::before { content: ""; position: absolute; left: 50%; top: -6px; margin-left: -6px; border: 6px solid transparent; border-top: 0; border-bottom-color: var(--ink); }
+  .nav-arcade:hover .nav-arcade-txt, .nav-arcade:focus-visible .nav-arcade-txt {
+    opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s;
+  }
+}
+.nav-arcade[aria-busy="true"], .mob-act-arcade[aria-busy="true"], .sheet-arcade[aria-busy="true"] { cursor: progress; }
+.nav-arcade[aria-busy="true"] .arcade-ico, .mob-act-arcade[aria-busy="true"] .arcade-ico, .sheet-arcade[aria-busy="true"] .arcade-ico { animation: arcadeBusy .7s steps(2, end) infinite; }
+@keyframes arcadeBusy { 50% { opacity: .35; } }
+
+.mob-act { display: none; }
+@media (max-width: 900px) {
+  .mob-act {
+    position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-act);
+    display: flex; gap: 10px; align-items: center;
+    height: var(--act-h);
+    padding: 6px max(14px, env(safe-area-inset-right)) 10px max(14px, env(safe-area-inset-left));
+    background: var(--paper);
+    border-bottom: 2px solid var(--ink);
+    transform: translateY(var(--nav-h));
+    transition: transform var(--t-ui) var(--e-out);
+  }
+  html.nav-hidden .mob-act { transform: none; } /* the header slides away; the row stays, at the top */
+  body.bba-open .mob-act { display: none; }
+  .mob-act .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; padding: 0 12px; font-size: 12px; letter-spacing: .08em;
+    box-shadow: 4px 4px 0 var(--ink); white-space: nowrap;
+  }
+  .mob-act .btn:hover { box-shadow: 2px 2px 0 var(--ink); }
+  .mob-act-order { flex: 0 1 auto; }
+  .mob-act-arcade { flex: 1 1 auto; cursor: pointer; }
+  .mob-act-arcade .arcade-ico { width: 18px; height: 21px; }
+  body[data-lang="th"] .mob-act .btn { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+}
+
+/* a short message from the page (e.g. the arcade could not load) */
+.bb-toast {
+  position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); z-index: var(--z-loader);
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 16px 11px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  color: var(--white); background: var(--ink); border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--red);
+  transform: translateX(-50%);
+}
+.bb-toast[hidden] { display: none; }
+body[data-lang="th"] .bb-toast { font-family: var(--font-th); font-size: 14px; letter-spacing: 0; }
+html.bb-quiet .marquee-track { animation-play-state: paused; } /* the arcade is open: decorative motion rests */
 
 /* ============================================================
    HERO
@@ -404,7 +504,7 @@ body[data-lang="th"] .hero-h { font-size: clamp(56px, 11vw, 160px); line-height:
   padding: 13px 0 11px;
 }
 .marquee-track { display: flex; width: max-content; }
-.js-anim .marquee-track { animation: marquee 30s linear infinite; }
+.mq-anim .marquee-track { animation: marquee 30s linear infinite; }
 .marquee-run {
   display: flex; align-items: center; gap: 26px;
   padding-right: 26px;
@@ -588,7 +688,6 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
   border: 2px solid var(--ink);
   align-self: center;
 }
-.mrow-drop { display: none; }
 
 .mrow-float {
   position: fixed; z-index: var(--z-float); top: 0; left: 0;
@@ -686,7 +785,10 @@ body[data-lang="th"] .mrow-name { font-family: var(--font-display-th); font-weig
 .rev-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
 .rev-sub { margin-top: 2px; font-size: 13.5px; color: var(--ink-soft); }
 .rev-line { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
-.rev-stars { color: #E7A21B; font-size: 19px; letter-spacing: .06em; line-height: 1; }
+.rev-stars { color: var(--red); font-size: 19px; letter-spacing: .06em; line-height: 1; } /* red on the review cream is about 4.4:1 (the old gold was about 1.7:1) */
+.rev-num { font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: .06em; }
+.rev-sum-date { display: block; margin-top: 6px; font-size: 11px; letter-spacing: .12em; }
+body[data-lang="th"] .rev-sum-date { font-size: 13px; letter-spacing: .02em; }
 .rev-when, .rev-meta { font-size: 14px; color: var(--ink-soft); }
 .rev-box { display: flex; flex-direction: column; gap: 12px; padding: 2px 0 2px 18px; border-left: 4px solid var(--mustard); max-width: 70ch; }
 .rev-scores { font-weight: 700; font-size: 15px; }
@@ -751,6 +853,27 @@ body[data-lang="th"] .rev-sum, body[data-lang="th"] .rev-src { letter-spacing: .
 .find-b2-map { color: var(--red); font-weight: 700; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
 .find-b2-map::after { content: " \2197"; content: " \2197" / ""; }
 .find-b2-map:hover, .find-b2-map:focus-visible { color: var(--ink); }
+.find-b2-go {
+  font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--red); font-weight: 700;
+  background: none; border: 0; padding: 10px 0; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.find-b2-go:hover, .find-b2-go:focus-visible { color: var(--ink); }
+.find-panel[hidden] { display: none; }
+/* a fact this branch has not confirmed: said plainly, never borrowed from the other branch */
+.find-unk { margin-top: 16px; padding: 12px 14px 11px; border: 2px dashed var(--ink); background: var(--paper-deep); font-size: 15px; line-height: 1.55; max-width: 46ch; }
+.find-unk b { color: var(--red); }
+.find-unk a { color: var(--red); font-weight: 700; text-underline-offset: 3px; }
+.find-now { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 6px 10px 5px; border: 2px solid var(--ink); font-weight: 700; font-size: 12px; }
+.find-now[hidden] { display: none; }
+.find-now::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-soft); }
+.find-now[data-state="open"] { background: var(--ink); color: var(--paper); }
+.find-now[data-state="open"]::before { background: var(--mustard); }
+.find-now[data-state="soon"]::before { background: var(--mustard); box-shadow: 0 0 0 2px var(--ink); }
+.find-now[data-state="closed"]::before { background: var(--red); }
+body[data-lang="th"] .find-now { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.find-now-note { display: block; margin-top: -8px; margin-bottom: 14px; font-size: 10.5px; color: var(--ink-soft); }
+.find-now-note[hidden] { display: none; }
 .find-map {
   border: 2px solid var(--ink);
   background: var(--ink);
@@ -770,10 +893,14 @@ body[data-lang="th"] .find-map-tab { font-size: 14px; letter-spacing: .02em; }
 .find-map-km { display: block; margin-top: 2px; font-size: 10px; font-weight: 500; letter-spacing: .08em; opacity: .85; }
 .find-map-km:empty { display: none; }
 .find-map-near {
-  position: absolute; z-index: 3; top: 10px; left: 10px; padding: 8px 11px 7px;
-  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  position: absolute; z-index: 3; top: 10px; left: 10px; min-height: 44px; padding: 0 13px 0 11px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
   cursor: pointer; transition: background var(--t-hover);
+}
+.find-map-near::before { /* a location pin, drawn in CSS */
+  content: ""; width: 10px; height: 10px; border: 3px solid currentColor; border-radius: 50% 50% 50% 0; transform: rotate(-45deg) translate(1px, -1px);
 }
 .find-map-near[hidden] { display: none; }
 .find-map-near:hover { background: var(--white); }
@@ -905,12 +1032,12 @@ body[data-lang="th"] .find-map-bar a { font-size: 14px; letter-spacing: .02em; }
 
 /* ---------- menu section rail ---------- */
 .menu-rail {
-  position: sticky; top: var(--nav-h); z-index: var(--z-rail);
+  position: sticky; top: var(--stack-h); z-index: var(--z-rail);
   background: var(--paper);
   border-bottom: 2px solid var(--ink);
   transition: top var(--t-ui) var(--e-out);
 }
-html.nav-hidden .menu-rail { top: 0; }
+html.nav-hidden .menu-rail { top: var(--act-h); } /* the header slid away; the phone action row did not */
 .menu-rail-list {
   display: flex; gap: clamp(20px, 2.6vw, 38px);
   overflow-x: auto; overscroll-behavior-x: contain;
@@ -939,7 +1066,7 @@ body[data-lang="th"] .menu-rail a { font-size: 14px; letter-spacing: .04em; }
   -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 64px), transparent);
   mask-image: linear-gradient(90deg, #000 calc(100% - 64px), transparent);
 }
-.menu-group, .menu-sets { scroll-margin-top: calc(var(--nav-h) + var(--rail-h) + 18px); }
+.menu-group, .menu-sets { scroll-margin-top: calc(var(--stack-h) + var(--rail-h) + 18px); }
 
 /* ---------- menu photo disclosure ---------- */
 .mrow-view {
@@ -955,12 +1082,8 @@ body[data-lang="th"] .menu-rail a { font-size: 14px; letter-spacing: .04em; }
 }
 body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .mrow-view::before { content: ""; position: absolute; inset: -13px -8px; } /* enlarges the hit area, not the look */
-/* keyboard path only: pointer and touch visitors get the hover plate / scroll plate, so the
-   button stays out of sight until it takes keyboard focus (and while its photo is open) */
-.mrow-view:not(:focus-visible):not([aria-expanded="true"]) {
-  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
-  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
-}
+/* "View photo" is visible for mouse, touch and keyboard alike; on a computer the photo also
+   follows the pointer as a hover plate, as an extra */
 .mrow-view::after {
   content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 7px;
   background:
@@ -978,7 +1101,56 @@ body[data-lang="th"] .mrow-view { font-size: 12px; letter-spacing: .02em; }
 .mrow-photo > div { min-height: 0; overflow: hidden; }
 .mrow.is-open .mrow-photo { grid-template-rows: 1fr; }
 .mrow-float.is-wait { opacity: 0; }                  /* plate waits for its own picture */
-.mrow-drop img { background: var(--paper-deep); }    /* a calm placeholder, not a white hole */
+.mrow-order {
+  display: inline-block; margin: 0 0 22px; padding: 10px 0;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--red); text-underline-offset: 4px;
+}
+.mrow-order:hover, .mrow-order:focus-visible { color: var(--ink); }
+body[data-lang="th"] .mrow-order { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.mrow-photo-p { margin: -14px 0 4px; font-size: 13px; color: var(--ink-soft); max-width: 52ch; }
+
+/* ---------- menu search and protein filter ---------- */
+.menu-tools[hidden] { display: none; }
+.menu-tools { margin-top: 26px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.menu-search {
+  flex: 1 1 320px; display: flex; align-items: center; gap: 10px;
+  min-height: 52px; padding: 0 14px;
+  background: var(--white); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+}
+.menu-search svg { flex: none; width: 18px; height: 18px; }
+.menu-search input {
+  flex: 1; min-width: 0; height: 48px; padding: 0;
+  font: inherit; font-size: 16px; color: var(--ink); background: transparent; border: 0;
+}
+.menu-search input:focus { outline: none; }
+.menu-search:focus-within { outline: 3px dashed var(--ink); outline-offset: 3px; }
+.menu-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.menu-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.menu-filter-l { margin-right: 4px; font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--ink-soft); }
+.menu-chip {
+  min-height: 44px; padding: 0 14px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
+  transition: background var(--t-hover), color var(--t-hover);
+}
+.menu-chip:hover { background: var(--paper-deep); }
+.menu-chip[aria-pressed="true"] { background: var(--red); color: var(--white); }
+body[data-lang="th"] .menu-chip, body[data-lang="th"] .menu-filter-l { font-family: var(--font-th); font-size: 14px; letter-spacing: .02em; }
+.menu-count { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; color: var(--ink-soft); }
+body[data-lang="th"] .menu-count { font-size: 14px; letter-spacing: .02em; }
+.menu-reset {
+  min-height: 44px; padding: 0 2px;
+  font: inherit; font-weight: 700; color: var(--red); background: none; border: 0; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.menu-reset[hidden] { display: none; }
+.menu-empty { margin-top: 30px; padding: 22px 22px 20px; border: 2px dashed var(--ink); background: var(--paper-deep); display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.menu-empty[hidden] { display: none; }
+.mrow[hidden] { display: none; }
+.menu-gnone { margin-top: 12px; color: var(--ink-soft); font-size: 11px; }
+.menu-gnone[hidden] { display: none; }
+body[data-lang="th"] .menu-gnone { font-size: 13px; letter-spacing: .02em; }
 .mrow-photo img {
   width: min(calc(100% - 12px), 460px); height: auto; aspect-ratio: 4 / 3; object-fit: cover;
   margin: 10px 0 22px;
@@ -1062,6 +1234,14 @@ body[data-lang="th"] .grab-dlg-title { font-family: var(--font-display-th); }
 body[data-lang="th"] .order-branch-btn, body[data-lang="th"] .order-branch-label { font-size: 14px; letter-spacing: .02em; }
 .order-branch + .order-cta { margin-top: 18px; }
 .order-cta .btn[hidden] { display: none; }
+.order-cta .btn [hidden] { display: none; }
+/* a branch whose Grab page is not confirmed: Grab steps back to an outline, LINE MAN stays the strong choice */
+.order-cta .btn-mustard.is-search { background: transparent; color: var(--white); border-color: var(--white); box-shadow: 6px 6px 0 rgba(255, 249, 238, .28); }
+.order-copy .order-for { margin-top: 18px; font-size: 12px; letter-spacing: .1em; color: var(--mustard); }
+body[data-lang="th"] .order-for { font-size: 14px; letter-spacing: .02em; }
+.order-copy .order-handoff { margin-top: 14px; max-width: 54ch; font-size: 14px; color: rgba(255, 249, 238, .72); }
+.order-copy .order-pick { margin-top: 18px; max-width: 54ch; padding: 10px 14px 9px; border: 2px dashed var(--mustard); color: var(--white); font-size: 15px; }
+.order-copy .order-pick[hidden] { display: none; }
 .order-copy .order-note { margin-top: 20px; max-width: 54ch; color: rgba(255, 249, 238, .66); }
 .order-social { row-gap: 0; }
 .order-social a { padding-block: 12px; }
@@ -1082,7 +1262,8 @@ body.lang-out main, body.lang-out .nav-links { opacity: .2; }
 .order-grid > * { min-width: 0; }
 
 @media (max-width: 900px) {
-  :root { --nav-h: 64px; }
+  :root { --nav-h: 64px; --act-h: 62px; }
+  .nav-arcade { display: none; } /* phones use the action row instead */
   .bro-skip { grid-column: 1; }
   .receipt-wrap { justify-self: center; width: min(100%, 420px); }
   .mrow-photo img { width: calc(100% - 12px); }
@@ -1121,7 +1302,7 @@ html.shot-full .cinema { height: 980px; }
   .nav { height: 64px; }
   .nav-order { display: none; }
 
-  .hero { padding-top: 96px; }
+  .hero { padding-top: calc(var(--stack-h) + 32px); }
   .hero-grid { display: flex; flex-direction: column; align-items: flex-start; }
   .hero-kicker { margin-bottom: 18px; }
   .hero-h { font-size: clamp(78px, 19vw, 130px); }
@@ -1156,28 +1337,9 @@ html.shot-full .cinema { height: 980px; }
   .mrow:has(.mrow-thumb) .mrow-desc { grid-area: 2 / 1 / 3 / 3; }
   .mrow-thumb { grid-area: 1 / 3 / 3 / 4; width: 60px; height: 60px; align-self: center; }
 
-  /* scroll spotlight — the row crossing mid-screen reads as hovered;
-     photo rows drop their plate. Fixed panel height keeps the list gliding. */
-  .mrow.is-spot { background: rgba(196, 43, 28, .07); }
-  .mrow.is-spot .mrow-name { color: var(--red); }
-  .mrow-drop {
-    display: block;
-    grid-area: 3 / 1 / 4 / 3;
-    height: 0; opacity: 0; margin-top: 0;
-    overflow: hidden;
-    transition: height .42s var(--e-out), opacity .3s ease, margin-top .42s var(--e-out);
-  }
-  .mrow.is-spot .mrow-drop { height: 212px; opacity: 1; margin-top: 12px; }
-  .mrow-drop img {
-    display: block;
-    width: calc(100% - 10px);
-    height: 202px;
-    object-fit: cover;
-    border: 2px solid var(--ink);
-    box-sizing: border-box;
-    box-shadow: 8px 8px 0 var(--red);
-  }
-  .mrow.is-open .mrow-drop { display: none; } /* opened from the keyboard button: one photo, not two */
+  /* phones: no scroll-driven photo panels (they shifted the page while reading);
+     each photo opens only from its own "View photo" button */
+  .mrow-photo { grid-row: 3; }
 
   .sets-row { grid-template-columns: 1fr 1fr; }
   .set-stub { border-bottom: 2px dashed rgba(34, 21, 17, .4); }
@@ -1221,8 +1383,11 @@ html.shot-full .cinema { height: 980px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js-anim .lm .l, .js-anim .fade-up { transform: none; opacity: 1; transition: none; }
-  .js-anim .marquee-track { animation: none; }
+  .mq-anim .marquee-track { animation: none; }
+  .marquee-toggle { display: none; }
   .loader { display: none !important; }
+  html.has-brovideo .bro-fig-window img { display: block; } /* the canvas rests; the photo is back */
+  .nav-arcade[aria-busy="true"] .arcade-ico, .mob-act-arcade[aria-busy="true"] .arcade-ico, .sheet-arcade[aria-busy="true"] .arcade-ico { animation: none; opacity: .5; }
   .bro-sticky-zone { height: auto; }
   .bro-sticky { position: static; height: auto; }
   .bro-fig-window img { position: static; width: 100%; transform: none !important; }
@@ -1272,12 +1437,26 @@ html.shot-full .cinema { height: 980px; }
     <button class="lang" id="langBtn" type="button" aria-label="เปลี่ยนเป็นภาษาไทย — switch language">
       <span class="lang-opt is-on" data-l="en">EN</span><span class="lang-sep">/</span><span class="lang-opt" data-l="th">ไทย</span>
     </button>
+    <!-- the arcade entry (the arcade itself loads only when pressed; see the arcade hook script) -->
+    <button type="button" class="nav-arcade" data-arcade-open aria-label="Win a coupon" data-i18n-aria="arcade.win">
+      <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
+      <span class="nav-arcade-txt" aria-hidden="true" data-i18n="arcade.win">Win a coupon</span>
+    </button>
     <a class="btn btn-red nav-order" href="#order" data-i18n="nav.order">Order</a>
     <button class="burger-btn" id="burgerBtn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
       <span></span><span></span>
     </button>
   </div>
 </header>
+
+<!-- phones: ordering and the arcade stay one tap away, under the header (and at the top when the header slides away) -->
+<div class="mob-act" id="mobAct">
+  <a class="btn btn-red mob-act-order" href="#order" data-i18n="sheet.order">Order now</a>
+  <button type="button" class="btn btn-mustard mob-act-arcade" data-arcade-open>
+    <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
+    <span data-i18n="arcade.win">Win a coupon</span>
+  </button>
+</div>
 
 <!-- mobile sheet -->
 <div class="sheet" id="sheet" aria-hidden="true">
@@ -1287,7 +1466,13 @@ html.shot-full .cinema { height: 980px; }
     <a href="#story"><em class="mono">03</em><span data-i18n="nav.story">The Shop</span></a>
     <a href="#find"><em class="mono">04</em><span data-i18n="nav.find">Find us</span></a>
   </nav>
-  <a class="btn btn-red sheet-order" href="#order" data-i18n="sheet.order">Order now</a>
+  <div class="sheet-acts">
+    <a class="btn btn-red sheet-order" href="#order" data-i18n="sheet.order">Order now</a>
+    <button type="button" class="btn sheet-arcade" data-arcade-open>
+      <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
+      <span data-i18n="arcade.win">Win a coupon</span>
+    </button>
+  </div>
   <p class="sheet-meta mono" data-i18n="nav.meta">DAILY FROM 11:00 · FRI–SAT TILL 02:00 · RAMA 9 SOI 49</p>
 </div>
 
@@ -1369,7 +1554,7 @@ html.shot-full .cinema { height: 980px; }
       <div class="container bro-stage">
         <figure class="bro-fig frame frame-mustard">
           <div class="bro-fig-window">
-            <canvas id="broCanvas" class="bro-video" width="640" height="853" role="img"
+            <canvas id="broCanvas" class="bro-video" width="640" height="853" role="img" data-i18n-aria="bro.canvas"
                     aria-label="Exploded 3D diagram of the Burger Bro — the assembled burger lifts apart into floating layers and rotates as you scroll: bun crown, greens, melted cheddar, seared patty with bacon, sauce and heel"></canvas>
             <img id="broImg" src="media/bro-profile.jpg" srcset="media/bro-profile-640.jpg 640w, media/bro-profile-960.jpg 960w, media/bro-profile.jpg 1440w" sizes="(max-width: 900px) min(100vw, 380px), 620px" width="1440" height="1920" loading="lazy"
                  alt="Side profile of the Burger Bro signature burger on branded wrapper paper — glossy toasted crown, seared patty, sauce soaking the heel"
@@ -1433,6 +1618,30 @@ html.shot-full .cinema { height: 980px; }
       <p class="menu-note mono" data-i18n="menu.meta">PRICES IN THB · BEFORE 7% VAT · <b>B</b> BEEF / <b>P</b> PORK / <b>C</b> CHICKEN WHERE MARKED</p>
     </header>
 
+    <!-- search and protein filter: shown by the script (no script, the full menu simply reads as before).
+         Each row's data-protein lists only what its own words say (B P C marks, "pork", "bacon", "ham",
+         "chicken", "fish", "shrimp", "Angus", "wagyu … beef", "rib eye"); no dietary or allergen claims. -->
+    <div class="menu-tools" id="menuTools" role="search" hidden>
+      <label class="menu-search">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="var(--ink)" stroke-width="2.4"/><path d="M13 13l5.5 5.5" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="square"/></svg>
+        <span class="vh" data-i18n="menu.qLabel">Search the menu</span>
+        <input type="search" id="menuQ" placeholder="Search burgers, sides, shakes…" data-i18n-ph="menu.qPh" autocomplete="off" spellcheck="false" enterkeyhint="search">
+      </label>
+      <div class="menu-filter" role="group" aria-label="Filter by protein" data-i18n-aria="a11y.protein">
+        <span class="menu-filter-l mono" aria-hidden="true" data-i18n="menu.protein">PROTEIN</span>
+        <button type="button" class="menu-chip" aria-pressed="true" data-protein-f="" data-i18n="menu.pAll">All</button>
+        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="beef" data-i18n="menu.pBeef">Beef</button>
+        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="pork" data-i18n="menu.pPork">Pork</button>
+        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="chicken" data-i18n="menu.pChicken">Chicken</button>
+        <button type="button" class="menu-chip" aria-pressed="false" data-protein-f="seafood" data-i18n="menu.pSea">Fish &amp; shrimp</button>
+      </div>
+      <p class="menu-count mono"><span id="menuCount" role="status"></span><button type="button" class="menu-reset" id="menuReset" data-i18n="menu.clear" hidden>Clear search &amp; filter</button></p>
+    </div>
+    <div class="menu-empty" id="menuEmpty" hidden>
+      <p data-i18n="menu.none">Nothing on the menu matches that. Try another word, or clear the search.</p>
+      <button type="button" class="btn" id="menuReset2" data-i18n="menu.clear">Clear search &amp; filter</button>
+    </div>
+
     <nav class="menu-rail" id="menuRail" aria-label="Menu sections" data-i18n-aria="a11y.rail">
       <ul class="menu-rail-list mono">
         <li><a href="#menu-burgers" data-i18n="rail.g1">Burgers</a></li>
@@ -1447,52 +1656,52 @@ html.shot-full .cinema { height: 980px; }
     <div class="menu-group" id="menu-burgers" data-group="burgers">
       <h3 class="menu-gtitle mono" data-i18n="menu.g1">BURGERS — THE FAMILY</h3>
       <ul class="menu-list">
-        <li class="mrow" data-img="media/menu-burger-bro-640.jpg">
+        <li class="mrow" data-img="media/menu-burger-bro-640.jpg" data-protein="beef pork chicken">
           <span class="mrow-name"><span data-i18n="m.b1n">Burger Bro</span><i class="tag tag-red" data-i18n="tag.sig">SIGNATURE</i></span>
           <span class="mrow-desc" data-i18n="m.b1d">Graded beef, smoked bacon strips, secret sauce · B P C</span>
           <span class="mrow-price mono">149</span>
         </li>
-        <li class="mrow" data-img="media/menu-big-bro-640.jpg">
+        <li class="mrow" data-img="media/menu-big-bro-640.jpg" data-protein="beef pork chicken">
           <span class="mrow-name"><span data-i18n="m.b2n">Big Bro</span></span>
           <span class="mrow-desc" data-i18n="m.b2d">Double patty, double cheddar, bro sauce · B P C</span>
           <span class="mrow-price mono">200</span>
         </li>
-        <li class="mrow" data-img="media/menu-smokey-bro-640.jpg">
+        <li class="mrow" data-img="media/menu-smokey-bro-640.jpg" data-protein="beef pork chicken">
           <span class="mrow-name"><span data-i18n="m.b3n">Smokey Bro</span></span>
           <span class="mrow-desc" data-i18n="m.b3d">Stuffed with smoked bacon, smoked BBQ sauce · B P C</span>
           <span class="mrow-price mono">159</span>
         </li>
-        <li class="mrow" data-img="media/menu-boss-burger-640.jpg">
+        <li class="mrow" data-img="media/menu-boss-burger-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.b4n">Boss Burger</span></span>
           <span class="mrow-desc" data-i18n="m.b4d">Homemade thousand island — "have it like a boss"</span>
           <span class="mrow-price mono">159</span>
         </li>
-        <li class="mrow" data-img="media/menu-cheese-burger-640.jpg">
+        <li class="mrow" data-img="media/menu-cheese-burger-640.jpg" data-protein="beef pork chicken">
           <span class="mrow-name"><span data-i18n="m.b5n">Cheese Burger</span></span>
           <span class="mrow-desc" data-i18n="m.b5d">The deluxe basic · B P C</span>
           <span class="mrow-price mono">109</span>
         </li>
-        <li class="mrow">
+        <li class="mrow" data-protein="seafood">
           <span class="mrow-name"><span data-i18n="m.b6n">Shrimp Bro</span><i class="tag" data-i18n="tag.bkk">VERY BANGKOK</i></span>
           <span class="mrow-desc" data-i18n="m.b6d">Crunchy shrimp, tom yum or wasabi sauce</span>
           <span class="mrow-price mono">150</span>
         </li>
-        <li class="mrow" data-img="media/menu-fish-bro-640.jpg">
+        <li class="mrow" data-img="media/menu-fish-bro-640.jpg" data-protein="seafood">
           <span class="mrow-name"><span data-i18n="m.b7n">Fish Bro</span></span>
           <span class="mrow-desc" data-i18n="m.b7d">Crunchy fish, house dill sauce</span>
           <span class="mrow-price mono">150</span>
         </li>
-        <li class="mrow" data-img="media/menu-veggie-cheese-640.jpg">
+        <li class="mrow" data-img="media/menu-veggie-cheese-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.b8n">Veggie Cheese Burger</span></span>
           <span class="mrow-desc" data-i18n="m.b8d">Plant-based patty, tangy spice sauce</span>
           <span class="mrow-price mono">140</span>
         </li>
-        <li class="mrow" data-img="media/menu-angus-burger-640.jpg">
+        <li class="mrow" data-img="media/menu-angus-burger-640.jpg" data-protein="beef">
           <span class="mrow-name"><span data-i18n="m.b9n">Angus Burger</span></span>
           <span class="mrow-desc" data-i18n="m.b9d">USDA-certified Angus in a charcoal bun, spicy Bro sauce</span>
           <span class="mrow-price mono">249</span>
         </li>
-        <li class="mrow" data-img="media/menu-wagyu-640.jpg">
+        <li class="mrow" data-img="media/menu-wagyu-640.jpg" data-protein="beef">
           <span class="mrow-name"><span data-i18n="m.b10n">Love 'Em Wagyu</span></span>
           <span class="mrow-desc" data-i18n="m.b10d">200 g of tender wagyu — a beef lover's heaven</span>
           <span class="mrow-price mono">319</span>
@@ -1503,22 +1712,22 @@ html.shot-full .cinema { height: 980px; }
     <div class="menu-group" id="menu-dogs" data-group="dogs">
       <h3 class="menu-gtitle mono" data-i18n="menu.g2">SAUSAGE BRO!</h3>
       <ul class="menu-list">
-        <li class="mrow" data-img="media/menu-hot-dog-640.jpg">
+        <li class="mrow" data-img="media/menu-hot-dog-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.d1n">Hot Dog</span></span>
           <span class="mrow-desc" data-i18n="m.d1d">Smoked sausage in a homemade bun</span>
           <span class="mrow-price mono">79</span>
         </li>
-        <li class="mrow" data-img="media/menu-chilli-dog-640.jpg">
+        <li class="mrow" data-img="media/menu-chilli-dog-640.jpg" data-protein="pork">
           <span class="mrow-name"><span data-i18n="m.d2n">Chilli Dog</span><i class="tag tag-red" data-i18n="tag.sig">SIGNATURE</i></span>
           <span class="mrow-desc" data-i18n="m.d2d">Chilli &amp; minced pork, cheddar, jalapeño</span>
           <span class="mrow-price mono">119</span>
         </li>
-        <li class="mrow" data-img="media/menu-cheesy-bacon-dog-640.jpg">
+        <li class="mrow" data-img="media/menu-cheesy-bacon-dog-640.jpg" data-protein="pork">
           <span class="mrow-name"><span data-i18n="m.d3n">Cheesy Bacon Dog</span><i class="tag" data-i18n="tag.try">MUST TRY</i></span>
           <span class="mrow-desc" data-i18n="m.d3d">Caramelized onions, bacon bits, cheddar</span>
           <span class="mrow-price mono">139</span>
         </li>
-        <li class="mrow" data-img="media/menu-hawaiian-dog-640.jpg">
+        <li class="mrow" data-img="media/menu-hawaiian-dog-640.jpg" data-protein="pork">
           <span class="mrow-name"><span data-i18n="m.d4n">Hawaiian Dog</span></span>
           <span class="mrow-desc" data-i18n="m.d4d">Grilled ham &amp; pineapple, salsa, cheddar, jalapeño</span>
           <span class="mrow-price mono">139</span>
@@ -1529,32 +1738,32 @@ html.shot-full .cinema { height: 980px; }
     <div class="menu-group" id="menu-crunchy" data-group="crunchy">
       <h3 class="menu-gtitle mono" data-i18n="menu.g3">CRUNCHY VARIETY</h3>
       <ul class="menu-list">
-        <li class="mrow" data-img="media/menu-curly-fries-640.jpg">
+        <li class="mrow" data-img="media/menu-curly-fries-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.c1n">Curly Fries</span></span>
           <span class="mrow-desc" data-i18n="m.c1d">Seasoned spirals, basket-sized</span>
           <span class="mrow-price mono">70</span>
         </li>
-        <li class="mrow" data-img="media/menu-onion-rings-640.jpg">
+        <li class="mrow" data-img="media/menu-onion-rings-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.c2n">Onion Rings</span></span>
           <span class="mrow-desc" data-i18n="m.c2d">Fried to order, still hissing</span>
           <span class="mrow-price mono">89</span>
         </li>
-        <li class="mrow" data-img="media/menu-potato-wedges-640.jpg">
+        <li class="mrow" data-img="media/menu-potato-wedges-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.c3n">Potato Wedges</span></span>
           <span class="mrow-desc" data-i18n="m.c3d">Fat-cut, skin on</span>
           <span class="mrow-price mono">79</span>
         </li>
-        <li class="mrow" data-img="media/menu-fried-corn-640.jpg">
+        <li class="mrow" data-img="media/menu-fried-corn-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.c4n">Fried Corn</span></span>
           <span class="mrow-desc" data-i18n="m.c4d">Sweet corn, crisped</span>
           <span class="mrow-price mono">79</span>
         </li>
-        <li class="mrow" data-img="media/menu-chicken-bro-640.jpg">
+        <li class="mrow" data-img="media/menu-chicken-bro-640.jpg" data-protein="chicken">
           <span class="mrow-name"><span data-i18n="m.c5n">Chicken Bro</span></span>
           <span class="mrow-desc" data-i18n="m.c5d">Fried chicken, house brine</span>
           <span class="mrow-price mono">119</span>
         </li>
-        <li class="mrow">
+        <li class="mrow" data-protein="seafood">
           <span class="mrow-name"><span data-i18n="m.c6n">Lake Toba Fish &amp; Chips</span><i class="tag" data-i18n="tag.try">MUST TRY</i></span>
           <span class="mrow-desc" data-i18n="m.c6d">The big one — for the table</span>
           <span class="mrow-price mono">300</span>
@@ -1565,17 +1774,17 @@ html.shot-full .cinema { height: 980px; }
     <div class="menu-group" id="menu-steak" data-group="steak">
       <h3 class="menu-gtitle mono" data-i18n="menu.g4">STEAK &amp; SLOW</h3>
       <ul class="menu-list">
-        <li class="mrow" data-img="media/menu-rib-eye-640.jpg">
+        <li class="mrow" data-img="media/menu-rib-eye-640.jpg" data-protein="beef">
           <span class="mrow-name"><span data-i18n="m.s1n">Rib Eye</span></span>
           <span class="mrow-desc" data-i18n="m.s1d">250–350 g, priced per weight · gravy, champignon or peppercorn</span>
           <span class="mrow-price mono" data-i18n="m.s1p">PER WT.</span>
         </li>
-        <li class="mrow" data-img="media/menu-bbq-ribs-640.jpg">
+        <li class="mrow" data-img="media/menu-bbq-ribs-640.jpg" data-protein="pork">
           <span class="mrow-name"><span data-i18n="m.s2n">BBQ Pork Ribs</span></span>
           <span class="mrow-desc" data-i18n="m.s2d">Low, slow, sticky</span>
           <span class="mrow-price mono">450</span>
         </li>
-        <li class="mrow">
+        <li class="mrow" data-protein="pork">
           <span class="mrow-name"><span data-i18n="m.s3n">BB Pork Knuckle</span></span>
           <span class="mrow-desc" data-i18n="m.s3d">Crackling on, bring friends</span>
           <span class="mrow-price mono">450</span>
@@ -1586,22 +1795,22 @@ html.shot-full .cinema { height: 980px; }
     <div class="menu-group" id="menu-drinks" data-group="drinks">
       <h3 class="menu-gtitle mono" data-i18n="menu.g5">SHAKES &amp; COLD ONES</h3>
       <ul class="menu-list">
-        <li class="mrow" data-img="media/menu-milkshakes-640.jpg">
+        <li class="mrow" data-img="media/menu-milkshakes-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.k1n">Milkshakes</span></span>
           <span class="mrow-desc" data-i18n="m.k1d">Vanilla · chocolate · strawberry — with or without whip</span>
           <span class="mrow-price mono">80/90</span>
         </li>
-        <li class="mrow" data-img="media/menu-root-beer-640.jpg">
+        <li class="mrow" data-img="media/menu-root-beer-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.k2n">Root Beer</span></span>
           <span class="mrow-desc" data-i18n="m.k2d">The correct burger soda</span>
           <span class="mrow-price mono">30</span>
         </li>
-        <li class="mrow" data-img="media/menu-soft-drinks-640.jpg">
+        <li class="mrow" data-img="media/menu-soft-drinks-640.jpg" data-protein="">
           <span class="mrow-name"><span data-i18n="m.k3n">Soft Drinks</span></span>
           <span class="mrow-desc" data-i18n="m.k3d">Coke, Coke Zero, Sprite, Fanta — large / jumbo</span>
           <span class="mrow-price mono">40/55</span>
         </li>
-        <li class="mrow">
+        <li class="mrow" data-protein="">
           <span class="mrow-name"><span data-i18n="m.k4n">Thai Beers</span></span>
           <span class="mrow-desc" data-i18n="m.k4d">Leo 59 · Singha 65 · Heineken draft 60</span>
           <span class="mrow-price mono">59–75</span>
@@ -1613,7 +1822,7 @@ html.shot-full .cinema { height: 980px; }
       <p class="mono" data-i18n="menu.addons">ADD 'EM UP: CHEESE 20 · EGG 20 · BACON 40 · PINEAPPLE 20 · CHILLI &amp; MINCED PORK 40</p>
       <div class="menu-sets" id="menu-sets">
         <p class="menu-sets-t mono" data-i18n="menu.sets">VALUE SETS — BURGER + ONE CRUNCHY + SOFT DRINK</p>
-        <ul class="sets-row" aria-label="Value sets">
+        <ul class="sets-row" aria-label="Value sets" data-i18n-aria="a11y.sets">
           <li class="set-stub"><em class="mono">SET A</em><span data-i18n="set.a">Big Bro</span><b class="mono">299</b></li>
           <li class="set-stub"><em class="mono">SET B</em><span data-i18n="set.b">Smokey Bro</span><b class="mono">259</b></li>
           <li class="set-stub"><em class="mono">SET C</em><span data-i18n="set.c">Wagyu Burger</span><b class="mono">419</b></li>
@@ -1661,7 +1870,7 @@ html.shot-full .cinema { height: 980px; }
 </section>
 
 <!-- ============ CINEMA BREAK ============ -->
-<section class="cinema" aria-label="Late night at Burger Bro">
+<section class="cinema" aria-label="Late night at Burger Bro" data-i18n-aria="a11y.cinema">
   <figure class="cinema-media">
     <img src="media/late-night.jpg" srcset="media/late-night-640.jpg 640w, media/late-night-960.jpg 960w, media/late-night.jpg 1440w" sizes="100vw" width="1440" height="1920" loading="lazy"
          alt="Low angle of a Burger Bro burger under the red ceiling and warm string lights of the shop"
@@ -1684,7 +1893,7 @@ html.shot-full .cinema { height: 980px; }
       <h2 class="h2" id="revTitle"><span class="lm"><span class="l" data-i18n="rev.l1">WORD ON THE STREET.</span></span></h2>
       <p class="rev-sum mono" id="revSum"></p>
     </div>
-    <div class="rev-stage" id="revStage" role="group" aria-roledescription="carousel" aria-label="Recent Google reviews" data-i18n-aria="a11y.reviews">
+    <div class="rev-stage" id="revStage" role="group" aria-roledescription="carousel" aria-label="Selected Google reviews" data-i18n-aria="a11y.reviews">
       <div class="rev-cards" id="revCards" aria-live="off"></div>
       <div class="rev-ctl mono">
         <button type="button" class="rev-btn" id="revPrev" aria-label="Previous review" data-i18n-aria="a11y.revPrev">&larr;</button>
@@ -1695,7 +1904,7 @@ html.shot-full .cinema { height: 980px; }
     </div>
     <div class="rev-foot">
       <a class="btn btn-red" id="revAll" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="rev.all">Read all reviews on Google</a>
-      <p class="rev-src mono" data-i18n="rev.src">A SELECTION OF 4 AND 5 STAR GOOGLE REVIEWS · RAMA 9</p>
+      <p class="rev-src mono" data-i18n="rev.src">SELECTED GOOGLE REVIEWS — A HAND-PICKED SET OF 4 AND 5 STAR REVIEWS OF RAMA 9, NOT A LIVE FEED</p>
     </div>
   </div>
 </section>
@@ -1716,7 +1925,12 @@ html.shot-full .cinema { height: 980px; }
   <div class="container">
     <h2 class="h2" id="findTitle"><span class="lm"><span class="l" data-i18n="find.l1">FIND US, BRO.</span></span></h2>
     <div class="find-grid">
-      <div class="find-info">
+      <div class="find-info" id="findInfo">
+        <!-- one panel per branch, in the order of the map tabs; the chosen branch's panel shows.
+             Pattanakarn shows only what is confirmed for it; its other facts say plainly that they are not confirmed. -->
+        <div class="find-panel" data-branch-panel="0">
+        <p class="find-now mono" id="findNow" role="status" hidden></p>
+        <span class="find-now-note mono" id="findNowNote" data-i18n="find.nowNote" hidden>BANGKOK TIME, FROM THE HOURS BELOW · HOLIDAYS MAY DIFFER</span>
         <h3 class="mono find-sub" data-i18n="find.hours">HOURS — RAMA 9</h3>
         <table class="hours" aria-label="Opening hours" data-i18n-aria="a11y.hours">
           <tbody>
@@ -1728,7 +1942,7 @@ html.shot-full .cinema { height: 980px; }
           </tbody>
         </table>
         <p class="find-note mono" data-i18n="find.note">HOURS PER OUR WONGNAI LISTING — RUNNING LATE? CALL AHEAD.</p>
-        <ul class="amen mono" aria-label="Good to know">
+        <ul class="amen mono" aria-label="Good to know" data-i18n-aria="a11y.amen">
           <li data-i18n="am.1">STREET PARKING</li>
           <li data-i18n="am.2">CARDS OK</li>
           <li data-i18n="am.3">FREE WI-FI</li>
@@ -1737,20 +1951,38 @@ html.shot-full .cinema { height: 980px; }
         </ul>
         <address class="find-addr">
           <p data-i18n="find.addr">443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang, Bangkok 10250 — next to the yellow ATM.</p>
-          <p class="find-addr-th" lang="th" data-i18n="find.addr2">443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250</p>
+          <p class="find-addr-th" lang="th" data-lang-en="th" data-lang-th="en" data-i18n="find.addr2">443 ซอยพระราม 9 ซอย 49 (ถนนเสรี 6) แขวงสวนหลวง เขตสวนหลวง กรุงเทพฯ 10250</p>
         </address>
         <div class="find-cta">
           <a class="btn btn-red" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.maps">Google Maps</a>
           <a class="btn" href="tel:+66827938855" data-i18n="find.call">Call 082-793-8855</a>
         </div>
         <div class="find-b2 mono">
-          <p><span data-i18n="find.b2">BRANCH 2 — BURGER BRO &amp; STEAK · 1348 PATTANAKARN RD (IN THE GAS STATION) · 11:00–22:00</span> <a class="find-b2-map" href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
+          <p><span data-i18n="find.b2">OUR OTHER BRANCH — PATTANAKARN · 1348 PHATTHANAKAN RD</span> <button type="button" class="find-b2-go" data-branch-go="1" data-i18n="find.show" hidden>Show it</button> <a class="find-b2-map" href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
+        </div>
+        </div>
+
+        <div class="find-panel" data-branch-panel="1" hidden>
+        <h3 class="mono find-sub" data-i18n="find.pk.hours">HOURS — PATTANAKARN</h3>
+        <p class="find-unk"><span data-i18n="find.pk.hoursUnk"><b>Hours not confirmed yet</b> — check the branch's Google Maps listing before you go.</span> <a href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.pk.check">Check on Google Maps</a></p>
+        <p class="find-unk" data-i18n="find.pk.more"><b>Phone, Grab link and facilities not confirmed yet.</b> We only list what the branch has confirmed.</p>
+        <address class="find-addr">
+          <p data-i18n="find.pk.addr">1348 Phatthanakan Rd, Suan Luang, Bangkok</p>
+          <p class="find-addr-th" lang="th" data-lang-en="th" data-lang-th="en" data-i18n="find.pk.addr2">1348 ถนนพัฒนาการ สวนหลวง กรุงเทพฯ</p>
+        </address>
+        <div class="find-cta">
+          <a class="btn btn-red" href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.maps">Google Maps</a>
+        </div>
+        <div class="find-b2 mono">
+          <p><span data-i18n="find.b1">OUR OTHER BRANCH — RAMA 9 · 443 RAMA 9 SOI 49</span> <button type="button" class="find-b2-go" data-branch-go="0" data-i18n="find.show" hidden>Show it</button> <a class="find-b2-map" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="find.mapLink">Map</a></p>
+        </div>
         </div>
       </div>
       <figure class="find-map" id="findMap">
         <div class="find-map-tabs mono" role="group" aria-label="Show a branch on the map" data-i18n-aria="a11y.branches">
-          <button type="button" class="find-map-tab" aria-pressed="true" data-lat="13.7437797" data-lng="100.6320785" data-embed="https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=4340520789969302256" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok" data-lineman="https://lin.ee/OyZp7FP" data-grab="https://app.grab.com/s/olrOpBCF" data-grab-qr="media/grab-rama9-qr.png" data-tel="+66827938855"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
-          <button type="button" class="find-map-tab" aria-pressed="false" data-lat="13.7360497" data-lng="100.6234688" data-embed="https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&amp;z=16&amp;output=embed" data-open="https://maps.google.com/?cid=12405364053160930417" data-dir="https://www.google.com/maps/dir/?api=1&amp;destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok" data-lineman="https://lin.ee/nPi5Qzb"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
+          <!-- each branch's facts and links are in BRANCHES in the script (one model for the map, Find us and ordering) -->
+          <button type="button" class="find-map-tab" aria-pressed="true" data-branch="rama9"><span class="find-map-name" data-i18n="br.r9">Rama 9</span><span class="find-map-km"></span></button>
+          <button type="button" class="find-map-tab" aria-pressed="false" data-branch="pattanakarn"><span class="find-map-name" data-i18n="br.pk">Pattanakarn</span><span class="find-map-km"></span></button>
         </div>
         <div class="find-map-frame">
           <div class="find-map-canvas" id="findMapCanvas" role="region" aria-label="Map of Burger Bro's two branches" data-i18n-aria="a11y.mapAll"></div>
@@ -1794,15 +2026,18 @@ html.shot-full .cinema { height: 980px; }
         <button type="button" class="order-branch-btn" aria-pressed="true" data-i18n="br.r9">Rama 9</button>
         <button type="button" class="order-branch-btn" aria-pressed="false" data-i18n="br.pk">Pattanakarn</button>
       </div>
+      <p class="order-for mono" id="orderFor" aria-live="polite"><span data-i18n="order.forR9" data-order-for="0">ORDERING FROM RAMA 9 · 443 RAMA 9 SOI 49</span><span data-i18n="order.forPk" data-order-for="1" hidden>ORDERING FROM PATTANAKARN · 1348 PHATTHANAKAN RD</span></p>
       <div class="order-cta">
         <a class="btn btn-mustard" id="orderLineman" href="https://lin.ee/OyZp7FP" target="_blank" rel="noopener" data-i18n="order.lm">Order on LINE MAN</a>
-        <a class="btn btn-mustard" id="orderGrab" href="https://app.grab.com/s/olrOpBCF" data-qr="media/grab-rama9-qr.png" target="_blank" rel="noopener" data-i18n="order.grab">Order on GrabFood</a>
+        <a class="btn btn-mustard" id="orderGrab" href="https://app.grab.com/s/olrOpBCF" data-qr="media/grab-rama9-qr.png" target="_blank" rel="noopener"><span data-i18n="order.grab">Order on GrabFood</span><span data-i18n="order.grabFindPk" hidden>Find Pattanakarn on Grab</span></a>
       </div>
       <div class="order-cta order-cta-alt">
         <a class="btn btn-ghost" id="orderCall" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
         <a class="btn btn-ghost" id="orderWalk" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
-      <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>GRABFOOD OPENS GRAB — SEARCH “BURGER BRO” THERE.</p>
+      <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>NO GRAB LINK FOR PATTANAKARN YET — THE BUTTON OPENS GRAB, SEARCH “BURGER BRO PATTANAKARN” THERE. LINE MAN GOES STRAIGHT TO THE BRANCH. PHONE NOT CONFIRMED YET.</p>
+      <p class="order-handoff" data-i18n="order.handoff">The order button takes you to the delivery app; you choose your food and pay there, not on this site.</p>
+      <p class="order-pick" id="orderPick" role="status" hidden></p>
       <div class="order-social mono">
         <a href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener">FACEBOOK — BURGER BRO</a>
         <a href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener">IG — @BURGERBRO_ORIGINAL</a>
@@ -1865,6 +2100,14 @@ window.BB_TH = {
   "@aria:a11y.branches": "เลือกสาขาบนแผนที่",
   "@aria:a11y.mapAll": "แผนที่สองสาขาของ Burger Bro",
   "@aria:a11y.orderBranch": "เลือกสาขาที่จะสั่ง",
+  "@aria:a11y.cinema": "กลางคืนที่เบอร์เกอร์โบร",
+  "@aria:a11y.sets": "ชุดคุ้มค่า",
+  "@aria:a11y.amen": "ข้อมูลน่ารู้",
+  "@aria:a11y.protein": "กรองตามเนื้อสัตว์",
+  "@aria:bro.canvas": "ภาพแยกชั้นสามมิติของเบอร์เกอร์โบร — เบอร์เกอร์ทั้งชิ้นค่อย ๆ แยกออกเป็นชั้นลอย ๆ และหมุนตามการเลื่อน: ฝาขนมปัง ผักสด เชดดาร์ละลาย เนื้อย่างกับเบคอน ซอส และขนมปังฐาน",
+
+  "arcade.win": "ลุ้นรับคูปอง",
+  "@aria:arcade.win": "ลุ้นรับคูปอง",
 
   "nav.bro": "เดอะโบร",
   "nav.menu": "เมนู",
@@ -1937,6 +2180,18 @@ window.BB_TH = {
   "rail.g5": "เชค &amp; เครื่องดื่มเย็น ๆ",
   "rail.g6": "ชุดคุ้มค่า",
   "menu.photo": "ดูรูป",
+  "menu.orderThis": "สั่งเมนูนี้ →",
+  "menu.qLabel": "ค้นหาในเมนู",
+  "@ph:menu.qPh": "ค้นหาเบอร์เกอร์ ของกรอบ เชค…",
+  "menu.protein": "เนื้อสัตว์",
+  "menu.pAll": "ทั้งหมด",
+  "menu.pBeef": "เนื้อวัว",
+  "menu.pPork": "หมู",
+  "menu.pChicken": "ไก่",
+  "menu.pSea": "ปลา &amp; กุ้ง",
+  "menu.clear": "ล้างคำค้นและตัวกรอง",
+  "menu.none": "ไม่มีเมนูไหนตรงกับที่ค้น ลองคำอื่นดู หรือล้างคำค้น",
+  "menu.gnone": "หมวดนี้ไม่มีเมนูที่ตรงกัน",
 
   "m.b1d": "เนื้อเกรดดี เบคอนรมควัน ซอสสูตรลับ · B P C",
   "m.b2d": "เนื้อสองชั้น เชดดาร์สองแผ่น โบรซอส · B P C",
@@ -2028,8 +2283,8 @@ window.BB_TH = {
   "@alt:grab.qr": "คิวอาร์โค้ดสำหรับเปิดสาขานี้ในแอป Grab",
   "rev.l1": "ลูกค้าว่าไงบ้าง",
   "rev.all": "อ่านรีวิวทั้งหมดบน Google",
-  "rev.src": "รีวิว 4 และ 5 ดาวบางส่วนจาก Google · สาขาพระราม 9",
-  "@aria:a11y.reviews": "รีวิวล่าสุดจาก Google",
+  "rev.src": "รีวิว Google ที่คัดมา — รีวิว 4 และ 5 ดาวของสาขาพระราม 9 ที่เลือกมาเอง ไม่ใช่ฟีดสด",
+  "@aria:a11y.reviews": "รีวิว Google ที่คัดมา",
   "@aria:a11y.revPrev": "รีวิวก่อนหน้า",
   "@aria:a11y.revNext": "รีวิวถัดไป",
   "@aria:a11y.revPause": "หยุดการเลื่อนรีวิว",
@@ -2038,14 +2293,27 @@ window.BB_TH = {
   "@aria:a11y.photoNext": "รูปถัดไป",
   "order.from": "สั่งจากสาขา",
   "find.call": "โทร 082-793-8855",
-  "find.b2": "สาขา 2 — BURGER BRO &amp; STEAK · 1348 ถ.พัฒนาการ (ในปั๊มน้ำมัน) · 11:00–22:00",
+  "find.b2": "อีกสาขาของเรา — พัฒนาการ · 1348 ถ.พัฒนาการ",
+  "find.b1": "อีกสาขาของเรา — พระราม 9 · 443 พระราม 9 ซอย 49",
+  "find.show": "ดูสาขานี้",
+  "find.nowNote": "ตามเวลากรุงเทพฯ จากตารางด้านล่าง · วันหยุดอาจไม่ตรงนี้",
+  "find.pk.hours": "เวลาเปิด — พัฒนาการ",
+  "find.pk.hoursUnk": "<b>ยังไม่ได้ยืนยันเวลาเปิด</b> — เช็กหน้า Google Maps ของสาขาก่อนไปนะ",
+  "find.pk.check": "เช็กใน Google Maps",
+  "find.pk.more": "<b>ยังไม่ได้ยืนยันเบอร์โทร ลิงก์ Grab และสิ่งอำนวยความสะดวก</b> เราใส่เฉพาะข้อมูลที่สาขายืนยันแล้ว",
+  "find.pk.addr": "1348 ถนนพัฒนาการ สวนหลวง กรุงเทพฯ",
+  "find.pk.addr2": "1348 Phatthanakan Rd, Suan Luang, Bangkok",
+  "order.forR9": "สั่งจากสาขาพระราม 9 · 443 พระราม 9 ซอย 49",
+  "order.forPk": "สั่งจากสาขาพัฒนาการ · 1348 ถ.พัฒนาการ",
+  "order.grabFindPk": "หาสาขาพัฒนาการใน GRAB",
+  "order.handoff": "ปุ่มสั่งจะพาไปที่แอปเดลิเวอรี เลือกเมนูและจ่ายเงินในแอปนั้น ไม่ได้สั่งผ่านเว็บนี้",
 
   "order.l1": "จบคำถามนี้",
   "order.l2": "ซะที",
   "order.p": "ส่งถึงหน้าบ้าน หรือมานั่งบูธพร้อมป๊อปคอร์นฟรี — ยังไงคำตอบก็เหมือนเดิม",
   "order.grab": "สั่งผ่าน GRABFOOD",
   "order.lm": "สั่งผ่าน LINE MAN",
-  "order.note": "ปุ่ม GRABFOOD จะเปิดหน้า GRAB — ค้นหา “BURGER BRO” ได้เลย",
+  "order.note": "ยังไม่มีลิงก์ GRAB ของสาขาพัฒนาการ — ปุ่มจะเปิดหน้า GRAB ให้ค้นหา “BURGER BRO PATTANAKARN” เอง ส่วน LINE MAN พาไปที่สาขาโดยตรง · ยังไม่ได้ยืนยันเบอร์โทร",
   "order.call": "โทร 082-793-8855",
   "order.walk": "เดินเข้าร้าน — แผนที่",
 
@@ -2065,6 +2333,27 @@ window.BB_TH = {
 </script>
 <script>
 /* ============================================================
+   bbTrack(name, props) — privacy-aware events. Does nothing at all unless window.BB_ANALYTICS_URL
+   is set (it is not, today). Then it sends {name, props, t} with navigator.sendBeacon.
+   Only these properties ever leave the page: branch, provider, locale, device (phone | tablet | desktop).
+   Never a phone number, a name, a username, a code or anything typed.
+   Events: menu_view, menu_search, branch_select, provider_handoff (a click, not a sale), arcade_open.
+   ============================================================ */
+window.bbTrack = function (name, props) {
+  var url = window.BB_ANALYTICS_URL;
+  if (!url || !navigator.sendBeacon || typeof name !== "string") return false;
+  var allow = { branch: 1, provider: 1, locale: 1, device: 1 }, clean = {};
+  props = props || {};
+  for (var k in props) if (allow[k] && typeof props[k] === "string") clean[k] = props[k].slice(0, 32);
+  if (!clean.locale) clean.locale = document.body && document.body.getAttribute("data-lang") === "th" ? "th" : "en";
+  if (!clean.device) { var w = window.innerWidth; clean.device = w < 600 ? "phone" : w < 1025 ? "tablet" : "desktop"; }
+  try {
+    return navigator.sendBeacon(url, new Blob([JSON.stringify({ name: name.slice(0, 40), props: clean, t: Date.now() })], { type: "application/json" }));
+  } catch (err) { return false; }
+};
+</script>
+<script>
+/* ============================================================
    BURGER BRO! — interaction core
    Vanilla only: loader, reveals, sticky burger-descent, menu
    hover plates, cursor, marquee-safe i18n (EN captured from
@@ -2077,10 +2366,49 @@ window.BB_TH = {
   var wideScreen = window.matchMedia("(min-width: 901px)");
   var docEl = document.documentElement;
 
-  /* honour a motion-preference change made mid-session: the simplest correct
-     response is a clean re-run in the other mode (scroll position is restored) */
+  /* a motion-preference change made mid-session is applied in place, never by reloading:
+     a form, a game or the reading position must survive it. CSS (the reduced-motion block)
+     settles the styled motion by itself; each scripted moving part registers here how it
+     rests and how it resumes. */
   var rmQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (rmQuery.addEventListener) rmQuery.addEventListener("change", function () { window.location.reload(); });
+  var motionHooks = [];
+  function onMotion(fn) { motionHooks.push(fn); }
+  /* the block being read is remembered as the page scrolls, so when a change above it (the burger
+     descent collapses under reduced motion) moves the page, the reader stays on the same line */
+  var readAnchor = null, readTop = 0, readRaf = false;
+  function noteReading() {
+    readRaf = false;
+    var el = document.elementFromPoint(window.innerWidth / 2, window.innerHeight * 0.4);
+    el = el && el.closest ? el.closest(".mrow, li, p, h2, h3, figure, section, footer") : null;
+    if (el) { readAnchor = el; readTop = el.getBoundingClientRect().top; }
+  }
+  function laterReading() { if (!readRaf) { readRaf = true; requestAnimationFrame(noteReading); } }
+  window.addEventListener("scroll", laterReading, { passive: true });
+  if (window.ResizeObserver) new ResizeObserver(laterReading).observe(document.body); // e.g. the menu filter changed the page
+  function motionChanged(e) {
+    /* one correction for every browser: the browser's own scroll anchoring is paused for this change
+       (Chrome would otherwise correct a second time; WebKit does not anchor here at all) */
+    docEl.style.overflowAnchor = "none";
+    reduceMotion = !!e.matches;
+    motionHooks.forEach(function (fn) { try { fn(reduceMotion); } catch (err) {} });
+    var anchor = readAnchor, top0 = readTop;
+    function hold() {
+      if (!anchor || !anchor.isConnected) return;
+      var drift = anchor.getBoundingClientRect().top - top0;
+      if (Math.abs(drift) > 1) window.scrollTo({ top: window.scrollY + drift, behavior: "instant" });
+    }
+    hold();
+    requestAnimationFrame(function () { requestAnimationFrame(hold); });          // and again once the change has settled
+    window.setTimeout(function () { hold(); docEl.style.overflowAnchor = ""; noteReading(); }, 250);
+  }
+  if (rmQuery.addEventListener) rmQuery.addEventListener("change", motionChanged);
+  else if (rmQuery.addListener) rmQuery.addListener(motionChanged);
+
+  /* while the arcade is open (it says so with bb:arcade-open / bb:arcade-close on document),
+     decorative motion on the page rests: the marquee, the burger sequence, the review carousel */
+  var quiet = false, quietHooks = [];
+  function onQuiet(fn) { quietHooks.push(fn); }
+  function track(name, props) { try { if (window.bbTrack) window.bbTrack(name, props || {}); } catch (err) {} }
 
   /* current-language lookup for labels that are set from script */
   function tr(key, en) {
@@ -2282,8 +2610,11 @@ window.BB_TH = {
      ============================================================ */
   var marquee = document.getElementById("marquee");
   var marqueeTrack = document.getElementById("marqueeTrack");
-  var mqLabel = null;
-  if (marquee && marqueeTrack && docEl.classList.contains("js-anim")) {
+  var mqLabel = null, mqReady = false;
+  function mqSetup() {
+    if (mqReady || !marquee || !marqueeTrack) return;
+    mqReady = true;
+    docEl.classList.add("mq-anim");
     var mqRun = marqueeTrack.querySelector(".marquee-run");
     var mqNeed = Math.ceil(Math.max(window.innerWidth, window.screen.width || 0) / Math.max(1, mqRun.offsetWidth)) + 1;
     for (var mi = 1; mi < mqNeed * 2; mi++) marqueeTrack.appendChild(mqRun.cloneNode(true));
@@ -2303,6 +2634,8 @@ window.BB_TH = {
     });
     mqLabel();
   }
+  if (!reduceMotion && !shotMode) mqSetup();
+  onMotion(function (rm) { if (!rm && !shotMode) mqSetup(); }); // CSS stills it under reduced motion
 
   /* ============================================================
      THE BRO — sticky descent (wide screens, motion allowed)
@@ -2321,76 +2654,117 @@ window.BB_TH = {
   var broCanvas = document.getElementById("broCanvas");
   var broCtx = broCanvas ? broCanvas.getContext("2d") : null;
   var BRO_FRAMES = 49;
+  var BRO_MAX_MISSING = 4;   // a few frames may fail; each is drawn as its nearest good neighbour
   var broSeqImgs = [];
-  var broSeqLoaded = 0;
-  var broVideoOn = false; // sequence ready + swapped in (also gates the photo pan)
+  var broSeqGood = [];       // per frame: true (decoded, has a size), false (failed), undefined (waiting)
+  var broSeqOk = 0, broSeqBad = 0;
+  var broVideoOn = false;    // sequence usable AND its first frame drawn (also gates the photo pan)
   var broSeqCur = -1;
-  var broLoopRaf = 0, broLoopLast = 0, broLoopFrame = 0, broLoopActive = false;
+  var broLoopRaf = 0, broLoopLast = 0, broLoopFrame = 0, broLoopActive = false, broInView = false;
 
+  /* the nearest frame that really decoded (frames are counted, not assumed) */
+  function broNearest(n) {
+    for (var d = 0; d < BRO_FRAMES; d++) {
+      if (broSeqGood[n - d]) return n - d;
+      if (broSeqGood[n + d]) return n + d;
+    }
+    return -1;
+  }
+  /* the sequence goes back to the still photo (no usable frames, or drawing failed) */
+  function broSeqOff() {
+    broVideoOn = false;
+    docEl.classList.remove("has-brovideo");
+    broLoopStop();
+  }
+  function broPaint(n) { // draw one frame; false if it could not be drawn
+    var k = broNearest(n);
+    if (k < 0) return false;
+    try {
+      broCtx.drawImage(broSeqImgs[k], 0, 0, broCanvas.width, broCanvas.height);
+      return true;
+    } catch (err) {
+      broSeqGood[k] = false; // a broken frame: never try it again
+      return broNearest(n) >= 0 ? broPaint(n) : false;
+    }
+  }
   function broDrawFrame(n) {
     n = Math.max(0, Math.min(BRO_FRAMES - 1, Math.round(n)));
     if (!broVideoOn || n === broSeqCur) return;
-    var im = broSeqImgs[n];
-    if (!im || !im.complete) return;
-    broCtx.drawImage(im, 0, 0, broCanvas.width, broCanvas.height);
-    broSeqCur = n;
+    if (broPaint(n)) broSeqCur = n;
+    else broSeqOff();
   }
   function broSeek(p) {
     if (!wideScreen.matches) return; // narrow screens run the loop instead
     broDrawFrame(p * (BRO_FRAMES - 1));
   }
-
-  if (broCanvas && broCtx && !reduceMotion && !shotMode) {
-    var broLoopTick = function (ts) {
-      if (!broLoopActive) return;
-      if (ts - broLoopLast > 80) { // ~12.5 fps amble
-        broLoopLast = ts;
-        broLoopFrame = (broLoopFrame + 1) % BRO_FRAMES;
-        broSeqCur = -1;
-        broDrawFrame(broLoopFrame);
-      }
-      broLoopRaf = requestAnimationFrame(broLoopTick);
-    };
-    var broLoopStart = function () {
-      if (broLoopActive || !broVideoOn || wideScreen.matches) return;
-      broLoopActive = true;
-      broLoopRaf = requestAnimationFrame(broLoopTick);
-    };
-    var broLoopStop = function () {
-      broLoopActive = false;
-      if (broLoopRaf) cancelAnimationFrame(broLoopRaf);
-    };
-    var broSeqStart = function () {
-      if (broSeqImgs.length) return;
-      var seqReady = function () {
-        broSeqLoaded++;
-        if (broSeqLoaded === BRO_FRAMES) {
-          broVideoOn = true;
-          docEl.classList.add("has-brovideo");
-          if (broImg) broImg.style.transform = "";
-          if (wideScreen.matches) {
-            broSeqCur = -1; broDrawFrame(0);
-            broSeqCur = -1; broDrawFrame(0); // settle the first rasterization
-            broOnScroll();
-          } else {
-            broLoopStart();
-          }
-        }
-      };
-      for (var i = 0; i < BRO_FRAMES; i++) {
-        (function (n) {
-          var im = new Image();
-          im.fetchPriority = "low";
+  function broLoopTick(ts) {
+    if (!broLoopActive) return;
+    if (ts - broLoopLast > 80) { // ~12.5 fps amble
+      broLoopLast = ts;
+      broLoopFrame = (broLoopFrame + 1) % BRO_FRAMES;
+      broSeqCur = -1;
+      broDrawFrame(broLoopFrame);
+    }
+    broLoopRaf = requestAnimationFrame(broLoopTick);
+  }
+  function broLoopStart() {
+    if (broLoopActive || !broVideoOn || wideScreen.matches || reduceMotion || quiet || !broInView) return;
+    broLoopActive = true;
+    broLoopRaf = requestAnimationFrame(broLoopTick);
+  }
+  function broLoopStop() {
+    broLoopActive = false;
+    if (broLoopRaf) cancelAnimationFrame(broLoopRaf);
+    broLoopRaf = 0;
+  }
+  /* all frames settled: switch to the canvas only if enough of them decoded and the first draw works;
+     until then (and otherwise) the still photo stays */
+  function broSeqSettled() {
+    if (broSeqOk < BRO_FRAMES - BRO_MAX_MISSING || reduceMotion) return;
+    broVideoOn = true;
+    broSeqCur = -1;
+    if (!broPaint(0)) { broSeqOff(); return; }
+    docEl.classList.add("has-brovideo");
+    if (broImg) broImg.style.transform = "";
+    if (wideScreen.matches) {
+      broSeqCur = -1; broDrawFrame(0); // settle the first rasterization
+      broOnScroll();
+    } else {
+      broLoopStart();
+    }
+  }
+  function broSeqStart() {
+    if (broSeqImgs.length || !broCanvas || !broCtx) return;
+    for (var i = 0; i < BRO_FRAMES; i++) {
+      (function (n) {
+        var im = new Image();
+        var done = function (ok) {
+          if (broSeqGood[n] !== undefined) return; // count each frame once
+          broSeqGood[n] = !!(ok && im.naturalWidth > 0);
+          if (broSeqGood[n]) broSeqOk++; else broSeqBad++;
+          if (broSeqOk + broSeqBad === BRO_FRAMES) broSeqSettled();
+        };
+        im.fetchPriority = "low";
+        im.onerror = function () { done(false); };
+        if (im.decode) {
           im.src = "media/seq/f" + (n < 10 ? "0" + n : n) + ".jpg";
-          if (im.decode) im.decode().then(seqReady, seqReady); // count even on decode failure
-          else im.onload = seqReady;
-          broSeqImgs.push(im);
-        })(i);
-      }
-    };
-    /* the frames are ordinary files now: fetch them when the section is a little over
-       half a screen away instead of at page load, and not at all for data-saver visitors
-       (the photo pan stays as their fallback) */
+          im.decode().then(function () { done(true); }, function () { done(false); });
+        } else {
+          im.onload = function () { done(true); };
+          im.src = "media/seq/f" + (n < 10 ? "0" + n : n) + ".jpg";
+        }
+        broSeqImgs.push(im);
+      })(i);
+    }
+  }
+  window.__broSeqState = function () { return { ok: broSeqOk, bad: broSeqBad, on: broVideoOn }; }; // QA hook
+
+  /* the frames are ordinary files: fetch them when the section is a little over half a screen
+     away instead of at page load, and not at all for data-saver visitors (the photo stays) */
+  var broSeqWired = false;
+  function broSeqInit() {
+    if (broSeqWired || !broCanvas || !broCtx || reduceMotion || shotMode) return;
+    broSeqWired = true;
     var broSaveData = !!(navigator.connection && navigator.connection.saveData);
     if (!broSaveData && "IntersectionObserver" in window) {
       var broSeqIO = new IntersectionObserver(function (entries) {
@@ -2402,15 +2776,17 @@ window.BB_TH = {
     } else if (!broSaveData) {
       broSeqStart();
     }
-
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
+          broInView = en.isIntersecting;
           if (!broVideoOn || wideScreen.matches) return;
           if (en.isIntersecting) broLoopStart();
           else broLoopStop();
         });
       }, { rootMargin: "160px 0px" }).observe(broCanvas);
+    } else {
+      broInView = true;
     }
     if (wideScreen.addEventListener) {
       wideScreen.addEventListener("change", function (e) {
@@ -2420,6 +2796,14 @@ window.BB_TH = {
       });
     }
   }
+  broSeqInit();
+  onMotion(function (rm) {
+    if (rm) { broLoopStop(); return; }          // CSS shows the photo again under reduced motion
+    broSeqInit();
+    if (broSeqImgs.length && broSeqOk + broSeqBad === BRO_FRAMES && !broVideoOn) broSeqSettled();
+    else if (broVideoOn) { broSeqCur = -1; if (wideScreen.matches) broOnScroll(); else broLoopStart(); }
+  });
+  onQuiet(function (q) { if (q) broLoopStop(); else broLoopStart(); });
 
   function broMeasure() {
     if (!broWindow || !broImg) return { start: 0, span: 0 };
@@ -2524,6 +2908,11 @@ window.BB_TH = {
     if (!wideScreen.matches || reduceMotion) broStatic();
     broButtons(wideScreen.matches && !reduceMotion);
     broOnScroll();
+    onMotion(function (rm) {
+      broButtons(wideScreen.matches && !rm);
+      if (rm || !wideScreen.matches) { broImg.style.transform = ""; broStatic(); }
+      else { broPan = broMeasure(); broTarget = -1; broOnScroll(); } // the descent picks up where the page is
+    });
   }
 
   /* ============================================================
@@ -2531,7 +2920,7 @@ window.BB_TH = {
      ============================================================ */
   var cinema = document.querySelector(".cinema");
   var cinemaImg = document.querySelector(".cinema-media img");
-  if (cinema && cinemaImg && !reduceMotion) {
+  if (cinema && cinemaImg) { // always wired; it rests (and CSS holds it still) under reduced motion
     var cinTarget = 0, cinCurrent = 0, cinTicking = false;
     function cinFrame() {
       cinCurrent += (cinTarget - cinCurrent) * 0.08;
@@ -2541,6 +2930,7 @@ window.BB_TH = {
       else cinTicking = false;
     }
     window.addEventListener("scroll", function () {
+      if (reduceMotion) return;
       var r = cinema.getBoundingClientRect();
       if (r.bottom < 0 || r.top > window.innerHeight) return;
       var p = (r.top + r.height / 2 - window.innerHeight / 2) / (window.innerHeight + r.height);
@@ -2558,36 +2948,22 @@ window.BB_TH = {
   var photoRows = Array.prototype.slice.call(document.querySelectorAll(".mrow[data-img]"));
   var hideFloat = function () {}; // replaced below when the hover plate is active
 
-  /* The photos are files now, not inline data, so they are fetched ahead of need: as the
-     menu comes within a few screens, every plate picture is requested at high priority.
-     By the time a row is hovered (or reaches mid-screen on a phone) its photo is in hand. */
-  var plateSuffix = window.devicePixelRatio > 2.2 ? "-960." : "-640."; // phone plates are ~330px wide
-  var menuWarm = false;
-  function warmMenuPhotos() {
-    if (menuWarm) return;
-    menuWarm = true;
-    photoRows.forEach(function (row) {
-      var im = new Image();
-      im.fetchPriority = "high";
-      im.src = wideScreen.matches ? row.getAttribute("data-img") : row.getAttribute("data-img").replace("-640.", plateSuffix);
-      row.__warm = im; // hold the reference so the decoded picture stays cached
+  /* Photos load when they are needed, at normal priority: only the hero photo is fetched with high
+     priority. The hover plate asks for a row's photo as the pointer reaches that row's list (so it is
+     usually in hand by the time the row is hovered) and stays hidden until its own picture arrives. */
+  var plateSuffix = window.devicePixelRatio > 2.2 ? "-960." : "-640."; // phone photos are ~330px wide
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  document.querySelectorAll(".menu-list").forEach(function (list) {
+    list.addEventListener("pointerenter", function (e) {
+      if (e.pointerType === "touch" || saveData || !wideScreen.matches || list.__warm) return;
+      list.__warm = true;
+      list.querySelectorAll(".mrow[data-img]").forEach(function (row) {
+        var im = new Image();
+        im.src = row.getAttribute("data-img");
+        row.__warm = im; // hold the reference so the decoded picture stays cached
+      });
     });
-    document.querySelectorAll(".mrow-drop img").forEach(function (im) { im.loading = "eager"; });
-  }
-  if (photoRows.length && !(navigator.connection && navigator.connection.saveData)) {
-    if ("IntersectionObserver" in window) {
-      var warmIO = new IntersectionObserver(function (entries) {
-        if (!entries.some(function (en) { return en.isIntersecting; })) return;
-        warmIO.disconnect();
-        warmMenuPhotos();
-      }, { rootMargin: "250% 0px" });
-      warmIO.observe(document.getElementById("menu"));
-    } else {
-      warmMenuPhotos();
-    }
-  }
-  /* Safety net for a slow line: the hover plate stays hidden until its own picture has
-     arrived — never an empty frame, never the previous row's photo. */
+  });
   function floatSrc(row) {
     var src = row.getAttribute("data-img");
     if (floatImg.getAttribute("src") === src && floatImg.complete && floatImg.naturalWidth) {
@@ -2602,13 +2978,14 @@ window.BB_TH = {
     floatImg.addEventListener("error", function () { floatEl.classList.remove("is-wait"); });
   }
 
-  /* keyboard access to the same photos: each photo row carries a Photo button that only
-     appears on keyboard focus. Pointer and touch visitors never see it. */
+  /* "View photo": a visible button on every photo row, for mouse, touch and keyboard. The photo opens
+     in place under its own row (the rows above never move), and only when it is asked for. */
+  var lastPick = null;
   function rowToggle(row, btn, panel, open) {
     var img = panel.querySelector("img");
     window.clearTimeout(panel.__t);
     if (open) {
-      if (!img.getAttribute("src")) img.src = row.getAttribute("data-img");
+      if (!img.getAttribute("src")) img.src = wideScreen.matches ? row.getAttribute("data-img") : row.getAttribute("data-img").replace("-640.", plateSuffix);
       panel.hidden = false;
       void panel.offsetHeight; // commit the collapsed state before expanding
       hideFloat();
@@ -2630,10 +3007,21 @@ window.BB_TH = {
     var inner = document.createElement("div");
     var im = document.createElement("img");
     im.alt = nameEl.textContent;
+    im.lang = "en"; // the dish names stay in English in both languages
     im.width = 640;
     im.height = 480;
     im.decoding = "async";
+    im.loading = "lazy";
     inner.appendChild(im);
+    /* the delivery apps have their own carts: this only takes the visitor to the order buttons,
+       and says plainly that the dish has to be chosen again there */
+    var order = document.createElement("a");
+    order.className = "mrow-order";
+    order.href = "#order";
+    order.setAttribute("data-i18n", "menu.orderThis");
+    order.textContent = "Order this →";
+    order.addEventListener("click", function () { lastPick = nameEl.textContent; paintPick(); });
+    inner.appendChild(order);
     panel.appendChild(inner);
     var btn = document.createElement("button");
     btn.type = "button";
@@ -2643,13 +3031,21 @@ window.BB_TH = {
     btn.setAttribute("aria-expanded", "false");
     btn.setAttribute("aria-controls", panel.id);
     btn.setAttribute("aria-labelledby", btn.id + " " + nameEl.id);
-    btn.textContent = "Photo";
+    btn.textContent = "View photo";
     btn.addEventListener("click", function () {
       rowToggle(row, btn, panel, !row.classList.contains("is-open"));
     });
     nameBox.appendChild(btn);
     row.appendChild(panel);
   });
+  var orderPick = document.getElementById("orderPick");
+  function paintPick() {
+    if (!orderPick || !lastPick) return;
+    orderPick.textContent = mapIsThai()
+      ? "เลือก " + lastPick + " ในแอปเดลิเวอรีอีกครั้งนะ — เว็บนี้ไม่ได้ใส่ให้ในตะกร้า"
+      : "Find " + lastPick + " in the delivery app and add it there — nothing is added for you from this site.";
+    orderPick.hidden = false;
+  }
 
   var thumbsMade = false;
   function ensureThumbs() {
@@ -2664,84 +3060,18 @@ window.BB_TH = {
       row.appendChild(t);
     });
   }
-
-  /* narrow-screen scroll spotlight — the row nearest mid-screen gets the
-     hover treatment; photo rows drop their plate inline */
-  var spotAll = Array.prototype.slice.call(document.querySelectorAll(".mrow"));
-  var spotOn = false, spotCur = null, spotRaf = false;
-  function ensureDrops() {
-    photoRows.forEach(function (row) {
-      if (row.querySelector(".mrow-drop")) return;
-      var d = document.createElement("div");
-      d.className = "mrow-drop";
-      var im = document.createElement("img");
-      im.loading = "lazy";
-      im.src = row.getAttribute("data-img").replace("-640.", plateSuffix);
-      im.alt = "";
-      d.appendChild(im);
-      row.appendChild(d);
-    });
-  }
-  function spotEval() {
-    spotRaf = false;
-    if (wideScreen.matches) {
-      if (spotCur) { spotCur.classList.remove("is-spot"); spotCur = null; }
-      return;
-    }
-    var mid = window.innerHeight * 0.5;
-    var best = null, bestD = Infinity;
-    for (var i = 0; i < spotAll.length; i++) {
-      var r = spotAll[i].getBoundingClientRect();
-      var d = Math.abs((r.top + r.bottom) / 2 - mid);
-      if (d < bestD) { bestD = d; best = spotAll[i]; }
-    }
-    if (!best || bestD > window.innerHeight * 0.45) best = null;
-    if (best && spotCur && best !== spotCur) {
-      var rc = spotCur.getBoundingClientRect();
-      var curD = Math.abs((rc.top + rc.bottom) / 2 - mid);
-      if (bestD > curD - 24) best = spotCur; // hysteresis: beat the holder clearly
-    }
-    if (best === spotCur) return;
-    if (spotCur) spotCur.classList.remove("is-spot");
-    spotCur = best;
-    if (spotCur) spotCur.classList.add("is-spot");
-  }
-  function spotSchedule() {
-    if (!spotOn || spotRaf) return;
-    spotRaf = true;
-    requestAnimationFrame(spotEval);
-  }
-  function enableSpotlight() {
-    if (spotOn) return;
-    spotOn = true;
-    ensureDrops();
-    window.addEventListener("scroll", spotSchedule, { passive: true });
-    window.addEventListener("resize", spotSchedule);
-    spotEval();
-  }
-  window.__spotCheck = spotEval; // QA hook: evaluate synchronously
-
-  /* Which photo treatment a screen gets is decided as it is used, not once at load:
-     a computer whose window was narrow at load, a touch laptop with a trackpad, or a
-     visitor with Reduce Motion on all still get the hover plate on a wide window.
-     Wide screens that cannot hover at all (a tablet held sideways) get thumbnails. */
+  /* wide screens that cannot hover at all (a tablet held sideways) also get a fixed thumbnail */
   var anyHover = window.matchMedia("(any-hover: hover)");
-  function widePhotos() { if (!anyHover.matches) ensureThumbs(); }
-
-  if (wideScreen.addEventListener) {
-    wideScreen.addEventListener("change", function (e) {
-      if (e.matches) { spotEval(); widePhotos(); return; } // clears any lingering spotlight
-      if (reduceMotion) ensureThumbs();
-      else enableSpotlight();
-    });
-  }
+  function widePhotos() { if (wideScreen.matches && !anyHover.matches) ensureThumbs(); }
+  if (wideScreen.addEventListener) wideScreen.addEventListener("change", widePhotos);
+  widePhotos();
 
   if (floatEl && floatImg) {
     var fx = 0, fy = 0, ftx = 0, fty = 0, floatOn = false, floatRaf = false;
-    var floatEase = reduceMotion ? 1 : 0.16; // Reduce Motion: the plate sits by the pointer, no glide or tilt
     function floatFrame() {
-      fx += (ftx - fx) * floatEase;
-      fy += (fty - fy) * floatEase;
+      var ease = reduceMotion ? 1 : 0.16; // Reduce Motion: the plate sits by the pointer, no glide or tilt
+      fx += (ftx - fx) * ease;
+      fy += (fty - fy) * ease;
       floatEl.style.transform = "translate(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px)"
         + (reduceMotion ? "" : floatOn ? " rotate(2deg)" : " scale(.86) rotate(-3deg)");
       if (floatOn || Math.abs(ftx - fx) > 0.5) requestAnimationFrame(floatFrame);
@@ -2751,63 +3081,133 @@ window.BB_TH = {
       ftx = Math.min(e.clientX + 30, window.innerWidth - 310);
       fty = Math.max(20, Math.min(e.clientY - 130, window.innerHeight - 240));
     }
+    function floatShow(row, e) {
+      floatSrc(row);
+      floatEl.classList.add("is-on");
+      floatOn = true;
+      floatAim(e);
+      fx = ftx; fy = fty;
+    }
     photoRows.forEach(function (row) {
       row.addEventListener("pointerenter", function (e) {
-        if (e.pointerType === "touch") return; // fingers get the scroll plates or thumbnails
+        if (e.pointerType === "touch") return; // fingers use the View photo button
         if (!wideScreen.matches || row.classList.contains("is-open")) return; // photo already open inline
-        floatSrc(row);
-        floatEl.classList.add("is-on");
-        floatOn = true;
-        floatAim(e);
-        fx = ftx; fy = fty;
+        floatShow(row, e);
         if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
       });
       row.addEventListener("pointermove", function (e) {
         if (e.pointerType === "touch") return;
-        if (!floatOn && wideScreen.matches && !row.classList.contains("is-open")) {
-          // the window widened, or the page scrolled a row under a still pointer
-          floatSrc(row);
-          floatEl.classList.add("is-on");
-          floatOn = true;
-          floatAim(e);
-          fx = ftx; fy = fty;
-        } else {
-          floatAim(e);
-        }
+        if (!floatOn && wideScreen.matches && !row.classList.contains("is-open")) floatShow(row, e); // the window widened, or the page scrolled a row under a still pointer
+        else floatAim(e);
         if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
       });
       row.addEventListener("pointerleave", function () {
         floatEl.classList.remove("is-on");
         floatOn = false;
       });
-      var kb = row.querySelector(".mrow-view");
-      if (kb) {
-        kb.addEventListener("focus", function () {
-          if (!wideScreen.matches || !kb.matches(":focus-visible") || row.classList.contains("is-open")) return;
-          var r = row.getBoundingClientRect(), b = kb.getBoundingClientRect();
-          floatSrc(row);
-          floatEl.classList.add("is-on");
-          floatOn = true;
-          ftx = Math.min(b.right + 30, window.innerWidth - 310);
-          fty = r.top - 236 < 140 ? r.bottom + 18 : r.top - 236; // clear of the focused row
-          fx = ftx; fy = fty;
-          if (!floatRaf) { floatRaf = true; requestAnimationFrame(floatFrame); }
-        });
-        kb.addEventListener("blur", function () { hideFloat(); });
-      }
     });
     hideFloat = function () {
       floatEl.classList.remove("is-on");
       floatOn = false;
     };
   }
-  if (photoRows.length) {
-    if (!wideScreen.matches) {
-      if (reduceMotion) ensureThumbs();
-      else enableSpotlight();
-    } else {
-      widePhotos();
-    }
+
+  /* search and protein filter. The protein list per row is in its data-protein attribute, written
+     from the menu's own words. Searching reads names and descriptions in the language on screen and
+     in English. Filter state lives on the page, so jumping between sections keeps it. */
+  var menuTools = document.getElementById("menuTools");
+  var menuQ = document.getElementById("menuQ");
+  var menuCount = document.getElementById("menuCount");
+  var menuEmpty = document.getElementById("menuEmpty");
+  var menuResetBtns = [document.getElementById("menuReset"), document.getElementById("menuReset2")];
+  var menuChips = Array.prototype.slice.call(document.querySelectorAll(".menu-chip"));
+  var menuRows = Array.prototype.slice.call(document.querySelectorAll(".mrow"));
+  var menuProtein = "", menuShown = menuRows.length, menuSearchSent = 0;
+  menuRows.forEach(function (row) {
+    var n = row.querySelector(".mrow-name [data-i18n]"), d = row.querySelector(".mrow-desc");
+    row.__en = ((n ? n.textContent : "") + " " + (d ? d.textContent : "")).toLowerCase(); // English, captured before any switch
+  });
+  document.querySelectorAll(".menu-group").forEach(function (g) {
+    var p = document.createElement("p");
+    p.className = "menu-gnone mono";
+    p.setAttribute("data-i18n", "menu.gnone");
+    p.textContent = "Nothing in this section matches.";
+    p.hidden = true;
+    g.appendChild(p);
+  });
+  function menuText(row) {
+    var n = row.querySelector(".mrow-name [data-i18n]"), d = row.querySelector(".mrow-desc");
+    return ((n ? n.textContent : "") + " " + (d ? d.textContent : "")).toLowerCase();
+  }
+  function menuCountText() {
+    if (!menuCount) return;
+    var total = menuRows.length, th = mapIsThai();
+    menuCount.textContent = menuShown === total
+      ? (th ? "ทั้งหมด " + total + " รายการ" : total + " items")
+      : (th ? "แสดง " + menuShown + " จาก " + total + " รายการ" : menuShown + " of " + total + " items");
+  }
+  function menuApply() {
+    var q = menuQ ? menuQ.value.trim().toLowerCase() : "";
+    var words = q ? q.split(/\s+/) : [];
+    menuShown = 0;
+    menuRows.forEach(function (row) {
+      var hay = row.__en + " " + menuText(row);
+      var pro = (row.getAttribute("data-protein") || "").split(" ");
+      var ok = (!menuProtein || pro.indexOf(menuProtein) > -1) && words.every(function (w) { return hay.indexOf(w) > -1; });
+      if (!ok && row.classList.contains("is-open")) { // a hidden row closes its photo
+        var b = row.querySelector(".mrow-view"), pn = row.querySelector(".mrow-photo");
+        if (b && pn) rowToggle(row, b, pn, false);
+      }
+      row.hidden = !ok;
+      if (ok) menuShown++;
+    });
+    document.querySelectorAll(".menu-group").forEach(function (g) {
+      var any = g.querySelector(".mrow:not([hidden])");
+      var none = g.querySelector(".menu-gnone");
+      if (none) none.hidden = !!any || menuShown === 0;
+    });
+    var active = !!q || !!menuProtein;
+    menuResetBtns.forEach(function (b) { if (b && b.id === "menuReset") b.hidden = !active; });
+    if (menuEmpty) menuEmpty.hidden = menuShown > 0;
+    menuCountText();
+  }
+  function menuReset() {
+    if (menuQ) menuQ.value = "";
+    menuProtein = "";
+    menuChips.forEach(function (c) { c.setAttribute("aria-pressed", String(c.getAttribute("data-protein-f") === "")); });
+    menuApply();
+  }
+  if (menuTools && menuRows.length) {
+    menuTools.hidden = false;
+    var menuQTimer = 0;
+    if (menuQ) menuQ.addEventListener("input", function () {
+      menuApply();
+      window.clearTimeout(menuQTimer);
+      menuQTimer = window.setTimeout(function () { // one event per pause in typing; never the words typed
+        if (menuQ.value.trim() && menuSearchSent < 20) { menuSearchSent++; track("menu_search", {}); }
+      }, 1200);
+    });
+    if (menuQ) menuQ.addEventListener("keydown", function (e) { if (e.key === "Escape" && menuQ.value) { e.preventDefault(); menuReset(); } });
+    menuChips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        menuProtein = c.getAttribute("data-protein-f") || "";
+        menuChips.forEach(function (o) { o.setAttribute("aria-pressed", String(o === c)); });
+        menuApply();
+      });
+    });
+    menuResetBtns.forEach(function (b) {
+      if (b) b.addEventListener("click", function () { menuReset(); if (menuQ) menuQ.focus({ preventScroll: true }); });
+    });
+    menuApply();
+  }
+  var menuSec = document.getElementById("menu");
+  if (menuSec && "IntersectionObserver" in window) {
+    var menuViewIO = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (en) { return en.isIntersecting; })) return;
+      menuViewIO.disconnect();
+      track("menu_view", {});
+    }, { threshold: 0.15 });
+    menuViewIO.observe(menuSec);
   }
 
   /* Find us — the map. Both branches, drawn in the site's own colours with MapLibre
@@ -2818,7 +3218,30 @@ window.BB_TH = {
      link in the footer (each tab's data-lineman), and the footer's own
      branch switch chooses the same way. With the visitor's permission the browser's location
      is shown on the map and the nearest branch is chosen first; it never leaves the page. */
+  /* ONE model for each branch: the map, Find us, the footer's ordering buttons and the JSON-LD in <head>
+     (keep that block in step by hand) all read these facts. A fact a branch has not confirmed is null,
+     and the page says so; it never borrows the other branch's. */
+  var BRANCHES = [
+    { id: "rama9", lat: 13.7437797, lng: 100.6320785,
+      open: "https://maps.google.com/?cid=4340520789969302256",
+      dir: "https://www.google.com/maps/dir/?api=1&destination=Burger+Bro%2C+Rama+IX+Soi+49%2C+Suan+Luang%2C+Bangkok",
+      embed: "https://maps.google.com/maps?q=Burger+Bro,+Rama+IX+Soi+49,+Suan+Luang,+Bangkok+10250&z=16&output=embed",
+      lineman: "https://lin.ee/OyZp7FP",
+      grab: "https://app.grab.com/s/olrOpBCF", grabQr: "media/grab-rama9-qr.png",  // the shop's own share link, verified
+      tel: "+66827938855",
+      // Asia/Bangkok, minutes from midnight, by weekday (0 = Sunday); a close past 1440 runs past midnight
+      hours: [[660, 1440], [660, 1440], [660, 1410], [660, 1440], [660, 1440], [660, 1560], [660, 1560]] },
+    { id: "pattanakarn", lat: 13.7360497, lng: 100.6234688,
+      open: "https://maps.google.com/?cid=12405364053160930417",
+      dir: "https://www.google.com/maps/dir/?api=1&destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok",
+      embed: "https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&z=16&output=embed",
+      lineman: "https://lin.ee/nPi5Qzb",
+      grab: null, grabQr: null,   // no verified Grab share link yet: the button says it searches
+      tel: null,                  // not confirmed
+      hours: null }               // not confirmed
+  ];
   var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".find-map-tab"));
+  var branchAt = 0; // the chosen branch
   var mapFrame = document.querySelector(".find-map-frame .find-map-embed[hidden]");
   var mapCanvas = document.getElementById("findMapCanvas");
   var mapOpen = document.getElementById("findMapOpen");
@@ -2835,7 +3258,7 @@ window.BB_TH = {
   var MAP_C = { paper: "#F5EEDF", ink: "#221511", soft: "#4A382F", white: "#FFF9EE", mustard: "#F1A62B",
     water: "#CFD2C6", green: "#E6E0C4", built: "#ECE1CB", edge: "#D9CAAE", line: "#B49E80" };
   function mapIsThai() { return document.body.getAttribute("data-lang") === "th"; }
-  function mapPoint(tab) { return [parseFloat(tab.getAttribute("data-lng")), parseFloat(tab.getAttribute("data-lat"))]; }
+  function mapPoint(tab) { var b = BRANCHES[mapTabs.indexOf(tab)] || BRANCHES[0]; return [b.lng, b.lat]; }
   function mapNames(th) {
     return th ? ["coalesce", ["get", "name:th"], ["get", "name"]]
       : ["coalesce", ["get", "name:en"], ["get", "name_en"], ["get", "name:latin"], ["get", "name"]];
@@ -2869,38 +3292,83 @@ window.BB_TH = {
     });
     return style;
   }
-  function mapPressed() {
-    for (var k = 0; k < mapTabs.length; k++) if (mapTabs[k].getAttribute("aria-pressed") === "true") return k;
-    return 0;
+  function mapPressed() { return branchAt; }
+  var findPanels = Array.prototype.slice.call(document.querySelectorAll("[data-branch-panel]"));
+  var orderFor = Array.prototype.slice.call(document.querySelectorAll("[data-order-for]"));
+  /* the chosen branch is kept in the address (?branch=pattanakarn), so a reload, a shared link or
+     coming back to the page keeps it; replaceState adds no history steps */
+  function branchToUrl(i) {
+    try {
+      var u = new URL(window.location.href);
+      if (i === 0) u.searchParams.delete("branch"); else u.searchParams.set("branch", BRANCHES[i].id);
+      window.history.replaceState(window.history.state, "", u.pathname + u.search + u.hash);
+    } catch (err) {}
   }
-  function selectBranch(i, move) {
-    var tab = mapTabs[i];
+  function selectBranch(i, move, byVisitor) {
+    var b = BRANCHES[i];
+    if (!b) return;
+    branchAt = i;
     mapTabs.forEach(function (t, k) { t.setAttribute("aria-pressed", String(k === i)); });
     bbPins.forEach(function (pin, k) { pin.setAttribute("aria-pressed", String(k === i)); });
-    if (mapOpen) mapOpen.href = tab.getAttribute("data-open");
-    if (mapDir) mapDir.href = tab.getAttribute("data-dir");
-    orderBtns.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
-    if (orderLm) orderLm.href = tab.getAttribute("data-lineman");
-    if (orderWalk) orderWalk.href = tab.getAttribute("data-open");
-    var grab = tab.getAttribute("data-grab"), orderGrab = document.getElementById("orderGrab"), orderNote = document.getElementById("orderNote");
-    if (orderGrab) orderGrab.href = grab || "https://www.grab.com/th/food/"; // no shop link yet: Grab's own page, and the note says to search
-    if (orderNote) orderNote.hidden = !!grab;
-    if (orderGrab) orderGrab.setAttribute("data-qr", tab.getAttribute("data-grab-qr") || "");
-    if (orderCall) orderCall.hidden = !tab.getAttribute("data-tel"); // only a number we know is that branch's
+    if (mapOpen) mapOpen.href = b.open;
+    if (mapDir) mapDir.href = b.dir;
+    findPanels.forEach(function (p) { p.hidden = +p.getAttribute("data-branch-panel") !== i; });
+    orderFor.forEach(function (p) { p.hidden = +p.getAttribute("data-order-for") !== i; });
+    orderBtns.forEach(function (ob, k) { ob.setAttribute("aria-pressed", String(k === i)); });
+    if (orderLm) orderLm.href = b.lineman;
+    if (orderWalk) orderWalk.href = b.open;
+    var orderGrab = document.getElementById("orderGrab"), orderNote = document.getElementById("orderNote");
+    if (orderGrab) {
+      orderGrab.href = b.grab || "https://www.grab.com/th/food/"; // no verified shop link: Grab's own page, labelled as a search
+      orderGrab.setAttribute("data-qr", b.grabQr || "");
+      orderGrab.classList.toggle("is-search", !b.grab);
+      var gl = orderGrab.querySelectorAll("span");
+      if (gl.length === 2) { gl[0].hidden = !b.grab; gl[1].hidden = !!b.grab; }
+    }
+    if (orderNote) orderNote.hidden = !!b.grab;
+    if (orderCall) orderCall.hidden = !b.tel; // only a number we know is that branch's
+    paintOpenNow();
+    if (byVisitor) {
+      branchToUrl(i);
+      track("branch_select", { branch: b.id });
+    }
     if (mapMode === "styled" && move) {
       var to = { center: mapPoint(tab), zoom: 16 };
       if (reduceMotion) bbMap.jumpTo(to); else bbMap.flyTo({ center: to.center, zoom: to.zoom, speed: 1.6, curve: 1.3 });
     } else if (mapMode === "google" && mapFrame) {
-      var src = tab.getAttribute("data-embed");
+      var src = b.embed;
       if (mapFrame.getAttribute("src") !== src) mapFrame.src = src;
     }
   }
   mapTabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { userPicked = true; selectBranch(i, true); });
+    tab.addEventListener("click", function () { userPicked = true; selectBranch(i, true, true); });
   });
   orderBtns.forEach(function (b, i) {
-    b.addEventListener("click", function () { userPicked = true; selectBranch(i, true); });
+    b.addEventListener("click", function () { userPicked = true; selectBranch(i, true, true); });
   });
+  document.querySelectorAll("[data-branch-go]").forEach(function (b) {
+    b.hidden = false;
+    b.addEventListener("click", function () {
+      userPicked = true;
+      selectBranch(+b.getAttribute("data-branch-go"), true, true);
+      var other = document.querySelector('[data-branch-panel="' + b.getAttribute("data-branch-go") + '"] .find-sub');
+      if (other) { other.tabIndex = -1; other.focus({ preventScroll: true }); } // focus follows the panel that replaced this one
+    });
+  });
+  /* a provider hand-off is counted as a click, never as a sale */
+  [["orderLineman", "lineman"], ["orderGrab", "grab"], ["orderCall", "phone"], ["orderWalk", "maps"]].forEach(function (p) {
+    var el = document.getElementById(p[0]);
+    if (el) el.addEventListener("click", function () { track("provider_handoff", { provider: p[1], branch: BRANCHES[branchAt].id }); });
+  });
+  /* a branch named in the address (?branch=) is the visitor's choice, so location never overrides it */
+  (function () {
+    var want = null;
+    try { want = new URLSearchParams(window.location.search).get("branch"); } catch (err) {}
+    var k = -1;
+    BRANCHES.forEach(function (b, i) { if (b.id === want) k = i; });
+    if (k > -1) userPicked = true;
+    selectBranch(k > -1 ? k : 0, false);
+  })();
   /* GrabFood on a computer: Grab has no shop pages on the web (its share link lands on Grab's
      general page there), so show the branch's code to scan. A phone goes straight to the app. */
   (function () {
@@ -2912,7 +3380,7 @@ window.BB_TH = {
       e.preventDefault();
       document.getElementById("grabDlgQr").src = qr;
       document.getElementById("grabDlgLink").href = btn.href;
-      document.getElementById("grabDlgBranch").textContent = tabName(mapTabs[mapPressed()]);
+      document.getElementById("grabDlgBranch").textContent = tabName(mapTabs[branchAt]);
       dlg.showModal();
     });
     document.getElementById("grabDlgX").addEventListener("click", function () { dlg.close(); });
@@ -2959,35 +3427,36 @@ window.BB_TH = {
     paintKm();
     if (mapNear) mapNear.setAttribute("data-state", "on");
   }
+  var nearOff = false; // the visitor's location was refused or unavailable after they asked
+  function paintNear() {
+    if (!mapNear) return;
+    mapNear.textContent = nearOff ? (mapIsThai() ? "ยังไม่ได้เปิดตำแหน่ง" : "Location is off") : (mapIsThai() ? "สาขาใกล้ฉัน" : "Nearest to me");
+  }
   function askLocation(byHand) {
     if (!navigator.geolocation || geoAsking) return;
     geoAsking = true;
-    if (byHand) userPicked = false;
+    if (byHand) userPicked = false; // the visitor asked for the nearest branch
     navigator.geolocation.getCurrentPosition(function (pos) {
       geoAsking = false;
+      nearOff = false; paintNear();
       userPos = [pos.coords.longitude, pos.coords.latitude];
       showUser();
     }, function () {
       geoAsking = false;
-      if (byHand && mapNear) mapNear.textContent = mapIsThai() ? "ยังไม่ได้เปิดตำแหน่ง" : "Location is off";
+      if (byHand) { nearOff = true; userPicked = true; paintNear(); } // manual choice stays; the branch does not change
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
   }
+  /* the browser is asked for the visitor's location only when they press "Nearest to me".
+     If they already allowed it on an earlier visit, it is reused quietly (no prompt appears). */
   if (navigator.geolocation && !/[?&]shot=/.test(location.search)) {
     if (mapNear) {
       mapNear.hidden = false;
+      mapNear.removeAttribute("data-i18n"); // its words are set here (they change with the state)
+      paintNear();
       mapNear.addEventListener("click", function () { askLocation(true); });
     }
-    // already allowed: place the visitor at once; otherwise ask when the map or the order buttons come into view
     if (navigator.permissions && navigator.permissions.query) {
       navigator.permissions.query({ name: "geolocation" }).then(function (st) { if (st.state === "granted") askLocation(false); }, function () {});
-    }
-    if ("IntersectionObserver" in window) {
-      var geoIO = new IntersectionObserver(function (entries) {
-        if (!entries.some(function (en) { return en.isIntersecting; })) return;
-        geoIO.disconnect();
-        if (!userPos) askLocation(false);
-      }, { threshold: 0.3 });
-      [document.getElementById("findMap"), document.querySelector(".order-branch")].forEach(function (el) { if (el) geoIO.observe(el); });
     }
   }
   function useGoogleMap() {
@@ -2997,7 +3466,7 @@ window.BB_TH = {
     bbPins = []; userMarker = null;
     if (mapCanvas) mapCanvas.hidden = true;
     mapFrame.hidden = false;
-    mapFrame.src = mapTabs[mapPressed()].getAttribute("data-embed");
+    mapFrame.src = BRANCHES[branchAt].embed;
   }
   function startStyledMap() {
     var ml = window.maplibregl;
@@ -3037,7 +3506,7 @@ window.BB_TH = {
           pin.innerHTML = '<span class="bb-pin-brand">Burger Bro!</span><span class="bb-pin-name"></span>';
           pin.querySelector(".bb-pin-name").textContent = tabName(tab);
           pin.setAttribute("aria-label", "Burger Bro " + tabName(tab));
-          pin.addEventListener("click", function (e) { e.stopPropagation(); selectBranch(i, true); });
+          pin.addEventListener("click", function (e) { e.stopPropagation(); userPicked = true; selectBranch(i, true, true); });
           bbPins.push(pin);
           new ml.Marker({ element: pin, anchor: "bottom", offset: [0, -11] }).setLngLat(pts[i]).addTo(map);
         });
@@ -3070,6 +3539,12 @@ window.BB_TH = {
     new MutationObserver(function () {
       var th = mapIsThai();
       paintKm();
+      paintNear();
+      paintPick();
+      paintOpenNow();
+      var zi = mapCanvas && mapCanvas.querySelector(".maplibregl-ctrl-zoom-in"), zo = mapCanvas && mapCanvas.querySelector(".maplibregl-ctrl-zoom-out");
+      if (zi) { zi.title = th ? "ขยาย" : "Zoom in"; zi.setAttribute("aria-label", zi.title); }
+      if (zo) { zo.title = th ? "ย่อ" : "Zoom out"; zo.setAttribute("aria-label", zo.title); }
       bbPins.forEach(function (pin, k) {
         pin.querySelector(".bb-pin-name").textContent = tabName(mapTabs[k]);
         pin.setAttribute("aria-label", "Burger Bro " + tabName(mapTabs[k]));
@@ -3127,7 +3602,7 @@ window.BB_TH = {
     var cardsEl = document.getElementById("revCards"), sumEl = document.getElementById("revSum");
     var countEl = document.getElementById("revCount"), pauseBtn = document.getElementById("revPause");
     var allLink = document.getElementById("revAll");
-    var cards = [], at = 0, timer = null, held = false, paused = reduceMotion, seen = false;
+    var cards = [], at = 0, timer = null, held = false, paused = reduceMotion, autoPaused = reduceMotion, seen = false;
     function show(i) {
       if (!cards.length) return;
       at = (i + cards.length) % cards.length;
@@ -3140,7 +3615,7 @@ window.BB_TH = {
     }
     function tick() {
       window.clearInterval(timer); timer = null;
-      if (!paused && !held && seen && cards.length > 1) timer = window.setInterval(function () { show(at + 1); }, 7000);
+      if (!paused && !held && !quiet && seen && cards.length > 1) timer = window.setInterval(function () { show(at + 1); }, 7000);
     }
     function relTime(iso, th) {
       var d = new Date(iso + "T00:00:00"), now = new Date();
@@ -3197,6 +3672,7 @@ window.BB_TH = {
         var stars = el("span", "rev-stars", "★★★★★".slice(0, r.rating));
         stars.setAttribute("role", "img"); stars.setAttribute("aria-label", r.rating + (th ? " ดาว" : " stars"));
         line.appendChild(stars);
+        var num = el("span", "rev-num", r.rating + "/5"); num.setAttribute("aria-hidden", "true"); line.appendChild(num);
         line.appendChild(el("span", "rev-when", (r.edited ? (th ? "แก้ไข " : "Edited ") : "") + relTime(r.date, th)));
         card.appendChild(line);
         if (r.meta) card.appendChild(el("p", "rev-meta", r.meta));
@@ -3228,6 +3704,17 @@ window.BB_TH = {
         sumEl.appendChild(document.createTextNode(th ? " บน Google" + (d.count ? " · " + d.count.toLocaleString() + " เรตติ้ง" : "")
           : " on Google" + (d.count ? " · " + d.count.toLocaleString() + " ratings" : "")));
       }
+      /* the rating and the reviews are typed in, not fetched: say when they were checked */
+      var asOf = new Date(REV_AS_OF + "T00:00:00");
+      if (!isNaN(asOf)) {
+        var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var MON_TH = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+        var dt = document.createElement("span"); dt.className = "rev-sum-date";
+        dt.textContent = (th
+          ? "รีวิว Google ที่คัดมา · ตรวจเมื่อ " + asOf.getDate() + " " + MON_TH[asOf.getMonth()] + " " + (asOf.getFullYear() + 543)
+          : "Selected Google reviews · checked " + asOf.getDate() + " " + MON[asOf.getMonth()] + " " + asOf.getFullYear());
+        sumEl.appendChild(dt);
+      }
       allLink.href = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(REV_PLACE);
       revSec.hidden = false;
       show(0); tick();
@@ -3235,7 +3722,14 @@ window.BB_TH = {
     document.getElementById("revPrev").addEventListener("click", function () { show(at - 1); tick(); });
     document.getElementById("revNext").addEventListener("click", function () { show(at + 1); tick(); });
     pauseBtn.setAttribute("aria-pressed", String(paused));
-    pauseBtn.addEventListener("click", function () { paused = !paused; pauseBtn.setAttribute("aria-pressed", String(paused)); tick(); });
+    pauseBtn.addEventListener("click", function () { paused = !paused; autoPaused = false; pauseBtn.setAttribute("aria-pressed", String(paused)); tick(); });
+    onMotion(function (rm) { // reduced motion pauses it; turning motion back on resumes it only if the visitor had not paused it
+      if (rm && !paused) { paused = true; autoPaused = true; }
+      else if (!rm && autoPaused) { paused = false; autoPaused = false; }
+      pauseBtn.setAttribute("aria-pressed", String(paused));
+      tick();
+    });
+    onQuiet(tick);
     var stage = document.getElementById("revStage");
     stage.addEventListener("pointerenter", function () { held = true; tick(); });
     stage.addEventListener("pointerleave", function () { held = false; tick(); });
@@ -3264,7 +3758,8 @@ window.BB_TH = {
     var railEval = function () {
       railRaf = false;
       var cs = window.getComputedStyle(docEl);
-      var line = (parseFloat(cs.getPropertyValue("--nav-h")) || 72) + (parseFloat(cs.getPropertyValue("--rail-h")) || 52) + 26;
+      var stack = (parseFloat(cs.getPropertyValue("--nav-h")) || 72) + (parseFloat(cs.getPropertyValue("--act-h")) || 0);
+      var line = stack + (parseFloat(cs.getPropertyValue("--rail-h")) || 52) + 26;
       var idx = -1;
       for (var i = 0; i < railTargets.length; i++) {
         if (railTargets[i] && railTargets[i].getBoundingClientRect().top <= line) idx = i;
@@ -3293,34 +3788,122 @@ window.BB_TH = {
   }
 
   /* ============================================================
-     I18N — EN captured from DOM, TH from window.BB_TH
+     OPEN NOW — Rama 9 only, from its hours in BRANCHES, in Bangkok time (UTC+7, no daylight saving).
+     Fri and Sat run past midnight. No waiting times, no holiday guesses: the note says holidays may differ.
+     A branch without confirmed hours shows nothing.
+     ============================================================ */
+  function openState(hours, at) {
+    var bkk = new Date((at ? at.getTime() : Date.now()) + 7 * 3600000);
+    var day = bkk.getUTCDay(), m = bkk.getUTCHours() * 60 + bkk.getUTCMinutes();
+    var today = hours[day], prev = hours[(day + 6) % 7];
+    var close = -1;
+    if (prev[1] > 1440 && m < prev[1] - 1440) close = prev[1] - 1440;   // still in last night's late opening
+    else if (m >= today[0] && m < today[1]) close = today[1];
+    function hm(x) { x = x % 1440; return (x < 600 ? "0" : "") + Math.floor(x / 60) + ":" + (x % 60 < 10 ? "0" : "") + (x % 60); }
+    if (close > -1) return { state: close - m <= 60 ? "soon" : "open", at: close === 1440 ? "24:00" : hm(close) };
+    return { state: "closed", at: hm(m < today[0] ? today[0] : hours[(day + 1) % 7][0]) };
+  }
+  window.__bbOpenAt = function (iso) { return openState(BRANCHES[0].hours, new Date(iso)); }; // QA hook
+  function paintOpenNow() { // (its timer lives on the function: it is first called before this line runs)
+    var el = document.getElementById("findNow"), note = document.getElementById("findNowNote");
+    if (!el) return;
+    var b = (typeof BRANCHES !== "undefined" && BRANCHES[branchAt]) || null;
+    var hours = b && b.hours;
+    if (!hours) { el.hidden = true; if (note) note.hidden = true; window.clearTimeout(paintOpenNow.t); return; }
+    var st = openState(hours), th = mapIsThai();
+    var words = {
+      open: th ? "เปิดอยู่ · ปิด " : "OPEN NOW · CLOSES ",
+      soon: th ? "ใกล้ปิดแล้ว · ปิด " : "CLOSES SOON · AT ",
+      closed: th ? "ปิดอยู่ · เปิด " : "CLOSED NOW · OPENS "
+    };
+    el.textContent = words[st.state] + st.at;
+    el.setAttribute("data-state", st.state);
+    el.hidden = false;
+    if (note) note.hidden = false;
+    window.clearTimeout(paintOpenNow.t);
+    paintOpenNow.t = window.setTimeout(paintOpenNow, 60000 - (Date.now() % 60000) + 50);
+  }
+
+  /* ============================================================
+     ARCADE OPEN / CLOSE — the arcade (loaded on demand by the hook script below) announces itself
+     with bb:arcade-open and bb:arcade-close on document. While it is open, decorative motion rests;
+     when it closes, motion resumes and the reading position comes back.
+     ============================================================ */
+  var arcadeScrollY = null;
+  document.addEventListener("bb:arcade-open", function () {
+    if (quiet) return;
+    quiet = true;
+    arcadeScrollY = window.scrollY;
+    docEl.classList.add("bb-quiet");
+    document.body.classList.add("bba-open");
+    quietHooks.forEach(function (fn) { try { fn(true); } catch (err) {} });
+  });
+  document.addEventListener("bb:arcade-close", function () {
+    if (!quiet) return;
+    quiet = false;
+    docEl.classList.remove("bb-quiet");
+    document.body.classList.remove("bba-open");
+    quietHooks.forEach(function (fn) { try { fn(false); } catch (err) {} });
+    if (arcadeScrollY != null && Math.abs(window.scrollY - arcadeScrollY) > 1) window.scrollTo({ top: arcadeScrollY, behavior: "instant" });
+    arcadeScrollY = null;
+  });
+
+  /* ============================================================
+     I18N — EN captured from DOM, TH from window.BB_TH.
+     Nodes are looked up on every switch, so copies made later (e.g. the marquee) translate too.
+     Text the dictionary leaves in English (dish names) is marked lang="en" on a Thai page, and
+     [data-lang-en]/[data-lang-th] give an element's own language on each page (the address lines).
      ============================================================ */
   var EN = {};
-  var nodes = document.querySelectorAll("[data-i18n]");
-  var altNodes = document.querySelectorAll("[data-i18n-alt]");
-  var ariaNodes = document.querySelectorAll("[data-i18n-aria]");
-  nodes.forEach(function (el) { EN[el.getAttribute("data-i18n")] = el.innerHTML; });
-  altNodes.forEach(function (el) { EN["@alt:" + el.getAttribute("data-i18n-alt")] = el.getAttribute("alt"); });
-  ariaNodes.forEach(function (el) { EN["@aria:" + el.getAttribute("data-i18n-aria")] = el.getAttribute("aria-label"); });
+  function capture() {
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (!(k in EN)) EN[k] = el.innerHTML; });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { var k = "@alt:" + el.getAttribute("data-i18n-alt"); if (!(k in EN)) EN[k] = el.getAttribute("alt"); });
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (el) { var k = "@aria:" + el.getAttribute("data-i18n-aria"); if (!(k in EN)) EN[k] = el.getAttribute("aria-label"); });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { var k = "@ph:" + el.getAttribute("data-i18n-ph"); if (!(k in EN)) EN[k] = el.getAttribute("placeholder"); });
+  }
+  capture();
 
   if (!document.body.getAttribute("data-lang")) document.body.setAttribute("data-lang", "en");
   var langBtn = document.getElementById("langBtn");
+  function langToUrl(lang) {
+    try {
+      var u = new URL(window.location.href);
+      u.searchParams.set("lang", lang);
+      window.history.replaceState(window.history.state, "", u.pathname + u.search + u.hash);
+      var c = document.getElementById("canonical");
+      if (c) c.href = "https://mpc0367.github.io/burger-bro/" + (lang === "th" ? "?lang=th" : "");
+    } catch (err) {}
+  }
   function setLang(lang, persist) {
+    capture(); // anything added since the last switch keeps its English
     var dict = (lang === "th" && window.BB_TH) ? window.BB_TH : null;
-    nodes.forEach(function (el) {
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var key = el.getAttribute("data-i18n");
-      var val = dict ? dict[key] : EN[key];
+      var th = dict ? dict[key] : null;
+      var val = dict ? (th != null ? th : EN[key]) : EN[key];
       if (val != null && el.innerHTML !== val) el.innerHTML = val;
+      if (!el.hasAttribute("data-lang-en")) { // English left on a Thai page says so
+        if (dict && th == null) el.setAttribute("lang", "en"); else el.removeAttribute("lang");
+      }
     });
-    altNodes.forEach(function (el) {
-      var key = el.getAttribute("data-i18n-alt");
-      var val = dict ? dict["@alt:" + key] : EN["@alt:" + key];
+    document.querySelectorAll("[data-lang-en]").forEach(function (el) {
+      var l = el.getAttribute(lang === "th" ? "data-lang-th" : "data-lang-en");
+      if (l && l !== lang) el.setAttribute("lang", l); else el.removeAttribute("lang");
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+      var key = "@alt:" + el.getAttribute("data-i18n-alt");
+      var val = (dict && dict[key] != null) ? dict[key] : EN[key];
       if (val != null) el.setAttribute("alt", val);
     });
-    ariaNodes.forEach(function (el) {
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
       var key = "@aria:" + el.getAttribute("data-i18n-aria");
       var val = (dict && dict[key] != null) ? dict[key] : EN[key];
       if (val != null) el.setAttribute("aria-label", val);
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
+      var key = "@ph:" + el.getAttribute("data-i18n-ph");
+      var val = (dict && dict[key] != null) ? dict[key] : EN[key];
+      if (val != null) el.setAttribute("placeholder", val);
     });
     document.body.setAttribute("data-lang", lang);
     docEl.setAttribute("lang", lang === "th" ? "th" : "en");
@@ -3332,19 +3915,21 @@ window.BB_TH = {
     }
     sheetLabel();
     if (mqLabel) mqLabel();
+    menuCountText();
     if (persist !== false) {
       try { window.localStorage.setItem("bb-lang", lang); } catch (err) {}
     }
   }
   /* user-initiated switch: a short dip instead of a hard swap, and the block being read
      stays put (Thai and English copy have different heights). Rapid clicks collapse
-     into the last requested language. */
+     into the last requested language. The address follows (?lang=), so it can be shared as seen. */
   var langTimer = 0, langNext = null;
   function langCommit() {
     var probe = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight - 2, 190));
     var anchor = probe && probe.closest ? probe.closest(".mrow, [data-i18n], section, footer") : null;
     var before = anchor ? anchor.getBoundingClientRect().top : 0;
     setLang(langNext);
+    langToUrl(langNext);
     langNext = null;
     if (anchor) {
       var drift = anchor.getBoundingClientRect().top - before;
@@ -3362,17 +3947,73 @@ window.BB_TH = {
       langTimer = window.setTimeout(langCommit, 140);
     });
   }
-  if (shotQ.get("lang") === "th") {
-    setLang("th", false);
+  /* which language first: a valid ?lang= in the address, then the saved choice, then English.
+     An address language is shown but not saved, so a shared link never changes someone's own setting. */
+  var urlLang = shotQ.get("lang");
+  if (urlLang === "th" || urlLang === "en") {
+    setLang(urlLang, false);
   } else {
-    try {
-      var saved = window.localStorage.getItem("bb-lang");
-      if (saved === "th") setLang("th");
-    } catch (err) {}
+    var saved = null;
+    try { saved = window.localStorage.getItem("bb-lang"); } catch (err) {}
+    setLang(saved === "th" ? "th" : "en", false);
   }
 
 })();
 
+</script>
+<script>
+/* ============================================================
+   ARCADE HOOK — every arcade entry is a <button data-arcade-open>. Nothing of the arcade loads
+   until one is pressed; then ./arcade/arcade.js is imported (relative to this page) and
+   openArcade({ returnFocus }) is called. If it cannot load, a short message says so and the page
+   carries on. The arcade reports bb:arcade-open / bb:arcade-close on document (handled above).
+   Kept in its own script so a browser without import() loses only this, not the page.
+   ============================================================ */
+(function () {
+  "use strict";
+  var loading = false, toast = null, toastT = 0;
+  function say(en, th) {
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.className = "bb-toast";
+      toast.setAttribute("role", "status");
+      toast.hidden = true;
+      document.body.appendChild(toast);
+    }
+    toast.textContent = document.body.getAttribute("data-lang") === "th" ? th : en;
+    toast.hidden = false;
+    window.clearTimeout(toastT);
+    toastT = window.setTimeout(function () { toast.hidden = true; }, 4500);
+  }
+  function busy(on) {
+    document.querySelectorAll("[data-arcade-open]").forEach(function (b) {
+      if (on) b.setAttribute("aria-busy", "true"); else b.removeAttribute("aria-busy");
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest("[data-arcade-open]") : null;
+    if (!btn) return;
+    e.preventDefault();
+    if (loading) return;
+    var returnFocus = btn;
+    var sheet = document.getElementById("sheet");
+    if (sheet && sheet.contains(btn) && sheet.classList.contains("is-open")) {
+      var burger = document.getElementById("burgerBtn");
+      if (burger) { burger.click(); returnFocus = burger; } // close the menu sheet first; focus comes back to its button
+    }
+    try { if (window.bbTrack) window.bbTrack("arcade_open", {}); } catch (err) {}
+    loading = true;
+    busy(true);
+    import("./arcade/arcade.js").then(function (mod) {
+      loading = false; busy(false);
+      if (!mod || typeof mod.openArcade !== "function") throw new Error("no openArcade");
+      return mod.openArcade({ returnFocus: returnFocus });
+    }).catch(function () {
+      loading = false; busy(false);
+      say("The arcade isn't available right now.", "ตอนนี้ยังเล่นเกมไม่ได้ ลองใหม่ภายหลังนะ");
+    });
+  });
+})();
 </script>
 </body>
 </html>
