@@ -342,6 +342,10 @@ body[data-lang="th"] .nav-arcade-txt { font-family: var(--font-th); font-size: 1
 .nav-arcade[aria-busy="true"], .mob-act-arcade[aria-busy="true"], .sheet-arcade[aria-busy="true"] { cursor: progress; }
 .nav-arcade[aria-busy="true"] .arcade-ico, .mob-act-arcade[aria-busy="true"] .arcade-ico, .sheet-arcade[aria-busy="true"] .arcade-ico { animation: arcadeBusy .7s steps(2, end) infinite; }
 @keyframes arcadeBusy { 50% { opacity: .35; } }
+/* no arcade server configured (static hosting): no entry at all, Order now takes the row */
+html:not(.bb-arcade) [data-arcade-open] { display: none !important; }
+html:not(.bb-arcade) .mob-act-order { flex: 1 1 auto; }
+
 
 .mob-act { display: none; }
 @media (max-width: 900px) {
