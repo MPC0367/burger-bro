@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Burger Bro staff · coupons</title>
+<link rel="icon" href="../media/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kanit:wght@400;600&family=Libre+Franklin:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper: #F5EEDF; --deep: #EDE2CC; --ink: #221511; --soft: #4A382F; --red: #C42B1C; --mustard: #F1A62B; --white: #FFF9EE; --green: #2F6E1E; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 "Libre Franklin", "Kanit", system-ui, sans-serif; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  header { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 2px solid var(--ink); background: var(--white); }
+  header h1 { margin: 0; font: 400 22px/1 Anton, Impact, sans-serif; }
+  header h1 b { color: var(--red); font-weight: 400; }
+  header .who { margin-left: auto; font: 12px "Space Mono", monospace; text-align: right; }
+  main { max-width: 980px; margin: 0 auto; padding: 18px 16px 60px; }
+  h2 { font: 400 30px/1 Anton, Impact, sans-serif; text-transform: uppercase; margin: 22px 0 10px; }
+  h3 { font: 700 15px "Space Mono", monospace; text-transform: uppercase; letter-spacing: .06em; margin: 16px 0 8px; }
+  .th { font-family: Kanit, sans-serif; font-weight: 400; color: var(--soft); }
+  .card { background: var(--white); border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 18px; margin: 14px 0; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .step { border: 2px solid var(--ink); background: var(--deep); padding: 12px; }
+  .step b { font: 400 22px Anton, sans-serif; color: var(--red); }
+  label { display: block; font: 700 12px "Space Mono", monospace; text-transform: uppercase; letter-spacing: .08em; margin: 12px 0 4px; }
+  input, select, textarea { width: 100%; min-height: 48px; padding: 10px 12px; border: 2px solid var(--ink); background: #fff; font: 16px "Libre Franklin", Kanit, sans-serif; border-radius: 0; }
+  .code { font: 700 22px "Space Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+  button { min-height: 48px; padding: 10px 18px; border: 2px solid var(--ink); background: var(--paper); font: 700 13px "Space Mono", monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; box-shadow: 4px 4px 0 var(--ink); }
+  button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  button[disabled] { opacity: .45; cursor: not-allowed; }
+  .red { background: var(--red); color: var(--white); }
+  .mustard { background: var(--mustard); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin-top: 12px; }
+  .row > * { flex: 1 1 180px; }
+  .row > button { flex: 0 0 auto; }
+  :focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+  .status { display: inline-block; padding: 3px 10px; border: 2px solid var(--ink); font: 700 13px "Space Mono", monospace; text-transform: uppercase; }
+  .s-available { background: #CDE9BF; } .s-redeemed { background: var(--deep); } .s-expired, .s-void { background: #F6CFC7; }
+  .bad { color: #8E1A10; font-weight: 700; } .ok { color: var(--green); font-weight: 700; }
+  .test { background: var(--red); color: var(--white); font: 700 12px "Space Mono", monospace; padding: 2px 8px; display: inline-block; }
+  .benefit { font: 400 44px/1 Anton, sans-serif; color: var(--red); text-transform: uppercase; margin: 8px 0; }
+  dl { display: grid; grid-template-columns: 150px 1fr; gap: 6px 12px; margin: 10px 0; }
+  dt { font: 700 12px "Space Mono", monospace; text-transform: uppercase; } dd { margin: 0; }
+  .msg { margin-top: 12px; padding: 10px 12px; border-left: 4px solid var(--red); background: #FBE4DE; font-weight: 600; }
+  .msg.good { border-color: var(--green); background: #DDEFD3; }
+  .msg:empty { display: none; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; border-bottom: 1px solid #cdbfa5; padding: 6px 4px; vertical-align: top; }
+  th { font: 700 11px "Space Mono", monospace; text-transform: uppercase; }
+  video { width: 100%; max-width: 420px; border: 2px solid var(--ink); background: #000; display: block; margin-top: 10px; }
+  .note { font-size: 13px; color: var(--soft); }
+  @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } dl { grid-template-columns: 1fr; } .benefit { font-size: 34px; } }
+</style>
+</head>
+<body>
+<header><h1>BURGERBRO! <b>Staff</b></h1><div class="who" id="who"></div></header>
+<main>
+  <section id="signin" hidden>
+    <h2>Staff sign-in <span class="th">· เข้าสู่ระบบพนักงาน</span></h2>
+    <form class="card" id="loginForm">
+      <label for="u">Username</label><input id="u" autocomplete="username" required>
+      <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required>
+      <div class="row"><button class="red" type="submit">Sign in · เข้าสู่ระบบ</button></div>
+      <p class="msg" id="loginMsg" role="alert"></p>
+      <p class="note">Staff accounts are added by Burger Bro's administrator. A customer's QR code never gives anyone staff access.</p>
+    </form>
+  </section>
+
+  <section id="redeem" hidden>
+    <div class="steps" aria-hidden="true"><div class="step"><b>01 Scan</b><br>Enter or scan the code<br><span class="th">สแกนหรือพิมพ์รหัส</span></div>
+      <div class="step"><b>02 Inspect</b><br>Check branch and terms<br><span class="th">ตรวจสาขาและเงื่อนไข</span></div>
+      <div class="step"><b>03 Complete</b><br>Confirm the redemption<br><span class="th">ยืนยันการใช้สิทธิ์</span></div></div>
+    <form class="card" id="lookForm">
+      <h2>Look up a coupon <span class="th">· ตรวจคูปอง</span></h2>
+      <div class="row">
+        <div><label for="code">Backup code or scanned text</label><input id="code" class="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="BB-XXXX-XXXX" required></div>
+        <div><label for="branch">This branch · สาขานี้</label><select id="branch"></select></div>
+      </div>
+      <div class="row"><button class="red" type="submit">Look up · ตรวจ</button><button type="button" id="scanBtn" hidden>Scan with camera · สแกน</button></div>
+      <video id="video" playsinline muted hidden></video>
+      <p class="note">Looking up never uses the coupon. Only "Confirm redemption" does.</p>
+      <p class="msg" id="lookMsg" role="alert"></p>
+    </form>
+    <div class="card" id="result" hidden></div>
+  </section>
+
+  <section id="admin" hidden>
+    <h2>Administration <span class="th">· ผู้ดูแล</span></h2>
+    <div class="card"><h3>Weeks</h3><div id="weeks"></div><div class="row"><button type="button" id="finalizeBtn">Check weeks that have ended</button></div></div>
+    <div class="card"><h3>Runs held for review</h3><p class="note">A held run on the podium keeps the week from closing until it's cleared or disqualified. Every decision needs a reason.</p><div id="held"></div></div>
+    <div class="card"><h3>Wheel promotions</h3><p class="note">The wheel shows these chances. Every change needs a reason and is recorded. TEST rewards have no redemption value until Burger Bro supplies real ones.</p><div id="promos"></div></div>
+    <div class="card"><h3>Weekly prizes (from the next week that opens)</h3><div id="prizes"></div></div>
+    <div class="card"><h3>Text messages that failed</h3><div id="sms"></div></div>
+    <div class="card"><h3>Issue a coupon · credit points</h3>
+      <form id="issueForm"><div class="row"><div><label for="iu">Username</label><input id="iu" required></div><div><label for="ip">Promotion</label><select id="ip"></select></div></div>
+        <label for="ir">Reason (recorded)</label><input id="ir" required minlength="3"><div class="row"><button type="submit">Issue coupon</button></div></form>
+      <form id="pointsForm"><div class="row"><div><label for="pu">Username</label><input id="pu" required></div><div><label for="pd">Points (+ credit, − reversal)</label><input id="pd" type="number" required></div><div><label for="ps">Source reference (unique)</label><input id="ps" required></div></div>
+        <label for="pr">Reason (recorded)</label><input id="pr" required minlength="3"><div class="row"><button type="submit">Record points</button></div></form>
+      <p class="msg" id="adminMsg" role="status"></p></div>
+    <div class="card"><h3>Recent changes</h3><div id="audit"></div></div>
+  </section>
+</main>
+<script type="module" src="./staff.js"></script>
+</body>
+</html>
