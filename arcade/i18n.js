@@ -35,6 +35,7 @@ export const STR = {
     // game
     player: "Player", score: "Score", level: "Level", linesOf: "{n} / {m} lines", lines: "Lines",
     next: "Next", hold: "Hold", pause: "Pause", resumeGame: "Resume", paused: "Paused", sound: "Sound", on: "On", off: "Off",
+    pop1: "Nice!", pop2: "Double stack!", pop3: "Triple stack!", pop4: "BIG BRO!", popCombo: "Combo ×{n}", popLevel: "Level {n}!", popFaster: "Faster!",
     endRun: "End run", endRunQ: "End this run? Your score so far is saved.", keepPlaying: "Keep playing",
     runKeep: "Run: keep stacking", runLevel1: "Run: Level 1",
     left: "Left", right: "Right", rotate: "Rotate", drop: "Drop", soft: "Soft drop",
@@ -135,6 +136,7 @@ export const STR = {
     signOut: "ออกจากระบบ",
     player: "ผู้เล่น", score: "แต้ม", level: "เลเวล", linesOf: "{n} / {m} แถว", lines: "แถว",
     next: "ชิ้นต่อไป", hold: "เก็บไว้", pause: "หยุดพัก", resumeGame: "เล่นต่อ", paused: "หยุดพักอยู่", sound: "เสียง", on: "เปิด", off: "ปิด",
+    pop1: "เยี่ยม!", pop2: "ซ้อนสองชั้น!", pop3: "ซ้อนสามชั้น!", pop4: "บิ๊กโบร!", popCombo: "คอมโบ ×{n}", popLevel: "เลเวล {n}!", popFaster: "เร็วขึ้นแล้ว!",
     endRun: "จบรอบนี้", endRunQ: "จบรอบนี้เลยไหม แต้มที่ทำได้ถึงตอนนี้จะถูกบันทึก", keepPlaying: "เล่นต่อ",
     runKeep: "รอบนี้: เล่นต่อ", runLevel1: "รอบนี้: เลเวล 1",
     left: "ซ้าย", right: "ขวา", rotate: "หมุน", drop: "ทิ้ง", soft: "ลงเร็ว",

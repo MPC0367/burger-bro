@@ -3,6 +3,7 @@
 import { api, available, opKey, ApiError } from "./api.js";
 import { t, lang, errText } from "./i18n.js";
 import { Game, INPUT } from "./game.js";
+import { unlockAudio } from "./sound.js";
 
 const CSS_ID = "bba-css";
 let root = null; // the <dialog>
@@ -97,6 +98,8 @@ function build() {
     else if (actions[act]) actions[act](b);
   });
   document.addEventListener("visibilitychange", () => { if (document.hidden && state.game) state.game.setPaused(true); });
+  // Browsers allow sound only after a press: wake the audio on the first one.
+  for (const ev of ["pointerdown", "keydown"]) document.addEventListener(ev, unlockAudio, { capture: true, passive: true });
   paintBar();
 }
 
@@ -296,7 +299,7 @@ const VIEWS = {
       <p class="bba-lab">${esc(t("finalScore"))}</p><p class="bba-score">${fmt(run.result.score)}</p>
       <p class="bba-mono">${esc(t("verified"))} · ${esc(t("level"))} ${run.result.level} · ${run.result.lines} ${esc(t("lines"))}</p>
       <p>${esc(run.result.weekly ? t("weeklyEntry") : t("notWeekly"))}</p>${run.result.held ? `<p class="bba-note">${esc(t("heldReview"))}</p>` : ""}`}
-    <div class="bba-actions"><button type="button" class="bba-btn bba-red" data-act="play" data-autofocus>${esc(t("playAgain"))}</button>
+    <div class="bba-actions"><button type="button" class="bba-btn bba-red" data-act="play" data-autofocus${run ? "" : " disabled"}>${esc(t("playAgain"))}</button>
       <button type="button" class="bba-btn" data-act="toBoard">${esc(t("board"))}</button><button type="button" class="bba-btn" data-act="toLobby">${esc(t("back"))}</button></div></section>`,
 
   board: () => `<section class="bba-boardv">
@@ -503,6 +506,9 @@ function mountGame() {
   paintPause(state.game.paused);
   loadWeekMini();
   if (state.run.state === "decision_ready") return;
+  // A run whose board had already topped out (its finish was interrupted): finish it now
+  // instead of leaving a full board with nothing to press.
+  if (state.game.st.phase === "over") { finishRun("over"); return; }
   if (state.game.st.phase === "play") setTimeout(() => state.game && state.view === "game" && state.game.start(), 300);
 }
 
@@ -551,6 +557,8 @@ function hud(h) {
   const m = main();
   if (!m || state.view !== "game") return;
   const set = (k, v) => m.querySelectorAll(`[data-hud="${k}"]`).forEach((e) => (e.textContent = v));
+  if (h.score > (hud.last || 0)) m.querySelectorAll(".bba-score").forEach((e) => { e.classList.remove("is-bump"); void e.offsetWidth; e.classList.add("is-bump"); });
+  hud.last = h.score;
   set("score", fmt(h.score)); set("score2", fmt(h.score));
   set("level", h.level); set("level2", h.level);
   set("lines", t("linesOf", { n: h.lines, m: h.target })); set("lines2", t("linesOf", { n: h.lines, m: h.target }));

@@ -268,3 +268,28 @@
   .bba-brand span { display: none; }
   .bba-brand b { font-size: 22px; }
 }
+
+/* ---------- excitement: callouts over the board, danger glow, score bump (presentation only) ---------- */
+.bba-call { position: absolute; left: 50%; top: 38%; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: none; text-align: center; white-space: nowrap; animation: bba-call 1s cubic-bezier(.2, .9, .3, 1.2) both; }
+.bba-call b { font-family: var(--b-display); font-weight: 400; font-size: clamp(26px, 6vw, 44px); line-height: 1; text-transform: uppercase; color: var(--b-mustard); -webkit-text-stroke: 2px var(--b-ink); paint-order: stroke fill; text-shadow: 3px 3px 0 var(--b-ink); }
+.bba-call span { font-family: var(--b-mono); font-weight: 700; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--b-white); background: var(--b-red); border: 2px solid var(--b-ink); padding: 3px 8px 2px; }
+.bba-call-big b { font-size: clamp(36px, 9vw, 64px); color: var(--b-white); text-shadow: 4px 4px 0 var(--b-red), 7px 7px 0 var(--b-ink); }
+.bba-call-big, .bba-call-level { animation-duration: 1.5s; }
+.bba-call-level b { color: var(--b-white); text-shadow: 3px 3px 0 var(--b-red); }
+@keyframes bba-call {
+  0% { transform: translate(-50%, -50%) scale(.4) rotate(-6deg); opacity: 0; }
+  14% { transform: translate(-50%, -50%) scale(1.12) rotate(2deg); opacity: 1; }
+  24% { transform: translate(-50%, -50%) scale(1) rotate(-1deg); }
+  75% { transform: translate(-50%, -62%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -80%) scale(.96); opacity: 0; }
+}
+.bba-danger .bba-board { animation: bba-danger .9s ease-in-out infinite alternate; }
+@keyframes bba-danger { from { box-shadow: 0 0 0 2px #D2412C, 0 0 10px 2px rgba(210,65,44,.35); } to { box-shadow: 0 0 0 3px #FF5A3C, 0 0 22px 6px rgba(255,90,60,.55); } }
+.bba-score.is-bump { animation: bba-bump .28s cubic-bezier(.2, .9, .3, 1.4); }
+@keyframes bba-bump { 0% { transform: scale(1); } 40% { transform: scale(1.18); color: var(--b-ink); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .bba-call { animation: bba-call-still 1s linear both; }
+  @keyframes bba-call-still { 0%, 80% { transform: translate(-50%, -50%); opacity: 1; } 100% { transform: translate(-50%, -50%); opacity: 0; } }
+  .bba-danger .bba-board { animation: none; box-shadow: 0 0 0 3px #FF5A3C; }
+  .bba-score.is-bump { animation: none; }
+}

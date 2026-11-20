@@ -3,6 +3,8 @@
 import { createGame, applyInput, step, resume, replay, digest, previewQueue, linesForNextLevel, INPUT, RULES } from "./engine.js";
 import { sizeCanvas, drawBoard, drawPreview } from "./render.js";
 import { api, ApiError } from "./api.js";
+import { sfx, music, setAudioEnabled } from "./sound.js";
+import { t } from "./i18n.js";
 
 const TICK_MS = 1000 / RULES.hz;
 const DAS = 10; // ticks before a held left/right repeats
@@ -10,27 +12,13 @@ const ARR = 2; // ticks between repeats
 const CHECKPOINT_TICKS = 300; // about every 5 seconds of play
 const VIS = RULES.visibleRows;
 
-// ---------- sound (short, quiet, optional) ----------
-let audio = null;
-function beep(kind) {
-  if (!Game.soundOn) return;
-  try {
-    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
-    const o = audio.createOscillator(), g = audio.createGain();
-    const f = { move: 220, rotate: 330, lock: 140, hard: 110, clear: 660, hold: 260, level: 880 }[kind] || 200;
-    o.type = kind === "clear" || kind === "level" ? "square" : "triangle";
-    o.frequency.value = f;
-    g.gain.value = 0.035;
-    g.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + (kind === "clear" ? 0.25 : 0.07));
-    o.connect(g).connect(audio.destination);
-    o.start();
-    o.stop(audio.currentTime + 0.3);
-  } catch {}
-}
+// ---------- sound: music and effects (sound.js), all behind the Sound switch ----------
+// Presentation only: nothing here changes the rules, so the server's replay is unaffected.
+const SPARK = ["#FFE79A", "#F6C431", "#FFB09C", "#F2B48A", "#FFF3D6", "#B8EB8C"];
 
 export class Game {
   static soundOn = (() => { try { return localStorage.getItem("bba-sound") !== "off"; } catch { return true; } })();
-  static setSound(on) { Game.soundOn = on; try { localStorage.setItem("bba-sound", on ? "on" : "off"); } catch {} }
+  static setSound(on) { Game.soundOn = on; setAudioEnabled(on); try { localStorage.setItem("bba-sound", on ? "on" : "off"); } catch {} }
 
   constructor({ run, els, hooks, reduceMotion }) {
     this.run = run;
@@ -46,6 +34,11 @@ export class Game {
     this.seq = run.checkpoint.seq;
     this.lastSnapTick = run.checkpoint.tick;
     this.flash = null;
+    this.sparks = []; // line-clear sparks (not under reduced motion)
+    this.shake = null; // { until, mag }
+    this.combo = 0; // clears in a row
+    this.clearedThisLock = false;
+    setAudioEnabled(Game.soundOn);
     this.acc = 0;
     this.last = 0;
     this.pausedAt = Date.now();
@@ -81,8 +74,8 @@ export class Game {
     if (p === this.paused) return;
     this.paused = p;
     this.pausedAt = p ? Date.now() : 0;
-    if (p) { cancelAnimationFrame(this.raf); this.raf = 0; this.release(INPUT.SOFT_ON); this.held.clear(); }
-    else { this.last = performance.now(); this.acc = 0; this.raf = requestAnimationFrame(this.frame); }
+    if (p) { cancelAnimationFrame(this.raf); this.raf = 0; this.release(INPUT.SOFT_ON); this.held.clear(); music.pause(); }
+    else { this.last = performance.now(); this.acc = 0; this.raf = requestAnimationFrame(this.frame); music.start(this.st.level); }
     this.hooks.onPauseChange && this.hooks.onPauseChange(this.paused);
     if (p) this.snapshot(); // a pause saves where the board is, even with no new moves
   }
@@ -141,26 +134,94 @@ export class Game {
   }
 
   react() {
+    const levelBefore = this.levelSeen || this.st.level;
     for (const e of this.st.events) {
       if (e.type === "clear") {
-        beep(e.n >= 4 ? "level" : "clear");
+        this.clearedThisLock = true;
+        this.combo++;
+        sfx("clear", { n: e.n, combo: this.combo - 1 });
         const rows = e.rows.map((y) => y - RULES.hiddenRows).filter((y) => y >= 0);
-        const dur = this.reduceMotion ? 90 : 180;
-        this.flash = { rows, until: performance.now() + dur, dur };
-      } else if (e.type === "hard") beep("hard");
-      else if (e.type === "lock") beep("lock");
-      else if (e.type === "rotate") beep("rotate");
-      else if (e.type === "hold") beep("hold");
+        const dur = this.reduceMotion ? 90 : (e.n >= 4 ? 320 : 200);
+        this.flash = { rows, until: performance.now() + dur, dur, big: e.n >= 4 };
+        this.burst(rows, e.n);
+        this.callout(t("pop" + Math.min(4, e.n)), this.combo >= 2 ? t("popCombo", { n: this.combo }) : "", e.n >= 4 ? "big" : "");
+        if (e.n >= 4) this.quake(7, 320); else if (e.n >= 2) this.quake(3, 160);
+      } else if (e.type === "hard") { sfx("hard"); this.hardThisLock = true; if (e.n > 2) this.quake(2, 90); }
+      else if (e.type === "lock") {
+        if (!this.clearedThisLock) { this.combo = 0; if (!this.hardThisLock) sfx("lock"); }
+        this.clearedThisLock = false;
+        this.hardThisLock = false;
+      }
+      else if (e.type === "rotate") sfx("rotate");
+      else if (e.type === "hold") sfx("hold");
     }
     this.st.events.length = 0;
+    if (this.st.level > levelBefore) {
+      sfx("level");
+      music.setLevel(this.st.level);
+      setTimeout(() => this.callout(t("popLevel", { n: this.st.level }), t("popFaster"), "level"), 420);
+    }
+    this.levelSeen = this.st.level;
+    this.dangerCheck();
     this.hooks.onHud && this.hooks.onHud(this.hud());
+  }
+
+  // ---------- excitement: callouts, sparks, shake, danger ----------
+  callout(text, sub = "", kind = "") {
+    const wrap = this.els.wrap;
+    if (!wrap || !text) return;
+    const el = document.createElement("div");
+    el.className = "bba-call" + (kind ? " bba-call-" + kind : "");
+    el.setAttribute("aria-hidden", "true");
+    el.innerHTML = `<b></b>${sub ? "<span></span>" : ""}`;
+    el.firstChild.textContent = text;
+    if (sub) el.lastChild.textContent = sub;
+    wrap.querySelectorAll(".bba-call").forEach((o) => o.remove());
+    wrap.appendChild(el);
+    setTimeout(() => el.remove(), kind === "big" || kind === "level" ? 1500 : 1000);
+  }
+  burst(rows, n) {
+    if (this.reduceMotion || !this.cell) return;
+    const c = this.cell, now = performance.now();
+    for (const r of rows) {
+      for (let i = 0; i < (n >= 4 ? 18 : 10); i++) {
+        this.sparks.push({
+          x: Math.random() * c * RULES.width, y: (r + 0.5) * c,
+          vx: (Math.random() - 0.5) * c * 0.5, vy: -(0.2 + Math.random() * 0.5) * c,
+          s: Math.max(2, Math.round(c / (n >= 4 ? 4 : 5))), col: SPARK[(Math.random() * SPARK.length) | 0],
+          born: now, life: 550 + Math.random() * 350,
+        });
+      }
+    }
+    if (this.sparks.length > 400) this.sparks.splice(0, this.sparks.length - 400);
+  }
+  quake(mag, ms) {
+    if (this.reduceMotion) return;
+    this.shake = { mag, until: performance.now() + ms, ms };
+  }
+  dangerCheck() {
+    const b = this.st.board, W = RULES.width, top = RULES.hiddenRows;
+    let high = false;
+    for (let i = top * W; i < (top + 4) * W; i++) if (b[i]) { high = true; break; }
+    if (high !== this.danger) {
+      this.danger = high;
+      music.setDanger(high);
+      this.els.wrap && this.els.wrap.classList.toggle("bba-danger", high);
+    }
   }
 
   phaseChanged() {
     this.setPaused(true);
     this.snapshot();
-    if (this.st.phase === "milestone") this.flush().then((run) => run && this.hooks.onMilestone(run));
-    else if (this.st.phase === "over") this.hooks.onOver();
+    if (this.st.phase === "milestone") {
+      sfx("level");
+      music.stop();
+      this.flush().then((run) => run && this.hooks.onMilestone(run));
+    } else if (this.st.phase === "over") {
+      music.stop();
+      sfx("over");
+      this.hooks.onOver();
+    }
   }
 
   hud() {
@@ -178,6 +239,23 @@ export class Game {
   draw(now = performance.now()) {
     if (!this.ctx) return;
     drawBoard(this.ctx, this.dpr, this.st, this.cell, { flash: this.flash, now });
+    if (this.sparks.length) {
+      const ctx = this.ctx;
+      this.sparks = this.sparks.filter((p) => now - p.born < p.life);
+      for (const p of this.sparks) {
+        const k = (now - p.born) / 1000;
+        const x = p.x + p.vx * k, y = p.y + p.vy * k + 0.5 * this.cell * 9 * k * k;
+        ctx.globalAlpha = Math.max(0, 1 - (now - p.born) / p.life);
+        ctx.fillStyle = p.col;
+        ctx.fillRect(Math.round(x), Math.round(y), p.s, p.s);
+      }
+      ctx.globalAlpha = 1;
+    }
+    const board = this.els.board;
+    if (this.shake && now < this.shake.until) {
+      const m = this.shake.mag * ((this.shake.until - now) / this.shake.ms);
+      board.style.transform = `translate(${Math.round((Math.random() - 0.5) * 2 * m)}px, ${Math.round((Math.random() - 0.5) * 2 * m)}px)`;
+    } else if (this.shake) { this.shake = null; board.style.transform = ""; }
     const h = this.hud();
     const key = h.next.join("") + "|" + h.hold + (h.holdUsed ? 1 : 0) + "|" + this.cell;
     if (key !== this.prevKey) {
@@ -290,6 +368,7 @@ export class Game {
   }
 
   destroy() {
+    music.stop();
     this.stopped = true;
     cancelAnimationFrame(this.raf);
     this.ro.disconnect();
