@@ -7,8 +7,8 @@ import { sfx, music, setAudioEnabled } from "./sound.js";
 import { t } from "./i18n.js";
 
 const TICK_MS = 1000 / RULES.hz;
-const DAS = 10; // ticks before a held left/right repeats
-const ARR = 2; // ticks between repeats
+const DAS = 8; // ticks before a held left/right repeats
+const ARR = 1; // ticks between repeats
 const CHECKPOINT_TICKS = 300; // about every 5 seconds of play
 const VIS = RULES.visibleRows;
 

@@ -9,7 +9,8 @@
 // render.js; it never changes collision). Rotation: SRS with its kick tables.
 // Randomiser: seven-bag on a seeded mulberry32.
 
-export const RULES_VERSION = "bb-1";
+// bb-2 (20 Nov 2026): quicker — level 1 falls a row every 0.5 s (was 0.9 s), soft drop 1 row a tick.
+export const RULES_VERSION = "bb-2";
 
 export const RULES = Object.freeze({
   version: RULES_VERSION,
@@ -19,7 +20,7 @@ export const RULES = Object.freeze({
   hz: 60,
   lockDelayTicks: 30,
   maxLockResets: 15,
-  softDropInterval: 2, // ticks per row while soft drop is held
+  softDropInterval: 1, // ticks per row while soft drop is held
   lineScores: [0, 100, 300, 500, 800], // × level at lock
   softDropPoints: 1, // per cell
   hardDropPoints: 2, // per cell
@@ -96,7 +97,7 @@ export function linesForNextLevel(level) {
   return level <= 1 ? RULES.milestoneLines : RULES.milestoneLines + (level - 1) * 10;
 }
 export function gravityTicks(level) {
-  return Math.max(4, Math.round(54 * Math.pow(0.82, level - 1)));
+  return Math.max(3, Math.round(30 * Math.pow(0.8, level - 1)));
 }
 
 // ---------- seeded random ----------
