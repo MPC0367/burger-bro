@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="bb-arcade-play" content="https://burger-bro-arcade.wild-wind-8d55.workers.dev/burger-bro/arcade/play.html">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Burger Bro! — homemade American burgers, Rama 9 &amp; Pattanakarn, Bangkok</title>
@@ -343,6 +344,10 @@ body[data-lang="th"] .sheet-links a { font-family: var(--font-display-th); font-
 .sheet-acts { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .sheet-arcade { display: inline-flex; align-items: center; gap: 10px; background: var(--paper); color: var(--ink); cursor: pointer; }
 .sheet-meta { color: var(--white); opacity: .8; }
+
+/* beta: the arcade is open to testers only; the tag goes when it opens to everyone */
+.beta-tag { display: inline-block; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .1em; line-height: 1; padding: 3px 4px 2px; background: var(--ink); color: var(--mustard); text-transform: uppercase; }
+.nav-arcade .beta-tag { position: absolute; top: -9px; right: -12px; pointer-events: none; border: 1px solid var(--mustard); }
 
 /* ---------- arcade entry: the emblem (desktop), the action row (phones) ----------
    every entry is a <button data-arcade-open>; the script loads the arcade only on a press */
@@ -1446,6 +1451,7 @@ html.shot-full .cinema { height: 980px; }
     <button type="button" class="nav-arcade" data-arcade-open aria-label="Win a coupon" data-i18n-aria="arcade.win">
       <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
       <span class="nav-arcade-txt" aria-hidden="true" data-i18n="arcade.win">Win a coupon</span>
+      <span class="beta-tag">Beta</span>
     </button>
     <a class="btn btn-red nav-order" href="#order" data-i18n="nav.order">Order</a>
     <button class="burger-btn" id="burgerBtn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
@@ -1460,6 +1466,7 @@ html.shot-full .cinema { height: 980px; }
   <button type="button" class="btn btn-mustard mob-act-arcade" data-arcade-open>
     <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
     <span data-i18n="arcade.win">Win a coupon</span>
+      <span class="beta-tag">Beta</span>
   </button>
 </div>
 
@@ -1476,6 +1483,7 @@ html.shot-full .cinema { height: 980px; }
     <button type="button" class="btn sheet-arcade" data-arcade-open>
       <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
       <span data-i18n="arcade.win">Win a coupon</span>
+      <span class="beta-tag">Beta</span>
     </button>
   </div>
   <p class="sheet-meta mono" data-i18n="nav.meta">DAILY FROM 11:00 · FRI–SAT TILL 02:00 · RAMA 9 SOI 49</p>
