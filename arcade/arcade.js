@@ -21,6 +21,7 @@ const bkk = (iso, withTime = false) => new Date(iso).toLocaleString(lang() === "
 const reward = () => (state.session && state.session.reward) || null;
 const benefit = () => (reward() ? pick(reward(), "benefit") : "");
 const isGuest = () => !!(state.session && state.session.me && state.session.me.guest);
+const phoneOn = () => !!(state.session && state.session.sms && state.session.sms.enabled !== false);
 const lineOn = () => !!(state.session && state.session.line && state.session.line.enabled);
 // A note carried back from LINE (?line=…) on the play page.
 function lineNote() {
@@ -162,7 +163,7 @@ function noteBox(key) { return key ? `<p class="bba-note" role="status">${esc(t(
 function lineButton() {
   if (!lineOn()) return "";
   return `<a class="bba-btn bba-line bba-wide" href="${esc(apiBase() + "auth/line/start")}"><span class="bba-line-mark" aria-hidden="true">LINE</span> ${esc(t("lineBtn"))}</a>
-    <p class="bba-fine">${esc(t("linePrivacy"))}</p><p class="bba-or bba-mono">${esc(t("orPhone"))}</p>`;
+    <p class="bba-fine">${esc(t("linePrivacy"))}</p>${phoneOn() ? `<p class="bba-or bba-mono">${esc(t("orPhone"))}</p>` : ""}`;
 }
 
 const COUNTRIES = [["TH", "+66"], ["LA", "+856"], ["KH", "+855"], ["MM", "+95"], ["MY", "+60"], ["SG", "+65"], ["VN", "+84"], ["CN", "+86"], ["HK", "+852"], ["JP", "+81"], ["KR", "+82"], ["IN", "+91"], ["GB", "+44"], ["US", "+1"], ["AU", "+61"]];
@@ -184,7 +185,7 @@ const VIEWS = {
         ${reward() ? `<p class="bba-welcome">${esc(t("startLead", { n: fmt(reward().target), benefit: benefit() }))}</p>` : ""}
         <div class="bba-actions">
           <button type="button" class="bba-btn bba-red bba-big" data-act="playGuest" data-autofocus>${esc(t("playNow"))}</button>
-          <button type="button" class="bba-btn" data-act="toSignin">${esc(t("signInSave"))}</button>
+          ${lineOn() || phoneOn() ? `<button type="button" class="bba-btn" data-act="toSignin">${esc(t("signInSave"))}</button>` : ""}
         </div>
         ${noteBox(d.note)}${d.error ? errorBox(d.error) : ""}
       </div>
@@ -194,10 +195,11 @@ const VIEWS = {
   signup: (d = {}) => `<section class="bba-onb">
     <p class="bba-kick">${esc(t("kicker"))}</p>
     <h1 class="bba-h">${esc(isGuest() ? t("saveTitle") : t("signupTitle"))}</h1>
-    <p class="bba-sub bba-mono">${esc(isGuest() ? t("saveLead") : t("signupSub"))}</p>
+    <p class="bba-sub bba-mono">${esc(isGuest() ? t("saveLead") : phoneOn() ? t("signupSub") : t("lineSub"))}</p>
     ${noteBox(d.note)}
     ${isGuest() || d.signin ? "" : `<p><button type="button" class="bba-link" data-act="${state.session && state.session.me ? "toLobby" : "toStart"}">← ${esc(t("back"))}</button></p>`}
-    <div class="bba-card bba-step">${lineButton()}
+    <div class="bba-card bba-step">${lineButton()}${lineOn() || phoneOn() ? "" : `<p>${esc(t("err_phone_disabled"))}</p>`}
+      <div ${phoneOn() ? "" : "hidden"}>
       <span class="bba-tag">${esc(t("step1"))}</span>
       <h2 class="bba-h2">${d.signin ? esc(t("signInTitle")) : esc(t("pickName"))}</h2>
       <p>${d.signin ? esc(t("signInLead")) : esc(t("pickNameLead"))}</p>
@@ -212,6 +214,7 @@ const VIEWS = {
       </form>
       <button type="button" class="bba-link" data-act="${d.signin ? "toSignup" : "toSignin"}">${esc(d.signin ? t("newPlayer") : t("already"))}</button>
       <p class="bba-fine">${esc(t("privacy"))}</p>
+      </div>
     </div></section>`,
 
   code: (d) => `<section class="bba-onb">
