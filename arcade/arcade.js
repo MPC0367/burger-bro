@@ -3,7 +3,7 @@
 import { api, available, opKey, ApiError, apiBase } from "./api.js";
 import { t, lang, errText } from "./i18n.js";
 import { Game, INPUT } from "./game.js";
-import { unlockAudio, sfx } from "./sound.js";
+import { unlockAudio, sleepAudio, sfx } from "./sound.js";
 
 const CSS_ID = "bba-css";
 let root = null; // the <dialog>
@@ -77,6 +77,7 @@ async function closeArcade() {
     state.game = null;
   }
   detachKeys();
+  sleepAudio();
   if (root && root.open) root.close();
   document.body.classList.remove("bba-open");
   document.dispatchEvent(new CustomEvent("bb:arcade-close"));
@@ -115,7 +116,8 @@ function build() {
   });
   document.addEventListener("visibilitychange", () => { if (document.hidden && state.game) state.game.setPaused(true); });
   // Browsers allow sound only after a press: wake the audio on the first one.
-  for (const ev of ["pointerdown", "keydown"]) document.addEventListener(ev, unlockAudio, { capture: true, passive: true });
+  // touchend and click are what iOS Safari accepts as the gesture that may start audio.
+  for (const ev of ["pointerdown", "touchend", "click", "keydown"]) document.addEventListener(ev, unlockAudio, { capture: true, passive: true });
   paintBar();
 }
 
@@ -285,6 +287,9 @@ const VIEWS = {
       <div class="bba-wrap"><canvas class="bba-board" role="img" aria-label="${esc(t("title"))}"></canvas>
         <div class="bba-pausecard" hidden><p class="bba-h3">${esc(t("paused"))}</p><button type="button" class="bba-btn bba-red" data-act="resumeGame">${esc(t("resumeGame"))}</button>
           <button type="button" class="bba-btn" data-act="endRun">${esc(t("endRun"))}</button><p class="bba-fine bba-idle"></p></div>
+        <div class="bba-gesture" hidden><p class="bba-h3">${esc(t("gestTitle"))}</p>
+          <ul><li><b>${esc(t("gestTap"))}</b> ${esc(t("rotate"))}</li><li><b>${esc(t("gestDrag"))}</b> ${esc(t("gestMove"))}</li><li><b>${esc(t("gestDown"))}</b> ${esc(t("drop"))}</li><li><b>${esc(t("gestUp"))}</b> ${esc(t("hold"))}</li></ul>
+          <button type="button" class="bba-btn bba-red" data-act="gestOk">${esc(t("gestOk"))}</button></div>
       </div>
       <p class="bba-cab-t bba-mono bba-status" aria-live="polite"></p>
     </div>
@@ -293,14 +298,14 @@ const VIEWS = {
       <div class="bba-card bba-week" data-week></div>
       <div class="bba-ctlrow"><button type="button" class="bba-btn" data-act="pauseGame">${esc(t("pause"))}</button></div>
     </aside>
-    <div class="bba-pad" aria-label="Controls">
-      <button type="button" class="bba-pb" data-in="${INPUT.LEFT}">${esc(t("left"))}</button>
-      <button type="button" class="bba-pb" data-in="${INPUT.RIGHT}">${esc(t("right"))}</button>
-      <button type="button" class="bba-pb bba-pb-rot" data-in="${INPUT.CW}">${esc(t("rotate"))}</button>
-      <button type="button" class="bba-pb bba-pb-drop" data-in="${INPUT.HARD}">${esc(t("drop"))}</button>
-      <button type="button" class="bba-pb" data-in="${INPUT.HOLD}">${esc(t("hold"))}</button>
-      <button type="button" class="bba-pb" data-in="${INPUT.SOFT_ON}">${esc(t("soft"))}</button>
-      <button type="button" class="bba-pb bba-pb-p" data-act="pauseGame">${esc(t("pause"))}</button>
+    <div class="bba-pad" role="group" aria-label="${esc(t("controls"))}">
+      <button type="button" class="bba-pb bba-pb-mv" data-in="${INPUT.LEFT}" aria-label="${esc(t("left"))}">${ICON.left}</button>
+      <button type="button" class="bba-pb bba-pb-mv" data-in="${INPUT.SOFT_ON}" aria-label="${esc(t("soft"))}">${ICON.down}</button>
+      <button type="button" class="bba-pb bba-pb-mv" data-in="${INPUT.RIGHT}" aria-label="${esc(t("right"))}">${ICON.right}</button>
+      <button type="button" class="bba-pb bba-pb-rot" data-in="${INPUT.CW}" aria-label="${esc(t("rotate"))}">${ICON.rot}<span class="bba-pl">${esc(t("rotate"))}</span></button>
+      <button type="button" class="bba-pb bba-pb-drop" data-in="${INPUT.HARD}" aria-label="${esc(t("drop"))}">${ICON.drop}<span class="bba-pl">${esc(t("drop"))}</span></button>
+      <button type="button" class="bba-pb bba-pb-s bba-pb-hold" data-in="${INPUT.HOLD}">${ICON.hold}<span>${esc(t("hold"))}</span></button>
+      <button type="button" class="bba-pb bba-pb-s bba-pb-p" data-act="pauseGame">${ICON.pause}<span>${esc(t("pause"))}</span></button>
     </div>
   </section>`,
 
@@ -547,6 +552,14 @@ function howToText() {
   return reward() ? t("howToBodyScore", { n: fmt(reward().target), benefit: benefit() }) : t("howToBody");
 }
 
+// Control-pad icons: drawn shapes, so every phone shows the same thing.
+const svg = (d) => `<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="square" stroke-linejoin="miter">${d}</svg>`;
+const ICON = {
+  left: svg('<path d="M15 4l-8 8 8 8"/>'), right: svg('<path d="M9 4l8 8-8 8"/>'), down: svg('<path d="M4 9l8 8 8-8"/>'),
+  drop: svg('<path d="M5 4l7 7 7-7M5 11l7 7 7-7M4 22h16"/>'), rot: svg('<path d="M19 12a7 7 0 1 1-2-5"/><path d="M19 3v5h-5"/>'),
+  hold: svg('<rect x="4" y="6" width="16" height="12"/><path d="M9 12h6"/>'), pause: svg('<path d="M9 5v14M15 5v14"/>'),
+};
+
 // ---------- the game view ----------
 function mountGame() {
   const m = main();
@@ -563,6 +576,7 @@ function mountGame() {
   }
   attachKeys();
   wireTouch(m);
+  wireGestures(m);
   wrap.setAttribute("tabindex", "-1");
   wrap.focus({ preventScroll: true });
   hud(state.game.hud());
@@ -572,7 +586,8 @@ function mountGame() {
   // A run whose board had already topped out (its finish was interrupted): finish it now
   // instead of leaving a full board with nothing to press.
   if (state.game.st.phase === "over") { finishRun("over"); return; }
-  if (state.game.st.phase === "play") setTimeout(() => state.game && state.view === "game" && state.game.start(), 300);
+  // A first-time phone player reads the gesture card first; "Got it" starts the game.
+  if (state.game.st.phase === "play" && !m.querySelector(".bba-gesture:not([hidden])")) setTimeout(() => state.game && state.view === "game" && state.game.start(), 300);
 }
 
 function gameEls(m) {
@@ -657,7 +672,8 @@ function hud(h) {
 function paintPause(paused) {
   const card = main().querySelector(".bba-pausecard");
   if (!card || state.view !== "game") return;
-  const show_ = paused && state.game && state.game.st.phase === "play";
+  const hint = main().querySelector(".bba-gesture:not([hidden])");
+  const show_ = paused && state.game && state.game.st.phase === "play" && !hint;
   card.hidden = !show_;
   clearTimeout(idleTimer);
   if (show_) {
@@ -709,6 +725,60 @@ function wireTouch(m) {
     b.addEventListener("lostpointercapture", up);
     b.addEventListener("click", (e) => { if (e.detail === 0 && state.game) { state.game.press(code); state.game.release(code); } }); // keyboard on the pad
   });
+}
+
+// Touch on the board: tap rotates, drag left/right moves a column per cell of finger
+// travel, drag down soft-drops, a quick flick down drops, a flick up holds. Every gesture
+// becomes the same inputs as the keys, so the server checks it the same way.
+const seenHint = () => { try { return localStorage.getItem("bba-gest") === "1"; } catch { return false; } };
+function hideHint(m) {
+  const h = m.querySelector(".bba-gesture");
+  if (h && !h.hidden) { h.hidden = true; try { localStorage.setItem("bba-gest", "1"); } catch {} }
+}
+function wireGestures(m) {
+  const wrap = m.querySelector(".bba-wrap");
+  if (!wrap || wrap.dataset.gest) return;
+  wrap.dataset.gest = "1";
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+  if (coarse && !seenHint()) { const h = m.querySelector(".bba-gesture"); if (h) h.hidden = false; }
+  actions.gestOk = () => { hideHint(m); state.game && state.game.st.phase === "play" && state.game.start(); };
+  let g = null;
+  const tap = (code) => { const gm = state.game; if (!gm) return; gm.press(code); gm.release(code); };
+  wrap.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" || e.target.closest("button, .bba-gesture, .bba-pausecard")) return;
+    const gm = state.game;
+    if (!gm || gm.st.phase !== "play") return;
+    e.preventDefault();
+    if (gm.paused) { gm.start(); return; }
+    hideHint(m);
+    try { wrap.setPointerCapture(e.pointerId); } catch {}
+    g = { id: e.pointerId, x0: e.clientX, y0: e.clientY, x: e.clientX, t0: performance.now(), moved: false, soft: false, last: [e.clientY, performance.now()] };
+  });
+  wrap.addEventListener("pointermove", (e) => {
+    if (!g || e.pointerId !== g.id || !state.game) return;
+    const cell = Math.max(14, (state.game.cell || 24) * 0.85);
+    while (e.clientX - g.x >= cell) { tap(INPUT.RIGHT); g.x += cell; g.moved = true; }
+    while (g.x - e.clientX >= cell) { tap(INPUT.LEFT); g.x -= cell; g.moved = true; }
+    const dy = e.clientY - g.y0, dx = Math.abs(e.clientX - g.x0);
+    if (!g.soft && dy > cell * 1.5 && dy > dx * 1.5) { g.soft = true; state.game.press(INPUT.SOFT_ON); }
+    g.last = [e.clientY, performance.now(), g.last[0], g.last[1]];
+  });
+  const end = (e) => {
+    if (!g || e.pointerId !== g.id) return;
+    const gm = state.game, done = g; g = null;
+    if (!gm) return;
+    const dt = performance.now() - done.t0, dx = e.clientX - done.x0, dy = e.clientY - done.y0;
+    const cell = Math.max(14, (gm.cell || 24) * 0.85);
+    // Speed over the last few moves, in px per ms: a flick, not a slow drag.
+    const [y1, t1, y0, t0] = done.last, v = t0 ? (y1 - y0) / Math.max(1, t1 - t0) : dy / Math.max(1, dt);
+    if (done.soft) gm.release(INPUT.SOFT_ON);
+    if (e.type === "pointercancel") return;
+    if (dy > cell * 2 && v > 0.9 && Math.abs(dx) < dy) tap(INPUT.HARD);
+    else if (-dy > cell * 2 && Math.abs(dx) < -dy) tap(INPUT.HOLD);
+    else if (!done.moved && !done.soft && Math.abs(dx) < 12 && Math.abs(dy) < 12 && dt < 350) tap(INPUT.CW);
+  };
+  wrap.addEventListener("pointerup", end);
+  wrap.addEventListener("pointercancel", end);
 }
 
 async function loadWeekMini() {

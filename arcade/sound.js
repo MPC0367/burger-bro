@@ -18,15 +18,54 @@ function ctx() {
   return ac;
 }
 
-// Browsers start audio only after a press; call this from any pointer or key press.
+// Phones start audio only inside a tap, and an iPhone with its side switch on silent mutes
+// Web Audio. Call this from every tap and key press: it wakes the audio context inside the
+// gesture, plays one silent sample (what iOS needs to count it as unlocked), and asks iOS to
+// treat the game as media so it plays with the switch on silent (audioSession on iOS 17+;
+// on older iOS a silent looping <audio> element does the same job).
+let unlocked = false, keeper = null;
+function silentWav() {
+  // 0.5 s of silence, 8 kHz mono 8-bit: a few kB, made here so no file is fetched.
+  const n = 4000, b = new Uint8Array(44 + n), v = new DataView(b.buffer);
+  const str = (o, t) => { for (let i = 0; i < t.length; i++) b[o + i] = t.charCodeAt(i); };
+  str(0, "RIFF"); v.setUint32(4, 36 + n, true); str(8, "WAVEfmt "); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); str(36, "data"); v.setUint32(40, n, true);
+  b.fill(128, 44);
+  return URL.createObjectURL(new Blob([b], { type: "audio/wav" }));
+}
 export function unlockAudio() {
   if (!enabled) return;
-  try { const a = ctx(); if (a && a.state === "suspended") a.resume(); } catch {}
+  try {
+    if (navigator.audioSession && navigator.audioSession.type !== "playback") navigator.audioSession.type = "playback";
+    else if (!navigator.audioSession && !keeper && /iP(hone|ad|od)|Macintosh/.test(navigator.userAgent) && "ontouchend" in document) {
+      keeper = new Audio(silentWav());
+      keeper.loop = true; keeper.setAttribute("playsinline", ""); keeper.volume = 0.01;
+      keeper.play().catch(() => { keeper = null; });
+    } else if (keeper && keeper.paused) keeper.play().catch(() => {});
+    const a = ctx(); if (!a) return;
+    if (a.state !== "running") a.resume();
+    if (!unlocked) {
+      const src = a.createBufferSource();
+      src.buffer = a.createBuffer(1, 1, 22050);
+      src.connect(a.destination); src.start(0);
+      unlocked = true;
+    }
+  } catch {}
+}
+// iOS puts the audio "interrupted" after a call or a trip to another app: wake it on return.
+if (typeof document !== "undefined") document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && ac && ac.state !== "running" && enabled && music.wanted) ac.resume().catch(() => {});
+});
+
+// The arcade closed or sound was switched off: let the phone's audio go back to normal.
+export function sleepAudio() {
+  music.stop();
+  if (keeper) keeper.pause();
 }
 
 export function setAudioEnabled(on) {
   enabled = on;
-  if (!on) music.pause();
+  if (!on) { music.pause(); if (keeper) keeper.pause(); }
   else if (music.wanted) music.start(music.level);
 }
 
@@ -69,7 +108,7 @@ export const music = {
     this.wanted = true; this.level = level;
     if (!enabled || this.playing) return;
     const a = ctx(); if (!a) return;
-    if (a.state === "suspended") a.resume();
+    if (a.state !== "running") a.resume();
     this.playing = true;
     this.next = a.currentTime + 0.06;
     musicBus.gain.cancelScheduledValues(a.currentTime);
@@ -113,7 +152,7 @@ export const music = {
 export function sfx(kind, opt = {}) {
   if (!enabled) return;
   const a = ctx(); if (!a) return;
-  if (a.state === "suspended") a.resume();
+  if (a.state !== "running") a.resume();
   const t = a.currentTime + 0.005;
   try {
     switch (kind) {
