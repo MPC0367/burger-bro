@@ -211,6 +211,14 @@ export class Game {
   }
 
   phaseChanged() {
+    // Score mode: the run already chose to keep stacking, so Level 1 is only a moment.
+    if (this.st.phase === "milestone" && this.run.choice === "continue") {
+      this.snapshot();
+      resume(this.st);
+      sfx("level");
+      this.callout(t("clear"), t("popFaster"), "level");
+      return;
+    }
     this.setPaused(true);
     this.snapshot();
     if (this.st.phase === "milestone") {
@@ -288,6 +296,7 @@ export class Game {
           const r = await api("POST", `runs/${this.run.id}/checkpoint`, s);
           this.snapshots.shift();
           this.run = { ...this.run, ...r.run };
+          this.hooks.onRun && this.hooks.onRun(this.run);
           wait = 1000;
           this.hooks.onStatus && this.hooks.onStatus("ok");
         } catch (e) {
