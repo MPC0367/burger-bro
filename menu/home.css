@@ -1365,5 +1365,5 @@ html.shot-full .cinema { height: 980px; }
 
 
 /* beta: the arcade is open to testers only; the tag goes when it opens to everyone */
-.beta-tag { display: inline-block; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .1em; line-height: 1; padding: 3px 4px 2px; background: var(--ink); color: var(--mustard); text-transform: uppercase; }
-.nav-arcade .beta-tag { position: absolute; top: -9px; right: -12px; pointer-events: none; border: 1px solid var(--mustard); }
+.beta-tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; line-height: 1; padding: 3px 4px 2px; background: var(--ink); color: var(--mustard); text-transform: uppercase; }
+.nav-arcade .beta-tag { position: absolute; top: -11px; right: -14px; pointer-events: none; border: 1px solid var(--mustard); }
