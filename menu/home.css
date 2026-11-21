@@ -307,6 +307,8 @@ body[data-lang="th"] .sheet-links a { font-family: var(--font-display-th); font-
 .sheet-arcade { display: inline-flex; align-items: center; gap: 10px; background: var(--paper); color: var(--ink); cursor: pointer; }
 .sheet-meta { color: var(--white); opacity: .8; }
 
+/* beta: the arcade is open to testers only; the tag goes when it opens to everyone */
+
 /* ---------- arcade entry: the emblem (desktop), the action row (phones) ----------
    every entry is a <button data-arcade-open>; the script loads the arcade only on a press */
 .arcade-ico { display: block; width: 22px; height: 26px; flex: none; image-rendering: pixelated; }
@@ -1366,5 +1368,3 @@ html.shot-full .cinema { height: 980px; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
-
-/* beta: the arcade is open to testers only; the tag goes when it opens to everyone */
