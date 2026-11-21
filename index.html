@@ -1065,9 +1065,30 @@ body[data-lang="th"] .find-map-bar a { font-size: 14px; letter-spacing: .02em; }
 .order-cta .btn { border-color: var(--white); }
 .order-cta .btn-mustard { border-color: var(--mustard); box-shadow: 6px 6px 0 rgba(241, 166, 43, .35); }
 .order-cta .btn-mustard:hover { box-shadow: 4px 4px 0 rgba(241, 166, 43, .35); }
-.order-social { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 44px; }
-.order-social a { color: rgba(255, 249, 238, .62); text-decoration: none; transition: color .2s; }
-.order-social a:hover { color: var(--mustard); }
+/* social links (21 Nov 2026, the owner: "more visible and prominent"): pressed tiles like the order buttons */
+.order-social { margin-top: 44px; }
+.order-social .order-social-label { color: var(--mustard); margin-bottom: 14px; font-size: 13px; letter-spacing: .14em; }
+body[data-lang="th"] .order-social .order-social-label { font-size: 15px; letter-spacing: .04em; }
+.order-social-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.soc-btn {
+  display: inline-flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 22px 12px 16px;
+  color: var(--white); text-decoration: none; background: rgba(255, 249, 238, .06);
+  border: 2px solid var(--white); box-shadow: 6px 6px 0 rgba(255, 249, 238, .28);
+  transition: transform var(--t-hover) var(--e-out), box-shadow var(--t-hover) var(--e-out), background-color .2s, color .2s;
+}
+.soc-btn:hover { background: var(--mustard); color: var(--ink); border-color: var(--mustard); transform: translate(2px, 2px); box-shadow: 4px 4px 0 rgba(255, 249, 238, .28); }
+.soc-btn:active { transform: translate(6px, 6px); box-shadow: 0 0 0 rgba(255, 249, 238, .28); transition-duration: var(--t-press); }
+.soc-btn .soc-ico { width: 30px; height: 30px; flex: none; }
+.soc-txt { display: flex; flex-direction: column; line-height: 1.15; }
+.soc-txt b { font-family: var(--font-display); font-weight: 400; font-size: 24px; letter-spacing: .02em; text-transform: uppercase; }
+.soc-txt .mono { opacity: .75; margin-top: 4px; text-transform: none; }
+.nav-soc { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--ink); border: 2px solid var(--ink); transition: background-color .2s, color .2s; }
+.nav-soc:hover { background: var(--ink); color: var(--paper); }
+.nav-soc .soc-ico { width: 20px; height: 20px; }
+@media (max-width: 1100px) { .nav-soc { display: none; } }
+.sheet-soc { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.sheet-soc .soc-btn { min-height: 52px; padding: 8px 18px 8px 12px; }
+.sheet-soc .soc-txt b { font-size: 20px; }
 
 .receipt {
   background: var(--paper);
@@ -1270,8 +1291,7 @@ body[data-lang="th"] .order-for { font-size: 14px; letter-spacing: .02em; }
 .order-copy .order-pick { margin-top: 18px; max-width: 54ch; padding: 10px 14px 9px; border: 2px dashed var(--mustard); color: var(--white); font-size: 15px; }
 .order-copy .order-pick[hidden] { display: none; }
 .order-copy .order-note { margin-top: 20px; max-width: 54ch; color: rgba(255, 249, 238, .66); }
-.order-social { row-gap: 0; }
-.order-social a { padding-block: 12px; }
+@media (max-width: 600px) { .order-social-links .soc-btn { flex: 1 1 100%; } }
 .receipt-wrap { display: flex; flex-direction: column; gap: 30px; }
 .receipt-note { text-align: center; font-size: 11px; color: rgba(255, 249, 238, .66); }
 
@@ -1453,6 +1473,8 @@ html.shot-full .cinema { height: 980px; }
     <a href="#find" data-i18n="nav.find">Find us</a>
   </nav>
   <div class="nav-right">
+    <a class="nav-soc" href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener" aria-label="Burger Bro on Facebook" data-i18n-aria="soc.fb"><svg class="soc-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8z"/></svg></a>
+    <a class="nav-soc" href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener" aria-label="Burger Bro on Instagram" data-i18n-aria="soc.ig"><svg class="soc-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></a>
     <button class="lang" id="langBtn" type="button" aria-label="เปลี่ยนเป็นภาษาไทย — switch language">
       <span class="lang-opt is-on" data-l="en">EN</span><span class="lang-sep">/</span><span class="lang-opt" data-l="th">ไทย</span>
     </button>
@@ -1491,6 +1513,10 @@ html.shot-full .cinema { height: 980px; }
       <svg class="arcade-ico" viewBox="0 0 11 13" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="var(--ink)" d="M1 0h9v8h1v3h-1v2H1v-2H0V8h1z"/><rect x="2" y="1" width="7" height="1" fill="var(--mustard)"/><rect x="2" y="3" width="1" height="5" fill="var(--red)"/><rect x="8" y="3" width="1" height="5" fill="var(--red)"/><rect x="3" y="7" width="5" height="1" fill="var(--red)"/><rect x="4" y="4" width="3" height="1" fill="var(--mustard)"/><rect x="4" y="5" width="3" height="1" fill="var(--red)"/><rect x="4" y="6" width="3" height="1" fill="var(--mustard)"/><rect x="1" y="9" width="9" height="1" fill="var(--paper)"/><rect x="2" y="9" width="1" height="1" fill="var(--red)"/><rect x="6" y="9" width="1" height="1" fill="var(--mustard)"/><rect x="8" y="9" width="1" height="1" fill="var(--red)"/><rect x="2" y="11" width="7" height="1" fill="var(--red)"/><rect x="5" y="11" width="1" height="1" fill="var(--mustard)"/></svg>
       <span data-i18n="arcade.win">Win a coupon</span>
     </button>
+  </div>
+  <div class="sheet-soc">
+    <a class="soc-btn" href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener"><svg class="soc-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8z"/></svg><span class="soc-txt"><b>Facebook</b></span></a>
+    <a class="soc-btn" href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener"><svg class="soc-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg><span class="soc-txt"><b>Instagram</b></span></a>
   </div>
   <p class="sheet-meta mono" data-i18n="nav.meta">DAILY FROM 11:00 · FRI–SAT TILL 02:00 · RAMA 9 SOI 49</p>
 </div>
@@ -2025,11 +2051,12 @@ html.shot-full .cinema { height: 980px; }
         <a class="btn btn-ghost" id="orderCall" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
         <a class="btn btn-ghost" id="orderWalk" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
-      <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>PATTANAKARN ISN'T ON GRAB — ORDER ON LINE MAN, IT GOES STRAIGHT TO THE BRANCH. PHONE NOT CONFIRMED YET.</p>
-      <p class="order-handoff" data-i18n="order.handoff">The order button takes you to the delivery app; you choose your food and pay there, not on this site.</p>
-      <div class="order-social mono">
-        <a href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener">FACEBOOK — BURGER BRO</a>
-        <a href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener">IG — @BURGERBRO_ORIGINAL</a>
+      <div class="order-social">
+        <p class="order-social-label mono" data-i18n="soc.follow">FOLLOW THE BRO</p>
+        <div class="order-social-links">
+          <a class="soc-btn" href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener"><svg class="soc-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8z"/></svg><span class="soc-txt"><b>Facebook</b><span class="mono">Burger Bro</span></span></a>
+          <a class="soc-btn" href="https://www.instagram.com/burgerbro_original/" target="_blank" rel="noopener"><svg class="soc-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg><span class="soc-txt"><b>Instagram</b><span class="mono">@burgerbro_original</span></span></a>
+        </div>
       </div>
     </div>
     <div class="receipt-wrap">
@@ -2295,6 +2322,9 @@ window.BB_TH = {
   "order.p": "ส่งถึงหน้าบ้าน หรือมานั่งบูธพร้อมป๊อปคอร์นฟรี — ยังไงคำตอบก็เหมือนเดิม",
   "order.grab": "สั่งผ่าน GRABFOOD",
   "order.lm": "สั่งผ่าน LINE MAN",
+  "soc.follow": "ติดตาม BURGER BRO",
+  "@aria:soc.fb": "Burger Bro บน Facebook",
+  "@aria:soc.ig": "Burger Bro บน Instagram",
   "order.note": "สาขาพัฒนาการไม่มีใน GRAB — สั่งผ่าน LINE MAN ได้เลย พาไปที่สาขาโดยตรง · ยังไม่ได้ยืนยันเบอร์โทร",
   "order.call": "โทร 082-793-8855",
   "order.walk": "เดินเข้าร้าน — แผนที่",

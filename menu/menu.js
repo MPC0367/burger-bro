@@ -353,15 +353,13 @@
       x.setAttribute("aria-pressed", String(x.getAttribute("data-branch") === state.branch));
     });
     document.getElementById("mpOrderFor").textContent = l.orderFor(b);
-    var lm = document.getElementById("mpLineman"), gr = document.getElementById("mpGrab"), note = document.getElementById("mpGrabNote");
+    var lm = document.getElementById("mpLineman"), gr = document.getElementById("mpGrab");
     lm.href = b.lineman;
     gr.hidden = !b.grab; // a branch that isn't on Grab shows no Grab button
     gr.href = b.grab || S.GRAB_SEARCH;
     gr.textContent = b.grab ? l.grab : l.grabFind(b);
     gr.classList.toggle("is-search", !b.grab);
     gr.setAttribute("data-qr", b.grabQr ? "../" + b.grabQr : "");
-    note.hidden = !!b.grab;
-    note.textContent = b.grab ? "" : l.grabNote(b);
   }
   [["mpLineman", "lineman"], ["mpGrab", "grab"]].forEach(function (p) {
     document.getElementById(p[0]).addEventListener("click", function () { track("provider_handoff", { provider: p[1], branch: state.branch }); });
