@@ -106,7 +106,10 @@
 
 /* ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background: var(--paper); }
+/* Past the middle of the page the root takes the footer's ink, so bouncing past the
+   end (Mac trackpad, iPhone) shows dark, not a cream strip; the top keeps the paper. */
+html.at-end { background: var(--ink); }
 html, body { margin: 0; }
 body {
   background: var(--paper);
@@ -4031,6 +4034,18 @@ window.BB_TH = {
       say("The arcade isn't available right now.", "ตอนนี้ยังเล่นเกมไม่ได้ ลองใหม่ภายหลังนะ");
     });
   });
+})();
+</script>
+<script>
+(function () {
+  var root = document.documentElement, on = null;
+  function check() {
+    var end = window.scrollY > (root.scrollHeight - window.innerHeight) / 2;
+    if (end !== on) { on = end; root.classList.toggle("at-end", end); }
+  }
+  window.addEventListener("scroll", check, { passive: true });
+  window.addEventListener("resize", check);
+  check();
 })();
 </script>
 </body>

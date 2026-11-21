@@ -167,5 +167,17 @@
 
 <script src="menu-data.js"></script>
 <script src="menu.js"></script>
+<script>
+(function () {
+  var root = document.documentElement, on = null;
+  function check() {
+    var end = window.scrollY > (root.scrollHeight - window.innerHeight) / 2;
+    if (end !== on) { on = end; root.classList.toggle("at-end", end); }
+  }
+  window.addEventListener("scroll", check, { passive: true });
+  window.addEventListener("resize", check);
+  check();
+})();
+</script>
 </body>
 </html>
