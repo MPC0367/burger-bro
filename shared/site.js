@@ -32,7 +32,7 @@
       dir: "https://www.google.com/maps/dir/?api=1&destination=Burger+Bro+Pattanakarn%2C+1348+Phatthanakan+Rd%2C+Bangkok",
       embed: "https://maps.google.com/maps?q=Burger+Bro+Pattanakarn,+1348+Phatthanakan+Rd,+Suan+Luang,+Bangkok&z=16&output=embed",
       lineman: "https://lin.ee/nPi5Qzb",
-      grab: null, grabQr: null,       // no verified Grab share link yet: the button says it searches
+      grab: null, grabQr: null,       // not on Grab (the owner, 21 Nov 2026): no Grab button for this branch
       tel: null, telText: null,       // not confirmed
       hours: null }                   // not confirmed
   ];

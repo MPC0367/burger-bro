@@ -30,7 +30,7 @@
       pick: function (n) { return "Find " + n + " in the delivery app and add it there — nothing is added for you from this site."; },
       orderTitle: "ORDER FROM YOUR BRO.", orderFor: function (b) { return "ORDERING FROM " + b.name.en.toUpperCase() + " · " + b.short.en.toUpperCase(); },
       lineman: "Order on LINE MAN", grab: "Order on GrabFood", grabFind: function (b) { return "Find " + b.name.en + " on Grab"; },
-      grabNote: function (b) { return "No Grab link for " + b.name.en + " yet — the button opens Grab; search “Burger Bro " + b.name.en + "” there. LINE MAN goes straight to the branch. Phone not confirmed yet."; },
+      grabNote: function (b) { return b.name.en + " isn't on Grab — order on LINE MAN, it goes straight to the branch. Phone not confirmed yet."; },
       handoff: "The order button takes you to the delivery app; you choose your food and pay there, not on this site.",
       more: "Call, walk in or see the map →", grabTitle: "Scan to order on GrabFood", grabQr: "QR code that opens this branch in the Grab app",
       grabP: "GrabFood orders happen in the Grab app. Point your phone's camera at the code and the shop opens in Grab.", grabLink: "Open the link here instead",
@@ -50,7 +50,7 @@
       pick: function (n) { return "เลือก " + n + " ในแอปเดลิเวอรีอีกครั้งนะ — เว็บนี้ไม่ได้ใส่ให้ในตะกร้า"; },
       orderTitle: "สั่งจากโบรของคุณ", orderFor: function (b) { return "สั่งจากสาขา" + b.name.th + " · " + b.short.th; },
       lineman: "สั่งผ่าน LINE MAN", grab: "สั่งผ่าน GRABFOOD", grabFind: function (b) { return "หาสาขา" + b.name.th + "ใน GRAB"; },
-      grabNote: function (b) { return "ยังไม่มีลิงก์ GRAB ของสาขา" + b.name.th + " — ปุ่มจะเปิดหน้า GRAB ให้ค้นหา “BURGER BRO " + b.name.en.toUpperCase() + "” เอง ส่วน LINE MAN พาไปที่สาขาโดยตรง · ยังไม่ได้ยืนยันเบอร์โทร"; },
+      grabNote: function (b) { return "สาขา" + b.name.th + "ไม่มีใน GRAB — สั่งผ่าน LINE MAN ได้เลย พาไปที่สาขาโดยตรง · ยังไม่ได้ยืนยันเบอร์โทร"; },
       handoff: "ปุ่มสั่งจะพาไปที่แอปเดลิเวอรี เลือกเมนูและจ่ายเงินในแอปนั้น ไม่ได้สั่งผ่านเว็บนี้",
       more: "โทร เดินเข้าร้าน หรือดูแผนที่ →", grabTitle: "สแกนเพื่อสั่งผ่าน GrabFood", grabQr: "คิวอาร์โค้ดสำหรับเปิดสาขานี้ในแอป Grab",
       grabP: "การสั่ง GrabFood ทำในแอป Grab เปิดกล้องมือถือส่องโค้ดนี้ แล้วร้านจะเปิดขึ้นในแอป Grab", grabLink: "เปิดลิงก์ในเครื่องนี้แทน",
@@ -355,6 +355,7 @@
     document.getElementById("mpOrderFor").textContent = l.orderFor(b);
     var lm = document.getElementById("mpLineman"), gr = document.getElementById("mpGrab"), note = document.getElementById("mpGrabNote");
     lm.href = b.lineman;
+    gr.hidden = !b.grab; // a branch that isn't on Grab shows no Grab button
     gr.href = b.grab || S.GRAB_SEARCH;
     gr.textContent = b.grab ? l.grab : l.grabFind(b);
     gr.classList.toggle("is-search", !b.grab);

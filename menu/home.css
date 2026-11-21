@@ -388,6 +388,7 @@ html:not(.bb-arcade) .mob-act-order { flex: 1 1 auto; }
   transform: translateX(-50%);
 }
 .bb-toast[hidden] { display: none; }
+.btn[hidden] { display: none; } /* a delivery app a branch is not on (Pattanakarn has no Grab) */
 body[data-lang="th"] .bb-toast { font-family: var(--font-th); font-size: 14px; letter-spacing: 0; }
 html.bb-quiet .marquee-track { animation-play-state: paused; } /* the arcade is open: decorative motion rests */
 

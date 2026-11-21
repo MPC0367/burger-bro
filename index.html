@@ -436,6 +436,7 @@ html:not(.bb-arcade) .mob-act-order { flex: 1 1 auto; }
   transform: translateX(-50%);
 }
 .bb-toast[hidden] { display: none; }
+.btn[hidden] { display: none; } /* a delivery app a branch is not on (Pattanakarn has no Grab) */
 body[data-lang="th"] .bb-toast { font-family: var(--font-th); font-size: 14px; letter-spacing: 0; }
 html.bb-quiet .marquee-track { animation-play-state: paused; } /* the arcade is open: decorative motion rests */
 
@@ -1954,7 +1955,7 @@ html.shot-full .cinema { height: 980px; }
         <div class="find-panel" data-branch-panel="1" hidden>
         <h3 class="mono find-sub" data-i18n="find.pk.hours">HOURS — PATTANAKARN</h3>
         <p class="find-unk"><span data-i18n="find.pk.hoursUnk"><b>Hours not confirmed yet</b> — check the branch's Google Maps listing before you go.</span> <a href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.pk.check">Check on Google Maps</a></p>
-        <p class="find-unk" data-i18n="find.pk.more"><b>Phone, Grab link and facilities not confirmed yet.</b> We only list what the branch has confirmed.</p>
+        <p class="find-unk" data-i18n="find.pk.more"><b>Not on Grab: order on LINE MAN.</b> Phone and facilities not confirmed yet; we only list what the branch has confirmed.</p>
         <address class="find-addr">
           <p data-i18n="find.pk.addr">1348 Phatthanakan Rd, Suan Luang, Bangkok</p>
           <p class="find-addr-th" lang="th" data-lang-en="th" data-lang-th="en" data-i18n="find.pk.addr2">1348 ถนนพัฒนาการ สวนหลวง กรุงเทพฯ</p>
@@ -2024,7 +2025,7 @@ html.shot-full .cinema { height: 980px; }
         <a class="btn btn-ghost" id="orderCall" href="tel:+66827938855" data-i18n="order.call">Call 082-793-8855</a>
         <a class="btn btn-ghost" id="orderWalk" href="https://maps.google.com/?cid=4340520789969302256" target="_blank" rel="noopener" data-i18n="order.walk">Walk in — maps</a>
       </div>
-      <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>NO GRAB LINK FOR PATTANAKARN YET — THE BUTTON OPENS GRAB, SEARCH “BURGER BRO PATTANAKARN” THERE. LINE MAN GOES STRAIGHT TO THE BRANCH. PHONE NOT CONFIRMED YET.</p>
+      <p class="order-note mono" id="orderNote" data-i18n="order.note" hidden>PATTANAKARN ISN'T ON GRAB — ORDER ON LINE MAN, IT GOES STRAIGHT TO THE BRANCH. PHONE NOT CONFIRMED YET.</p>
       <p class="order-handoff" data-i18n="order.handoff">The order button takes you to the delivery app; you choose your food and pay there, not on this site.</p>
       <div class="order-social mono">
         <a href="https://www.facebook.com/BurgerbroThailand/" target="_blank" rel="noopener">FACEBOOK — BURGER BRO</a>
@@ -2281,7 +2282,7 @@ window.BB_TH = {
   "find.pk.hours": "เวลาเปิด — พัฒนาการ",
   "find.pk.hoursUnk": "<b>ยังไม่ได้ยืนยันเวลาเปิด</b> — เช็กหน้า Google Maps ของสาขาก่อนไปนะ",
   "find.pk.check": "เช็กใน Google Maps",
-  "find.pk.more": "<b>ยังไม่ได้ยืนยันเบอร์โทร ลิงก์ Grab และสิ่งอำนวยความสะดวก</b> เราใส่เฉพาะข้อมูลที่สาขายืนยันแล้ว",
+  "find.pk.more": "<b>สาขานี้ไม่มีใน Grab สั่งผ่าน LINE MAN ได้เลย</b> ยังไม่ได้ยืนยันเบอร์โทรและสิ่งอำนวยความสะดวก เราใส่เฉพาะข้อมูลที่สาขายืนยันแล้ว",
   "find.pk.addr": "1348 ถนนพัฒนาการ สวนหลวง กรุงเทพฯ",
   "find.pk.addr2": "1348 Phatthanakan Rd, Suan Luang, Bangkok",
   "order.forR9": "สั่งจากสาขาพระราม 9 · 443 พระราม 9 ซอย 49",
@@ -2294,7 +2295,7 @@ window.BB_TH = {
   "order.p": "ส่งถึงหน้าบ้าน หรือมานั่งบูธพร้อมป๊อปคอร์นฟรี — ยังไงคำตอบก็เหมือนเดิม",
   "order.grab": "สั่งผ่าน GRABFOOD",
   "order.lm": "สั่งผ่าน LINE MAN",
-  "order.note": "ยังไม่มีลิงก์ GRAB ของสาขาพัฒนาการ — ปุ่มจะเปิดหน้า GRAB ให้ค้นหา “BURGER BRO PATTANAKARN” เอง ส่วน LINE MAN พาไปที่สาขาโดยตรง · ยังไม่ได้ยืนยันเบอร์โทร",
+  "order.note": "สาขาพัฒนาการไม่มีใน GRAB — สั่งผ่าน LINE MAN ได้เลย พาไปที่สาขาโดยตรง · ยังไม่ได้ยืนยันเบอร์โทร",
   "order.call": "โทร 082-793-8855",
   "order.walk": "เดินเข้าร้าน — แผนที่",
 
@@ -3359,7 +3360,8 @@ window.BB_TH = {
     if (orderWalk) orderWalk.href = b.open;
     var orderGrab = document.getElementById("orderGrab"), orderNote = document.getElementById("orderNote");
     if (orderGrab) {
-      orderGrab.href = b.grab || window.BBSite.GRAB_SEARCH; // no verified shop link: Grab's own page, labelled as a search
+      orderGrab.hidden = !b.grab; // a branch that isn't on Grab shows no Grab button (Pattanakarn, 21 Nov 2026)
+      orderGrab.href = b.grab || window.BBSite.GRAB_SEARCH;
       orderGrab.setAttribute("data-qr", b.grabQr || "");
       orderGrab.classList.toggle("is-search", !b.grab);
       var gl = orderGrab.querySelectorAll("span");
