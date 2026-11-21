@@ -253,7 +253,7 @@ body[data-lang="th"] .h2, body[data-lang="th"] .hero-h, body[data-lang="th"] .h3
   display: none; place-items: center;
   transition: transform .75s var(--e-out);
 }
-html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 4s forwards; }
+html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 4.4s forwards; }
 @keyframes loaderFailsafe { to { transform: translateY(-101%); visibility: hidden; } }
 .loader.is-done { transform: translateY(-101%); }
 .loader-inner { text-align: center; color: var(--white); }
@@ -262,8 +262,27 @@ html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 
   font-size: clamp(64px, 12vw, 140px);
   line-height: .9; text-transform: uppercase;
   transform-origin: center bottom;
-  animation: stampIn .7s var(--e-press) both;
 }
+/* The loading screen comes alive (21 Nov 2026, the owner): the burger badge builds, each letter stamps
+   down in turn, the "!" lands last with a squash, the address slides in, then the flag waves. */
+.loader-badge { display: block; width: clamp(64px, 11vw, 96px); height: auto; margin: 0 auto 18px; overflow: visible; }
+.loader-badge > * { transform-box: fill-box; transform-origin: 50% 50%; animation: lfPop .5s var(--e-press) both; }
+.loader-badge .lf-ring2 { animation-delay: .06s; }
+.loader-badge .lf-bot { animation: lfRise .4s var(--e-press) .16s both; }
+.loader-badge .lf-patty { animation: lfSlide .4s var(--e-press) .26s both; }
+.loader-badge .lf-top { animation: lfDrop .44s var(--e-press) .36s both; }
+.loader-badge .lf-seed { animation-delay: .54s; }
+.loader-badge .lf-seed2 { animation-delay: .6s; }
+.loader-badge .lf-seed3 { animation-delay: .66s; }
+.loader-badge .lf-flag { transform-origin: 50% 100%; animation: lfFlag .38s var(--e-press) .72s both; }
+.loader-badge .lf-flag2 { transform-origin: 0 100%; animation: lfFlag .38s var(--e-press) .78s both, lfWave .5s ease-in-out 1.16s 2 alternate; }
+.loader-stamp .ls { display: inline-block; transform-origin: 50% 100%; animation: lsStamp .42s var(--e-press) calc(.22s + var(--i) * 55ms) both; }
+.loader-stamp .ls-bang { animation: lsBang .6s var(--e-press) .82s both; }
+.loader-meta { animation: lsMeta .5s var(--e-out) 1s both; }
+@keyframes lsStamp { 0% { transform: translateY(-70%) scaleY(1.35); opacity: 0; } 60% { transform: translateY(0) scale(1.06, .9); opacity: 1; } 100% { transform: none; opacity: 1; } }
+@keyframes lsBang { 0% { transform: translateY(-120%) scale(1.8) rotate(-12deg); opacity: 0; } 55% { transform: translateY(0) scale(.84, 1.16) rotate(4deg); opacity: 1; } 80% { transform: scale(1.05, .95); } 100% { transform: none; opacity: 1; } }
+@keyframes lsMeta { from { transform: translateY(10px); opacity: 0; letter-spacing: .3em; } to { transform: none; opacity: 1; } }
+@keyframes lfWave { to { transform: skewY(-14deg) scaleX(.85); } }
 .loader-meta { margin-top: 22px; color: var(--mustard); }
 @keyframes stampIn {
   0% { transform: translateY(-40px) scaleY(1.4); opacity: 0; }
@@ -1475,7 +1494,17 @@ html.shot-full .cinema { height: 980px; }
 <!-- ============ LOADER ============ -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-inner">
-    <p class="loader-stamp" id="loaderStamp">BURGER<br>BRO!</p>
+    <svg class="loader-badge" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <circle class="lf-ring" cx="32" cy="32" r="30" fill="var(--white)"/>
+      <circle class="lf-ring lf-ring2" cx="32" cy="32" r="25" fill="var(--mustard)"/>
+      <path class="lf-top" d="M13 33a19 12 0 0 1 38 0z" fill="var(--red)"/>
+      <rect class="lf-patty" x="13" y="35" width="38" height="5" rx="2.5" fill="var(--ink)"/>
+      <path class="lf-bot" d="M13 43h38a19 9 0 0 1-38 0z" fill="var(--red)"/>
+      <circle class="lf-seed" cx="25" cy="26" r="1.7" fill="var(--white)"/><circle class="lf-seed lf-seed2" cx="33" cy="24" r="1.7" fill="var(--white)"/><circle class="lf-seed lf-seed3" cx="41" cy="27" r="1.7" fill="var(--white)"/>
+      <line class="lf-flag" x1="32" y1="12" x2="32" y2="20" stroke="var(--ink)" stroke-width="2"/>
+      <path class="lf-flag lf-flag2" d="M32 12h8v5h-8z" fill="var(--ink)"/>
+    </svg>
+    <p class="loader-stamp" id="loaderStamp"><span class="ls" style="--i:0">B</span><span class="ls" style="--i:1">U</span><span class="ls" style="--i:2">R</span><span class="ls" style="--i:3">G</span><span class="ls" style="--i:4">E</span><span class="ls" style="--i:5">R</span><br><span class="ls" style="--i:6">B</span><span class="ls" style="--i:7">R</span><span class="ls" style="--i:8">O</span><span class="ls ls-bang" style="--i:9">!</span></p>
     <p class="loader-meta mono">443 RAMA 9 SOI 49 · BKK 10250</p>
   </div>
 </div>
@@ -2523,14 +2552,14 @@ window.BB_TH = {
   if (loader && !reduceMotion && !shotMode && !docEl.classList.contains("no-loader")) {
     document.body.style.overflow = "hidden";
     var heroImg = document.getElementById("heroImg");
-    var minWait = new Promise(function (res) { window.setTimeout(res, 1100); }); // the stamp holds a beat (the owner, 21 Nov 2026: "slightly longer"; was 0.5 s)
+    var minWait = new Promise(function (res) { window.setTimeout(res, 1500); }); // long enough for the stamp to form (21 Nov 2026; was 1.1 s, before that 0.5 s)
     var imgWait = new Promise(function (res) {
       if (!heroImg || heroImg.complete) return res();
       heroImg.addEventListener("load", res, { once: true });
       heroImg.addEventListener("error", res, { once: true });
     });
     Promise.all([minWait, imgWait]).then(dropLoader);
-    window.setTimeout(dropLoader, 2600); // hard ceiling
+    window.setTimeout(dropLoader, 3000); // hard ceiling
   } else if (loader) {
     loader.parentNode.removeChild(loader);
     revealHero();
