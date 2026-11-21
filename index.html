@@ -46,7 +46,7 @@
 {"@type":"Restaurant","@id":"https://burgerbrobangkok.com/#rama9","url":"https://burgerbrobangkok.com/","name":"Burger Bro! Rama 9","alternateName":"เบอร์เกอร์โบร พระราม 9","servesCuisine":["American","Burgers"],"priceRange":"฿101–250","image":["https://burgerbrobangkok.com/media/big-bro.jpg","https://burgerbrobangkok.com/media/bro-inside.jpg"],"hasMenu":"https://burgerbrobangkok.com/menu/","parentOrganization":{"@id":"https://burgerbrobangkok.com/#brand"},"acceptsReservations":false,"telephone":"+66-82-793-8855","address":{"@type":"PostalAddress","streetAddress":"443 Rama 9 Soi 49 (Seri 6 Rd), Suan Luang","addressLocality":"Bangkok","postalCode":"10250","addressCountry":"TH"},"geo":{"@type":"GeoCoordinates","latitude":13.7437797,"longitude":100.6320785},"hasMap":"https://maps.google.com/?cid=4340520789969302256","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Sunday"],"opens":"11:00","closes":"00:00"},
 {"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"11:00","closes":"23:30"},
 {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"11:00","closes":"02:00"}]},
-{"@type":"Restaurant","@id":"https://burgerbrobangkok.com/#pattanakarn","url":"https://burgerbrobangkok.com/","name":"Burger Bro! Pattanakarn","alternateName":"เบอร์เกอร์โบร พัฒนาการ","servesCuisine":["American","Burgers"],"priceRange":"฿101–250","image":["https://burgerbrobangkok.com/media/big-bro.jpg","https://burgerbrobangkok.com/media/bro-inside.jpg"],"hasMenu":"https://burgerbrobangkok.com/menu/","parentOrganization":{"@id":"https://burgerbrobangkok.com/#brand"},"acceptsReservations":false,"address":{"@type":"PostalAddress","streetAddress":"1348 Phatthanakan Rd, Suan Luang","addressLocality":"Bangkok","addressCountry":"TH"},"geo":{"@type":"GeoCoordinates","latitude":13.7360497,"longitude":100.6234688},"hasMap":"https://maps.google.com/?cid=12405364053160930417"}]}
+{"@type":"Restaurant","@id":"https://burgerbrobangkok.com/#pattanakarn","url":"https://burgerbrobangkok.com/","name":"Burger Bro! Pattanakarn","alternateName":"เบอร์เกอร์โบร พัฒนาการ","servesCuisine":["American","Burgers"],"priceRange":"฿101–250","image":["https://burgerbrobangkok.com/media/big-bro.jpg","https://burgerbrobangkok.com/media/bro-inside.jpg"],"hasMenu":"https://burgerbrobangkok.com/menu/","parentOrganization":{"@id":"https://burgerbrobangkok.com/#brand"},"acceptsReservations":false,"address":{"@type":"PostalAddress","streetAddress":"1348 Phatthanakan Rd, Suan Luang","addressLocality":"Bangkok","addressCountry":"TH"},"geo":{"@type":"GeoCoordinates","latitude":13.7360497,"longitude":100.6234688},"hasMap":"https://maps.google.com/?cid=12405364053160930417","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"11:00","closes":"22:00"}]}]}
 </script>
 <style>
 /* ============================================================
@@ -1980,8 +1980,12 @@ html.shot-full .cinema { height: 980px; }
 
         <div class="find-panel" data-branch-panel="1" hidden>
         <h3 class="mono find-sub" data-i18n="find.pk.hours">HOURS — PATTANAKARN</h3>
-        <p class="find-unk"><span data-i18n="find.pk.hoursUnk"><b>Hours not confirmed yet</b> — check the branch's Google Maps listing before you go.</span> <a href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.pk.check">Check on Google Maps</a></p>
-        <p class="find-unk" data-i18n="find.pk.more"><b>Not on Grab: order on LINE MAN.</b> Phone and facilities not confirmed yet; we only list what the branch has confirmed.</p>
+        <table class="hours" aria-label="Opening hours" data-i18n-aria="a11y.hours">
+          <tbody>
+            <tr><th scope="row" class="mono" data-i18n="h.daily">DAILY</th><td class="mono">11:00 – 22:00</td></tr>
+          </tbody>
+        </table>
+        <p class="find-note mono"><span data-i18n="find.pk.note">HOURS PER THE BRANCH'S GOOGLE MAPS LISTING — HOLIDAYS MAY DIFFER.</span> <a href="https://maps.google.com/?cid=12405364053160930417" target="_blank" rel="noopener" data-i18n="find.pk.check">Check on Google Maps</a></p>
         <address class="find-addr">
           <p data-i18n="find.pk.addr">1348 Phatthanakan Rd, Suan Luang, Bangkok</p>
           <p class="find-addr-th" lang="th" data-lang-en="th" data-lang-th="en" data-i18n="find.pk.addr2">1348 ถนนพัฒนาการ สวนหลวง กรุงเทพฯ</p>
@@ -2307,9 +2311,9 @@ window.BB_TH = {
   "find.show": "ดูสาขานี้",
   "find.nowNote": "ตามเวลากรุงเทพฯ จากตารางด้านล่าง · วันหยุดอาจไม่ตรงนี้",
   "find.pk.hours": "เวลาเปิด — พัฒนาการ",
-  "find.pk.hoursUnk": "<b>ยังไม่ได้ยืนยันเวลาเปิด</b> — เช็กหน้า Google Maps ของสาขาก่อนไปนะ",
+  "h.daily": "ทุกวัน",
+  "find.pk.note": "เวลาตามหน้า Google Maps ของสาขา — วันหยุดนักขัตฤกษ์อาจต่างออกไป",
   "find.pk.check": "เช็กใน Google Maps",
-  "find.pk.more": "<b>สาขานี้ไม่มีใน Grab สั่งผ่าน LINE MAN ได้เลย</b> ยังไม่ได้ยืนยันเบอร์โทรและสิ่งอำนวยความสะดวก เราใส่เฉพาะข้อมูลที่สาขายืนยันแล้ว",
   "find.pk.addr": "1348 ถนนพัฒนาการ สวนหลวง กรุงเทพฯ",
   "find.pk.addr2": "1348 Phatthanakan Rd, Suan Luang, Bangkok",
   "order.forR9": "สั่งจากสาขาพระราม 9 · 443 พระราม 9 ซอย 49",
@@ -3863,7 +3867,7 @@ window.BB_TH = {
   }
 
   /* ============================================================
-     OPEN NOW — Rama 9 only, from its hours in BRANCHES, in Bangkok time (UTC+7, no daylight saving).
+     OPEN NOW — the chosen branch, from its hours in BRANCHES, in Bangkok time (UTC+7, no daylight saving).
      Fri and Sat run past midnight. No waiting times, no holiday guesses: the note says holidays may differ.
      A branch without confirmed hours shows nothing.
      ============================================================ */

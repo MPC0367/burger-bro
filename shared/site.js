@@ -34,7 +34,8 @@
       lineman: "https://lin.ee/nPi5Qzb",
       grab: null, grabQr: null,       // not on Grab (the owner, 21 Nov 2026): no Grab button for this branch
       tel: null, telText: null,       // not confirmed
-      hours: null }                   // not confirmed
+      // daily 11:00–22:00, from the branch's Google Maps listing (21 Nov 2026)
+      hours: [[660, 1320], [660, 1320], [660, 1320], [660, 1320], [660, 1320], [660, 1320], [660, 1320]] }
   ];
   var GRAB_SEARCH = "https://www.grab.com/th/food/";
 
