@@ -19,7 +19,10 @@
 <meta property="og:image:alt" content="Big Bro double cheeseburger on Burger Bro wrapper paper" data-th="Big Bro ชีสเบอร์เกอร์เนื้อสองชั้น บนกระดาษห่อของ Burger Bro">
 <meta property="og:url" content="https://burgerbrobangkok.com/" data-th="https://burgerbrobangkok.com/?lang=th">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="media/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- one page, two languages: English at the plain address, Thai at ?lang=th (shared/site.js sets the head lines and the canonical before paint) -->
 <link rel="alternate" hreflang="en" href="https://burgerbrobangkok.com/">
 <link rel="alternate" hreflang="th" href="https://burgerbrobangkok.com/?lang=th">
@@ -248,9 +251,9 @@ body[data-lang="th"] .h2, body[data-lang="th"] .hero-h, body[data-lang="th"] .h3
   position: fixed; inset: 0; z-index: var(--z-loader);
   background: var(--red);
   display: none; place-items: center;
-  transition: transform .6s var(--e-out);
+  transition: transform .75s var(--e-out);
 }
-html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 3.2s forwards; }
+html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 4s forwards; }
 @keyframes loaderFailsafe { to { transform: translateY(-101%); visibility: hidden; } }
 .loader.is-done { transform: translateY(-101%); }
 .loader-inner { text-align: center; color: var(--white); }
@@ -259,7 +262,7 @@ html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 
   font-size: clamp(64px, 12vw, 140px);
   line-height: .9; text-transform: uppercase;
   transform-origin: center bottom;
-  animation: stampIn .55s var(--e-press) both;
+  animation: stampIn .7s var(--e-press) both;
 }
 .loader-meta { margin-top: 22px; color: var(--mustard); }
 @keyframes stampIn {
@@ -2479,19 +2482,19 @@ window.BB_TH = {
     window.setTimeout(revealHero, 180);
     window.setTimeout(function () {
       if (loader.parentNode) loader.parentNode.removeChild(loader);
-    }, 900);
+    }, 1000);
   }
   if (loader && !reduceMotion && !shotMode && !docEl.classList.contains("no-loader")) {
     document.body.style.overflow = "hidden";
     var heroImg = document.getElementById("heroImg");
-    var minWait = new Promise(function (res) { window.setTimeout(res, 500); });
+    var minWait = new Promise(function (res) { window.setTimeout(res, 1100); }); // the stamp holds a beat (the owner, 21 Nov 2026: "slightly longer"; was 0.5 s)
     var imgWait = new Promise(function (res) {
       if (!heroImg || heroImg.complete) return res();
       heroImg.addEventListener("load", res, { once: true });
       heroImg.addEventListener("error", res, { once: true });
     });
     Promise.all([minWait, imgWait]).then(dropLoader);
-    window.setTimeout(dropLoader, 2000); // hard ceiling
+    window.setTimeout(dropLoader, 2600); // hard ceiling
   } else if (loader) {
     loader.parentNode.removeChild(loader);
     revealHero();

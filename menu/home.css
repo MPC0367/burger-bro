@@ -200,9 +200,9 @@ body[data-lang="th"] .h2, body[data-lang="th"] .hero-h, body[data-lang="th"] .h3
   position: fixed; inset: 0; z-index: var(--z-loader);
   background: var(--red);
   display: none; place-items: center;
-  transition: transform .6s var(--e-out);
+  transition: transform .75s var(--e-out);
 }
-html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 3.2s forwards; }
+html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 4s forwards; }
 @keyframes loaderFailsafe { to { transform: translateY(-101%); visibility: hidden; } }
 .loader.is-done { transform: translateY(-101%); }
 .loader-inner { text-align: center; color: var(--white); }
@@ -211,7 +211,7 @@ html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 
   font-size: clamp(64px, 12vw, 140px);
   line-height: .9; text-transform: uppercase;
   transform-origin: center bottom;
-  animation: stampIn .55s var(--e-press) both;
+  animation: stampIn .7s var(--e-press) both;
 }
 .loader-meta { margin-top: 22px; color: var(--mustard); }
 @keyframes stampIn {
