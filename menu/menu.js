@@ -432,6 +432,7 @@
     var r0 = rows.filter(function (x) { return x.it === it0; })[0];
     if (it0) openItem(it0, r0 && r0.btn, false);
   }
+  if (S.formLogo) S.formLogo(); // the logo forms, as on the homepage
   track("menu_view", { branch: state.branch });
   window.__mpState = function () { return { lang: state.lang, branch: state.branch, q: state.q, cat: state.cat, protein: state.protein, item: state.item, shown: shown }; }; // QA hook
 })();

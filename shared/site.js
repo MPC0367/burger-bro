@@ -127,7 +127,32 @@
 
   w.BBPrefs = { resolve: resolve, save: save, toUrl: toUrl, carry: carry, head: head, options: OPTIONS };
   w.BB_BRANCHES = BRANCHES;
-  w.BBSite = { branchIndex: branchIndex, openState: openState, GRAB_SEARCH: GRAB_SEARCH };
+  /* the logo forms once per page (21 Nov 2026): html.lf-wait holds it hidden from first paint;
+     formLogo() splits the word into letters and plays the build (styles in index.html). */
+  var still = false;
+  try { still = w.matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&]shot=/.test(w.location.search); } catch (e) {}
+  if (!still) document.documentElement.classList.add("lf-wait");
+  function formLogo() {
+    var d = document, root = d.documentElement;
+    if (!root.classList.contains("lf-wait")) return;
+    d.querySelectorAll(".nav-brand").forEach(function (a) {
+      var word = a.querySelector(".nav-brand-word");
+      if (word && !word.querySelector(".lf-l")) {
+        var tn = word.firstChild;
+        if (tn && tn.nodeType === 3) {
+          var frag = d.createDocumentFragment();
+          tn.nodeValue.split("").forEach(function (ch, i) {
+            var s = d.createElement("span"); s.className = "lf-l"; s.style.setProperty("--i", i); s.textContent = ch; frag.appendChild(s);
+          });
+          word.replaceChild(frag, tn);
+        }
+      }
+      a.classList.add("is-forming");
+      w.setTimeout(function () { a.classList.remove("is-forming"); }, 2000); // leave the badge's hover tilt free afterwards
+    });
+    root.classList.remove("lf-wait");
+  }
+  w.BBSite = { branchIndex: branchIndex, openState: openState, GRAB_SEARCH: GRAB_SEARCH, formLogo: formLogo };
 
   /* bbTrack(name, props) — privacy-aware events. Does nothing at all unless window.BB_ANALYTICS_URL
      is set (it is not, today). Then it sends {name, props, t} with navigator.sendBeacon.

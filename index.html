@@ -297,6 +297,32 @@ html.js:not(.no-loader) .loader { display: grid; animation: loaderFailsafe .01s 
   color: var(--ink);
 }
 .nav-brand-word em { font-style: normal; color: var(--red); }
+
+/* The logo forms (21 Nov 2026, the owner): the badge builds (ring, bottom bun, patty, top bun, seeds,
+   flag), the letters rise one by one and the "!" stamps down last. shared/site.js adds html.lf-wait
+   before paint when motion is welcome; BBSite.formLogo() starts it once the page is showing. */
+html.lf-wait .nav-brand .nav-badge > *, html.lf-wait .nav-brand-word { opacity: 0; animation: lfShow .01s 4s forwards; }
+@keyframes lfShow { to { opacity: 1; } }
+.nav-brand.is-forming .nav-badge > * { transform-box: fill-box; transform-origin: 50% 50%; animation: lfPop .5s var(--e-press) both; }
+.nav-brand.is-forming .lf-ring2 { animation-delay: .07s; }
+.nav-brand.is-forming .lf-bot { animation: lfRise .42s var(--e-press) .2s both; }
+.nav-brand.is-forming .lf-patty { animation: lfSlide .42s var(--e-press) .32s both; }
+.nav-brand.is-forming .lf-top { animation: lfDrop .46s var(--e-press) .44s both; }
+.nav-brand.is-forming .lf-seed { animation-delay: .66s; }
+.nav-brand.is-forming .lf-seed2 { animation-delay: .72s; }
+.nav-brand.is-forming .lf-seed3 { animation-delay: .78s; }
+.nav-brand.is-forming .lf-flag { transform-origin: 50% 100%; animation: lfFlag .4s var(--e-press) .86s both; }
+.nav-brand.is-forming .lf-flag2 { transform-origin: 0 100%; animation-delay: .94s; }
+.nav-brand-word .lf-l { display: inline-block; }
+.nav-brand.is-forming .lf-l { animation: lfLetter .5s var(--e-out) calc(.3s + var(--i) * 45ms) both; }
+.nav-brand.is-forming .nav-brand-word em { display: inline-block; transform-origin: 50% 100%; animation: lfBang .6s var(--e-press) .95s both; }
+@keyframes lfPop { from { transform: scale(0); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lfRise { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lfSlide { from { transform: translateX(-18px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lfDrop { from { transform: translateY(-18px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lfFlag { from { transform: scaleY(0); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lfLetter { from { transform: translateY(.55em) rotate(-8deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lfBang { 0% { transform: translateY(-.9em) scale(1.7); opacity: 0; } 55% { transform: translateY(0) scale(.86, 1.12); opacity: 1; } 100% { transform: none; opacity: 1; } }
 .nav-links { display: flex; gap: clamp(16px, 2.4vw, 34px); }
 .nav-links a {
   position: relative;
@@ -1458,14 +1484,14 @@ html.shot-full .cinema { height: 980px; }
 <header class="nav" id="nav">
   <a class="nav-brand" href="#top" aria-label="Burger Bro — back to top" data-i18n-aria="a11y.brand">
     <svg class="nav-badge" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <circle cx="32" cy="32" r="30" fill="var(--red)"/>
-      <circle cx="32" cy="32" r="25" fill="var(--mustard)"/>
-      <path d="M13 33a19 12 0 0 1 38 0z" fill="var(--red)"/>
-      <rect x="13" y="35" width="38" height="5" rx="2.5" fill="var(--ink)"/>
-      <path d="M13 43h38a19 9 0 0 1-38 0z" fill="var(--red)"/>
-      <circle cx="25" cy="26" r="1.7" fill="var(--mustard)"/><circle cx="33" cy="24" r="1.7" fill="var(--mustard)"/><circle cx="41" cy="27" r="1.7" fill="var(--mustard)"/>
-      <line x1="32" y1="12" x2="32" y2="20" stroke="var(--ink)" stroke-width="2"/>
-      <path d="M32 12h8v5h-8z" fill="var(--ink)"/>
+      <circle class="lf-ring" cx="32" cy="32" r="30" fill="var(--red)"/>
+      <circle class="lf-ring lf-ring2" cx="32" cy="32" r="25" fill="var(--mustard)"/>
+      <path class="lf-top" d="M13 33a19 12 0 0 1 38 0z" fill="var(--red)"/>
+      <rect class="lf-patty" x="13" y="35" width="38" height="5" rx="2.5" fill="var(--ink)"/>
+      <path class="lf-bot" d="M13 43h38a19 9 0 0 1-38 0z" fill="var(--red)"/>
+      <circle class="lf-seed" cx="25" cy="26" r="1.7" fill="var(--mustard)"/><circle class="lf-seed lf-seed2" cx="33" cy="24" r="1.7" fill="var(--mustard)"/><circle class="lf-seed lf-seed3" cx="41" cy="27" r="1.7" fill="var(--mustard)"/>
+      <line class="lf-flag" x1="32" y1="12" x2="32" y2="20" stroke="var(--ink)" stroke-width="2"/>
+      <path class="lf-flag lf-flag2" d="M32 12h8v5h-8z" fill="var(--ink)"/>
     </svg>
     <span class="nav-brand-word">BURGERBRO<em>!</em></span>
   </a>
@@ -2489,6 +2515,7 @@ window.BB_TH = {
     loader.classList.add("is-done");
     document.body.style.overflow = "";
     window.setTimeout(revealHero, 180);
+    window.setTimeout(window.BBSite.formLogo, 260);
     window.setTimeout(function () {
       if (loader.parentNode) loader.parentNode.removeChild(loader);
     }, 1000);
@@ -2507,7 +2534,8 @@ window.BB_TH = {
   } else if (loader) {
     loader.parentNode.removeChild(loader);
     revealHero();
-  }
+    window.BBSite.formLogo();
+  } else window.BBSite.formLogo();
 
   /* ============================================================
      REVEALS — line masks + fade-ups (hero handled by loader)
