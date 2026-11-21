@@ -20,6 +20,9 @@ const bkk = (iso, withTime = false) => new Date(iso).toLocaleString(lang() === "
 // Score mode: the target and the coupon it wins.
 const reward = () => (state.session && state.session.reward) || null;
 const benefit = () => (reward() ? pick(reward(), "benefit") : "");
+// The prize wheels' scores (w15, w30) and the words that name them.
+const wheelList = () => (reward() && reward().wheels) || [];
+const rv = () => { const w = wheelList(); return { benefit: benefit(), a: fmt(w[0] ? w[0].score : 0), b: fmt(w[1] ? w[1].score : 0) }; };
 const isGuest = () => !!(state.session && state.session.me && state.session.me.guest);
 const phoneOn = () => !!(state.session && state.session.sms && state.session.sms.enabled !== false);
 const lineOn = () => !!(state.session && state.session.line && state.session.line.enabled);
@@ -184,7 +187,7 @@ const VIEWS = {
         <p class="bba-kick">${esc(t("kicker"))}</p>
         <h1 class="bba-hero">${esc(t("title"))}</h1>
         <p class="bba-tag-l">${esc(t("startTitle"))}</p>
-        ${reward() ? `<p class="bba-welcome">${esc(t("startLead", { n: fmt(reward().target), benefit: benefit() }))}</p>` : ""}
+        ${reward() ? `<p class="bba-welcome">${esc(t("startLead", rv()))}</p>` : ""}
         <div class="bba-actions">
           <button type="button" class="bba-btn bba-red bba-big" data-act="playGuest" data-autofocus>${esc(t("playNow"))}</button>
           ${lineOn() || phoneOn() ? `<button type="button" class="bba-btn" data-act="toSignin">${esc(t("signInSave"))}</button>` : ""}
@@ -349,7 +352,8 @@ const VIEWS = {
       <p class="bba-mono">${esc(t("verified"))} · ${esc(t("level"))} ${run.result.level} · ${run.result.lines} ${esc(t("lines"))}</p>
       ${run.reward && run.reward.coupon ? `<div class="bba-card bba-won"><p class="bba-h2">${esc(t("couponWon", { benefit: pick(run.reward.coupon, "benefit") }))}</p><p>${esc(t("couponWonLead"))}</p>
         ${isGuest() ? `<p class="bba-fine">${esc(t("couponWonGuest"))}</p>` : ""}<p><button type="button" class="bba-btn bba-mustard" data-act="toWallet">${esc(t("viewCoupon"))}</button></p></div>`
-        : run.reward ? `<p class="bba-mono">${esc(t("goal", { n: fmt(run.reward.target), benefit: pick(run.reward, "benefit") }))}</p>` : ""}
+        : run.reward ? `<p class="bba-mono">${esc(t("goal", { benefit: pick(run.reward, "benefit") }))}</p>` : ""}
+      ${wheelsBox(run)}
       <p>${esc(isGuest() ? t("notWeeklyGuest") : run.result.weekly ? t("weeklyEntry") : t("notWeekly"))}</p>${run.result.held ? `<p class="bba-note">${esc(t("heldReview"))}</p>` : ""}`}
     <div class="bba-actions">${run && isGuest() ? `<button type="button" class="bba-btn bba-mustard" data-act="toSave">${esc(t("saveBtn"))}</button>` : ""}<button type="button" class="bba-btn bba-red" data-act="play" data-autofocus${run ? "" : " disabled"}>${esc(t("playAgain"))}</button>
       <button type="button" class="bba-btn" data-act="toBoard">${esc(t("board"))}</button><button type="button" class="bba-btn" data-act="toLobby">${esc(t("back"))}</button></div></section>`,
@@ -520,6 +524,7 @@ const actions = {
   lbMine: () => { state.lb = "mine"; show("board"); },
   signOut: async () => { try { await api("POST", "auth/signout"); } catch {} state.session = await api("GET", "session"); show("start"); },
   async play() {
+    state.overRun = null;
     if (state.game) { state.game.destroy(); state.game = null; }
     try {
       const r = await api("POST", "runs", { key: opKey() });
@@ -539,6 +544,26 @@ const actions = {
     if (run.reward && run.reward.coupon) state.celebrated.add(run.id);
     show("game");
   },
+  toResults: () => (state.overRun ? show("over", state.overRun) : show("lobby")),
+  async spinTier(b) {
+    const run = state.overRun;
+    const tier = b && b.dataset.tier;
+    if (!run || !tier) return;
+    main().querySelectorAll("[data-act=spinTier]").forEach((x) => (x.disabled = true));
+    try {
+      const r = await api("POST", `runs/${run.id}/spin`, { tier });
+      const w = (run.wheels || []).find((x) => x.tier === tier);
+      state.overRun = r.run;
+      track("reward_issued", { source: "wheel" });
+      show("wheel", { ...r.run, wheel: w ? w.wheel : null, spin: r.spin, wheelScore: w ? w.score : null });
+    } catch (err) {
+      const fresh = await api("GET", `runs/${run.id}`).catch(() => null);
+      if (fresh) state.overRun = fresh.run;
+      show("over", state.overRun);
+      const m = main().querySelector(".bba-wheels .bba-msg");
+      if (m) m.innerHTML = errorBox(err.code);
+    }
+  },
   pauseGame: () => state.game && state.game.setPaused(true),
   resumeGame: () => state.game && state.game.start(),
   async endRun() {
@@ -548,8 +573,23 @@ const actions = {
   },
 };
 
+// The wheels this finished run reached: a Spin button each, or what it won, or why not.
+function wheelsBox(run) {
+  const ws = (run && run.wheels) || [];
+  if (!ws.length) return "";
+  const card = (w) => {
+    const name = t("wheelName", { n: fmt(w.score) });
+    const body = w.spin ? `<p class="bba-prize">${esc(t("wheelWon", { benefit: pick(w.spin.coupon, "benefit") }))}</p>`
+      : w.blocked ? `<p class="bba-note" role="note">${esc(t("wheelBlocked_" + w.blocked))}</p>`
+      : `<button type="button" class="bba-btn bba-mustard bba-wide" data-act="spinTier" data-tier="${esc(w.tier)}">${esc(t("spinNow", { n: fmt(w.score) }))}</button>`;
+    return `<div class="bba-card bba-opt"><p class="bba-kick">${esc(name)}</p>${body}</div>`;
+  };
+  return `<div class="bba-wheels"><h2 class="bba-h3">${esc(t("wheelsTitle"))}</h2><div class="bba-choices">${ws.map(card).join("")}</div>
+    <p class="bba-fine">${esc(t("wheelOnce"))}</p><div class="bba-msg"></div></div>`;
+}
+
 function howToText() {
-  return reward() ? t("howToBodyScore", { n: fmt(reward().target), benefit: benefit() }) : t("howToBody");
+  return reward() ? t("howToBodyScore", rv()) : t("howToBody");
 }
 
 // Control-pad icons: drawn shapes, so every phone shows the same thing.
@@ -643,6 +683,7 @@ async function finishRun(reason) {
     state.game = null;
     g.destroy();
     state.session = await api("GET", "session");
+    state.overRun = run;
     show("over", run);
   } catch (err) {
     show("lobby", { error: err.code });
@@ -662,10 +703,25 @@ function hud(h) {
   set("runlab", reward() ? "" : state.run && state.run.choice === "continue" ? t("runKeep") : t("runLevel1"));
   const rw = state.run && state.run.reward;
   if (rw) {
-    const done = !!rw.coupon;
-    const txt = done ? t("goalDone", { benefit: pick(rw.coupon, "benefit") }) : t("goal", { n: fmt(rw.target), benefit: pick(rw, "benefit") });
+    const score = h.score || 0, ws = rw.wheels || [];
+    const l1 = !!rw.coupon || (h.lines || 0) >= (rw.lines || 5);
+    const next = ws.find((w) => score < w.score);
+    let txt, done = false;
+    if (!l1) txt = t("goal", { benefit: pick(rw, "benefit") });
+    else if (next) txt = t(next === ws[0] ? "goalWheel" : "goalWheel2", { n: fmt(next.score) });
+    else { txt = ws.length ? t("goalAll") : t("goalDone", { benefit: pick(rw.coupon || rw, "benefit") }); done = true; }
     set("goal", txt); set("goal2", txt);
-    m.querySelectorAll(".bba-goal").forEach((e) => e.classList.toggle("is-done", done || (h.score || 0) >= rw.target));
+    m.querySelectorAll(".bba-goal").forEach((e) => e.classList.toggle("is-done", done));
+    // a wheel just came within reach: say so once (the server decides at the end of the run)
+    ws.forEach((w, i) => {
+      const k = "w:" + state.run.id + ":" + w.id;
+      if (score >= w.score && !state.celebrated.has(k)) {
+        state.celebrated.add(k);
+        if (state.game) state.game.callout(t(i ? "popWheel2" : "popWheel"), t("popWheelSub"), "big");
+        sfx("clear", { n: 4, combo: 3 });
+        say(t(i ? "popWheel2" : "popWheel"));
+      }
+    });
   }
 }
 
@@ -837,7 +893,7 @@ async function loadWallet() {
   try {
     const w = await api("GET", "me/rewards");
     const groups = ["available", "redeemed", "expired", "void"];
-    const src = (c) => c.source === "weekly" && c.award ? t("weeklyRank", { r: c.award.rank }) : c.source === "score" ? t("fromScore") : c.source === "spin" ? t("fromSpin") : t("fromAdmin");
+    const src = (c) => c.source === "weekly" && c.award ? t("weeklyRank", { r: c.award.rank }) : c.source === "score" ? t("fromScore") : c.wheel ? t("fromWheel", { n: fmt((wheelList().find((w) => w.id === c.wheel) || {}).score) }) : c.source === "spin" ? t("fromSpin") : t("fromAdmin");
     const card = (c) => `<li class="bba-coupon is-${c.status}">
       <button type="button" class="bba-cbtn" data-coupon="${esc(c.id)}" ${c.status === "available" ? "" : 'aria-disabled="true"'}>
         <span class="bba-cben">${esc(pick(c, "benefit"))}</span><span class="bba-mono">${esc(src(c))}</span>
@@ -846,7 +902,7 @@ async function loadWallet() {
       const list = w.coupons.filter((c) => c.status === g);
       return list.length ? `<h2 class="bba-lab">${esc(t(g))}</h2><ul class="bba-coupons">${list.map(card).join("")}</ul>` : "";
     }).join("");
-    box.innerHTML = `<div class="bba-walletgrid"><div class="bba-card bba-mine">${sections || `<p>${esc(reward() ? t("noRewardsScore", { n: fmt(reward().target), benefit: benefit() }) : t("noRewards"))}</p>`}
+    box.innerHTML = `<div class="bba-walletgrid"><div class="bba-card bba-mine">${sections || `<p>${esc(reward() ? t("noRewardsScore", rv()) : t("noRewards"))}</p>`}
         <hr><p class="bba-lab">${esc(t("points"))}</p>${w.points.entries.length ? `<p class="bba-mono">${esc(t("pointsBalance", { n: fmt(w.points.balance) }))}</p>` : `<p class="bba-fine">${esc(t("pointsNone"))}</p>`}</div>
       <div class="bba-receiptbox" data-receipt></div></div>`;
     const showReceipt = (c, focus = true) => {
@@ -889,7 +945,7 @@ function wheelSvg(run) {
     const fill = colors[i % colors.length];
     const dark = ["#C42B1C", "#6E150D", "#E03A24"].includes(fill);
     parts.push(`<path d="M${R},${R} L${x0.toFixed(2)},${y0.toFixed(2)} A${R},${R} 0 ${sweep > 180 ? 1 : 0} 1 ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${fill}" stroke="#221511" stroke-width="1.5"/>`);
-    if (sweep > 14) parts.push(`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" transform="rotate(${(mid + 90).toFixed(1)} ${lx.toFixed(1)} ${ly.toFixed(1)})" text-anchor="middle" dominant-baseline="middle" fill="${dark ? "#FFF9EE" : "#221511"}" font-size="${sweep > 40 ? 9 : 7}" font-family="Space Mono, monospace" font-weight="700">${esc(pick(seg, "label"))}</text>`);
+    if (sweep > 14) parts.push(`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" transform="rotate(${(mid + 90).toFixed(1)} ${lx.toFixed(1)} ${ly.toFixed(1)})" text-anchor="middle" dominant-baseline="middle" fill="${dark ? "#FFF9EE" : "#221511"}" font-size="${sweep > 40 ? 9 : sweep > 30 ? 8 : 7}" font-family="Space Mono, monospace" font-weight="700">${esc(pick(seg, "label"))}</text>`);
     o._mid = mid;
     a0 = a1;
   });
@@ -910,7 +966,7 @@ function spinWheel(run) {
     reveal.hidden = false;
     reveal.innerHTML = `${won.coupon.test ? `<p class="bba-tag">${esc(t("testReward"))}</p>` : ""}<p class="bba-h2">${esc(t("niceOne"))}</p>
       <p class="bba-prize">${esc(pick(won.coupon, "benefit"))}</p><p>${esc(t("savedToRewards"))}</p>
-      <div class="bba-actions"><button type="button" class="bba-btn bba-red" data-act="toWallet" data-autofocus>${esc(t("viewCoupon"))}</button><button type="button" class="bba-btn" data-act="play">${esc(t("playAgain"))}</button></div>`;
+      <div class="bba-actions"><button type="button" class="bba-btn bba-red" data-act="toWallet" data-autofocus>${esc(t("viewCoupon"))}</button>${state.overRun ? `<button type="button" class="bba-btn" data-act="toResults">${esc(t("backToResults"))}</button>` : ""}<button type="button" class="bba-btn" data-act="play">${esc(t("playAgain"))}</button></div>`;
     reveal.querySelector("[data-autofocus]").focus();
     say(t("niceOne") + " " + pick(won.coupon, "benefit"));
     if (!reduceMotion()) confetti(reveal);

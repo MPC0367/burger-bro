@@ -330,3 +330,8 @@
 .bba-gesture ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
 .bba-gesture b { font-family: var(--b-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
 .bba[lang="th"] .bba-gesture b { font-family: var(--b-th); font-size: 14px; text-transform: none; }
+
+/* the prize wheels on the results screen (21 Nov 2026) */
+.bba-wheels { margin-top: 24px; }
+.bba-wheels .bba-h3 { margin-bottom: 12px; }
+.bba-wheels .bba-prize { margin: 4px 0 0; }

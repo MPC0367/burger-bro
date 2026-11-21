@@ -123,8 +123,8 @@ export const music = {
   stop() { this.wanted = false; this.pause(); this.step = 0; },
   setLevel(n) { this.level = n; },
   setDanger(b) { this.danger = b; },
-  stepLen() { // seconds per eighth note; 138 bpm at level 1, faster each level, at most 196
-    const bpm = Math.min(196, 138 + (this.level - 1) * 7 + (this.danger ? 10 : 0));
+  stepLen() { // seconds per eighth note; 138 bpm at level 1, about 8% faster each level (21 Nov 2026: was +7), at most 216
+    const bpm = Math.min(216, 138 + (this.level - 1) * 11 + (this.danger ? 10 : 0));
     return 60 / bpm / 2;
   },
   schedule() {

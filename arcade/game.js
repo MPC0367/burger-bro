@@ -43,8 +43,8 @@ export class Game {
     this.last = 0;
     this.pausedAt = Date.now();
     // Rebuild from what the server accepted (a new run has no inputs).
-    const r = replay(run.seed, run.inputs || [], { continueAfterMilestone: run.choice === "continue", untilTick: run.checkpoint.tick });
-    this.st = r.ok ? r.state : createGame(run.seed);
+    const r = replay(run.seed, run.inputs || [], { rules: run.rulesVersion, continueAfterMilestone: run.choice === "continue", untilTick: run.checkpoint.tick });
+    this.st = r.ok ? r.state : createGame(run.seed, run.rulesVersion);
     if (run.choice === "continue") resume(this.st);
     this.frame = this.frame.bind(this);
     this.layout = this.layout.bind(this);
@@ -333,7 +333,7 @@ export class Game {
   async resync() {
     const { run } = await api("GET", `runs/${this.run.id}`);
     this.run = run;
-    const r = replay(run.seed, run.inputs, { continueAfterMilestone: run.choice === "continue", untilTick: run.checkpoint.tick });
+    const r = replay(run.seed, run.inputs, { rules: run.rulesVersion, continueAfterMilestone: run.choice === "continue", untilTick: run.checkpoint.tick });
     if (r.ok) {
       this.st = r.state;
       if (run.choice === "continue") resume(this.st);

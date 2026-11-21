@@ -10,7 +10,11 @@
 // Randomiser: seven-bag on a seeded mulberry32.
 
 // bb-2 (20 Nov 2026): quicker — level 1 falls a row every 0.5 s (was 0.9 s), soft drop 1 row a tick.
-export const RULES_VERSION = "bb-2";
+// bb-3 (21 Nov 2026): each level falls clearly faster than the one before (×0.75 a level, was ×0.8),
+// down to a row every 2 ticks. A run keeps the rules it was created with (createGame/replay take them).
+export const RULES_VERSION = "bb-3";
+const GRAVITY = { "bb-2": { base: 30, factor: 0.8, min: 3 }, "bb-3": { base: 30, factor: 0.75, min: 2 } };
+export const KNOWN_RULES = Object.freeze(Object.keys(GRAVITY));
 
 export const RULES = Object.freeze({
   version: RULES_VERSION,
@@ -96,8 +100,9 @@ export function levelForLines(lines) {
 export function linesForNextLevel(level) {
   return level <= 1 ? RULES.milestoneLines : RULES.milestoneLines + (level - 1) * 10;
 }
-export function gravityTicks(level) {
-  return Math.max(3, Math.round(30 * Math.pow(0.8, level - 1)));
+export function gravityTicks(level, rules = RULES_VERSION) {
+  const g = GRAVITY[rules] || GRAVITY[RULES_VERSION];
+  return Math.max(g.min, Math.round(g.base * Math.pow(g.factor, level - 1)));
 }
 
 // ---------- seeded random ----------
@@ -123,10 +128,10 @@ function takeNext(st) {
 }
 
 // ---------- state ----------
-export function createGame(seed) {
+export function createGame(seed, rules = RULES_VERSION) {
   const rows = RULES.visibleRows + RULES.hiddenRows;
   const st = {
-    rules: RULES_VERSION,
+    rules: GRAVITY[rules] ? rules : RULES_VERSION,
     tick: 0,
     rng: seed >>> 0,
     queue: [],
@@ -320,7 +325,7 @@ export function step(st) {
   st.tick++;
   if (st.tick >= RULES.maxTicks) { endGame(st, "time_limit"); return; }
   if (!st.piece) return;
-  const interval = st.soft ? Math.min(RULES.softDropInterval, gravityTicks(st.level)) : gravityTicks(st.level);
+  const interval = st.soft ? Math.min(RULES.softDropInterval, gravityTicks(st.level, st.rules)) : gravityTicks(st.level, st.rules);
   st.gravityCounter++;
   if (st.gravityCounter >= interval) {
     st.gravityCounter = 0;
@@ -382,8 +387,8 @@ export function summary(st) {
 // game has stepped to tick T, before tick T+1. continueAfterMilestone: whether the
 // player chose "Keep stacking"; if not, any input after the milestone is rejected.
 // untilTick: replay only up to this tick (a checkpoint).
-export function replay(seed, events, { continueAfterMilestone = false, untilTick = null } = {}) {
-  const st = createGame(seed);
+export function replay(seed, events, { continueAfterMilestone = false, untilTick = null, rules = RULES_VERSION } = {}) {
+  const st = createGame(seed, rules);
   let i = 0;
   let lastTick = 0;
   const target = untilTick == null ? (events.length ? events[events.length - 1][0] : 0) : untilTick;
