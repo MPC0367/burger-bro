@@ -2,12 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://burgerbrobangkok.com/</loc>
+    <lastmod>2026-11-21</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://burgerbrobangkok.com/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://burgerbrobangkok.com/?lang=th"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://burgerbrobangkok.com/"/>
   </url>
   <url>
     <loc>https://burgerbrobangkok.com/menu/</loc>
+    <lastmod>2026-11-21</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://burgerbrobangkok.com/menu/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://burgerbrobangkok.com/menu/?lang=th"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://burgerbrobangkok.com/menu/"/>

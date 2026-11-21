@@ -100,7 +100,31 @@
     return { state: "closed", at: hm(m < today[0] ? today[0] : hours[(day + 1) % 7][0]) };
   }
 
-  w.BBPrefs = { resolve: resolve, save: save, toUrl: toUrl, carry: carry, options: OPTIONS };
+  /* head(lang) — the page's search and sharing lines in the language on screen. Each page writes its
+     English lines in the HTML and the Thai ones in data-th, so Google's rendered page (it runs this
+     before reading the page) carries a Thai title and description at ?lang=th. The canonical is not in
+     the HTML at all: it is made here from og:url, so the HTML and the rendered page never disagree
+     (Google: do not put one canonical in the HTML and change it with JavaScript). */
+  function head(lang) {
+    var d = document, th = lang === "th";
+    function swap(el, attr) {
+      if (!el || !el.hasAttribute("data-th")) return;
+      if (!el.hasAttribute("data-en")) el.setAttribute("data-en", attr ? el.getAttribute(attr) : el.textContent);
+      var v = el.getAttribute(th ? "data-th" : "data-en");
+      if (attr) el.setAttribute(attr, v); else el.textContent = v;
+    }
+    swap(d.querySelector("title"));
+    ["description", "twitter:title", "twitter:description"].forEach(function (n) { swap(d.querySelector('meta[name="' + n + '"]'), "content"); });
+    ["og:title", "og:description", "og:url", "og:locale", "og:image:alt"].forEach(function (p) { swap(d.querySelector('meta[property="' + p + '"]'), "content"); });
+    var url = d.querySelector('meta[property="og:url"]');
+    if (url) {
+      var c = d.getElementById("canonical");
+      if (!c) { c = d.createElement("link"); c.rel = "canonical"; c.id = "canonical"; url.parentNode.insertBefore(c, url.nextSibling); }
+      c.href = url.getAttribute("content");
+    }
+  }
+
+  w.BBPrefs = { resolve: resolve, save: save, toUrl: toUrl, carry: carry, head: head, options: OPTIONS };
   w.BB_BRANCHES = BRANCHES;
   w.BBSite = { branchIndex: branchIndex, openState: openState, GRAB_SEARCH: GRAB_SEARCH };
 
@@ -121,11 +145,9 @@
     } catch (e) { return false; }
   };
 
-  /* before first paint: the language on <html> (the canonical follows a Thai address) */
+  /* before first paint: the language on <html>, and the head's lines and canonical in that language
+     (this script sits after the page's head tags, so they exist already) */
   var L = resolve("lang");
   document.documentElement.lang = L.value;
-  if (L.source === "url" && L.value === "th") {
-    var c = document.getElementById("canonical");
-    if (c && c.getAttribute("data-th")) c.href = c.getAttribute("data-th");
-  }
+  head(L.value);
 })(window);

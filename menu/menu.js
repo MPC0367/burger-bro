@@ -142,8 +142,7 @@
     var lb = document.getElementById("langBtn");
     lb.querySelectorAll(".lang-opt").forEach(function (o) { o.classList.toggle("is-on", o.getAttribute("data-l") === lang); });
     lb.setAttribute("aria-label", lang === "th" ? "Switch to English — เปลี่ยนเป็นภาษาอังกฤษ" : "เปลี่ยนเป็นภาษาไทย — switch language");
-    var c = document.getElementById("canonical");
-    if (c) c.href = lang === "th" ? c.getAttribute("data-th") : "https://burgerbrobangkok.com/menu/";
+    P.head(lang); // title, description, sharing lines and canonical in this language (../shared/site.js)
     M.categories.forEach(function (c) { c.__h.innerHTML = txt(c.title); });
     rows.forEach(function (r) {
       var it = r.it;
