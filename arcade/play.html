@@ -35,7 +35,10 @@
   // the same scroll position); opened directly, it goes to this copy's home page.
   document.addEventListener("bb:arcade-close", () => {
     if (document.referrer && history.length > 1) history.back();
-    else location.href = "../" + (lang === "th" ? "?lang=th" : "");
+    else {
+      const home = document.querySelector('meta[name="bb-home"]'); // on play.burgerbrobangkok.com: the restaurant's site
+      location.href = (home ? home.content : "../") + (lang === "th" ? "?lang=th" : "");
+    }
   });
   import("./arcade.js").then((m) => m.openArcade({ returnFocus: null }));
 </script>
