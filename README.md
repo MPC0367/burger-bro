@@ -2,7 +2,7 @@
 
 Static site for Burger Bro (Rama 9 and Pattanakarn, Bangkok): the homepage `index.html` (inline CSS and vanilla JavaScript) and the full menu page `menu/`, photos in `media/`. No build step for the site, no libraries.
 
-Live: https://mpc0367.github.io/burger-bro/ (GitHub Pages, `main` branch, repository root).
+Live: https://burgerbrobangkok.com/ (GitHub Pages, `main` branch, repository root; custom domain since 21 Nov 2026: the `CNAME` file, DNS at Cloudflare in O2’s account = four A records `@` → 185.199.108–111.153 and `www` CNAME → `mpc0367.github.io`, DNS only. Keep `CNAME`; the old github.io address forwards here).
 
 ## Layout
 
