@@ -1948,8 +1948,8 @@ html.shot-full .cinema { height: 980px; }
         <!-- one panel per branch, in the order of the map tabs; the chosen branch's panel shows.
              Pattanakarn shows only what is confirmed for it; its other facts say plainly that they are not confirmed. -->
         <div class="find-panel" data-branch-panel="0">
-        <p class="find-now mono" id="findNow" role="status" hidden></p>
-        <span class="find-now-note mono" id="findNowNote" data-i18n="find.nowNote" hidden>BANGKOK TIME, FROM THE HOURS BELOW · HOLIDAYS MAY DIFFER</span>
+        <p class="find-now mono" id="findNow" data-now-branch="0" role="status" hidden></p>
+        <span class="find-now-note mono" id="findNowNote" data-now-note="0" data-i18n="find.nowNote" hidden>BANGKOK TIME, FROM THE HOURS BELOW · HOLIDAYS MAY DIFFER</span>
         <h3 class="mono find-sub" data-i18n="find.hours">HOURS — RAMA 9</h3>
         <table class="hours" aria-label="Opening hours" data-i18n-aria="a11y.hours">
           <tbody>
@@ -1982,6 +1982,8 @@ html.shot-full .cinema { height: 980px; }
         </div>
 
         <div class="find-panel" data-branch-panel="1" hidden>
+        <p class="find-now mono" data-now-branch="1" role="status" hidden></p>
+        <span class="find-now-note mono" data-now-note="1" data-i18n="find.nowNote" hidden>BANGKOK TIME, FROM THE HOURS BELOW · HOLIDAYS MAY DIFFER</span>
         <h3 class="mono find-sub" data-i18n="find.pk.hours">HOURS — PATTANAKARN</h3>
         <table class="hours" aria-label="Opening hours" data-i18n-aria="a11y.hours">
           <tbody>
@@ -3876,23 +3878,27 @@ window.BB_TH = {
      ============================================================ */
   window.__bbOpenAt = function (iso) { return window.BBSite.openState(BRANCHES[0].hours, new Date(iso)); }; // QA hook
   function paintOpenNow() { // (its timer lives on the function: it is first called before this line runs)
-    var el = document.getElementById("findNow"), note = document.getElementById("findNowNote");
-    if (!el) return;
-    var b = (typeof BRANCHES !== "undefined" && BRANCHES[branchAt]) || null;
-    var hours = b && b.hours;
-    if (!hours) { el.hidden = true; if (note) note.hidden = true; window.clearTimeout(paintOpenNow.t); return; }
-    var st = window.BBSite.openState(hours), th = mapIsThai();
+    // Each branch's panel has its own line, from that branch's hours (Pattanakarn's since 21 Nov 2026).
+    var th = mapIsThai(), any = false;
     var words = {
       open: th ? "เปิดอยู่ · ปิด " : "OPEN NOW · CLOSES ",
       soon: th ? "ใกล้ปิดแล้ว · ปิด " : "CLOSES SOON · AT ",
       closed: th ? "ปิดอยู่ · เปิด " : "CLOSED NOW · OPENS "
     };
-    el.textContent = words[st.state] + st.at;
-    el.setAttribute("data-state", st.state);
-    el.hidden = false;
-    if (note) note.hidden = false;
+    document.querySelectorAll("[data-now-branch]").forEach(function (el) {
+      var k = +el.getAttribute("data-now-branch");
+      var b = (typeof BRANCHES !== "undefined" && BRANCHES[k]) || null;
+      var note = document.querySelector('[data-now-note="' + k + '"]');
+      if (!b || !b.hours) { el.hidden = true; if (note) note.hidden = true; return; }
+      var st = window.BBSite.openState(b.hours);
+      el.textContent = words[st.state] + st.at;
+      el.setAttribute("data-state", st.state);
+      el.hidden = false;
+      if (note) note.hidden = false;
+      any = true;
+    });
     window.clearTimeout(paintOpenNow.t);
-    paintOpenNow.t = window.setTimeout(paintOpenNow, 60000 - (Date.now() % 60000) + 50);
+    if (any) paintOpenNow.t = window.setTimeout(paintOpenNow, 60000 - (Date.now() % 60000) + 50);
   }
 
   /* ============================================================
